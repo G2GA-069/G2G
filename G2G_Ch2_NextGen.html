@@ -331,26 +331,60 @@ body.party-mode .beat-title h1 {
 .char-icon.magda { background: linear-gradient(135deg, #69451b, #c4982d); }
 
 /* Mobile responsiveness */
+/* ===== TIKTOK MODE: MOBILE ===== */
 @media (max-width: 768px) {
-  .beat { padding: 40px 16px; min-height: auto; }
-  .beat-card .beat-inner { padding: 24px 16px; }
+  html { scroll-snap-type: y mandatory; overflow-y: scroll; scroll-behavior: smooth; }
+  body { overflow-x: hidden; }
+  .beat {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh; height: 100vh;
+    padding: 24px 16px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding-top: 40px; padding-bottom: 40px;
+  }
+  /* Title beats stay centred */
+  .beat-title, .beat-takeaway, .beat-equation, .beat-divider, .beat-hottake {
+    align-items: center;
+  }
+  .beat-inner { max-width: 100%; }
+  .beat-card .beat-inner { padding: 20px 14px; }
   .card-table { font-size: 11px; }
-  .card-table th, .card-table td { padding: 8px 8px; }
-  .scene-text, .card-body { font-size: 16px; }
-  .beat-title h1 { font-size: 32px; }
+  .card-table th, .card-table td { padding: 8px 6px; }
+  .scene-text, .card-body { font-size: 15px; line-height: 1.7; }
+  .beat-title h1 { font-size: 28px; }
   .comparison { grid-template-columns: 1fr; }
   .two-column { grid-template-columns: 1fr; }
   .slider-group input[type="range"] { width: 100%; }
   .lingo-def { font-size: 14px; }
-  .hottake-text { font-size: 14px; }
+  .hottake-text { font-size: 14px; padding: 20px 16px; }
   .beat-takeaway .beat-inner { padding: 20px 16px; }
   .takeaway-text { font-size: 20px; }
+  .beat-narrator .beat-inner { max-width: 100%; }
+  .narrator-text { font-size: 15px; }
+  /* Swipe hint on first beat */
+  .beat-title::after {
+    content: '↑ swipe up';
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--text-dim);
+    animation: pulse-hint 2s ease-in-out infinite;
+  }
+  @keyframes pulse-hint {
+    0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 0.8; transform: translateX(-50%) translateY(-6px); }
+  }
+  /* Progress dots along bottom instead of side */
+  .progress-bar { height: 3px; }
 }
 
 @media (max-width: 480px) {
   .card-table { font-size: 10px; }
-  .card-table th, .card-table td { padding: 6px 4px; white-space: nowrap; }
-  .beat-title h1 { font-size: 28px; }
+  .card-table th, .card-table td { padding: 6px 4px; }
+  .beat-title h1 { font-size: 24px; }
+  .beat { padding: 20px 12px; padding-top: 32px; }
 }
 
 </style>
@@ -1490,6 +1524,25 @@ document.addEventListener('keydown', e => {
     document.body.classList.toggle('party-mode');
   }
 });
+
+// Mobile beat counter (TikTok-style "3 / 42")
+if (window.innerWidth <= 768) {
+  const counter = document.createElement('div');
+  counter.id = 'beatCounter';
+  counter.style.cssText = 'position:fixed;bottom:12px;right:16px;z-index:1000;font-family:var(--font-mono);font-size:11px;color:var(--text-dim);letter-spacing:1px;pointer-events:none;';
+  document.body.appendChild(counter);
+  const allBeats = document.querySelectorAll('.beat');
+  const totalBeats = allBeats.length;
+  const counterObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+        const idx = Array.from(allBeats).indexOf(entry.target) + 1;
+        counter.textContent = idx + ' / ' + totalBeats;
+      }
+    });
+  }, { threshold: 0.5 });
+  allBeats.forEach(b => counterObserver.observe(b));
+}
 
 // Initialize
 updateProgressBar();
