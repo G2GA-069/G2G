@@ -71,6 +71,26 @@
       max-width: 900px;
     }
 
+    .hero-logo-bg {
+      width: 160px;
+      height: 160px;
+      background: #6b2fa0;
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 40px;
+      box-shadow: 0 0 60px rgba(107,47,160,0.5), 0 0 120px rgba(217,70,239,0.2);
+      animation: logo-fade-in 1s ease-out, logo-glow 3s ease-in-out infinite alternate;
+    }
+    @keyframes logo-glow {
+      0% { box-shadow: 0 0 60px rgba(107,47,160,0.5), 0 0 120px rgba(217,70,239,0.2); }
+      100% { box-shadow: 0 0 80px rgba(107,47,160,0.7), 0 0 160px rgba(217,70,239,0.35); }
+    }
+    .hero-logo-bg svg {
+      width: 120px;
+      height: 120px;
+    }
     .hero-logo {
       margin-bottom: 40px;
       opacity: 0.95;
@@ -78,7 +98,7 @@
     }
 
     .hero-logo svg {
-      width: 80px;
+      width: 120px;
       height: 80px;
       margin: 0 auto;
     }
@@ -630,8 +650,8 @@
     }
 
     .footer-logo svg {
-      width: 40px;
-      height: 40px;
+      width: 80px;
+      height: 56px;
     }
 
     .footer-text {
@@ -705,26 +725,17 @@
 <section class="hero" id="hero">
   <canvas id="canvas"></canvas>
   <div class="hero-content">
-    <div class="hero-logo">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <div class="hero-logo-bg">
+      <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#6b2fa0;stop-opacity:1" />
+          <linearGradient id="logoGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#8a3cc4;stop-opacity:1" />
             <stop offset="100%" style="stop-color:#d946ef;stop-opacity:1" />
           </linearGradient>
         </defs>
-        <!-- G -->
-        <path d="M 50 80 Q 30 80 30 100 Q 30 130 50 130 L 80 130 M 80 130 Q 80 110 65 110 L 50 110"
-              stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- 2 -->
-        <path d="M 100 80 Q 100 80 120 80 Q 140 80 140 95 Q 140 105 130 110 Q 100 125 100 130 L 140 130"
-              stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- G -->
-        <path d="M 150 80 Q 130 80 130 100 Q 130 130 150 130 L 180 130 M 180 130 Q 180 110 165 110 L 150 110"
-              stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Arrow through -->
-        <line x1="40" y1="105" x2="160" y2="105" stroke="url(#logoGrad)" stroke-width="6" stroke-linecap="round"/>
-        <polygon points="160,105 170,100 170,110" fill="url(#logoGrad)"/>
+        <text x="100" y="105" text-anchor="middle" font-family="Inter, Arial Black, sans-serif" font-weight="900" font-size="90" fill="white" letter-spacing="-2">G2G</text>
+        <line x1="30" y1="120" x2="170" y2="25" stroke="url(#logoGrad)" stroke-width="7" stroke-linecap="round"/>
+        <polygon points="167,28 175,18 178,33" fill="url(#logoGrad)"/>
       </svg>
     </div>
 
@@ -1080,21 +1091,16 @@
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="footer-logo">
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.5;">
       <defs>
-        <linearGradient id="logoGradFooter" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#6b2fa0;stop-opacity:1" />
+        <linearGradient id="logoGradFooter" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#8a3cc4;stop-opacity:1" />
           <stop offset="100%" style="stop-color:#d946ef;stop-opacity:1" />
         </linearGradient>
       </defs>
-      <path d="M 50 80 Q 30 80 30 100 Q 30 130 50 130 L 80 130 M 80 130 Q 80 110 65 110 L 50 110"
-            stroke="currentColor" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
-      <path d="M 100 80 Q 100 80 120 80 Q 140 80 140 95 Q 140 105 130 110 Q 100 125 100 130 L 140 130"
-            stroke="currentColor" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
-      <path d="M 150 80 Q 130 80 130 100 Q 130 130 150 130 L 180 130 M 180 130 Q 180 110 165 110 L 150 110"
-            stroke="currentColor" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
-      <line x1="40" y1="105" x2="160" y2="105" stroke="url(#logoGradFooter)" stroke-width="6" stroke-linecap="round"/>
-      <polygon points="160,105 170,100 170,110" fill="url(#logoGradFooter)"/>
+      <text x="100" y="105" text-anchor="middle" font-family="Inter, Arial Black, sans-serif" font-weight="900" font-size="90" fill="rgba(255,255,255,0.6)" letter-spacing="-2">G2G</text>
+      <line x1="30" y1="120" x2="170" y2="25" stroke="url(#logoGradFooter)" stroke-width="7" stroke-linecap="round"/>
+      <polygon points="167,28 175,18 178,33" fill="url(#logoGradFooter)"/>
     </svg>
   </div>
 
