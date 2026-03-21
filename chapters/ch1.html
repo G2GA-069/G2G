@@ -180,15 +180,11 @@ body.party-mode .beat-title h1 {
   display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
 }
 .char-icon {
-  width: 36px; height: 36px; border-radius: 50%; display: inline-flex;
-  align-items: center; justify-content: center; font-family: var(--font-sans);
-  font-size: 14px; font-weight: 700; color: white; flex-shrink: 0;
+  width: 56px; height: 56px; border-radius: 50%; display: inline-flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+  overflow: hidden;
 }
-.char-icon.le-pitch { background: linear-gradient(135deg, #2d1b69, #6b2fa0); }
-.char-icon.trace { background: linear-gradient(135deg, #1b4d69, #2d8cc4); }
-.char-icon.haircut { background: linear-gradient(135deg, #4d1b1b, #c45c4a); }
-.char-icon.wilhelm { background: linear-gradient(135deg, #1b4d2d, #4a9e6e); }
-.char-icon.magda { background: linear-gradient(135deg, #69451b, #c4982d); }
+.char-icon svg { width: 100%; height: 100%; display: block; }
 .character-name {
   font-family: var(--font-sans); font-size: 13px; font-weight: 700;
   letter-spacing: 2px; text-transform: uppercase; color: var(--accent);
@@ -571,7 +567,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="character-card">
 <div class="character-card-header">
-<div class="char-icon le-pitch">LP</div>
+<div class="char-icon"><svg viewBox="0 0 120 120"><defs><linearGradient id="lp-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2d1b69"/><stop offset="100%" stop-color="#6b2fa0"/></linearGradient><clipPath id="lp-clip"><circle cx="60" cy="60" r="56"/></clipPath></defs><circle cx="60" cy="60" r="58" fill="none" stroke="url(#lp-bg)" stroke-width="2"/><g clip-path="url(#lp-clip)"><rect width="120" height="120" fill="#1a1028"/><ellipse cx="60" cy="135" rx="52" ry="42" fill="#1a1a2e"/><path d="M48 98 L54 108 L60 100 L66 108 L72 98" fill="#e8e4df"/><path d="M58 100 L60 118 L62 100" fill="#c45c4a"/><rect x="57" y="98" width="6" height="4" rx="1" fill="#c45c4a"/><rect x="52" y="88" width="16" height="14" rx="3" fill="#c4956a"/><ellipse cx="60" cy="62" rx="26" ry="30" fill="#d4a574"/><ellipse cx="60" cy="42" rx="28" ry="20" fill="#1a1018"/><path d="M32 52 Q35 35 60 30 Q85 35 88 52 L88 48 Q85 30 60 25 Q35 30 32 48Z" fill="#1a1018"/><path d="M44 54 Q50 50 56 53" fill="none" stroke="#1a1018" stroke-width="1.8" stroke-linecap="round"/><path d="M64 53 Q70 50 76 54" fill="none" stroke="#1a1018" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="50" cy="59" rx="5" ry="3.5" fill="white"/><ellipse cx="70" cy="59" rx="5" ry="3.5" fill="white"/><circle cx="51" cy="59" r="2.5" fill="#2d3a1a"/><circle cx="71" cy="59" r="2.5" fill="#2d3a1a"/><circle cx="51.5" cy="58.5" r="0.8" fill="white"/><circle cx="71.5" cy="58.5" r="0.8" fill="white"/><path d="M58 62 Q60 72 62 62" fill="none" stroke="#b8906a" stroke-width="1" stroke-linecap="round"/><path d="M52 76 Q57 80 60 79 Q63 80 68 76" fill="none" stroke="#a06848" stroke-width="1.2" stroke-linecap="round"/></g></svg></div>
 <div>
 <div class="character-name">Le Pitch</div>
 <div class="character-title">Jean-Baptiste Fournier, MD / SBCI (London) — Age 34</div>
@@ -602,7 +598,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="character-card">
 <div class="character-card-header">
-<div class="char-icon trace">TF</div>
+<div class="char-icon"><svg viewBox="0 0 120 120"><defs><linearGradient id="tf-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1b4d69"/><stop offset="100%" stop-color="#2d8cc4"/></linearGradient><clipPath id="tf-clip"><circle cx="60" cy="60" r="56"/></clipPath></defs><circle cx="60" cy="60" r="58" fill="none" stroke="url(#tf-bg)" stroke-width="2"/><g clip-path="url(#tf-clip)"><rect width="120" height="120" fill="#0d1a28"/><ellipse cx="60" cy="130" rx="46" ry="36" fill="#2d4a5a"/><rect x="52" y="88" width="16" height="12" rx="3" fill="#d4a88a"/><ellipse cx="60" cy="62" rx="24" ry="28" fill="#dbb49a"/><ellipse cx="60" cy="44" rx="28" ry="22" fill="#6a3020"/><path d="M32 50 Q32 30 60 25 Q88 30 88 50" fill="#6a3020"/><path d="M32 50 Q30 65 32 80 Q34 85 38 82 Q35 65 34 50Z" fill="#6a3020"/><path d="M88 50 Q90 65 88 80 Q86 85 82 82 Q85 65 86 50Z" fill="#6a3020"/><path d="M38 44 Q45 38 52 42 Q55 36 62 40 Q68 36 74 42 Q80 38 84 44" fill="#6a3020"/><path d="M44 54 Q48 51 54 53" fill="none" stroke="#4a2018" stroke-width="1.5" stroke-linecap="round"/><path d="M66 53 Q72 51 76 54" fill="none" stroke="#4a2018" stroke-width="1.5" stroke-linecap="round"/><ellipse cx="50" cy="59" rx="5" ry="3.2" fill="white"/><ellipse cx="70" cy="59" rx="5" ry="3.2" fill="white"/><circle cx="50.5" cy="59" r="2.5" fill="#3a6a4a"/><circle cx="70.5" cy="59" r="2.5" fill="#3a6a4a"/><circle cx="51" cy="58.5" r="0.8" fill="white"/><circle cx="71" cy="58.5" r="0.8" fill="white"/><path d="M58 62 Q60 70 62 62" fill="none" stroke="#c09a80" stroke-width="0.8" stroke-linecap="round"/><path d="M52 75 Q56 78 60 77 Q64 78 68 75" fill="none" stroke="#b07060" stroke-width="1.1" stroke-linecap="round"/><circle cx="44" cy="68" r="0.6" fill="#c09a80" opacity="0.5"/><circle cx="74" cy="68" r="0.6" fill="#c09a80" opacity="0.5"/></g></svg></div>
 <div>
 <div class="character-name">Trace</div>
 <div class="character-title">Tracy Flint, A2 Analyst / SBCI (London) — Age 23</div>
@@ -633,7 +629,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="character-card">
 <div class="character-card-header">
-<div class="char-icon haircut">KE</div>
+<div class="char-icon"><svg viewBox="0 0 120 120"><defs><linearGradient id="ke-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4d1b1b"/><stop offset="100%" stop-color="#c45c4a"/></linearGradient><clipPath id="ke-clip"><circle cx="60" cy="60" r="56"/></clipPath></defs><circle cx="60" cy="60" r="58" fill="none" stroke="url(#ke-bg)" stroke-width="2"/><g clip-path="url(#ke-clip)"><rect width="120" height="120" fill="#1a0d0d"/><ellipse cx="60" cy="130" rx="48" ry="38" fill="#2a2a3a"/><path d="M52 100 L56 108 L60 102 L64 108 L68 100" fill="#2a2a3a"/><rect x="52" y="87" width="16" height="14" rx="3" fill="#c49a7a"/><path d="M36 58 Q36 35 60 30 Q84 35 84 58 Q84 78 72 88 Q60 94 48 88 Q36 78 36 58Z" fill="#d4aa8a"/><path d="M34 52 Q34 28 60 24 Q86 28 86 52 L84 50 Q84 32 60 28 Q36 32 36 50Z" fill="#2a1a10"/><path d="M44 52 L56 51" fill="none" stroke="#2a1a10" stroke-width="1.8" stroke-linecap="round"/><path d="M64 51 L76 52" fill="none" stroke="#2a1a10" stroke-width="1.8" stroke-linecap="round"/><rect x="40" y="54" width="16" height="11" rx="2" fill="none" stroke="#8a8590" stroke-width="1.2"/><rect x="64" y="54" width="16" height="11" rx="2" fill="none" stroke="#8a8590" stroke-width="1.2"/><line x1="56" y1="58" x2="64" y2="58" stroke="#8a8590" stroke-width="1"/><ellipse cx="48" cy="59" rx="4" ry="3" fill="white"/><ellipse cx="72" cy="59" rx="4" ry="3" fill="white"/><circle cx="48.5" cy="59" r="2.2" fill="#3a4a2a"/><circle cx="72.5" cy="59" r="2.2" fill="#3a4a2a"/><circle cx="49" cy="58.5" r="0.7" fill="white"/><circle cx="73" cy="58.5" r="0.7" fill="white"/><path d="M58 60 L57 70 Q60 72 63 70 L62 60" fill="none" stroke="#b8906a" stroke-width="0.8"/><path d="M52 78 Q60 80 68 78" fill="none" stroke="#a07060" stroke-width="1" stroke-linecap="round"/></g></svg></div>
 <div>
 <div class="character-name">Haircut</div>
 <div class="character-title">Kai Eisenberg, Principal / Skarn Capital (London) — Age 32</div>
@@ -664,7 +660,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="character-card">
 <div class="character-card-header">
-<div class="char-icon wilhelm">WL</div>
+<div class="char-icon"><svg viewBox="0 0 120 120"><defs><linearGradient id="wl-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1b4d2d"/><stop offset="100%" stop-color="#4a9e6e"/></linearGradient><clipPath id="wl-clip"><circle cx="60" cy="60" r="56"/></clipPath></defs><circle cx="60" cy="60" r="58" fill="none" stroke="url(#wl-bg)" stroke-width="2"/><g clip-path="url(#wl-clip)"><rect width="120" height="120" fill="#0d1a12"/><ellipse cx="60" cy="132" rx="52" ry="40" fill="#1a2018"/><path d="M48 98 L54 108 L60 100 L66 108 L72 98" fill="#e8e4df"/><path d="M58 100 L60 118 L62 100" fill="#1a3a2a"/><rect x="57" y="98" width="6" height="4" rx="1" fill="#1a3a2a"/><rect x="50" y="86" width="20" height="14" rx="4" fill="#c49a7a"/><ellipse cx="60" cy="60" rx="28" ry="30" fill="#d4a88a"/><path d="M32 50 Q32 26 60 22 Q88 26 88 50" fill="#9a9aa0"/><path d="M40 36 Q50 28 60 26" stroke="#c4c4ca" stroke-width="1" fill="none" opacity="0.5"/><circle cx="36" cy="44" r="4" fill="#0d1a12"/><circle cx="84" cy="44" r="4" fill="#0d1a12"/><path d="M42 52 Q48 48 56 52" fill="none" stroke="#6a6a70" stroke-width="2.2" stroke-linecap="round"/><path d="M64 52 Q72 48 78 52" fill="none" stroke="#6a6a70" stroke-width="2.2" stroke-linecap="round"/><ellipse cx="48" cy="58" rx="5" ry="3" fill="white"/><ellipse cx="72" cy="58" rx="5" ry="3" fill="white"/><circle cx="48.5" cy="58" r="2.2" fill="#4a5a6a"/><circle cx="72.5" cy="58" r="2.2" fill="#4a5a6a"/><circle cx="49" cy="57.5" r="0.7" fill="white"/><circle cx="73" cy="57.5" r="0.7" fill="white"/><path d="M38 57 L35 55" stroke="#b8906a" stroke-width="0.4" opacity="0.5"/><path d="M82 57 L85 55" stroke="#b8906a" stroke-width="0.4" opacity="0.5"/><path d="M57 60 L55 72 Q60 74 65 72 L63 60" fill="none" stroke="#b8906a" stroke-width="0.9"/><path d="M48 76 Q54 80 60 78 Q66 80 72 76" fill="#7a7a80" opacity="0.7"/><path d="M52 82 Q60 84 68 82" fill="none" stroke="#a07060" stroke-width="1" stroke-linecap="round"/></g></svg></div>
 <div>
 <div class="character-name">Wilhelm</div>
 <div class="character-title">Wilhelm Ludwig von Raunheim, CEO / Königshof Maschinen — Age 60</div>
@@ -699,7 +695,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="character-card">
 <div class="character-card-header">
-<div class="char-icon magda">MK</div>
+<div class="char-icon"><svg viewBox="0 0 120 120"><defs><linearGradient id="mk-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#69451b"/><stop offset="100%" stop-color="#c4982d"/></linearGradient><clipPath id="mk-clip"><circle cx="60" cy="60" r="56"/></clipPath></defs><circle cx="60" cy="60" r="58" fill="none" stroke="url(#mk-bg)" stroke-width="2"/><g clip-path="url(#mk-clip)"><rect width="120" height="120" fill="#1a1408"/><ellipse cx="60" cy="130" rx="44" ry="34" fill="#2a2a3a"/><ellipse cx="60" cy="100" rx="14" ry="6" fill="#2a2a3a"/><rect x="52" y="87" width="16" height="12" rx="3" fill="#dbb49a"/><ellipse cx="60" cy="62" rx="24" ry="28" fill="#e0c0a0"/><ellipse cx="60" cy="42" rx="28" ry="22" fill="#1a1018"/><path d="M32 48 Q30 28 60 22 Q90 28 88 48" fill="#1a1018"/><path d="M32 48 Q28 60 26 80 Q28 92 34 90 Q32 75 34 60 Q34 50 36 48Z" fill="#1a1018"/><path d="M88 48 Q92 60 94 80 Q92 92 86 90 Q88 75 86 60 Q86 50 84 48Z" fill="#1a1018"/><path d="M44 54 Q48 51 54 53" fill="none" stroke="#1a1018" stroke-width="1.4" stroke-linecap="round"/><path d="M66 53 Q72 51 76 54" fill="none" stroke="#1a1018" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="50" cy="59" rx="5" ry="3.5" fill="white"/><ellipse cx="70" cy="59" rx="5" ry="3.5" fill="white"/><circle cx="50.5" cy="59" r="2.5" fill="#4a3020"/><circle cx="70.5" cy="59" r="2.5" fill="#4a3020"/><circle cx="51" cy="58.5" r="0.8" fill="white"/><circle cx="71" cy="58.5" r="0.8" fill="white"/><path d="M58 62 Q60 70 62 62" fill="none" stroke="#c09a80" stroke-width="0.8" stroke-linecap="round"/><path d="M52 75 Q56 72 60 73 Q64 72 68 75" fill="none" stroke="#c07060" stroke-width="0.8"/><path d="M52 75 Q56 79 60 78 Q64 79 68 75" fill="#c08070" opacity="0.3"/><ellipse cx="40" cy="68" rx="4" ry="2" fill="#d4a88a" opacity="0.3"/><ellipse cx="80" cy="68" rx="4" ry="2" fill="#d4a88a" opacity="0.3"/></g></svg></div>
 <div>
 <div class="character-name">Magda</div>
 <div class="character-title">Magdalena Kowalska, Founder & CEO / Subtrax Ltd. — Age 34</div>

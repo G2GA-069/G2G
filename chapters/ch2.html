@@ -325,16 +325,11 @@ body.party-mode .beat-title h1 {
 
 /* Character icons */
 .char-icon {
-  width: 36px; height: 36px; border-radius: 50%; display: inline-flex;
-  align-items: center; justify-content: center; font-family: var(--font-sans);
-  font-size: 14px; font-weight: 700; color: white; flex-shrink: 0;
-  margin-right: 10px; vertical-align: middle;
+  width: 56px; height: 56px; border-radius: 50%; display: inline-flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+  overflow: hidden; margin-right: 10px; vertical-align: middle;
 }
-.char-icon.le-pitch { background: linear-gradient(135deg, #2d1b69, #6b2fa0); }
-.char-icon.trace { background: linear-gradient(135deg, #1b4d69, #2d8cc4); }
-.char-icon.haircut { background: linear-gradient(135deg, #4d1b1b, #c45c4a); }
-.char-icon.wilhelm { background: linear-gradient(135deg, #1b4d2d, #4a9e6e); }
-.char-icon.magda { background: linear-gradient(135deg, #69451b, #c4982d); }
+.char-icon svg { width: 100%; height: 100%; display: block; }
 .back-button {
   position: fixed; top: max(12px, env(safe-area-inset-top, 12px)); left: 12px; z-index: 999;
   background: rgba(10, 10, 12, 0.7);
