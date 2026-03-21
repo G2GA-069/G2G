@@ -59,7 +59,7 @@ body.party-mode .beat-title h1 {
 .beat {
   position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1;
   display: flex; align-items: center; justify-content: center;
-  padding: 60px 24px; opacity: 1; transform: translateY(0);
+  padding: 52px 24px 60px; opacity: 1; transform: translateY(0);
   transition: opacity 0.3s, transform 0.35s ease-in-out;
   overflow-y: auto; -webkit-overflow-scrolling: touch;
 }
@@ -283,7 +283,7 @@ body.party-mode .beat-title h1 {
 .output-label { color: var(--text-dim); }
 .output-value { color: var(--accent); font-weight: 600; }
 .brand-footer {
-  padding: 60px 24px 40px; text-align: center; border-top: 1px solid var(--border);
+  border-top: none;
 }
 .brand-footer .footer-logo { margin-bottom: 16px; opacity: 0.6; }
 .brand-footer .footer-text {
@@ -336,100 +336,90 @@ body.party-mode .beat-title h1 {
 .char-icon.wilhelm { background: linear-gradient(135deg, #1b4d2d, #4a9e6e); }
 .char-icon.magda { background: linear-gradient(135deg, #69451b, #c4982d); }
 .back-button {
-  position: fixed; top: 16px; left: 16px; z-index: 999;
-  background: rgba(107, 47, 160, 0.3);
-  border: 1px solid var(--accent-dim);
-  color: var(--text);
-  padding: 8px 12px;
-  border-radius: 6px;
+  position: fixed; top: max(12px, env(safe-area-inset-top, 12px)); left: 12px; z-index: 999;
+  background: rgba(10, 10, 12, 0.7);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 20px;
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.back-button:hover {
-  background: rgba(107, 47, 160, 0.5);
-  border-color: var(--accent);
+.back-button:hover, .back-button:active {
+  background: rgba(107, 47, 160, 0.4);
+  border-color: var(--accent-dim);
+  color: var(--text);
 }
 .beat-counter {
-  position: fixed; bottom: 20px; right: 20px; z-index: 999;
+  position: fixed; bottom: max(16px, env(safe-area-inset-bottom, 16px)); right: 16px; z-index: 999;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   color: var(--accent);
-  background: rgba(107, 47, 160, 0.3);
-  padding: 6px 10px;
-  border-radius: 4px;
-  border: 1px solid var(--accent-dim);
+  background: rgba(10, 10, 12, 0.7);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
-/* Mobile responsiveness */
 /* ===== TIKTOK MODE: MOBILE ===== */
 @media (max-width: 768px) {
   .beat {
     position: fixed; top: 0; left: 0; width: 100%;
     min-height: 100vh; height: 100vh;
-    padding: 24px 16px;
+    padding: 52px 20px 60px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    display: flex; align-items: flex-start; justify-content: center;
-    padding-top: 40px; padding-bottom: 40px;
+    display: flex; align-items: center; justify-content: center;
   }
-  /* Title beats stay centred */
-  .beat-title, .beat-takeaway, .beat-equation, .beat-divider, .beat-hottake {
-    align-items: center;
-  }
+  /* Long-content beats — top-align so user scrolls naturally */
+  .beat-scene { align-items: flex-start; padding-top: 52px; }
+  .beat-card { align-items: flex-start; padding-top: 52px; }
   .beat-inner { max-width: 100%; }
   .beat-card .beat-inner { padding: 20px 14px; }
   .card-table { font-size: 11px; }
   .card-table th, .card-table td { padding: 8px 6px; }
-  .scene-text, .card-body { font-size: 15px; line-height: 1.7; }
+  .scene-text, .card-body { font-size: 16px; line-height: 1.75; }
   .beat-title h1 { font-size: 28px; }
   .comparison { grid-template-columns: 1fr; }
   .two-column { grid-template-columns: 1fr; }
   .slider-group input[type="range"] { width: 100%; }
   .lingo-def { font-size: 14px; }
-  .hottake-text { font-size: 14px; padding: 20px 16px; }
+  .hottake-text { font-size: 15px; padding: 20px 16px; }
   .beat-takeaway .beat-inner { padding: 20px 16px; }
   .takeaway-text { font-size: 20px; }
   .beat-narrator .beat-inner { max-width: 100%; }
-  .narrator-text { font-size: 15px; }
-  /* Swipe hint on first beat */
-  .beat-title::after {
-    content: '↑ swipe up';
-    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
-    font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--text-dim);
-    animation: pulse-hint 2s ease-in-out infinite;
-  }
-  @keyframes pulse-hint {
-    0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
-    50% { opacity: 0.8; transform: translateX(-50%) translateY(-6px); }
-  }
-  /* Progress dots along bottom instead of side */
+  .narrator-text { font-size: 16px; }
   .progress-bar { height: 3px; }
+  /* Character secrets visible on mobile (no hover) */
+  .character-secret { opacity: 1; }
+  /* Footer beat centering */
+  .brand-footer { align-items: center; padding-top: 40px; }
 }
 
 @media (max-width: 480px) {
   .card-table { font-size: 10px; }
   .card-table th, .card-table td { padding: 6px 4px; }
   .beat-title h1 { font-size: 24px; }
-  .beat {
-    position: fixed; top: 0; left: 0; width: 100%;
-    padding: 20px 12px; padding-top: 32px;
-  }
+  .beat { padding-left: 16px; padding-right: 16px; }
 }
 
 .swipe-hint {
-  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+  position: fixed; bottom: max(70px, env(safe-area-inset-bottom, 70px)); left: 50%; transform: translateX(-50%);
   z-index: 200; display: flex; flex-direction: column; align-items: center;
-  gap: 8px; opacity: 0; animation: swipe-hint-show 0.5s ease 1.5s forwards;
+  gap: 6px; opacity: 0; animation: swipe-hint-show 0.6s ease 2s forwards;
   pointer-events: none;
 }
-.swipe-hint svg { width: 32px; height: 32px; animation: swipe-gesture 1.5s ease-in-out infinite; }
-.swipe-hint span { font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); }
+.swipe-hint svg { width: 28px; height: 28px; animation: swipe-gesture 1.8s ease-in-out infinite; }
+.swipe-hint span { font-family: var(--font-sans); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
 @keyframes swipe-hint-show { to { opacity: 1; } }
-@keyframes swipe-gesture { 0%,100% { transform: translateY(0); opacity: 0.6; } 50% { transform: translateY(-20px); opacity: 1; } }
+@keyframes swipe-gesture { 0%,100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-16px); opacity: 1; } }
 
 </style>
 </head>
@@ -1388,6 +1378,7 @@ body.party-mode .beat-title h1 {
 
 <!-- FOOTER -->
 <footer class="beat brand-footer">
+<div class="beat-inner" style="text-align:center;">
 <svg style="width: 40px; height: 40px; margin: 0 auto 16px;" viewBox="0 0 100 100">
 <defs>
 <linearGradient id="g2g-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1406,6 +1397,7 @@ Chapter 2 — Buy Low, Sell High: The Income Statement Mastery<br><br>
 </div>
 <div class="footer-disclaimer">
 <strong>Educational Disclaimer:</strong> This material is for educational purposes only. It is not financial advice. Nothing herein constitutes a recommendation to buy or sell securities, engage professional advisors, or pursue any business strategy. The financial information presented (Königshof, Subtrax) is illustrative and simplified. Actual company data, market conditions, and valuations differ significantly. All valuations, forecasts, and analyses are subject to uncertainty and risk. Readers should consult qualified financial, legal, and business advisors before making decisions. G2G Advisory makes no warranties regarding the accuracy or completeness of this material.
+</div>
 </div>
 </footer>
 
