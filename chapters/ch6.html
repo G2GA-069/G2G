@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="manifest" href="../manifest.json">
+<title>G2G Chapter 6 — Debt, Sweat, and Gears: Leveraged Buyouts</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0c; --surface: #131318; --surface-2: #1a1a22; --border: #2a2a35;
+  --text: #e8e4df; --text-muted: #8a8590; --text-dim: #5a5560;
+  --accent: #b07ce8; --accent-dim: #7a55b0; --accent-bright: #d4a0ff;
+  --green: #4a9e6e; --red: #c45c4a; --blue: #5a8fc4; --purple: #8a3cc4;
+  --brand-purple: #6b2fa0; --brand-magenta: #d946ef;
+  --font-serif: 'EB Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --lbo-red: #8b1a1a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { height: 100%; overflow: hidden; }
+body {
+  height: 100%; width: 100%; overflow: hidden;
+  background: var(--bg);
+  background-image: radial-gradient(circle, rgba(107,47,160,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--text);
+  font-family: var(--font-serif);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+body.party-mode .beat-title h1 {
+  background: linear-gradient(45deg, #ff006e, #ffbe0b, #8338ec, #3a86ff, #fb5607);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: rainbow-shift 3s infinite;
+}
+@keyframes rainbow-shift { 0%, 100% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(360deg); } }
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 2px;
+  background: linear-gradient(90deg, #c45c4a, #8b1a1a);
+  z-index: 1000; transition: width 0.1s linear;
+}
+.chapter-nav {
+  position: fixed; top: 50%; right: 20px; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 8px;
+}
+.chapter-nav .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border); cursor: pointer; transition: all 0.3s;
+}
+.chapter-nav .dot.active {
+  background: #c45c4a; box-shadow: 0 0 8px rgba(196,92,74,0.4);
+}
+.chapter-nav .dot:hover { background: #8b1a1a; }
+@media (max-width: 768px) { .chapter-nav { display: none; } }
+.beat {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 52px 24px 60px; opacity: 1; transform: translateY(0);
+  transition: opacity 0.3s, transform 0.35s ease-in-out;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+.beat-inner { max-width: 680px; width: 100%; }
+.beat-title {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 40px 24px;
+  background: radial-gradient(ellipse at center, #1a0808 0%, var(--bg) 70%);
+  position: relative; overflow: hidden;
+}
+.beat-title canvas { position: absolute; top: 0; left: 0; z-index: 0; }
+.beat-title .beat-inner { position: relative; z-index: 10; }
+.beat-title .series-name {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 4px;
+  text-transform: uppercase; color: #8b1a1a; margin-bottom: 40px;
+}
+.beat-title h1 {
+  font-family: var(--font-serif); font-size: clamp(42px, 7vw, 72px);
+  font-weight: 700; line-height: 1.1; color: var(--text);
+  margin-bottom: 16px; position: relative;
+}
+.beat-title h1.glitch::before, .beat-title h1.glitch::after {
+  content: attr(data-text); position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; opacity: 0.8;
+}
+.beat-title h1.glitch::before {
+  color: #8b1a1a; clip-path: inset(40% 0 30% 0);
+  animation: glitch-anim 3s infinite linear alternate-reverse; z-index: -1;
+}
+.beat-title h1.glitch::after {
+  color: #c45c4a; clip-path: inset(60% 0 10% 0);
+  animation: glitch-anim2 2.5s infinite linear alternate-reverse; z-index: -1;
+}
+@keyframes glitch-anim {
+  0% { transform: translate(0); } 20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -1px); } 60% { transform: translate(-1px, 1px); }
+  80% { transform: translate(1px, -2px); } 100% { transform: translate(0); }
+}
+@keyframes glitch-anim2 {
+  0% { transform: translate(0); } 20% { transform: translate(2px, -2px); }
+  40% { transform: translate(-2px, 1px); } 60% { transform: translate(1px, -1px); }
+  80% { transform: translate(-1px, 2px); } 100% { transform: translate(0); }
+}
+.beat-title .subtitle {
+  font-family: var(--font-serif); font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400; font-style: italic; color: #c45c4a;
+  margin-bottom: 60px;
+}
+.beat-title .chapter-num {
+  font-family: var(--font-mono); font-size: 13px; color: var(--text-dim);
+  letter-spacing: 2px;
+}
+.beat-scene .beat-inner { padding: 0; }
+.scene-location {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; color: #8b1a1a; margin-bottom: 24px;
+  padding-left: 2px;
+}
+.scene-text {
+  font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
+  line-height: 1.8; color: var(--text);
+}
+.scene-text p { margin-bottom: 20px; }
+.scene-text p:last-child { margin-bottom: 0; }
+.dialogue { margin: 24px 0; padding-left: 0; }
+.dialogue .speaker {
+  font-family: var(--font-sans); font-weight: 600; font-size: 12px;
+  letter-spacing: 1.5px; text-transform: uppercase; color: #c45c4a;
+  margin-bottom: 6px; display: block;
+}
+.dialogue .line {
+  font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
+  line-height: 1.7; color: var(--text); margin-bottom: 20px; font-style: italic;
+}
+.beat-card .beat-inner {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 40px; max-width: 760px;
+}
+.card-label {
+  font-family: var(--font-sans); font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: #c45c4a; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.card-label::before { content: ''; display: block; width: 16px; height: 1px; background: #c45c4a; }
+.card-title {
+  font-family: var(--font-sans); font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700; color: var(--text); margin-bottom: 24px; line-height: 1.3;
+}
+.card-body {
+  font-family: var(--font-serif); font-size: 17px; line-height: 1.8;
+  color: var(--text-muted);
+}
+.card-body p { margin-bottom: 16px; }
+.card-body p:last-child { margin-bottom: 0; }
+.card-body strong { color: var(--text); font-weight: 600; }
+.card-table {
+  width: 100%; border-collapse: collapse; margin: 20px 0;
+  font-family: var(--font-mono); font-size: 13px;
+}
+.card-table th {
+  text-align: left; padding: 10px 14px; border-bottom: 1px solid #8b1a1a;
+  color: #c45c4a; font-weight: 500; font-size: 10px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+}
+.card-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted);
+}
+.card-table tr:last-child td { border-bottom: none; }
+.card-table .row-highlight td { color: var(--text); font-weight: 600; }
+.card-table .row-accent td { color: #c45c4a; font-weight: 600; }
+.card-table .num { text-align: right; }
+.card-table .negative { color: var(--red); }
+.card-table .positive { color: var(--green); }
+.margin-stack { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; }
+.margin-bar { display: flex; align-items: center; gap: 14px; }
+.margin-bar .label {
+  font-family: var(--font-sans); font-size: 11px; color: var(--text-dim);
+  width: 100px; text-align: right; flex-shrink: 0;
+}
+.margin-bar .bar-track {
+  flex: 1; height: 28px; background: var(--surface-2);
+  border-radius: 4px; overflow: hidden; position: relative;
+}
+.margin-bar .bar-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex; align-items: center; padding-left: 10px;
+  background: linear-gradient(90deg, #8b1a1a, #c45c4a);
+}
+.margin-bar .bar-fill span {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--bg); font-weight: 600;
+}
+.beat-takeaway .beat-inner { max-width: 600px; text-align: center; padding: 20px 40px; }
+.takeaway-text {
+  font-family: var(--font-serif); font-size: clamp(22px, 3vw, 30px);
+  font-weight: 600; line-height: 1.5; color: var(--text); font-style: italic;
+}
+.takeaway-text .highlight { color: #c45c4a; font-style: normal; }
+.beat-equation .beat-inner { text-align: center; max-width: 600px; }
+.equation {
+  font-family: var(--font-mono); font-size: clamp(20px, 3vw, 32px);
+  color: #c45c4a; letter-spacing: 2px; margin: 20px 0; font-weight: 500;
+}
+.equation-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px;
+}
+.equation-note {
+  font-family: var(--font-serif); font-size: 17px; color: var(--text-muted);
+  margin-top: 16px; font-style: italic;
+}
+.beat-narrator .beat-inner { max-width: 600px; }
+.narrator-text {
+  font-family: var(--font-serif); font-size: 18px; line-height: 1.8;
+  color: var(--text-muted); font-style: italic;
+}
+.narrator-text p { margin-bottom: 16px; }
+.beat-divider .beat-inner { text-align: center; }
+.divider-num {
+  font-family: var(--font-sans); font-size: 14px; letter-spacing: 3px;
+  text-transform: uppercase; color: #c45c4a; margin-bottom: 16px;
+}
+.divider-title {
+  font-family: var(--font-serif); font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700; color: var(--text); line-height: 1.2;
+}
+.beat-hottake .beat-inner {
+  max-width: 640px; border: 2px solid #c45c4a; border-radius: 12px;
+  padding: 32px 40px; background: linear-gradient(135deg, rgba(196,92,74,0.08), transparent);
+}
+.hottake-text {
+  font-family: var(--font-sans); font-size: 16px; font-weight: 600;
+  line-height: 1.6; color: var(--text);
+}
+.comparison {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;
+}
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } }
+.comparison .company {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 24px;
+}
+.company-name {
+  font-family: var(--font-sans); font-size: 12px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase; color: #c45c4a;
+  margin-bottom: 16px;
+}
+.company-stat {
+  display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px;
+}
+.company-stat .label { color: var(--text-dim); }
+.company-stat .value { color: var(--text); font-family: var(--font-mono); font-weight: 600; }
+.slider-group { margin: 24px 0; padding: 20px; background: var(--surface-2); border-radius: 8px; }
+.slider-group label {
+  display: block; font-family: var(--font-sans); font-size: 12px;
+  color: var(--text-muted); margin-bottom: 8px; font-weight: 600;
+}
+.slider-group input[type="range"] {
+  width: 100%; height: 6px; border-radius: 3px; background: var(--border);
+  outline: none; -webkit-appearance: none;
+}
+.slider-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 16px; height: 16px;
+  border-radius: 50%; background: #c45c4a; cursor: pointer;
+}
+.slider-group input[type="range"]::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 50%; background: #c45c4a;
+  cursor: pointer; border: none;
+}
+.slider-val { display: inline-block; margin-left: 12px; font-family: var(--font-mono); color: #c45c4a; font-weight: 600; }
+.interactive-output {
+  margin-top: 20px; padding: 16px; background: var(--surface-2); border-radius: 8px;
+  font-family: var(--font-mono); font-size: 13px;
+}
+.output-row {
+  display: flex; justify-content: space-between; margin-bottom: 8px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+.output-row:last-child { border-bottom: none; margin-bottom: 0; }
+.output-label { color: var(--text-dim); }
+.output-value { color: #c45c4a; font-weight: 600; }
+.brand-footer {
+  border-top: none;
+}
+.brand-footer .footer-logo { margin-bottom: 16px; opacity: 0.6; }
+.brand-footer .footer-text {
+  font-family: var(--font-sans); font-size: 11px; color: var(--text-dim);
+  line-height: 1.8; max-width: 500px; margin: 0 auto;
+}
+.brand-footer .footer-text a { color: #8b1a1a; text-decoration: none; }
+.brand-footer .footer-text a:hover { color: #c45c4a; }
+.brand-footer .footer-disclaimer {
+  font-family: var(--font-sans); font-size: 9px; color: var(--text-dim);
+  opacity: 0.6; margin-top: 20px; line-height: 1.6; max-width: 600px;
+  margin-left: auto; margin-right: auto;
+}
+.lingo-grid { display: grid; gap: 16px; margin: 20px 0; }
+.lingo-item {
+  background: var(--surface-2); border-left: 3px solid #c45c4a;
+  padding: 16px; border-radius: 4px;
+}
+.lingo-term {
+  font-family: var(--font-sans); font-size: 12px; font-weight: 700;
+  letter-spacing: 1px; color: #c45c4a; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.lingo-def {
+  font-family: var(--font-serif); font-size: 15px; color: var(--text-muted);
+  line-height: 1.6;
+}
+.two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+@media (max-width: 768px) { .two-column { grid-template-columns: 1fr; } }
+
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px -10px;
+  padding: 0 10px;
+}
+.table-scroll::-webkit-scrollbar { height: 4px; }
+.table-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* Character icons */
+.char-icon {
+  width: 56px; height: 56px; border-radius: 50%; display: inline-flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+  overflow: hidden; margin-right: 10px; vertical-align: middle;
+}
+.char-icon svg { width: 100%; height: 100%; display: block; }
+.back-button {
+  position: fixed; top: max(12px, env(safe-area-inset-top, 12px)); left: 12px; z-index: 999;
+  background: rgba(10, 10, 12, 0.7);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.back-button:hover, .back-button:active {
+  background: rgba(196, 92, 74, 0.4);
+  border-color: #8b1a1a;
+  color: var(--text);
+}
+.beat-counter {
+  position: fixed; bottom: max(16px, env(safe-area-inset-bottom, 16px)); right: 16px; z-index: 999;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #c45c4a;
+  background: rgba(10, 10, 12, 0.7);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ===== TIKTOK MODE: MOBILE ===== */
+@media (max-width: 768px) {
+  .beat {
+    position: fixed; top: 0; left: 0; width: 100%;
+    min-height: 100vh; height: 100vh;
+    padding: 52px 20px 60px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* Long-content beats — top-align so user scrolls naturally */
+  .beat-scene { align-items: flex-start; padding-top: 52px; }
+  .beat-card { align-items: flex-start; padding-top: 52px; }
+  .beat-inner { max-width: 100%; }
+  .beat-card .beat-inner { padding: 20px 14px; }
+  .card-table { font-size: 11px; }
+  .card-table th, .card-table td { padding: 8px 6px; }
+  .scene-text, .card-body { font-size: 16px; line-height: 1.75; }
+  .beat-title h1 { font-size: 28px; }
+  .comparison { grid-template-columns: 1fr; }
+  .two-column { grid-template-columns: 1fr; }
+  .slider-group input[type="range"] { width: 100%; }
+  .lingo-def { font-size: 14px; }
+  .hottake-text { font-size: 15px; padding: 20px 16px; }
+  .beat-takeaway .beat-inner { padding: 20px 16px; }
+  .takeaway-text { font-size: 20px; }
+  .beat-narrator .beat-inner { max-width: 100%; }
+  .narrator-text { font-size: 16px; }
+  .progress-bar { height: 3px; }
+  /* Character secrets visible on mobile (no hover) */
+  .character-secret { opacity: 1; }
+  /* Footer beat centering */
+  .brand-footer { align-items: center; padding-top: 40px; }
+}
+
+@media (max-width: 480px) {
+  .card-table { font-size: 10px; }
+  .card-table th, .card-table td { padding: 6px 4px; }
+  .beat-title h1 { font-size: 24px; }
+  .beat { padding-left: 16px; padding-right: 16px; }
+}
+
+.swipe-hint {
+  position: fixed; bottom: max(70px, env(safe-area-inset-bottom, 70px)); left: 50%; transform: translateX(-50%);
+  z-index: 200; display: flex; flex-direction: column; align-items: center;
+  gap: 6px; opacity: 0; animation: swipe-hint-show 0.6s ease 2s forwards;
+  pointer-events: none;
+}
+.swipe-hint svg { width: 28px; height: 28px; animation: swipe-gesture 1.8s ease-in-out infinite; }
+.swipe-hint span { font-family: var(--font-sans); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
+@keyframes swipe-hint-show { to { opacity: 1; } }
+@keyframes swipe-gesture { 0%,100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-16px); opacity: 1; } }
+
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<a href="../index.html" class="back-button">← Back</a>
+<div class="beat-counter" id="beatCounter"></div>
+<div class="swipe-hint" id="swipeHint">
+<svg viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="1.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+<span>Swipe up</span>
+</div>
+
+<!-- BEAT 1: TITLE -->
+<section class="beat beat-title" data-section="0">
+<canvas id="particleCanvas"></canvas>
+<div class="beat-inner">
+<div class="series-name">From Greenhorn to Gold(wo)man — Chapter 6</div>
+<h1 class="glitch" data-text="Debt, Sweat, and Gears">Debt, Sweat, and Gears</h1>
+<div class="subtitle">Leveraged Buyouts and the Art of the Deal</div>
+<div class="chapter-num">CHAPTER 6 OF 11</div>
+</div>
+</section>
+
+<!-- BEAT 2: MÜNCHEN SCENE - LBO CANDIDATE -->
+<section class="beat beat-scene" data-section="1">
+<div class="beat-inner">
+<div class="scene-location">Munich — Königshof Factory Assembly Hall</div>
+<div class="scene-text">
+<p>Wilhelm Königshof stands in his company's cavernous assembly hall, sunlight catching dust motes above half-finished harvesters. His CFO clutches a printed email from an investment banker: "Wilhelm, Königshof is a prime LBO candidate. Are you open to discussions?"</p>
+
+<p>Five years ago, Wilhelm would have tossed such a letter into the trash. Family business. Debt-free. His father's philosophy: never borrow. But today he doesn't say no. Instead: "What would that mean... for us?"</p>
+
+<p>The CFO mentions something about "new partners" and "debt-funding growth." Wilhelm's jaw tightens at the word <strong>debt</strong>. Still, he pockets the letter. He asks quietly, "He doesn't say no."</p>
+</div>
+</section>
+
+<!-- BEAT 3: LONDON - THE PITCH PREP -->
+<section class="beat beat-scene" data-section="1">
+<div class="beat-inner">
+<div class="scene-location">London — SBCI Bank, Late Night</div>
+<div class="scene-text">
+<p>Trace's cursor blinks at the bottom of a meticulously prepared Excel sheet titled "Sources & Uses." It's past midnight. The office is silent except for the soft hum of an aging desktop fan. In a few hours, Haircut will stride into a meeting with Wilhelm to discuss Königshof's prospects. By then, Trace intends to have every number buttoned up.</p>
+
+<p>She's assumed a €118 million enterprise value for Königshof – calculated on 7.0× EBITDA off the latest €16.9m figure. She's factored in Königshof's sizable cash on hand (over €40m net cash), showing how a buyer might use that to finance part of the deal. She knows Haircut will zero in on these numbers. Finishing just before dawn, Trace emails the file to Le Pitch with a brief note: "Model updated – includes LBO analysis." As she hits send, she wonders if anyone will notice the extra table she added. If he's learned one thing, it's that being <strong>quietly prepared</strong> often speaks louder than any pitch.</p>
+</div>
+</section>
+
+<!-- BEAT 4: HAMBURG - HAIRCUT'S DECISION -->
+<section class="beat beat-scene" data-section="1">
+<div class="beat-inner">
+<div class="scene-location">Hamburg — Haircut's Office</div>
+<div class="scene-text">
+<p>Across the North Sea, Haircut toggles between two scenarios on his laptop. He's crunching Königshof's financials fresh from the banker's "Project Harvest" teaser deck. In one scenario – the management's plan – Königshof spends €22.7 million on a new factory in 2026, boosting production by 24%. In his alternative scenario, that CapEx never happens.</p>
+
+<p>"What if we just sweat the assets we have?" he mutters to himself. Removing the factory expansion instantly bumps projected cash flow – no massive outlay, no ramp-up lag. EBITDA growth slows without the new capacity, but free cash flow surges. Haircut raises an eyebrow at the <strong>IRR</strong> this adjustment spits out. <strong>Higher, as expected.</strong> Debt paydown would accelerate without that expansion gobbling cash. <strong>But what about growth?</strong> He grimaces, aware that starving a business can be shortsighted. It's a dilemma: maximize returns or build for the future? For Haircut, the dilemma is increasingly personal. Königshof isn't just another model; it's a mirror of every trade-off he's ever made in pursuit of a perfect deal.</p>
+</div>
+</section>
+
+<!-- BEAT 5: SHOREDITCH - MAGDA'S REACTION -->
+<section class="beat beat-scene" data-section="1">
+<div class="beat-inner">
+<div class="scene-location">Shoreditch — Subtrax Office, Café Meeting</div>
+<div class="scene-text">
+<p>Magda sets her phone down at a café, rolling her eyes at the message on screen. A well-known growth equity fund has sent an offer to invest in her company, Subtrax. Her reply was terse: "Investment for what, exactly?" She doesn't need their cash – Subtrax is scaling on its own terms. The barista hands her an oat milk latte as she muses over the absurdity: money is practically throwing itself at her, while elsewhere people like Haircut scheme to borrow heavily just to buy a cash-generative firm like Königshof. Two worlds, two philosophies. Magda taps a quick message to Trace – a friendly jab about "your boss's new LBO fixation" – then heads out. Subtrax's growth doesn't require debt, and that's exactly how she likes it.</p>
+</div>
+</section>
+
+<!-- BEAT 6: LINGO - WHAT IS AN LBO -->
+<section class="beat beat-card" data-section="2">
+<div class="beat-inner">
+<div class="card-label">New Terminology</div>
+<div class="card-title">The Leverage Playbook: LBO Essentials</div>
+<div class="lingo-grid">
+<div class="lingo-item">
+<div class="lingo-term">Leveraged Buyout (LBO)</div>
+<div class="lingo-def">The acquisition of a company using a significant amount of borrowed money (leverage) alongside a smaller portion of equity. The company's own cash flows and assets serve as collateral and means of repaying the debt. Example: If a PE firm buys Königshof for €159m equity value by borrowing €60m and putting in €99m of its own cash (net of target cash), that's a classic LBO – debt covers ~60% of the purchase price.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">LBO Candidate</div>
+<div class="lingo-def">A company well-suited for a leveraged buyout, usually because it has stable, predictable cash flows, low ongoing capital needs, and the capacity to take on debt. Example: Königshof, with its consistent demand for agricultural machines and strong operating cash flow, is flagged as a good LBO candidate – it generates cash to service debt, and has inefficiencies a buyer can optimize.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Sources & Uses</div>
+<div class="lingo-def">A table that outlines how an acquisition is financed (sources of funds) and what those funds are spent on (uses at closing). It always balances. Example: In Königshof's LBO, Sources might include €60m from debt, €60m from investor equity, and €40m from the target's own cash. Uses would include €159m to buy Wilhelm's shares and perhaps a small amount for transaction fees.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Equity Bridge</div>
+<div class="lingo-def">A reconciliation from Enterprise Value (EV) to the Equity Value paid for a company, by adjusting for net debt and other items. It 'bridges' the gap between the firm's total value and what the equity holders actually receive. Example: If Königshof's enterprise value is €118m (at 7× EBITDA) and it carries €40m net cash, the equity value would be €158m, since the buyer is effectively purchasing the cash as well.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Net Debt/EBITDA</div>
+<div class="lingo-def">A common leverage ratio indicating how many years of a company's EBITDA would be required to equal its net debt. Calculated as Net Debt divided by EBITDA. It's a measure of debt load relative to earnings. Example: Before any LBO, Königshof actually had negative net debt (net cash) of €40m, so its Net Debt/EBITDA was –2.4x in 2024. After an LBO with €60m debt applied at closing, and EBITDA at ~€17m, Net Debt/EBITDA jumps to ~3.5x.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Deleveraging</div>
+<div class="lingo-def">The process of reducing debt over time, usually by using cash flow to pay down principal. In LBOs, deleveraging is a key value driver: as debt shrinks, the equity portion of the company's value grows (assuming the enterprise value doesn't fall). Example: If Haircut's fund buys Königshof with €60m debt, and over five years pays it down to €30m (using free cash flow), the business is said to have deleveraged by €30m. The enterprise value needed to stay roughly flat or grow modestly for the equity to increase substantially – because debt went from €60m to €30m.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">IRR J-Curve</div>
+<div class="lingo-def">A colloquial term describing the typical trajectory of an Internal Rate of Return in a leveraged investment: returns are negative in the early period (the curve dips down like a 'J') due to the initial cash outflow and possibly heavy costs (integration costs, etc.), then turn positive as Königshof's debt is paid down and earnings grow, and finally shoot up at exit when the bulk of proceeds are realized. The J-curve visualizes how IRR starts low (even below zero), then rises sharply if the plan works out.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Money-on-Money Multiple (MoM)</div>
+<div class="lingo-def">The total multiple of invested equity that an investor realizes – essentially, how many times their money they get back. It's calculated as (Total Equity Proceeds ÷ Initial Equity Investment). It disregards the value/timing of money (unlike IRR). Example: If a PE fund invests €60m in equity and later sells its stake for €174m, the MoM is 3.0×, even if that took 5 years.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Dividend Recap</div>
+<div class="lingo-def">Short for dividend recapitalization, this is when an LBO company takes on new debt (or refinances existing debt) partway through the holding period specifically to pay a large dividend to the equity owners. It's a way for the PE sponsor to "take money off the table" before an exit, effectively realizing some returns early. Example: If in year 3 Königshof borrows an extra €20m (on top of existing €40m debt) and upstreams that €20m as a special dividend to Haircut's fund, that's a dividend recap. It gives the fund immediate cash but leaves Königshof more leveraged.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Asset Sale-Leaseback</div>
+<div class="lingo-def">A financing maneuver where a company sells a fixed asset (like real estate or equipment) to a buyer and simultaneously leases it back for long-term use. This converts an illiquid asset into immediate cash, at the cost of creating a lease obligation (which is like debt). Example: Königshof owns the land and buildings for its factories (part of its €18m net PP&E in 2023). A PE owner could sell those facilities – e.g., for €30m – then have Königshof pay rent to use them. The €30m cash goes to paying down debt or to the PE fund (as a dividend).</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Revolver</div>
+<div class="lingo-def">A revolving credit facility, which is essentially a credit line a company can draw on and repay as needed, up to a limit. In an LBO, a revolver is often arranged to cover short-term cash needs or working capital swings. It's "revolving" because the company can borrow, repay, and borrow again (like a credit card). Example: Königshof might secure a €10m revolver as part of the LBO financing. If one quarter's cash flow is low (say, due to seasonal inventory build), Königshof can draw €5m on the revolver to pay expenses. When inventory is sold and cash comes in, it pays that €5m back.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Management Incentive Plan (MIP)</div>
+<div class="lingo-def">An equity-based bonus program for management, granting them a share in the upside if the company performs well under the new ownership. In an LBO, sponsors use MIPs to align the management team's interests with their own – typically via stock options or sweet equity that can yield a big payout at exit if targets are met. Example: Upon acquiring Königshof, Haircut's fund might give key executives a 10% equity stake in the deal (usually via options struck at the entry price). If the investment triples in value (3.0× MoM), the management's 10% could turn their initial modest stake into a significant sum.</div>
+</div>
+</div>
+</section>
+
+<!-- BEAT 7: NARRATOR - WHY LBOs -->
+<section class="beat beat-narrator" data-section="2">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>Why do PE firms even do LBOs? Why add all this debt and complexity to a perfectly fine company? The answer lies in returns – specifically the tantalizing boost that leverage can give to equity IRR and MoM when things go well.</p>
+
+<p>But before we celebrate leverage, let's understand what actually drives value in an LBO. There are three core levers: (1) EBITDA growth – making the company more profitable. (2) Debt paydown – deleveraging, so more of the enterprise value belongs to equity holders. (3) Multiple arbitrage – buying at one multiple and selling at a higher one (though PE firms prefer to assume the exit multiple equals the entry multiple – that's underwriting discipline, not wishful thinking).</p>
+
+<p>Master these three, and you master LBO value creation.</p>
+</div>
+</section>
+
+<!-- BEAT 8: HOT TAKE 1 -->
+<section class="beat beat-hottake" data-section="2">
+<div class="beat-inner">
+<div class="hottake-text">Leverage amplifies outcomes. If the company performs well, equity returns can far outstrip what they'd be without debt. If it stumbles, leverage magnifies losses. That asymmetry is why LBOs are thrilling and terrifying at once.</div>
+</div>
+</section>
+
+<!-- BEAT 9: GOOD LBO TARGETS CARD -->
+<section class="beat beat-card" data-section="3">
+<div class="beat-inner">
+<div class="card-label">The Checklist</div>
+<div class="card-title">What Makes an LBO Target Worth Buying?</div>
+<div class="card-body">
+<p><strong>Stable, Predictable Cash Flows:</strong> The business should throw off reliable cash year after year to service debt. For example, Königshof's steady revenue from agricultural machinery, even in weaker years like 2023, still produced positive EBITDA and some free cash flow. Such consistency is crucial – lenders need confidence the company can pay interest and principal.</p>
+
+<p><strong>Low Ongoing CapEx and Working Capital Needs:</strong> The less cash the company must continuously reinvest just to keep running, the more cash can go to debt repayment. Königshof is somewhat mixed on this count – it does require material capital expenditures (factories, machinery) and working capital (inventory, etc.), but it also has opportunities to trim those (e.g., it was carrying a lot of inventory relative to sales). A better example might be a niche consumer goods firm with stable sales and minimal capex – easy to lever.</p>
+
+<p><strong>Established Market Position & Efficiency Potential:</strong> An LBO target ideally enjoys a defensible market position (so that revenues won't tank under competition) and has some inefficiencies a new owner can improve. Königshof, for instance, is a third-generation manufacturer with solid brand reputation among farmers (stable demand base) but is also cash-heavy and logic-light in operations – a PE buyer sees the chance to trim fat and run the business leaner (monetize unused assets, optimize inventory, cut non-essential overhead) to increase cash generation.</p>
+
+<p><strong>Moderate Debt and Clean Balance Sheet:</strong> Paradoxically, a company that doesn't already have a lot of debt is a better LBO candidate – because the buyer can load it with new debt. Königshof was essentially debt-free with net cash on the books. That's perfect for an LBO: the new owners can raise fresh loans without inheriting old obligations (and, indeed, they effectively get use of Königshof's €40m cash to help fund the deal). If a target is already highly leveraged, a buyout would require refinancing or might not be feasible at all.</p>
+
+<p><strong>Strong Asset Base (for collateral):</strong> Hard assets or dependable receivables that can serve as collateral help secure larger loans at better rates. Banks feel safer lending against a manufacturing firm with tangible assets (factories, equipment, inventory) and receivables (which they could theoretically seize/sell if things go south) than against a company whose main "asset" is goodwill or an algorithm.</p>
+
+<p style="margin-top: 24px;"><strong>In summary:</strong> The best LBO targets are solid, cash-generative businesses that can shoulder debt without crumbling, and ideally have untapped potential that a focused owner can unlock. Königshof checks many of these boxes, which is why bankers have been circling it for a buyout. On the other hand, Magda's Subtrax – growing fast, needing investment, and having no trouble attracting equity funding – is not a typical LBO play (her scoffing "for what, exactly?" at the growth fund offer says it all).</p>
+</div>
+</section>
+
+<!-- BEAT 10: SOURCES & USES CARD -->
+<section class="beat beat-card" data-section="3">
+<div class="beat-inner">
+<div class="card-label">The Mechanics</div>
+<div class="card-title">Structuring the Deal: Sources & Uses for Königshof</div>
+<div class="card-body">
+<p>Once a target is identified and a price agreed, the mechanics of financing an LBO come into play. The Sources & Uses table – which Trace meticulously prepared – lays out exactly where the money to fund the buyout comes from (sources) and what it's spent on (uses). By design, total sources must equal total uses (every euro raised is a euro deployed).</p>
+
+<p><strong>Uses (What needs funding):</strong></p>
+<ul style="margin: 12px 0; padding-left: 24px;">
+<li><strong>Equity Purchase Price:</strong> The amount paid to selling shareholders for 100% of Königshof's equity. Based on a €118m enterprise value at 7× EBITDA and adding €40m of net cash, the equity purchase price balloons to €158m. This is by far the largest use of funds.</li>
+<li><strong>Transaction Fees & Expenses:</strong> Banker fees, legal fees, due diligence costs, etc. For a mid-market deal, this might be 2-3% of the deal size – let's say €3m here.</li>
+<li><strong>Repayment of Existing Debt:</strong> Königshof has no debt to refinance, so €0 here (useful for the buyer – they get a clean balance sheet).</li>
+<li><strong>Total Uses:</strong> Approximately €161m.</li>
+</ul>
+
+<p><strong>Sources (Where the money comes from):</strong></p>
+<ul style="margin: 12px 0; padding-left: 24px;">
+<li><strong>New Debt:</strong> The PE firm arranges new loans to finance part of the purchase. A Term Loan of €60m might be raised, secured by Königshof's assets and future cash flows. This debt might be split into tranches (Term Loan A from banks, Term Loan B from institutional lenders, etc.), but the detail isn't critical here. What matters is that debt covers roughly 37-40% of total funds in this scenario – a moderate leverage that lenders could be comfortable with. This would put Königshof at about 3.5× Net Debt/EBITDA initially – reasonable by PE standards (many deals start at 4-5.5×, but PE firms often seek to underwrit...ite conservatively at entry).</li>
+<li><strong>Sponsor Equity:</strong> The PE fund (Haircut's firm) contributes the rest in cash from its investment pool. Roughly €60-€61m here – contributing the equity portion that will give the fund ownership of Königshof.</li>
+<li><strong>Target's Own Cash:</strong> Königshof's €40m cash on hand can effectively fund a portion of its own acquisition. How? One straightforward method is for Wilhelm to extract that €40m as a pre-closing dividend before the sale (reducing the equity value accordingly). Alternatively, the deal could be priced on a cash-free basis and the €40m remains in the company, which then immediately pays it out to the new owner (the PE fund) or uses it to repay some of the new debt post-closing, significantly deleveraging the company in one swoop.</li>
+<li><strong>Total Sources:</strong> ~€161m, matching uses.</li>
+</ul>
+
+<p style="margin-top: 16px;">The Sources & Uses table forces clarity on who pays for what in the deal. In Königshof's case, it's clear: Haircut's fund doesn't truly need to write a €60m equity check from scratch – €40m of the price comes from Königshof's own cash (which they're buying). This is why emphasis is placed on <strong>Enterprise Value vs Equity Value</strong> – the enterprise value of €118m is the amount of money that actually goes to the business or its sellers excluding cash and debt adjustments. The rest was just the company's cash cycling through.</p>
+</div>
+</section>
+
+<!-- BEAT 11: THE EQUITY BRIDGE NARRATIVE -->
+<section class="beat beat-narrator" data-section="3">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>Many junior bankers have embarrassed themselves by forgetting the equity bridge – forgetting to subtract net debt when moving from enterprise value to what shareholders actually get paid. The distinction is fundamental: enterprise value is what you'd pay for the whole firm free of debt (and debt-free). Equity value is what the equity holders receive once debt is settled.</p>
+
+<p>In Königshof's case, the enterprise value of €118m has to be adjusted upwards due to Königshof's cash board. With €40m net cash, the equity value = €118m + €40m = €158m. The buyer doesn't need to write a €158m check from scratch – they need to ensure €118m of value actually goes to the business or its sellers, but they're also buying (and getting use of) the €40m cash.</p>
+
+<p>This is why Trace's quiet preparation of that equity bridge won the respect of Haircut. No muddying of the waters. No mis-stating what the buyer will actually pay. Clarity.</p>
+</div>
+</section>
+
+<!-- BEAT 12: DIVIDER - VALUE CREATION DRIVERS -->
+<section class="beat beat-divider" data-section="4">
+<div class="beat-inner">
+<div class="divider-num">Part Two</div>
+<div class="divider-title">How Leverage Creates Value (And Why It Can Destroy It)</div>
+</section>
+
+<!-- BEAT 13: THE THREE LEVERS OF VALUE CREATION -->
+<section class="beat beat-card" data-section="4">
+<div class="beat-inner">
+<div class="card-label">The Playbook</div>
+<div class="card-title">Lever 1: Growing EBITDA – The Operational Upside</div>
+<div class="card-body">
+<p>Boosting the company's EBITDA increases the enterprise value (if market multiples hold) and thus the equity value at exit. EBITDA can grow through increasing revenues or improving margins (cutting costs).</p>
+
+<p><strong>Revenue levers:</strong> Pricing (raise prices if brand/market power allow), Volume Growth (sell more units, either organically or by capturing market share), and Operating Improvements (lean manufacturing, better supplier contracts, optimized logistics).</p>
+
+<p><strong>Margin levers:</strong> Cost Efficiency. PE sponsors are famously aggressive here – they'll cut bloated SG&A, reduce layers of management (hence the reputation for ruthless layoffs), renegotiate supplier contracts, or implement lean techniques. For Königshof, Haircut might say: "Why keep 6+ months of inventory sitting idle? Let's target 3-4 months. Why pay above market for steel? Let's centralize procurement." Each percentage point saved in costs is extra EBITDA.</p>
+
+<p><strong>Working Capital Optimizations:</strong> Also under the umbrella of operational improvement – tighten inventory turns, accelerate receivables, optimize payables – to release cash trapped in working capital. If Königshof's inventory days go from 602 to 400 over a couple of years, that could free up tens of millions in cash that can immediately pay down debt.</p>
+
+<p>All these efforts ideally drive EBITDA growth above the passive baseline. In our Königshof scenario, let's assume EBITDA grows from ~€17m to, say, €28m by year 5 (a ~65% increase) thanks to the combination of modest organic growth, better pricing, and operational improvements. That's a 2.0x EBITDA expansion, which directly translates to a fatter equity return (assuming the multiple at exit is still 7x).</p>
+</div>
+</section>
+
+<!-- BEAT 14: LEVER 2 - DELEVERAGING -->
+<section class="beat beat-card" data-section="4">
+<div class="beat-inner">
+<div class="card-label">The Signature Move</div>
+<div class="card-title">Lever 2: Deleveraging – Paying Down Debt for Equity Gain</div>
+<div class="card-body">
+<p><strong>Debt paydown is the signature of LBO value creation.</strong> As the company uses its cash flow to pay off loans, the equity portion of the capital structure expands. It's straightforward arithmetic: if enterprise value stays flat but debt drops, equity value rises by the same amount.</p>
+
+<p><strong>Example:</strong> Suppose Königshof enters the LBO with €60m of debt and an enterprise value of €118m (at closing, after accounting for all adjustments). The equity is "worth" €118m – €60m = €58m (before any growth). Fast forward 5 years. Enterprise value has grown to €196m (€28m EBITDA × 7x exit multiple). Debt has been paid down to €30m (via accumulated free cash flow). Equity is now worth €196m – €30m = €166m.</p>
+
+<p>The fund started with €60m of equity (roughly) and ends with €166m. That's a 2.77× MoM. A meaningful chunk of that gain came not from operating improvements (EBITDA growth) but from the simple mechanical benefit of debt reduction – as debt shrinks, more of the pie belongs to equity. That's the power of deleveraging, and it's why PE investors obsess over it.</p>
+
+<p><strong>How to maximize deleveraging?</strong> By maximizing free cash flow. Ensure EBITDA conversion to cash is high (cutting COGS, working capital optimization). Limit CapEx to maintenance and high-return projects; chop any "nice-to-have" investments that won't clearly boost exit value or near-term cash generation. Use surplus cash to pay down debt, not to pay recurring dividends to the sponsor (though dividend recaps are occasionally used if the company gets sufficiently strong and debt drops considerably).</p>
+</div>
+</section>
+
+<!-- BEAT 15: LEVER 3 - MULTIPLE EXPANSION (OPTIONAL) -->
+<section class="beat beat-narrator" data-section="4">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>The third lever – multiple expansion – is often set aside as "nice to have" rather than relied upon. A PE firm might hope that by the time of exit, the market is willing to pay 8x or 9x EBITDA instead of 7x (maybe because the business is now larger, less risky, or the market environment is frothy). But underwriting departments don't bank on it. The conservative assumption: entry multiple equals exit multiple. That keeps the thesis honest.</p>
+</div>
+</section>
+
+<!-- BEAT 16: HOT TAKE 2 - THE DARK SIDE -->
+<section class="beat beat-hottake" data-section="4">
+<div class="beat-inner">
+<div class="hottake-text">Leverage amplifies outcomes. If the company performs well, equity returns can far outstrip what they'd be without debt. If it stumbles, leverage magnifies losses. That asymmetry is why LBOs are thrilling and terrifying at once.</div>
+</div>
+</section>
+
+<!-- BEAT 17: THE IRONY - IRR AND MOM TRADE-OFFS -->
+<section class="beat beat-card" data-section="5">
+<div class="beat-inner">
+<div class="card-label">The Tension</div>
+<div class="card-title">IRR vs MoM: What Matters More?</div>
+<div class="card-body">
+<p>IRR (Internal Rate of Return) measures the annualized effective return on an investment, factoring in the timing of cash flows. A 25% IRR means the investment, with its specific cash in/out timing, yields 25% per year equivalent.</p>
+
+<p>MoM (Money-on-Money multiple) simply measures how many times you get your money back in total. A 3.0× MoM means €1 invested becomes €3, regardless of how long it took.</p>
+
+<p>They're related but not identical. IRR cares about speed – a quick flip that returns 2× in one year is a stellar IRR (~100%) even if the MoM is "only" 2.0×. MoM cares about total magnitude – a slower 3.0× return over 5 years is lower IRR (~25%) but more money in absolute terms.</p>
+
+<p>PE firms typically care about both. They want decent IRRs (often targeting 20-25% for mid-market deals). But they also want to generate significant MoM so that each pound of deployed capital returns multiple pounds – the fund's overall performance (and thus its ability to raise the next fund) depends on how much capital it multiplies.</p>
+
+<p>In a Königshof scenario with deleveraging and EBITDA growth but no multiple expansion, a 2.77× MoM over 5 years implies an IRR in the ~22% range – right in the sweet spot for a mid-market PE fund.</p>
+</div>
+</section>
+
+<!-- BEAT 18: THE J-CURVE NARRATIVE -->
+<section class="beat beat-narrator" data-section="5">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>It's worth noting that in an LBO, the equity IRR often exhibits a J-curve pattern. In the initial year or two, IRR (if you marked the investment to market) might look negative or underwhelming – due to heavy integration costs, deal fees, and the initial cash outflow needed for the equity check. But as the debt gets paid down and earnings grow, the equity value starts climbing, often accelerating as exit approaches. Most of the IRR is realized at the end when the company is sold and proceeds are distributed. The J-curve visualizes how IRR starts low (even below zero in the marking-to-market sense early on), then rises sharply if the plan works out.</p>
+
+<p>This is why PE funds have a patience game – early on, an LBO can look unimpressive on paper. But if the playbook executes, the sharp rise in the back half of the hold more than compensates. It's also why PE investors hate downturns that hit late in the hold period – there's little time to recover and get to that upward bend of the curve.</p>
+</div>
+</section>
+
+<!-- BEAT 19: DIVIDER - MANAGING RISK -->
+<section class="beat beat-divider" data-section="5">
+<div class="beat-inner">
+<div class="divider-num">Part Three</div>
+<div class="divider-title">Managing the Downside: Covenants, Coverage, and Contingency</div>
+</section>
+
+<!-- BEAT 20: POST-LBO RISK MANAGEMENT CARD -->
+<section class="beat beat-card" data-section="5">
+<div class="beat-inner">
+<div class="card-label">Defense Systems</div>
+<div class="card-title">How Lenders Protect Themselves (and Sponsors Sleep at Night)</div>
+<div class="card-body">
+<p><strong>Net Debt/EBITDA Covenants:</strong> Lenders often mandate that Königshof keep its Net Debt/EBITDA below a certain threshold – say, 4.5x. If the ratio exceeds 4.5x (tested quarterly), the company is in technical breach, which can trigger renegotiation with lenders or even accelerate default clauses. This forces management to watch leverage closely. In our scenario, starting at ~3.5× and aiming to be under 3× by year 2 (due to debt paydown and EBITDA growth), there's cushion.</p>
+
+<p><strong>Interest Coverage Ratio:</strong> Another critical metric is EBITDA/Interest Expense. If Königshof's interest bill is ~€4.5m annually (assuming 7.5% interest on €60m debt), and EBITDA is €17m, coverage is 3.8×. Lenders might require coverage to stay above 2.5×. If EBITDA drops 30% in a downturn, coverage plummets to 2.66× – still compliant, but dangerously close. That's why PE owners carefully stress-test downside scenarios. If EBITDA dropped 30% and couldn't cover interest, the company would be in trouble – potentially unable to refinance or might be forced into covenant violation negotiations.</p>
+
+<p><strong>Revolver Usage & Liquidity Buffers:</strong> The revolver is a safety net. If one quarter's cash flow is weak (say, due to seasonal inventory build), Königshof can draw on its €10m revolver to keep the lights on. That's fine – revolvers are designed for short-term swings. But if revolver drawings become chronic, that's a red flag the capital structure is too tight. PE sponsors will watch revolver usage and, if it creeps up, will take action – cutting costs more aggressively, slowing growth investments, or seeking to refinance debt.</p>
+
+<p><strong>Managing Downside:</strong> A good LBO plan has contingency. What if EBITDA only grows to €22m instead of €28m by year 5? What if a recession hits in year 3? Haircut will have discussed with Trace what break-even sensitivities are – e.g., "EBITDA could fall by 20% and we'd still not breach covenants or run out of cash; beyond that, trouble looms." This downside analysis reassures both the sponsor and the lenders that the deal isn't on a knife's edge.</p>
+</div>
+</section>
+
+<!-- BEAT 21: HOTLINE TO FRANKFURT - TRACE'S WACC ANALYSIS -->
+<section class="beat beat-scene" data-section="6">
+<div class="beat-inner">
+<div class="scene-location">Late Night in London — Trace at Her Desk</div>
+<div class="scene-text">
+<p>Trace sits in a quiet corner of SBCI's open-plan floor, lit only by the glow of dual monitors. Colleagues have left for the night, but Trace is dissecting an equation on screen – a fresh calculation of WACC (Weighted Average Cost of Capital) for Königshof under different capital structures.</p>
+
+<p>Haircut casually asked in an email: "What would Königshof's cost of capital look like with, say, 50% debt vs 0% debt?" It's not lost on Trace that this analysis will feed Haircut's internal argument: does adding debt really juice returns without killing the company's strategic optionality?</p>
+
+<p>Trace rebuilds WACC from scratch – risk-free rates, credit spreads, tax shields – carefully avoiding the shortcuts many analysts use. If Königshof loads up on debt, its WACC might drop (cheap debt and tax benefits) but the financial risk skyrockets, arguably increasing the equity cost. The result isn't a trivial answer, but Trace will articulate it clearly: "Leverage is great – until it isn't." Perhaps she'll slip that line into the commentary.</p>
+</div>
+</section>
+
+<!-- BEAT 22: VALUE EXTRACTION METHODS CARD -->
+<section class="beat beat-card" data-section="6">
+<div class="beat-inner">
+<div class="card-label">The Toolkit</div>
+<div class="card-title">Taking Value Out: Dividends, Recaps, and Asset Sales</div>
+<div class="card-body">
+<p><strong>Mid-Hold Dividends (Without New Debt):</strong> If Königshof throws off excess cash in year 3 or 4 (after debt servicing), the owners can decide to pay a dividend to the equity holder – essentially returning some profit early, before exit. This doesn't increase leverage; it just distributes earned cash. It boosts IRR (cash back sooner) but reduces some upside left for exit.</p>
+
+<p><strong>Dividend Recaps (Debt-Financed):</strong> A more aggressive move: take on new debt (or refinance existing debt at a higher level) and use the borrowed funds to pay a large dividend to equity. This is like "skimming cream off the top" – the sponsor gets cash back, but the company carries more leverage. It only works if performance is strong and leverage hasn't breached. If Haircut feared the exit environment might be lukewarm in year 5, a dividend recap in year 3 (at peak performance) could lock in returns early, hedging the downside.</p>
+
+<p><strong>Asset Sales & Sale-Leasebacks:</strong> Königshof owns substantial real estate and equipment (factories, machinery). If those aren't critical to the core business or could be run more efficiently by a specialist (real estate investor, equipment lessor), a PE owner might sell those assets and lease them back. The cash from the sale immediately pays down debt, significantly deleveraging the company. The trade-off: future rent expense replaces depreciation (small negative to EBITDA), but the balance sheet becomes much cleaner and the company's risk profile improves.</p>
+
+<p><strong>The Guiding Principle:</strong> Maximize equity value while managing risk. Too many dividends too early can starve the company of cash for growth or leave no cushion for downturns. Too few can signal lack of conviction in the exit. A PE sponsor must thread the needle – extract enough value to show progress to its LPs, but not so much that the company becomes brittle.</p>
+</div>
+</section>
+
+<!-- BEAT 23: MIP - MANAGEMENT INCENTIVES CARD -->
+<section class="beat beat-card" data-section="6">
+<div class="beat-inner">
+<div class="card-label">Alignment</div>
+<div class="card-title">The Management Incentive Plan (MIP): Aligning Interests at the Top</div>
+<div class="card-body">
+<p>Running a company under debt pressure is hard. Monthly cash flow reports will get intense scrutiny. Every spending decision will be weighed against its impact on debt paydown and IRR. Management needs to be on board, not resentful.</p>
+
+<p>That's where the MIP comes in. By granting management a slice of the equity upside – often via options struck at the entry price or a direct small equity stake – the owners signal that if the company performs well, management will reap rewards alongside the PE sponsor.</p>
+
+<p><strong>Example:</strong> Upon buying Königshof, Haircut's fund might grant the CEO, CFO, and a few other key executives stock options representing 5-10% of the equity. If the fund's initial equity investment is €60m and the company is eventually sold for a total equity proceeds of €166m, that 10% option pool could be worth €16.6m split among executives – life-changing sums for people who may have had modest equity before.</p>
+
+<p>However, MIPs dilute the sponsor's return slightly. The fund's 90% piece is worth less in absolute terms because they're giving up 10% of the upside. But the bet is that the MIP motivates management to drive harder, grow EBITDA faster, and ultimately make the whole pie bigger – so that even giving away 10%, the sponsor's 90% is larger than it would have been without the MIP.</p>
+
+<p>In Königshof's case, if Wilhelm's family managers (or new professional managers Haircut brings in) are motivated by the prospect of meaningful equity upside, they're more likely to embrace operational discipline, chase that 20% IRR target, and tolerate the constraints of debt. The MIP is thus a tool for ensuring the management team drives value creation levers aggressively.</p>
+</div>
+</section>
+
+<!-- BEAT 24: DIVIDER - THE MORAL -->
+<section class="beat beat-divider" data-section="7">
+<div class="beat-inner">
+<div class="divider-num">The Payoff</div>
+<div class="divider-title">Risk, Reward, and the Reality of Leverage</div>
+</section>
+
+<!-- BEAT 25: THE CONCLUSION NARRATIVE -->
+<section class="beat beat-narrator" data-section="7">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>A leveraged buyout is both empowering and unforgiving. Empowering because it gives a focused investor control to reshape a business – cut inefficiencies, grow EBITDA, and reap outsized returns (for the equity) by using other people's money (the lenders') to amplify outcomes.</p>
+
+<p>Unforgiving because debt introduces a hard edge: there's little room for error or slowdowns, and any operational stumble is magnified financially. A company that's managed well under leverage can be extraordinarily profitable. A company that stumbles faces bankruptcy or forced sale at a fire-sale price.</p>
+
+<p>The PE investor's job is to judge if the risk-reward trade-off is favorable. With Königshof, the case is: a cash-generative, well-positioned manufacturing company with operational inefficiencies waiting to be fixed. Haircut's conviction is that buying at a reasonable multiple (7x EBITDA), improving operations, and paying down debt over 5 years will deliver mid-20s IRR and a 2.5-3.0× MoM. That's worth the leverage. But if EBITDA stumbles or market conditions sour, those returns evaporate fast – and lenders get paid before equity holders in a downside scenario.</p>
+
+<p>This is the logic of LBOs: leverage is great – until it isn't. That tension lives in every leveraged deal, and it's why disciplined underwriting, careful management, and contingency planning matter more in LBOs than in any other investment type.</p>
+</div>
+</section>
+
+<!-- BEAT 26: HOT TAKE 3 - LEVERAGE'S PARADOX -->
+<section class="beat beat-hottake" data-section="7">
+<div class="beat-inner">
+<div class="hottake-text">Financial engineering cannot eliminate business risk; it only reallocates it. In an LBO, more of that risk is borne by the equity (which can be wiped out) and less by the business itself (which must still perform). That reallocation is why leverage works – and why it can backfire spectacularly.</div>
+</div>
+</section>
+
+<!-- BEAT 27: THE FRANKFURT PANEL SCENE -->
+<section class="beat beat-scene" data-section="7">
+<div class="beat-inner">
+<div class="scene-location">Frankfurt — Industry Conference Panel</div>
+<div class="scene-text">
+<p>Wilhelm paces the length of his empty boardroom, the early evening sun stretching his shadow against the mahogany floor. On the table lies an agenda for tomorrow's "Finanzierungspanel in Frankfurt" – a financing panel at an industry conference. At the top, his name is printed alongside titles like "Mezzanine Debt: Myths & Reality."</p>
+
+<p>Wilhelm isn't sure if Mezzanine is a type of financing or a kind of classical music. He's never spoken on a panel in his life, let alone about high finance. Yet here he is, invited at Haircut's subtle urging. "Good for you to hear what's out there," the banker had told him. "Just listen, no commitments."</p>
+
+<p>He gazes out at the twilight over the fields beyond the factory. Königshof's machines dot the distant farmland, quiet for now. Just listen… Wilhelm thinks of his grandfather, who founded this company with war-scarred hands and a bank loan he paid off in 15 years – never again debt, he had sworn. If only Opa could see this panel invite: talk of leveraged loans, mezzanine tranches, bonds, and beyond. The world has turned upside down. Still, Wilhelm feels a twinge of curiosity. Perhaps he owes it to the company's future to understand these modern tools, even if they unsettled his ancestors.</p>
+
+<p>He picks up a pen and jots a question in his notebook: "Mezzanine = junior debt? Ask panelist."</p>
+
+<p>Better to appear ignorant for a moment than remain ignorant forever, he figures.</p>
+
+<p>Across the Channel, Trace sits in a quiet corner of SBCI's open-plan floor, lit only by the glow of dual monitors. Haircut casually asked in an email: "What would Königshof's WACC look like with, say, 50% debt vs 0% debt?" It's not lost on Trace that this analysis will feed Haircut's internal argument: does adding debt really juice returns without killing the company's strategic optionality?</p>
+
+<p>Trace rebuilds WACC from scratch – risk-free rates, credit spreads, tax shields – carefully avoiding the shortcuts many analysts use. She's building the intellectual case to support (or challenge) Haircut's thesis. The conclusion is nuanced: "Leverage is great – until it isn't."</p>
+
+<p>On a plane somewhere over Europe, Haircut reviews Trace's WACC analysis and smirks at the conclusion. It's exactly the kind of dry truth he loves – precise, honest, and delivered with quiet authority. No more slide-deck fluff. Trace has armed him with logic that might prevent a financing misstep. He'll bring that analysis to the panel if Wilhelm gets cold feet, to show that the numbers are sound but the risks are real.</p>
+
+<p>In Shoreditch, Magda flips through the term sheet that arrived from the Silicon Valley fund, still bemused. Dividend recaps, mezzanine tranches, IRR targets of 20%+. She'll politely decline – not because she doesn't understand the mechanics, but because she understands something the funds might not: Subtrax's growth doesn't require debt and doesn't require external overlords. She's already won the autonomy game. She taps a quick message to Trace: "Thanks for the insights, but I think I'll stay debt-free. How's your Midas CEO dealing with all this leverage talk?"</p>
+
+<p>And in Munich, Wilhelm takes a breath. The panel is tomorrow. The questions from the bankers will be relentless. His family legacy – 120 years of debt-averse management – is now on the table. But perhaps that legacy isn't about avoiding all leverage; it's about surviving and thriving. Maybe there's a way to use leverage wisely, without becoming enslaved by it.</p>
+
+<p>One thing is certain: by the time Haircut cuts the pitch, the logic of LBOs will have fully intertwined with Königshof's fate. From this point on, every turn of the wrench and every euro of cost saved carries extra weight, because debt amplifies all outcomes. It's a high-wire act on a sturdy machine. If executed right, the Greenhorn (Königshof under new ownership) could sprint ahead financially, making its new owners a fortune. If executed poorly, well… those lenders didn't offer easy money out of charity – they'll want their pound of flesh regardless.</p>
+
+<p>The dominoes are teeter­ing on the edge: one gentle push – a question at a panel, a term sheet acceptance, a financing commitment – could send them cascading.</p>
+</div>
+</section>
+
+<!-- BEAT 28: FOOTER -->
+<section class="beat brand-footer" data-section="8">
+<div class="beat-inner">
+<div class="footer-logo" style="font-weight: bold; color: var(--text);">G2G</div>
+<div class="footer-text">
+<p>Chapter 6 introduced leveraged buyouts – one of the most powerful and perilous tools in finance. You've learned how debt amplifies returns when things go right, and how it concentrates risk on equity when things go wrong.</p>
+<p>You've met Trace quietly building the intellectual case with her WACC analysis. You've watched Wilhelm contemplate stepping into a world his grandfather swore to avoid. And you've glimpsed Haircut's calculation: can we buy Königshof at the right price, improve it operationally, and deliver 20%+ IRR to investors while keeping the company's margin for error intact?</p>
+<p>The LBO logic is simple: leverage is great – until it isn't. Master that tension, and you master private equity.</p>
+<div class="footer-disclaimer">
+<p>Disclaimer: This chapter is for educational purposes. It does not constitute investment advice, financial advice, or a recommendation to pursue any leveraged transaction. LBOs involve significant financial risk, including potential total loss of equity investment, and should only be pursued by sophisticated investors with appropriate legal and financial counsel. Past performance does not guarantee future results.</p>
+</div>
+</div>
+</section>
+
+</body>
+<script>
+// Particle animation for title beat
+class ParticleSystem {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.particles = [];
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
+    this.animate();
+  }
+
+  resize() {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+    if (this.particles.length === 0) this.createParticles();
+  }
+
+  createParticles() {
+    const count = Math.min(80, Math.max(40, Math.floor(window.innerWidth / 15)));
+    for (let i = 0; i < count; i++) {
+      this.particles.push({
+        x: Math.random() * this.canvas.width,
+        y: Math.random() * this.canvas.height,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        radius: Math.random() * 2 + 0.5,
+        opacity: Math.random() * 0.6 + 0.2,
+      });
+    }
+  }
+
+  animate = () => {
+    this.ctx.fillStyle = 'rgba(10, 10, 12, 0.05)';
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+    this.particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
+
+      const color = `rgba(196, 92, 74, ${p.opacity})`;
+      this.ctx.fillStyle = color;
+      this.ctx.beginPath();
+      this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      this.ctx.fill();
+    });
+
+    requestAnimationFrame(this.animate);
+  };
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('particleCanvas');
+  if (canvas) new ParticleSystem(canvas);
+
+  // Beat navigation
+  const beats = document.querySelectorAll('.beat');
+  const progressBar = document.getElementById('progressBar');
+  const beatCounter = document.getElementById('beatCounter');
+  const swipeHint = document.getElementById('swipeHint');
+
+  let currentBeat = 0;
+
+  function updateUI() {
+    beats.forEach((beat, idx) => {
+      beat.style.display = idx === currentBeat ? 'flex' : 'none';
+    });
+
+    const progress = ((currentBeat + 1) / beats.length) * 100;
+    progressBar.style.width = progress + '%';
+    beatCounter.textContent = `${currentBeat + 1} / ${beats.length}`;
+
+    if (currentBeat === 0) swipeHint.style.opacity = '0';
+  }
+
+  function nextBeat() {
+    if (currentBeat < beats.length - 1) {
+      currentBeat++;
+      updateUI();
+    }
+  }
+
+  function prevBeat() {
+    if (currentBeat > 0) {
+      currentBeat--;
+      updateUI();
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') prevBeat();
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') nextBeat();
+  });
+
+  let touchStartY = 0;
+  document.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; }, false);
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStartY - e.changedTouches[0].clientY;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextBeat();
+      else prevBeat();
+    }
+  }, false);
+
+  // Update chapter nav dots
+  const navContainer = document.querySelector('.chapter-nav');
+  if (navContainer) {
+    beats.forEach((_, idx) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (idx === 0 ? ' active' : '');
+      dot.onclick = () => { currentBeat = idx; updateUI(); };
+      navContainer.appendChild(dot);
+    });
+
+    const observer = new MutationObserver(() => {
+      const dots = navContainer.querySelectorAll('.dot');
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentBeat);
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
+  updateUI();
+});
+</script>
+</body>
+</html>

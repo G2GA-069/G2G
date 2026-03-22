@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="manifest" href="../manifest.json">
+<title>G2G Chapter 3 — Broke Is Bad: Solvency and Liquidity</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0c; --surface: #131318; --surface-2: #1a1a22; --border: #2a2a35;
+  --text: #e8e4df; --text-muted: #8a8590; --text-dim: #5a5560;
+  --accent: #b07ce8; --accent-dim: #7a55b0; --accent-bright: #d4a0ff;
+  --green: #4a9e6e; --red: #c45c4a; --blue: #5a8fc4; --purple: #8a3cc4;
+  --brand-purple: #6b2fa0; --brand-magenta: #d946ef;
+  --font-serif: 'EB Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { height: 100%; overflow: hidden; }
+body {
+  height: 100%; width: 100%; overflow: hidden;
+  background: var(--bg);
+  background-image: radial-gradient(circle, rgba(107,47,160,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--text);
+  font-family: var(--font-serif);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+body.party-mode .beat-title h1 {
+  background: linear-gradient(45deg, #ff006e, #ffbe0b, #8338ec, #3a86ff, #fb5607);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: rainbow-shift 3s infinite;
+}
+@keyframes rainbow-shift { 0%, 100% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(360deg); } }
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 2px;
+  background: linear-gradient(90deg, #0077be, #00d4ff);
+  z-index: 1000; transition: width 0.1s linear;
+}
+.chapter-nav {
+  position: fixed; top: 50%; right: 20px; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 8px;
+}
+.chapter-nav .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border); cursor: pointer; transition: all 0.3s;
+}
+.chapter-nav .dot.active {
+  background: #00d4ff; box-shadow: 0 0 8px rgba(0,212,255,0.4);
+}
+.chapter-nav .dot:hover { background: #0077be; }
+@media (max-width: 768px) { .chapter-nav { display: none; } }
+.beat {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 52px 24px 60px; opacity: 1; transform: translateY(0);
+  transition: opacity 0.3s, transform 0.35s ease-in-out;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+.beat-inner { max-width: 680px; width: 100%; }
+.beat-title {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 40px 24px;
+  background: radial-gradient(ellipse at center, #0a1a28 0%, var(--bg) 70%);
+  position: relative; overflow: hidden;
+}
+.beat-title canvas { position: absolute; top: 0; left: 0; z-index: 0; }
+.beat-title .beat-inner { position: relative; z-index: 10; }
+.beat-title .series-name {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 4px;
+  text-transform: uppercase; color: #0077be; margin-bottom: 40px;
+}
+.beat-title h1 {
+  font-family: var(--font-serif); font-size: clamp(42px, 7vw, 72px);
+  font-weight: 700; line-height: 1.1; color: var(--text);
+  margin-bottom: 16px; position: relative;
+}
+.beat-title h1.glitch::before, .beat-title h1.glitch::after {
+  content: attr(data-text); position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; opacity: 0.8;
+}
+.beat-title h1.glitch::before {
+  color: #0077be; clip-path: inset(40% 0 30% 0);
+  animation: glitch-anim 3s infinite linear alternate-reverse; z-index: -1;
+}
+.beat-title h1.glitch::after {
+  color: #00d4ff; clip-path: inset(60% 0 10% 0);
+  animation: glitch-anim2 2.5s infinite linear alternate-reverse; z-index: -1;
+}
+@keyframes glitch-anim {
+  0% { transform: translate(0); } 20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -1px); } 60% { transform: translate(-1px, 1px); }
+  80% { transform: translate(1px, -2px); } 100% { transform: translate(0); }
+}
+@keyframes glitch-anim2 {
+  0% { transform: translate(0); } 20% { transform: translate(2px, -2px); }
+  40% { transform: translate(-2px, 1px); } 60% { transform: translate(1px, -1px); }
+  80% { transform: translate(-1px, 2px); } 100% { transform: translate(0); }
+}
+.beat-title .subtitle {
+  font-family: var(--font-serif); font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400; font-style: italic; color: #00d4ff;
+  margin-bottom: 60px;
+}
+.beat-title .chapter-num {
+  font-family: var(--font-mono); font-size: 13px; color: var(--text-dim);
+  letter-spacing: 2px;
+}
+.beat-scene .beat-inner { padding: 0; }
+.scene-location {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; color: #0077be; margin-bottom: 24px;
+  padding-left: 2px;
+}
+.scene-text {
+  font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
+  line-height: 1.8; color: var(--text);
+}
+.scene-text p { margin-bottom: 20px; }
+.scene-text p:last-child { margin-bottom: 0; }
+.dialogue { margin: 24px 0; padding-left: 0; }
+.dialogue .speaker {
+  font-family: var(--font-sans); font-weight: 600; font-size: 12px;
+  letter-spacing: 1.5px; text-transform: uppercase; color: #00d4ff;
+  margin-bottom: 6px; display: block;
+}
+.dialogue .line {
+  font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
+  line-height: 1.7; color: var(--text); margin-bottom: 20px; font-style: italic;
+}
+.beat-card .beat-inner {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 40px; max-width: 760px;
+}
+.card-label {
+  font-family: var(--font-sans); font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: #00d4ff; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.card-label::before { content: ''; display: block; width: 16px; height: 1px; background: #00d4ff; }
+.card-title {
+  font-family: var(--font-sans); font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700; color: var(--text); margin-bottom: 24px; line-height: 1.3;
+}
+.card-body {
+  font-family: var(--font-serif); font-size: 17px; line-height: 1.8;
+  color: var(--text-muted);
+}
+.card-body p { margin-bottom: 16px; }
+.card-body p:last-child { margin-bottom: 0; }
+.card-body strong { color: var(--text); font-weight: 600; }
+.card-table {
+  width: 100%; border-collapse: collapse; margin: 20px 0;
+  font-family: var(--font-mono); font-size: 13px;
+}
+.card-table th {
+  text-align: left; padding: 10px 14px; border-bottom: 1px solid #0077be;
+  color: #00d4ff; font-weight: 500; font-size: 10px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+}
+.card-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted);
+}
+.card-table tr:last-child td { border-bottom: none; }
+.card-table .row-highlight td { color: var(--text); font-weight: 600; }
+.card-table .row-accent td { color: #00d4ff; font-weight: 600; }
+.card-table .num { text-align: right; }
+.card-table .negative { color: var(--red); }
+.card-table .positive { color: var(--green); }
+.lingo-grid { display: grid; gap: 16px; margin: 20px 0; }
+.lingo-item {
+  background: var(--surface-2); border-left: 3px solid #00d4ff;
+  padding: 16px; border-radius: 4px;
+}
+.lingo-term {
+  font-family: var(--font-sans); font-size: 12px; font-weight: 700;
+  letter-spacing: 1px; color: #00d4ff; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.lingo-def {
+  font-family: var(--font-serif); font-size: 15px; color: var(--text-muted);
+  line-height: 1.6;
+}
+.beat-takeaway .beat-inner { max-width: 600px; text-align: center; padding: 20px 40px; }
+.takeaway-text {
+  font-family: var(--font-serif); font-size: clamp(22px, 3vw, 30px);
+  font-weight: 600; line-height: 1.5; color: var(--text); font-style: italic;
+}
+.takeaway-text .highlight { color: #00d4ff; font-style: normal; }
+.beat-equation .beat-inner { text-align: center; max-width: 600px; }
+.equation {
+  font-family: var(--font-mono); font-size: clamp(20px, 3vw, 32px);
+  color: #00d4ff; letter-spacing: 2px; margin: 20px 0; font-weight: 500;
+}
+.equation-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px;
+}
+.equation-note {
+  font-family: var(--font-serif); font-size: 17px; color: var(--text-muted);
+  margin-top: 16px; font-style: italic;
+}
+.beat-narrator .beat-inner { max-width: 600px; }
+.narrator-text {
+  font-family: var(--font-serif); font-size: 18px; line-height: 1.8;
+  color: var(--text-muted); font-style: italic;
+}
+.narrator-text p { margin-bottom: 16px; }
+.beat-hottake .beat-inner {
+  max-width: 640px; border: 2px solid #00d4ff; border-radius: 12px;
+  padding: 32px 40px; background: linear-gradient(135deg, rgba(0,212,255,0.08), transparent);
+}
+.hottake-text {
+  font-family: var(--font-sans); font-size: 16px; font-weight: 600;
+  line-height: 1.6; color: var(--text);
+}
+@media (max-width: 768px) {
+  .beat {
+    position: fixed; top: 0; left: 0; width: 100%;
+    min-height: 100vh; height: 100vh;
+    padding: 52px 20px 60px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .beat-scene { align-items: flex-start; padding-top: 52px; }
+  .beat-card { align-items: flex-start; padding-top: 52px; }
+  .beat-inner { max-width: 100%; }
+  .beat-card .beat-inner { padding: 20px 14px; }
+  .card-table { font-size: 11px; }
+  .card-table th, .card-table td { padding: 8px 6px; }
+  .scene-text, .card-body { font-size: 16px; line-height: 1.75; }
+  .beat-title h1 { font-size: 28px; }
+  .lingo-def { font-size: 14px; }
+  .hottake-text { font-size: 15px; padding: 20px 16px; }
+  .beat-takeaway .beat-inner { padding: 20px 16px; }
+  .takeaway-text { font-size: 20px; }
+  .beat-narrator .beat-inner { max-width: 100%; }
+  .narrator-text { font-size: 16px; }
+  .progress-bar { height: 3px; }
+}
+@media (max-width: 480px) {
+  .card-table { font-size: 10px; }
+  .card-table th, .card-table td { padding: 6px 4px; }
+  .beat-title h1 { font-size: 24px; }
+  .beat { padding-left: 16px; padding-right: 16px; }
+}
+.swipe-hint {
+  position: fixed; bottom: max(70px, env(safe-area-inset-bottom, 70px)); left: 50%; transform: translateX(-50%);
+  z-index: 200; display: flex; flex-direction: column; align-items: center;
+  gap: 6px; opacity: 0; animation: swipe-hint-show 0.6s ease 2s forwards;
+  pointer-events: none;
+}
+.swipe-hint svg { width: 28px; height: 28px; animation: swipe-gesture 1.8s ease-in-out infinite; }
+.swipe-hint span { font-family: var(--font-sans); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
+@keyframes swipe-hint-show { to { opacity: 1; } }
+@keyframes swipe-gesture { 0%,100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-16px); opacity: 1; } }
+.back-button {
+  position: fixed; top: max(12px, env(safe-area-inset-top, 12px)); left: 12px; z-index: 999;
+  background: rgba(10, 10, 12, 0.7);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.back-button:hover, .back-button:active {
+  background: rgba(0, 119, 190, 0.4);
+  border-color: #0077be;
+  color: var(--text);
+}
+.beat-counter {
+  position: fixed; bottom: max(16px, env(safe-area-inset-bottom, 16px)); right: 16px; z-index: 999;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #00d4ff;
+  background: rgba(10, 10, 12, 0.7);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<a href="../index.html" class="back-button">← Back</a>
+<div class="beat-counter" id="beatCounter"></div>
+<div class="swipe-hint" id="swipeHint">
+<svg viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="1.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+<span>Swipe up</span>
+</div>
+
+<!-- BEAT 1: TITLE -->
+<section class="beat beat-title" data-section="0">
+<canvas id="particleCanvas"></canvas>
+<div class="beat-inner">
+<div class="series-name">From Greenhorn to Gold(wo)man — Chapter 3</div>
+<h1 class="glitch" data-text="Broke Is Bad">Broke Is Bad</h1>
+<div class="subtitle">The Balance Sheet, Cash Flow, and Working Capital</div>
+<div class="chapter-num">CHAPTER 3 OF 11</div>
+</div>
+</section>
+
+<!-- BEAT 2: KÖNIGSHOF SCENE -->
+<section class="beat beat-scene" data-section="1">
+<div class="beat-inner">
+<div class="scene-location">Würzburg, Bavaria — Königshof Factory Yard</div>
+<div class="scene-text">
+<p>Trace steps gingerly through the snow-dusted rows of bright green harvesters outside Königshof's factory, counting under her breath. Twenty-eight, twenty-nine... thirty. And that's just in this section of the yard. By her quick tally, nearly €40m of finished machinery is sitting idle in the open air — unsold product quietly rusting into non-productivity. Wilhelm von Raunheim catches her glancing at the lineup and smiles proudly. "Impressive, yes? We had a strong production run."</p>
+
+<p>He pats the nearest combine as if it were a loyal steed. Trace notes a thin film of dust on its tire. The machines may be <strong>brand new</strong> but they're hardly <strong>brand new sales</strong>. "Very impressive," she replies carefully. Strong production isn't the same as strong sales, but she resists stating the obvious. Instead, she gestures politely: "And these are all sold, Herr von Raunheim? Or awaiting orders?" Wilhelm's smile tightens almost imperceptibly. "Many are spoken for. Farmers have interest... the timing is the question. They always need them when the crop prices recover and harvest is around." It's a careful answer. Trace reads between the lines: <strong>not sold yet</strong>. She nods, running her hand along the chassis of one combine, as if gauging how long it's been idle. Inside, she's already thinking about <strong>working capital</strong> — all the cash tied up in these unsold beasts. By some estimates it's on the order of 600 days of inventory.</p>
+
+<p>But she keeps that to herself. Wilhelm calls it <strong>"readiness,"</strong> after all, and he wears the term like a badge of honor. Why spoil the factory tour with finance?</p>
+</div>
+</section>
+
+<!-- BEAT 3: SUBTRAX SCENE -->
+<section class="beat beat-scene" data-section="2">
+<div class="beat-inner">
+<div class="scene-location">London — Subtrax Conference Room</div>
+<div class="scene-text">
+<p>Back in London that afternoon, an entirely different cash puzzle is brewing. Magdalena "Magda" Kowalska rubs her temples as her head of finance briefs her in Subtrax's sparse conference room. "Stripe is holding £200k of our funds for additional fraud review," he says, scrolling through a payment reconciliation. Magda's jaw clenches. That's nearly a month's worth of <strong>cash burn</strong> for Subtrax, temporarily frozen by an algorithm's precaution. "They'll release it in 45 days if nothing's wrong, but... our cash balance is uncomfortably low until then." She exhales slowly. Revenue is fine; reported profit is even creeping up — but cash is tight. Payroll, AWS bills, even the new espresso machine lease for the office — all these <strong>cash outflows</strong> march on, while a chunk of inflows sits in fintech limbo. An engineer overhearing the discussion offers unhelpfully, "At least we have positive EBITDA now, right? We'll be wildly profitable any day." Magda shoots him a sharp look. <strong>"Profit isn't cash,"</strong> she snaps, more harshly than intended. The engineer retreats, chastened. Magda softens and forces a thin smile — it's not his fault he's never had to worry about <strong>payment gateways</strong> or <strong>working capital</strong> timing. In truth, she's only now appreciating the old adage: <em>Revenue is vanity, profit is sanity, cash is reality.</em> Under her breath she adds, "If our cash is low, blame Stripe." It's gallows humor — but also partly true. Subtrax's <strong>payment processor</strong> is doing its job cautiously, and that caution is tying up real money. For a moment, Magda allows herself a rare flicker of doubt. High margins on paper won't pay next month's bills. <strong>Solvency can bite even a rising star.</strong></p>
+</div>
+</section>
+
+<!-- BEAT 4: KÖNIGSHOF CONFERENCE ROOM -->
+<section class="beat beat-scene" data-section="3">
+<div class="beat-inner">
+<div class="scene-location">Würzburg — Wilhelm's Conference Room</div>
+<div class="scene-text">
+<p>Over in Würzburg, Trace's tour of Königshof concludes in the conference room, where Wilhelm pours tea from a porcelain set that likely predates the Berlin Wall. Black-and-white photographs of Königshof's history line the walls: Wilhelm's grandfather posing with the first combine prototype; his father cutting the ribbon on the second factory. The legacy is palpable. "Our machines last decades," Wilhelm says, catching Trace studying a photo. "That's our pride." Trace smiles politely and sips her tea. If the machines last for decades, repeat sales must be hard to come by. Aloud, she asks gently, "How do you decide production volume each year? Is it from demand forecasts?" Wilhelm stirs his tea and considers. "Partly. And partly we produce to keep our factories always ready for demand. <em>It's Königshof, after all.</em>" He says it like a sacred principle. Trace recalls a line from the financial model: an assumption of significant inventory build. That hadn't been an Excel error — it was <strong>policy</strong>. She glances out the window at the gleaming yard of unsold machines and ventures, "I noticed the inventory. It's quite a lot of capital to hold in stock, tied up for when it's needed..." Wilhelm's jaw sets, though he remains courteous. "As I said, it's readiness. When the harvest is good, we can deliver immediately. Many competitors cannot." He raises an eyebrow, as if to say <em>this is how business is done here</em>. Trace nods. "True. But in finance, we tend to separate profit from cash. Until a machine is sold, it's essentially cash resting on the factory floor." She taps her notebook. "On paper, you've earned that revenue. In reality, you parted with cash to build the machine — paid out to steel suppliers, wages, and so on — and haven't gotten it back from the customer yet." Wilhelm is silent at first. Trace worries she may have overstepped, pointing out the obvious to a proud third-generation owner. But then Wilhelm slowly nods. "You sound like Schilling — my head of sales. He shows me similar figures." A thin smile. "Don't worry, I'm not offended. I know what you're getting at." He pauses, locking eyes with her. "But understand: this is how it <strong>must</strong> be in our business. If we don't build in winter, we can't deliver in summer. If we can't deliver, we lose credibility. Cash..." — he waves a hand as if shooing away a fly — "cash comes and goes. Reputation is earned over decades." Trace reflects on that, and on Magda's obsessive focus on her startup's monthly cash <strong>runway</strong>. Two very different philosophies, indeed. In one, <strong>liquidity is king</strong>; in the other, liquidity is a luxury to be traded for preparedness.</p>
+</div>
+</section>
+
+<!-- BEAT 5: NARRATOR - BALANCE SHEET 101 -->
+<section class="beat beat-narrator" data-section="4">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>To understand solvency and liquidity, we need to know the balance sheet. Every company has three core statements. We've covered the income statement. Now: the balance sheet. It's a snapshot: what a company owns, what it owes, and what the owners are left with. On one side, <strong>Assets</strong> (things of value). On the other, <strong>Liabilities</strong> (obligations to lenders and suppliers) and <strong>Equity</strong> (ownership stake). The identity is simple but powerful: <strong>Assets = Liabilities + Equity.</strong> Think of it this way: all assets are financed somehow — either you borrowed money (liability) or you got money from owners (equity). Debt vs. Equity is the crucial distinction. <strong>Debt</strong> is money that <em>must</em> be repaid (with interest, on a schedule) — it's a fixed claim. <strong>Equity</strong> is ownership — it doesn't require repayment, but owners only get what's left after debts are paid. Debt is a legal obligation (miss a payment, and creditors come knocking); equity is a flexible, risk-sharing cushion (if the business is bad, equity holders might get nothing, but they won't force bankruptcy). This balance sheet dynamic is why solvency — whether assets can cover liabilities — is a safety check. If assets can't cover liabilities, the company is insolvent (owes more than it owns). Equity absorbs that shortfall (and would be negative in that scenario). In Königshof's case, Wilhelm has stanchly avoided financial debt — so his balance sheet shows healthy equity and very little liabilities beyond normal bills. That conservative structure kept Königshof stable for decades, but as we'll see, it doesn't automatically ensure <strong>liquidity</strong> — the ability to meet short-term obligations. A firm can be profitable and even solvent on paper, yet still run out of cash.</p>
+</div>
+</section>
+
+<!-- BEAT 6: LINGO CARDS - PART 1 -->
+<section class="beat beat-card" data-section="5">
+<div class="beat-inner">
+<div class="card-label">Reference</div>
+<div class="card-title">New Lingo: Working Capital & Inventory</div>
+<div class="lingo-grid">
+<div class="lingo-item">
+<div class="lingo-term">Net Working Capital</div>
+<div class="lingo-def">The cash tied up in day-to-day operations — specifically, current operating assets minus current operating liabilities. Example: Königshof's trade net working capital is mainly Inventory + Accounts Receivable − Accounts Payable (about €116m at FY24, more than its annual revenue). High NWC means cash is stuck in the business.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Inventory</div>
+<div class="lingo-def">Stockpile; Warehouse stock. The goods a business has produced or purchased to sell (or the materials to produce them) that haven't been sold yet. It's value sitting on the balance sheet. Example: Königshof's inventory at FY24 was ~€98m, representing ~600 days of production. Until those machines are sold and shipped, that €98m is cash sitting on the factory floor rather than in the bank.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Accounts Receivable</div>
+<div class="lingo-def">Money to be received; IOUs. Revenue you've earned but haven't been paid for yet — essentially customer invoices outstanding. It's recorded as an asset because it's cash owed to you. Example: Königshof's AR was ~€623m at FY24 (customers often buy on credit terms). High AR means you made the sale, but cash is still on the way.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Accounts Payable</div>
+<div class="lingo-def">Bills to pay; Outstanding bills. Money you owe to suppliers for goods or services already received — invoices you've yet to pay. It's a liability (an obligation). Example: Königshof's AP was only ~€64.9m at FY24 (they pay suppliers fairly promptly, in ~45 days). Stretching AP (paying slower) conserves cash. If AP grows, it releases cash (you haven't paid yet); if it shrinks, cash goes out the door.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Accrual Accounting</div>
+<div class="lingo-def">"Cruel" accounting (to cash). The system of accounting where revenues and expenses are recorded when earned or incurred, not when cash changes hands. This gives a more accurate profit picture for the period, but means profit can diverge from actual cash flow. Example: Using accrual accounting, Magda's team records revenue when Subtrax delivers service to a client, even if the client hasn't paid yet (the cash may come later, or earlier if prepaid). Accruals create timing differences between profit and cash.</div>
+</div>
+</div>
+</section>
+
+<!-- BEAT 7: LINGO CARDS - PART 2 -->
+<section class="beat beat-card" data-section="6">
+<div class="beat-inner">
+<div class="card-label">Reference</div>
+<div class="card-title">New Lingo: Depreciation, CapEx & FCF</div>
+<div class="lingo-grid">
+<div class="lingo-item">
+<div class="lingo-term">D&A</div>
+<div class="lingo-def">Depreciation & Amortization (non-cash decline). Depreciation is for tangible assets (e.g. machines); Amortization is for intangible assets (e.g. patents). These reduce accounting profit each period without any cash leaving the building in that period. Example: Königshof's factory machines depreciate ~€4.5m per year — lowering EBIT — but that expense is just the accounting recognition of prior cash outflows (CapEx spending). Depreciation is non-cash.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Capital Expenditure</div>
+<div class="lingo-def">Big spending; CapEx. Funds spent to acquire or upgrade long-term assets (property, equipment, software, etc.). Unlike regular expenses, CapEx doesn't hit the income statement immediately — it's capitalized on the balance sheet (then depreciated over years). Example: Königshof spent about €8m on CapEx in FY24 (maintaining and upgrading plants) — you won't see "€8m" on the income statement, but you'll see depreciation over time. CapEx uses cash now to hopefully generate profits over many future periods.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Free Cash Flow</div>
+<div class="lingo-def">"Free" money; Surplus cash. The cash a business generates from operations after paying for capital expenditures. In other words, the cash that's truly free to pay lenders, owners, or build up reserves. It's often approximated as: Operating Cash Flow − CapEx. Example: Königshof's free cash flow in FY24 was roughly −€4m (a cash outflow), despite €7.7m in net profit — because cash was consumed by a €8m CapEx program and a €8.2m working capital build.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Liquidity</div>
+<div class="lingo-def">Liquid (like water); Fluid funds. A company's ability to meet short-term obligations — often thought of as how much cash (or easily convertible to cash assets) you have on hand. High liquidity means you can pay bills and handle surprises; low liquidity means a cash crunch is near. Example: Wilhelm keeps ~€40m in cash partly for liquidity — ensuring Königshof can weather a bad harvest year. Inventory, on the other hand, is not very liquid: you can't quickly spend a tractor.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Debt</div>
+<div class="lingo-def">Trouble; Borrowings. Money a company has borrowed and must repay, usually with interest. On the balance sheet, it appears as liabilities (e.g. loans, bonds). Having debt means part of your cash flow is committed to interest and repayments. Example: Königshof carries no financial debt (Wilhelm avoids loans), so all its interest expense is basically nil. Magda likewise raised equity, not loans, so Subtrax had no debt in its early years.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Equity</div>
+<div class="lingo-def">Fairness; Value; Ownership. In finance, equity means ownership stake in a company (shareholders' equity). It's the residual claim on assets after all debts are paid. On the balance sheet, equity comprises share capital plus retained earnings (accumulated profits). Example: Magda owns ~73% equity in Subtrax — that represents her ownership in the company's value. Equity is often thought of as risk capital: it's last in line if things go wrong, but has unlimited upside if things go well (no fixed repayment).</div>
+</div>
+</div>
+</section>
+
+<!-- BEAT 8: ACRONYMS CARD -->
+<section class="beat beat-card" data-section="7">
+<div class="beat-inner">
+<div class="card-label">Reference</div>
+<div class="card-title">Acronyms to Remember</div>
+<table class="card-table">
+<tr>
+<th>Acronym</th>
+<th>Stands For</th>
+<th>What It Really Means</th>
+</tr>
+<tr>
+<td>AR</td>
+<td>Accounts Receivable</td>
+<td>Money owed to a company by its customers. Invoice IOUs.</td>
+</tr>
+<tr>
+<td>AP</td>
+<td>Accounts Payable</td>
+<td>Money owed by a company to its suppliers. Bills outstanding.</td>
+</tr>
+<tr>
+<td>PP&E</td>
+<td>Property, Plant & Equipment</td>
+<td>The long-term assets a company uses in operations — factories, machines, vehicles, etc. PP&E is depreciated over time.</td>
+</tr>
+<tr>
+<td>D&A</td>
+<td>Depreciation & Amortization</td>
+<td>The accounting charges that reduce profit for the wear of tangible assets (depreciation) and intangible assets (amortization). Non-cash.</td>
+</tr>
+<tr>
+<td>FCF</td>
+<td>Free Cash Flow</td>
+<td>Free Cash Flow (defined above) — cash generated after all operating and capital costs. Key metric for valuation and debt repayment capacity.</td>
+</tr>
+<tr>
+<td>NWC</td>
+<td>Net Working Capital</td>
+<td>Net Working Capital (defined above) — the net cash tied up in operations. Change in NWC impacts cash flow.</td>
+</tr>
+<tr>
+<td>P&L</td>
+<td>Profit and Loss (Statement)</td>
+<td>Another name for the Income Statement. Lists revenues, expenses, and profits. "Top and bottom line" refer to P&L.</td>
+</tr>
+<tr>
+<td>IFRS</td>
+<td>International Financial Reporting Standards</td>
+<td>The accounting standards used in most of the world (except the US, which uses GAAP). IFRS and US GAAP have small differences, but both are accrual-based. Königshof reports under IFRS (being a German company).</td>
+</tr>
+</table>
+</section>
+
+<!-- BEAT 9: NARRATOR - ACCRUAL VS CASH -->
+<section class="beat beat-narrator" data-section="8">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>The core issue is accrual accounting. Under accrual accounting, companies record revenue when they earn it (when the product is delivered or service is performed), not necessarily when the cash comes in. Similarly, they record expenses when incurred (when the goods or services are consumed), not when the cash goes out. This method gives a better measure of economic activity — matching revenues with the costs to produce those revenues, smoothing out timing so we see true profit. But it also means profit can diverge dramatically from cash flow. Simple example: Königshof sells a €300k harvester to a farming cooperative in December, on 90-day payment terms. Accrual logic: Königshof books €300k in revenue right away in December (and the corresponding COGS expense for the machine, let's say €180k). Profit goes up by €120k from that sale, in December's books. But cash logic: the cooperative won't actually pay until March. So cash doesn't increase in December at all — it will arrive three months later. Until then, that €300k is sitting in Accounts Receivable rather than Königshof's bank account. Conversely, Königshof might have paid its steel supplier last September to get the materials for that harvester. The cash outflow happened before the sale ever took place. This illustrates why accrual can paint a rosy profit while cash is actually hemorrhaging (or vice versa). Magda's mini-crisis with Stripe is a service-sector example: Subtrax's income statement will show all the subscription revenue they earned this month, but if £200k is held by the payment processor, the cash from those sales isn't in the bank yet. To pay expenses, Magda might need to dip into reserves because accrual profit can't be spent until it becomes cash.</p>
+</div>
+</section>
+
+<!-- BEAT 10: EQUATION - THE FCF FORMULA -->
+<section class="beat beat-equation" data-section="9">
+<div class="beat-inner">
+<div class="equation-label">The Cash Flow Bridge</div>
+<div class="equation">Net Income + D&A − ΔNWC − CapEx = FCF</div>
+<div class="equation-note">Start with accrual profit, add back non-cash charges, adjust for working capital timing, subtract long-term investments, and you get the cash truly available to the business.</div>
+</section>
+
+<!-- BEAT 11: NARRATOR - KÖNIGSHOF FCF EXAMPLE -->
+<section class="beat beat-narrator" data-section="10">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>Let's walk through Königshof's FY24 using the bridge. Net Income was €7.7m — great, profit is up. Non-cash add-backs: D&A was roughly €4.5m (depreciation on machines). That would bring us to operating-level cash of ~€12.2m before working capital. But then working capital got in the way: Königshof's inventory actually grew at year-end (more unsold stock), and receivables grew a bit with higher sales. Overall, Net Working Capital increased by about €8.2m. That's an €8.2m use of cash — effectively, €8.2m of the year's profit is sitting in warehouses and customer invoices, not in the bank. So operating cash flow of €12.2m falls to roughly €4m once we account for that working capital build. Then, CapEx: Königshof also spent about €8m on new equipment and maintenance in FY24. That's a cash outflow for long-term benefit. Subtract that, and we're around −€4m net cash flow for the year. So despite €7.7m in profit, the company's free cash flow was negative €4m. In effect, Königshof had to consume cash to keep operating and investing at current levels. This was largely by design: Wilhelm chose to invest in inventory and upgrades, knowingly outsanding the year's internal cash generation. Not every firm has that luxury (Königshof had accumulated cash in the bank from the past to afford it). But it highlights a crucial point: profit ≠ cash flow, and businesses that ignore fact can quickly land in trouble. A business that is "profitable" on paper will still fail if it can't pay its bills — being profitable is not the same as being solvent.</p>
+</div>
+</section>
+
+<!-- BEAT 12: NARRATOR - WORKING CAPITAL DEEP DIVE -->
+<section class="beat beat-narrator" data-section="11">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>Let's dig deeper into working capital drivers since they're often the biggest swing factors between profit and cash. Inventory, AR, and AP are collectively called trade working capital (they relate directly to sales and production). Changes in these have immediate cash impacts: Inventory: When a company produces or buys more inventory than it sells, cash leaves the business. You're essentially taking cash and parking it on the shelf. Königshof's inventory practices are extreme — holding ~600 days of inventory means at any given time they have nearly 1.6 years' worth of cost of goods tied up. Why do that? Wilhelm's logic is to always be ready to deliver and to keep the factory running year-round (for employee stability and manufacturing efficiency). The cash trade-off is huge. By some estimates, if Königshof somehow slimmed down from 600 to even 300 days of inventory, it would free tens of millions of euros in cash (either to pay off debt, if they had any, or simply to sit in the bank). Many turnaround stories in industry involve liquidating excess inventory — converting it back to cash — but of course the risk is not having product on hand when a customer wants it. It's a delicate balance of service level vs. cash efficiency. Accounts Receivable: When a company sells on credit, it creates AR. If AR grows (you're waiting on more customer payments than before), that should have come in but hasn't — effectively a use of cash. Königshof's AR was ~€623m at FY24 (customers often buy on credit terms), and DSO (Days Sales Outstanding) — how many days it takes, on average, to collect cash from a sale — was around 85 days, meaning after it records a sale, cash arrives ~3 months later. Subtrax, with credit card payments, has a DSO measured in days (or even negative if customers pay upfront for annual subscriptions). Managing AR is about collections: send invoices promptly, enforce terms, maybe offer small discounts for early payment — anything to convert sales into cash faster. But push too hard and customers may revolt or go to a competitor with friendlier terms. In short: AR up = cash waiting; AR down = cash liberated. Accounts Payable: This is the mirror image. When AP grows, it means you have not paid cash for some expenses yet — you're effectively borrowing from suppliers. That conserves cash in the short term. Reducing AP (paying off your bills faster) uses cash. Königshof's DPO was ~46 days, which is fairly normal (they pay suppliers in about 1.5 months). If Wilhelm were desperate for cash, he could try to extend that to 60 or 90 days (pay suppliers slower), effectively getting a short-term loan from them. But there are consequences: push payables too far, and suppliers get angry or even halt deliveries. The ethical and practical line is not to abuse it — maintaining good supplier relationships can be as important as squeezing a little extra cash. Summary: Inventory up = cash down (you spent money to build stock); Inventory down = cash up (selling stock releases cash). AR up = cash waiting; AR down = cash liberated. AP up = cash saved (for now); AP down = cash out the door.</p>
+</div>
+</section>
+
+<!-- BEAT 13: NARRATOR - EBITDA VS FCF -->
+<section class="beat beat-narrator" data-section="12">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>EBITDA is a popular metric in finance — Earnings Before Interest, Taxes, Depreciation & Amortization. Many investors and bankers like EBITDA because it's a proxy for "operating cash flow" — it strips out non-cash charges (D&A) and financing costs (interest). Königshof's EBITDA in FY24 was about €16.9m, roughly a 17% EBITDA margin. You might hear someone say, "Königshof generates nearly €17m of operating cash a year." But as we just saw, actual Operating Cash Flow (after working capital and taxes) was nowhere near €17m — it was closer to €4m in FY24. Why the huge gap? Working capital swings and cash taxes. EBITDA ignores working capital by definition (it's based on accounting earnings, which are already accrual-based). It also ignores that tax expense on the income statement may not equal actual cash taxes paid (in FY23, for example, Königshof had an €8.3m EBITDA but its cash from operations was actually higher than that EBITDA — because they released a lot of cash from working capital as sales dropped — and then the one-off legal payout had already been reserved earlier). In FY24, the opposite happened: EBITDA rebounded to €16.9m, but working capital soaked up cash, and Königshof also paid cash taxes that were lower than the accrued tax expense (since prior losses/charges gave a break). The indirect method cash flow statement (the official accounting format) starts with net income and reconciles these differences: add back D&A, adjust for gains/losses, adjust for working capital changes, etc., to arrive at Net Cash from Operating Activities. Financial analysts often use a practical FCF stack instead: start with EBITDA, then subtract cash items that EBITDA ignored — cash taxes, interest, ΔNWC, and CapEx — to estimate Free Cash Flow. Either way, the goal is to understand how accounting profit converts to the cash that actually moves. For Königshof FY24, starting EBITDA ~€16.9m, minus ~€8.2m working capital build, minus €3.3m cash taxes (they paid roughly 30% of EBT in cash), minus €8m CapEx, and minus a negligible amount of interest (no debt) gives roughly −€2.6m. Our earlier calculation via net income gave −€4m; the small difference is from timing of taxes and some rounding — but directionally, both methods tell the same story: a cash outflow despite healthy "earnings." The exact formulas can differ, but the logic is consistent. A cash flow statement is just the formal report of these ins and outs, divided into Operating, Investing, and Financing sections. The Net Change in Cash is the bottom line, linking back to the balance sheet (last year's cash plus this net change equals this year's cash). For Königshof, the net change in cash in FY24 was negative — they had to dip into their cash reserves to fund inventory and CapEx.</p>
+</div>
+</section>
+
+<!-- BEAT 14: HOT TAKE -->
+<section class="beat beat-hottake" data-section="13">
+<div class="beat-inner">
+<div class="hottake-text">EBITDA is an opinion. Cash flow is a fact.</div>
+</div>
+</section>
+
+<!-- BEAT 15: NARRATOR - THREE STATEMENTS DANCE -->
+<section class="beat beat-narrator" data-section="14">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>Now we can appreciate how the Income Statement, Balance Sheet, and Cash Flow Statement connect. The income statement gave us Königshof's €7.7m net profit for FY24. That profit flows into the balance sheet (in Equity, under retained earnings). But instead of appearing as €7.7m more cash on the asset side, we see the reality: cash actually decreased, while other balance sheet accounts changed. Where did the profit go? The balance sheet provides the answers: Inventory went up ~€5.6m (there's part of it), receivables up €2.5m (there's more), PP&E (net) went up — which implies CapEx exceeded depreciation by about €3.5m (uses cash too). These movements are financed partly by the profit and partly by reducing cash and other sources. In Königshof's case, one source of cash was actually a slight increase in payables (€0.27m) — not much, but it offset a bit of the inventory build. The rest came from the bank: Königshof's cash on hand dropped. If Königshof had taken on new debt, that would have been another source of cash on the balance sheet (cash up, debt up). For a financial analyst (or a greenhorn-turning-goldsman), the key skill is being able to look at all three statements together to understand a business's trajectory. Is profit translating into cash, or is it tied up in the field (or worse, an accounting mirage)? Is the company funding itself through operations, or reliant on outside financing? Königshof's case teaches that broke is bad: even a storied, profitable company can run into trouble if it mismanaages cash. If Wilhelm had, say, decided to expand inventory to 900 days and a downturn hit, Königshof could quickly face a liquidity crisis — needing emergency loans or having to halt production because cash ran out, even if the income statement still shows a profit. Conversely, Subtrax shows that a company with zero profit can still operate smoothly if it has cash coming in ahead of expenses (Magda could be one big contract win away from turning her accrual loss into a cash-positive business, as long as she collects upfront). In assessing any business, we will always connect Net Income to Free Cash Flow and ask, "Where is the money really going?" Because at the end of the day, cash is fact.</p>
+</div>
+</section>
+
+<!-- BEAT 16: TAKEAWAY -->
+<section class="beat beat-takeaway" data-section="15">
+<div class="beat-inner">
+<div class="takeaway-text">Being <span class="highlight">profitable is not the same as being solvent.</span></div>
+</div>
+</section>
+
+<!-- BEAT 17: FOOTER -->
+<section class="beat beat-card" data-section="16">
+<div class="beat-inner" style="text-align: center; border: none; background: transparent;">
+<div style="opacity: 0.4; margin-bottom: 40px;">
+<svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+<path d="M50 30V70M30 50H70" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+</svg>
+</div>
+<div style="font-family: var(--font-sans); font-size: 11px; color: var(--text-dim); line-height: 1.8; max-width: 500px; margin: 0 auto;">
+From Greenhorn to Gold(wo)man is an interactive finance education series. Chapter 3 explores how cash, profit, and solvency intertwine in real businesses. Keep reading to understand the full capital cycle and how to read companies like a financial analyst would. <br><br>
+<a href="../index.html" style="color: #00d4ff; text-decoration: none;">← Return to Contents</a>
+</div>
+</div>
+</section>
+
+<div class="chapter-nav" id="chapterNav"></div>
+
+<script>
+const beats = document.querySelectorAll('.beat');
+let currentBeat = 0;
+const totalBeats = beats.length;
+
+function updateProgress() {
+  const progress = (currentBeat / (totalBeats - 1)) * 100;
+  document.getElementById('progressBar').style.width = progress + '%';
+  document.getElementById('beatCounter').textContent = (currentBeat + 1) + ' / ' + totalBeats;
+}
+
+function showBeat(n) {
+  currentBeat = Math.max(0, Math.min(n, totalBeats - 1));
+  beats.forEach((beat, i) => {
+    beat.style.opacity = i === currentBeat ? '1' : '0';
+    beat.style.pointerEvents = i === currentBeat ? 'auto' : 'none';
+  });
+  updateProgress();
+  updateDots();
+  initParticles();
+}
+
+function initDots() {
+  const nav = document.getElementById('chapterNav');
+  nav.innerHTML = '';
+  for (let i = 0; i < totalBeats; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.onclick = () => showBeat(i);
+    nav.appendChild(dot);
+  }
+}
+
+function updateDots() {
+  const dots = document.querySelectorAll('.chapter-nav .dot');
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentBeat);
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') showBeat(currentBeat - 1);
+  if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') showBeat(currentBeat + 1);
+  if (e.key === ' ') { e.preventDefault(); showBeat(currentBeat + 1); }
+});
+
+let touchStart = 0;
+document.addEventListener('touchstart', (e) => { touchStart = e.touches[0].clientY; });
+document.addEventListener('touchend', (e) => {
+  const touchEnd = e.changedTouches[0].clientY;
+  if (touchStart - touchEnd > 40) showBeat(currentBeat + 1);
+  if (touchEnd - touchStart > 40) showBeat(currentBeat - 1);
+});
+
+document.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  if (e.deltaY > 0) showBeat(currentBeat + 1);
+  if (e.deltaY < 0) showBeat(currentBeat - 1);
+}, { passive: false });
+
+let konami = [];
+document.addEventListener('keydown', (e) => {
+  konami.push(e.key);
+  if (konami.length > 10) konami.shift();
+  if (konami.join('').includes('8080')) {
+    document.body.classList.toggle('party-mode');
+  }
+});
+
+function initParticles() {
+  const canvas = document.getElementById('particleCanvas');
+  if (!canvas || currentBeat !== 0) return;
+
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  for (let i = 0; i < 60; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 1.5,
+      vy: (Math.random() - 0.5) * 1.5,
+      size: Math.random() * 2 + 1,
+      color: `hsl(${180 + Math.random() * 60}, 70%, 50%)`
+    });
+  }
+
+  let frameId;
+  const animate = () => {
+    ctx.fillStyle = 'rgba(10, 10, 12, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = 0.6;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    frameId = requestAnimationFrame(animate);
+  };
+
+  animate();
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+}
+
+initDots();
+showBeat(0);
+window.addEventListener('resize', () => initParticles());
+</script>
+
+</body>
+</html>

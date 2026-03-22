@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="manifest" href="../manifest.json">
+<title>G2G Chapter 5 — Forecasts Under Fire: Projections</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0c; --surface: #131318; --surface-2: #1a1a22; --border: #2a2a35;
+  --text: #e8e4df; --text-muted: #8a8590; --text-dim: #5a5560;
+  --accent: #4a9e6e; --accent-dim: #2d7a54; --accent-bright: #6dd68f;
+  --green: #4a9e6e; --red: #c45c4a; --blue: #5a8fc4; --purple: #8a3cc4;
+  --brand-green: #2d7a54; --brand-cyan: #3db5a6;
+  --font-serif: 'EB Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { height: 100%; overflow: hidden; }
+body {
+  height: 100%; width: 100%; overflow: hidden;
+  background: var(--bg);
+  background-image: radial-gradient(circle, rgba(45,122,84,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--text);
+  font-family: var(--font-serif);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+body.party-mode .beat-title h1 {
+  background: linear-gradient(45deg, #ff006e, #ffbe0b, #8338ec, #3a86ff, #fb5607);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: rainbow-shift 3s infinite;
+}
+@keyframes rainbow-shift { 0%, 100% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(360deg); } }
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 2px;
+  background: linear-gradient(90deg, var(--brand-green), var(--brand-cyan));
+  z-index: 1000; transition: width 0.1s linear;
+}
+.chapter-nav {
+  position: fixed; top: 50%; right: 20px; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 8px;
+}
+.chapter-nav .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border); cursor: pointer; transition: all 0.3s;
+}
+.chapter-nav .dot.active {
+  background: var(--accent); box-shadow: 0 0 8px rgba(74,158,110,0.4);
+}
+.chapter-nav .dot:hover { background: var(--accent-dim); }
+@media (max-width: 768px) { .chapter-nav { display: none; } }
+.beat {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 52px 24px 60px; opacity: 1; transform: translateY(0);
+  transition: opacity 0.3s, transform 0.35s ease-in-out;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+.beat-inner { max-width: 680px; width: 100%; }
+.beat-title {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 40px 24px;
+  background: radial-gradient(ellipse at center, #081a12 0%, var(--bg) 70%);
+  position: relative; overflow: hidden;
+}
+.beat-title canvas { position: absolute; top: 0; left: 0; z-index: 0; }
+.beat-title .beat-inner { position: relative; z-index: 10; }
+.beat-title .series-name {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--accent-dim); margin-bottom: 40px;
+}
+.beat-title h1 {
+  font-family: var(--font-serif); font-size: clamp(42px, 7vw, 72px);
+  font-weight: 700; line-height: 1.1; color: var(--text);
+  margin-bottom: 16px; position: relative;
+}
+.beat-title h1.glitch::before, .beat-title h1.glitch::after {
+  content: attr(data-text); position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; opacity: 0.8;
+}
+.beat-title h1.glitch::before {
+  color: var(--brand-green); clip-path: inset(40% 0 30% 0);
+  animation: glitch-anim 3s infinite linear alternate-reverse; z-index: -1;
+}
+.beat-title h1.glitch::after {
+  color: var(--brand-cyan); clip-path: inset(60% 0 10% 0);
+  animation: glitch-anim2 2.5s infinite linear alternate-reverse; z-index: -1;
+}
+@keyframes glitch-anim {
+  0% { transform: translate(0); } 20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -1px); } 60% { transform: translate(-1px, 1px); }
+  80% { transform: translate(1px, -2px); } 100% { transform: translate(0); }
+}
+@keyframes glitch-anim2 {
+  0% { transform: translate(0); } 20% { transform: translate(2px, -2px); }
+  40% { transform: translate(-2px, 1px); } 60% { transform: translate(1px, -1px); }
+  80% { transform: translate(-1px, 2px); } 100% { transform: translate(0); }
+}
+.beat-title .subtitle {
+  font-family: var(--font-serif); font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400; font-style: italic; color: var(--accent);
+  margin-bottom: 60px;
+}
+.beat-title .chapter-num {
+  font-family: var(--font-mono); font-size: 13px; color: var(--text-dim);
+  letter-spacing: 2px;
+}
+.beat-scene .beat-inner { padding: 0; }
+.scene-location {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-dim); margin-bottom: 24px;
+  padding-left: 2px;
+}
+.scene-text {
+  font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
+  line-height: 1.8; color: var(--text);
+}
+.scene-text p { margin-bottom: 20px; }
+.scene-text p:last-child { margin-bottom: 0; }
+.dialogue { margin: 24px 0; padding-left: 0; }
+.dialogue .speaker {
+  font-family: var(--font-sans); font-weight: 600; font-size: 12px;
+  letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 6px; display: block;
+}
+.dialogue .line {
+  font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
+  line-height: 1.7; color: var(--text); margin-bottom: 20px; font-style: italic;
+}
+.beat-card .beat-inner {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 40px; max-width: 760px;
+}
+.card-label {
+  font-family: var(--font-sans); font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.card-label::before { content: ''; display: block; width: 16px; height: 1px; background: var(--accent); }
+.card-title {
+  font-family: var(--font-sans); font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700; color: var(--text); margin-bottom: 24px; line-height: 1.3;
+}
+.card-body {
+  font-family: var(--font-serif); font-size: 17px; line-height: 1.8;
+  color: var(--text-muted);
+}
+.card-body p { margin-bottom: 16px; }
+.card-body p:last-child { margin-bottom: 0; }
+.card-body strong { color: var(--text); font-weight: 600; }
+.card-table {
+  width: 100%; border-collapse: collapse; margin: 20px 0;
+  font-family: var(--font-mono); font-size: 13px;
+}
+.card-table th {
+  text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--accent-dim);
+  color: var(--accent); font-weight: 500; font-size: 10px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+}
+.card-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted);
+}
+.card-table tr:last-child td { border-bottom: none; }
+.card-table .row-highlight td { color: var(--text); font-weight: 600; }
+.card-table .row-accent td { color: var(--accent); font-weight: 600; }
+.card-table .num { text-align: right; }
+.card-table .negative { color: var(--red); }
+.card-table .positive { color: var(--green); }
+.margin-stack { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; }
+.margin-bar { display: flex; align-items: center; gap: 14px; }
+.margin-bar .label {
+  font-family: var(--font-sans); font-size: 11px; color: var(--text-dim);
+  width: 100px; text-align: right; flex-shrink: 0;
+}
+.margin-bar .bar-track {
+  flex: 1; height: 28px; background: var(--surface-2);
+  border-radius: 4px; overflow: hidden; position: relative;
+}
+.margin-bar .bar-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex; align-items: center; padding-left: 10px;
+}
+.margin-bar .bar-fill span {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--bg); font-weight: 600;
+}
+.beat-takeaway .beat-inner { max-width: 600px; text-align: center; padding: 20px 40px; }
+.takeaway-text {
+  font-family: var(--font-serif); font-size: clamp(22px, 3vw, 30px);
+  font-weight: 600; line-height: 1.5; color: var(--text); font-style: italic;
+}
+.equation-box {
+  background: var(--surface-2); border-left: 3px solid var(--accent);
+  padding: 20px; border-radius: 4px; margin: 20px 0;
+  font-family: var(--font-mono); font-size: 15px; color: var(--text);
+  line-height: 1.6;
+}
+.back-button {
+  position: fixed; top: 20px; left: 20px; z-index: 200;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--accent); padding: 10px 16px; border-radius: 6px;
+  font-family: var(--font-sans); font-size: 12px; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s;
+  text-decoration: none; display: flex; align-items: center; gap: 8px;
+}
+.back-button:hover { background: var(--accent); color: var(--bg); }
+.beat-counter {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  z-index: 100; font-family: var(--font-sans); font-size: 12px;
+  color: var(--text-dim); letter-spacing: 1px;
+}
+@media (max-width: 768px) {
+  .beat { padding: 52px 16px 60px; }
+  .beat-card .beat-inner { padding: 30px 20px; }
+  .beat-counter { font-size: 11px; }
+  .back-button { padding: 8px 12px; font-size: 11px; }
+}
+footer {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+  background: linear-gradient(to top, var(--bg), transparent);
+  padding: 20px; text-align: center;
+  font-family: var(--font-sans); font-size: 11px; color: var(--text-dim);
+  letter-spacing: 1px;
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<a href="/" class="back-button">← Back</a>
+
+<div class="chapter-nav" id="chapterNav"></div>
+
+<div class="beat beat-title" data-section="0">
+<canvas id="particleCanvas"></canvas>
+<div class="beat-inner">
+<div class="series-name">From Greenhorn to Gold(wo)man</div>
+<h1 class="glitch" data-text="Forecasts Under Fire">Forecasts Under Fire</h1>
+<div class="subtitle">Projections & Financial Modelling</div>
+<div class="chapter-num">Chapter 5 of 11</div>
+</div>
+</div>
+
+<!-- BEAT 2: SCENE — THE CONFERENCE TABLE -->
+<section class="beat beat-scene" data-section="0">
+<div class="beat-inner">
+<div class="scene-location">Königshof HQ, Bavaria — Conference Room</div>
+<div class="scene-text">
+<p>Le Pitch stands rigid at the head of the table, a thick Excel printout sprawled before him. His model boasts 40 tabs of linked spreadsheets—and not a single clear driver. Haircut flips through the pages with growing impatience.</p>
+<p class="dialogue"><span class="speaker">Haircut:</span><span class="line">"Forty tabs and this still doesn't answer why revenue dips in FY23?"</span></p>
+<p class="dialogue"><span class="speaker">Trace:</span><span class="line">"There's no driver for sales volume. It's all hardcoded."</span></p>
+<p>The room smells of blood. Le Pitch's bloated model is a black box, churning out numbers without logic. That evening, Trace rebuilds it from scratch—40 tabs reduced to a lean model with real drivers. By 3:00am, <strong>Königshof's financial engine is rebuilt—and it actually makes sense.</strong></p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 3: SCENE — LONDON STARTUP -->
+<section class="beat beat-scene" data-section="0">
+<div class="beat-inner">
+<div class="scene-location">Subtrax HQ, London — Magda's Office</div>
+<div class="scene-text">
+<p>Magda's office glows with dual monitors of scrolling code. She's written a custom Python script to project her SaaS startup's growth—1,000 lines that impress no one but her. Haircut dials in from his fund's boardroom, skim-reads the forecast, and suppresses a smirk.</p>
+<p class="dialogue"><span class="speaker">Haircut:</span><span class="line">"Your churn rate assumption is optimistic at best. You're projecting success on a napkin."</span></p>
+<p class="dialogue"><span class="speaker">Magda:</span><span class="line">"Our product virality will defy those assumptions."</span></p>
+<p><strong>Great product, but leadership = single point of failure?</strong> Haircut doesn't push. But later, he scribbles a note: the model's weakness might not be code or market—it might be Magda's pride.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 4: SCENE — BAVARIA, THE BANKER'S ENVELOPE -->
+<section class="beat beat-scene" data-section="0">
+<div class="beat-inner">
+<div class="scene-location">Königshof Bank Meeting, Bavaria</div>
+<div class="scene-text">
+<p>Wilhelm receives an immaculate 10-year forecast from a keen investment banker. Heavy with graphs and scenarios. He inhales the scent of fresh ink, sets the binder aside, and instead reaches for his fountain pen. He writes <strong>three numbers</strong> on the back of an envelope—one for revenue, profit, and debt three years ahead.</p>
+<p>No elaborate model. No 40 tabs. Just three handwritten numbers. <strong>Everyone forecasts differently</strong>, and at Königshof the most old-school method still reigns. None of these forecasts have been proven wrong...yet.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 5: NARRATOR — WHY FORECASTING MATTERS -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">Core concept</div>
+<div class="card-title">The Art of Predicting the Future</div>
+<div class="card-body">
+<p>Financial forecasting is the art of <strong>predicting the future with equations</strong>. The only certainty is that your forecast will be wrong to some degree. But the goal is to be <strong>usefully wrong</strong>—to create a forecast engine that is logical, flexible, and understood by everyone in the room.</p>
+<p>The best forecasts are grounded in real drivers: units sold, price per unit, customer acquisition rates, churn. Not blanket assumptions like "5% annual growth forever."</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 6: LINGO CARD — DRIVER-BASED FORECAST -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">Driver-Based Forecast</div>
+<div class="card-body">
+<p>A forecast built on underlying business metrics rather than flat percentages. For example, projecting revenue as <strong>units sold × price per unit</strong> (driver-based) instead of assuming generic 5% growth (static). This ties the model to real operational factors.</p>
+<p><strong>Why it matters:</strong> Every key number has intuition behind it. If you want to know how revenue changes if you sell 10% fewer units, change one driver and watch the cascade.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 7: LINGO CARD — HARDCODING -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">Hardcoding</div>
+<div class="card-body">
+<p>Entering a number directly into a model rather than deriving it with a formula. E.g., typing 100 as cost every year vs. linking cost to production volume.</p>
+<p><strong>The danger:</strong> Models become brittle. Change one assumption and hardcoded values don't adjust. Often breaks logic. Le Pitch's 40-tab model was a monument to hardcoding—lots of complexity, little clarity.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 8: LINGO CARD — BLACK BOX MODEL -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">Black Box Model</div>
+<div class="card-body">
+<p>A financial model that produces outputs without visible logic or transparency. Inputs go in, numbers come out, but it's unclear how.</p>
+<p><strong>The trust issue:</strong> Hard to debug. Hard to fix. Le Pitch's model was a classic black box—40 tabs, no clear drivers, impossible to trust. Trace's rebuild made it visible.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 9: LINGO CARD — CHURN -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">Churn</div>
+<div class="card-body">
+<p>The rate at which customers cancel or lose subscriptions. If a SaaS company has 100 customers and loses 5 in a month, monthly churn is 5%. Critical for SaaS forecasts because even growth stalls if churn is high.</p>
+<p><strong>In Magda's forecast:</strong> High churn assumption means she must acquire many new customers just to break even on user count. The model is only credible if churn is realistic.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 10: LINGO CARD — ARR (ANNUAL RECURRING REVENUE) -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">ARR (Annual Recurring Revenue)</div>
+<div class="card-body">
+<p>The yearly value of subscription contracts. If a customer pays £1,200 for a year of software, that adds £1,200 to ARR. Crucial for SaaS companies because it smooths seasonality and shows true recurring revenue potential.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 11: NARRATOR — KÖNIGSHOF'S DRIVER-BASED MODEL -->
+<section class="beat beat-card" data-section="2">
+<div class="beat-inner">
+<div class="card-label">Case Study</div>
+<div class="card-title">Building a Driver Model: Königshof Maschinen</div>
+<div class="card-body">
+<p>Königshof sells agricultural harvesting machines. Trace rebuilt their forecast around two core drivers:</p>
+<p><strong>Sales Volume</strong> (number of harvesters sold) and <strong>Average Price Per Harvester</strong>. Simple, but powerful.</p>
+<div class="equation-box">Revenue = Volume × Price</div>
+<p>In 2022, Königshof sold 375 harvesters at €295k average, yielding €110.6m revenue. In 2023, volume dropped to 286 units (–23.7%) despite price rising +10%, so revenue fell to €92.95m.</p>
+<p><strong>Crucially, this happened because the drivers changed</strong>—not because a hidden cell had a typo. The model is diagnostic: if you ask "why did revenue fall?", the answer is clear.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 12: NARRATOR — SUBTRAX'S ARR MODEL -->
+<section class="beat beat-card" data-section="2">
+<div class="beat-inner">
+<div class="card-label">Case Study</div>
+<div class="card-title">Building a Driver Model: Subtrax SaaS</div>
+<div class="card-body">
+<p>Subtrax sells software subscriptions—an <strong>Annual Recurring Revenue (ARR)</strong> model. Their drivers are different:</p>
+<p><strong>Number of Customers → Seats per Customer → Total Seats → Revenue per Seat</strong></p>
+<p>Magda's forecast assumed aggressive growth: customer adds up 103% YoY in 2023, then moderating. Churn drops from 22% (2022) to 18% (2023), implying product gets better. Price per seat rises +12% in 2023.</p>
+<p>By 2025, the model projects ~150 customers at ~93 seats each, generating £15.1m revenue. Different drivers than Königshof, but same philosophy: every number is grounded in something real.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 13: NARRATOR — REVENUE LOGIC -->
+<section class="beat beat-card" data-section="2">
+<div class="beat-inner">
+<div class="card-label">Forecasting Principle</div>
+<div class="card-title">Revenue Must Be Driven by Something Concrete</div>
+<div class="card-body">
+<p>Revenue is typically the first line of a forecast, and it <strong>must be driven by something concrete</strong>. For Königshof: units × price. For Subtrax: customers × seats/customer × price/seat.</p>
+<p>The benefit of splitting volume and price: you can benchmark each. Is Königshof's forecast of 430 harvesters by 2029 reasonable given industry demand? Is Subtrax's assumption of 100 seats per customer (in a few years) realistic given their current customer profile?</p>
+<p><strong>Avoiding magical thinking:</strong> "Let's grow revenue 50% for five years" without explaining how. Instead: show the volume and price moves that compound to 50%.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 14: LINGO CARD — GROSS MARGIN & COGS -->
+<section class="beat beat-card" data-section="2">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">Cost of Goods Sold (COGS) & Gross Margin</div>
+<div class="card-body">
+<p><strong>COGS</strong> is the direct cost to produce your product: for Königshof, steel and components per machine; for Subtrax, hosting, payment processing, and support staff per user.</p>
+<p><strong>Gross Margin = (Revenue – COGS) / Revenue</strong>. If Königshof keeps 32% gross margin, it means 68% of each euro goes to direct costs. Subtrax, as SaaS, might keep 75%+ because software scales better than hardware.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 15: NARRATOR — OPERATING COSTS & SCALING -->
+<section class="beat beat-card" data-section="2">
+<div class="beat-inner">
+<div class="card-label">Forecasting Principle</div>
+<div class="card-title">Operating Costs: Fixed, Variable, and Leverage</div>
+<div class="card-body">
+<p>Below gross profit, operating expenses (OpEx) like sales, marketing, G&A are often <strong>fixed or step-fixed</strong>. They don't move one-to-one with revenue. A small factory doesn't double in cost if you sell 10% more machines (fixed asset leverage). Marketing might be a budget choice (you decide how much to spend).</p>
+<p><strong>Operating leverage</strong> is the key insight: as revenue grows and fixed costs are spread across more units, EBIT margin improves. Good models show this explicitly—especially important for Subtrax, where software leverage is strong.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 16: LINGO CARD — CAPEX & DEPRECIATION -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">CapEx & Depreciation</div>
+<div class="card-body">
+<p><strong>CapEx (Capital Expenditures)</strong> is money spent to buy or upgrade long-term assets like machinery or software. Königshof buying a €1m lathe is CapEx—cash out now, but it benefits production for years.</p>
+<p><strong>Depreciation</strong> spreads that cost over time. If the lathe lasts 5 years, €200k hits the P&L each year (non-cash expense). The forecast must link CapEx to capacity needs and depreciation to profitability.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 17: LINGO CARD — WORKING CAPITAL -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">Working Capital (NWC)</div>
+<div class="card-body">
+<p><strong>NWC = Current Assets – Current Liabilities</strong> (often AR + Inventory – AP). As Königshof grows, they need more inventory in warehouses—cash that's tied up but not yet sold.</p>
+<p><strong>The cash surprise:</strong> A company can be profitable on the P&L but cash-poor if working capital grows too fast. Königshof once had 600 days of inventory in warehouses—that's capital locked in machines gathering dust.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 18: LINGO CARD — FREE CASH FLOW (FCF) -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">Free Cash Flow (FCF)</div>
+<div class="card-body">
+<p><strong>FCF = EBITDA – Interest – Taxes – CapEx – Changes in Working Capital</strong>. It's the cash available to distribute or reinvest after funding operations and asset needs.</p>
+<p><strong>Why it matters:</strong> A company might report strong EBITDA but low FCF if CapEx is high or working capital is ballooning. For valuation, FCF is what truly matters—it's the cash you can actually get.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 19: LINGO CARD — THREE-STATEMENT MODEL -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">Three-Statement Model</div>
+<div class="card-body">
+<p>The gold standard: P&L (income statement), Balance Sheet, and Cash Flow Statement all linked together. Net income feeds to retained earnings. Cash flow results reconcile with balance sheet changes.</p>
+<p><strong>Why it's hard:</strong> Circular references (debt affects interest; interest affects profit; profit affects retained earnings). But when done right, it's the most complete financial snapshot.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 20: LINGO CARD — SENSITIVITY ANALYSIS -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">Sensitivity Analysis</div>
+<div class="card-body">
+<p>Testing how changes in one or two assumptions affect the model's outputs. E.g., "If steel prices rise 30%, EBITDA falls by X%." Sensitivity isolates which drivers matter most.</p>
+<p><strong>Practical use:</strong> Build a table showing Königshof's profit if sales volumes are 10% higher or lower—quickly reveals which levers have the biggest impact.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 21: LINGO CARD — SCENARIO ANALYSIS -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">Scenario Analysis</div>
+<div class="card-body">
+<p>Bundling multiple assumptions into coherent stories: Base Case (most likely), Upside (strong demand, low churn, efficient scaling), Downside (recession hits volume, churn rises, margin pressure).</p>
+<p><strong>Power:</strong> Shows a range of outcomes without hand-waving. Wilhelm's three-number envelope was a rough scenario model: one for base, implicitly others for optimistic/pessimistic outcomes.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 22: NARRATOR — FORECAST CREDIBILITY -->
+<section class="beat beat-card" data-section="3">
+<div class="beat-inner">
+<div class="card-label">Reality Check</div>
+<div class="card-title">Credibility: The Hardest Part</div>
+<div class="card-body">
+<p>A logically sound forecast can still be wildly unrealistic. Magda's model assumes customer count grows 5x with no increase in sales staff—raises eyebrows. Is that defensible? Subtrax claims high customer count growth yet assumes churn improves—both true, or one compensating for the other?</p>
+<p><strong>Credibility checks:</strong> Does the forecast align with industry benchmarks? If Magda projects 100 seats per customer in three years, does that match her current customer profile or roadmap?</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 23: NARRATOR — BRIDGE & WATERFALL -->
+<section class="beat beat-card" data-section="3">
+<div class="beat-inner">
+<div class="card-label">Presentation Skill</div>
+<div class="card-title">Financial Bridges: Explaining the Gap</div>
+<div class="card-body">
+<p>A <strong>bridge</strong> explains how you got from old number to new number, attributing movements to drivers. E.g., "Revenue 2022: €110.6m. Volume down €18.7m. Price up €5.3m. Revenue 2023: €92.95m." Now the board sees exactly what moved.</p>
+<p><strong>Why it matters:</strong> Builds trust. Without a bridge, the forecast is magic. With one, it's transparent. Wilhelm's envelope method was implicitly a bridge—three numbers told a story of how the business might evolve.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 24: LINGO CARD — TOP-DOWN VS. BOTTOM-UP -->
+<section class="beat beat-card" data-section="3">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">Top-Down vs. Bottom-Up Forecasts</div>
+<div class="card-body">
+<p><strong>Top-down:</strong> Start with market size (€100m market, we'll get 5% = €5m sales). Quick, but sometimes detached from reality.</p>
+<p><strong>Bottom-up:</strong> Build from granular drivers (500 customers × £10k each = £5m). Usually more credible for internal plans.</p>
+<p><strong>Best practice:</strong> Build bottom-up for detail and logic. Cross-check with top-down to ensure your market share assumptions make sense.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 25: TAKEAWAY -->
+<section class="beat beat-takeaway" data-section="3">
+<div class="beat-inner">
+<div class="takeaway-text">A forecast is only useful if people understand it, trust it, and can tweak it. Complexity kills that. Trace's rebuild of Königshof proved it: simpler, driver-based, transparent forecasts win over black boxes every time.</div>
+</div>
+</section>
+
+<!-- BEAT 26: HOT TAKE — THE FORECAST IS ALWAYS WRONG -->
+<section class="beat beat-card" data-section="3">
+<div class="beat-inner">
+<div class="card-label">Hot Take</div>
+<div class="card-title">Your Forecast Will Be Wrong. That's Not the Point.</div>
+<div class="card-body">
+<p>Every forecast in this chapter—Trace's for Königshof, Magda's code-heavy projection, Wilhelm's envelope—will diverge from reality. Markets shift. Competitors surprise. Execution falters.</p>
+<p><strong>What matters:</strong> When reality diverges, can you understand why? A driver-based model lets you pinpoint the gap: "We sold fewer machines because market contracted, not because our model was nonsense." That diagnostic clarity is what separates a good forecast from a useless one.</p>
+</div>
+</div>
+</section>
+
+<!-- BEAT 27: FOOTER -->
+<section class="beat" style="justify-content: flex-end; padding-bottom: 100px;" data-section="3">
+<footer>End of Chapter 5 • Forecasts Under Fire • From Greenhorn to Gold(wo)man</footer>
+</section>
+
+<div class="beat-counter" id="beatCounter"></div>
+
+<script>
+const beats = Array.from(document.querySelectorAll('.beat'));
+let currentBeatIndex = 0;
+const totalBeats = beats.length;
+
+// Canvas particle animation
+const canvas = document.getElementById('particleCanvas');
+if (canvas) {
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 0.5;
+      this.vy = (Math.random() - 0.5) * 0.5;
+      this.size = Math.random() * 2;
+      this.opacity = Math.random() * 0.5 + 0.2;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+    }
+    draw() {
+      ctx.fillStyle = `rgba(74, 158, 110, ${this.opacity})`;
+      ctx.fillRect(this.x, this.y, this.size, this.size);
+    }
+  }
+
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < 40; i++) particles.push(new Particle());
+  }
+  initParticles();
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+}
+
+// Beat navigation
+function showBeat(index) {
+  if (index < 0 || index >= totalBeats) return;
+  currentBeatIndex = index;
+  beats.forEach((beat, i) => {
+    if (i === index) {
+      beat.style.opacity = '1';
+      beat.style.transform = 'translateY(0)';
+      beat.style.pointerEvents = 'auto';
+    } else {
+      beat.style.opacity = '0';
+      beat.style.transform = 'translateY(20px)';
+      beat.style.pointerEvents = 'none';
+    }
+  });
+  updateChapterNav();
+  updateProgressBar();
+  updateBeatCounter();
+  window.scrollTo(0, 0);
+}
+
+function updateChapterNav() {
+  const nav = document.getElementById('chapterNav');
+  nav.innerHTML = '';
+  for (let i = 0; i < totalBeats; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === currentBeatIndex ? ' active' : '');
+    dot.addEventListener('click', () => showBeat(i));
+    nav.appendChild(dot);
+  }
+}
+
+function updateProgressBar() {
+  const progress = ((currentBeatIndex + 1) / totalBeats) * 100;
+  document.getElementById('progressBar').style.width = progress + '%';
+}
+
+function updateBeatCounter() {
+  document.getElementById('beatCounter').textContent = `${currentBeatIndex + 1} / ${totalBeats}`;
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    showBeat(currentBeatIndex + 1);
+  } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    showBeat(currentBeatIndex - 1);
+  }
+});
+
+// Touch/swipe navigation
+let touchStartY = 0;
+document.addEventListener('touchstart', (e) => {
+  touchStartY = e.touches[0].clientY;
+});
+document.addEventListener('touchend', (e) => {
+  const touchEndY = e.changedTouches[0].clientY;
+  if (touchStartY - touchEndY > 50) showBeat(currentBeatIndex + 1);
+  if (touchEndY - touchStartY > 50) showBeat(currentBeatIndex - 1);
+});
+
+// Mouse wheel navigation
+document.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  if (e.deltaY > 0) showBeat(currentBeatIndex + 1);
+  else showBeat(currentBeatIndex - 1);
+}, { passive: false });
+
+// Initialize
+showBeat(0);
+</script>
+
+</body>
+</html>

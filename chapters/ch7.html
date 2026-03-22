@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="manifest" href="../manifest.json">
+<title>G2G Chapter 7 — Other People's Money: Capital Structure & Financing</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0c; --surface: #131318; --surface-2: #1a1a22; --border: #2a2a35;
+  --text: #e8e4df; --text-muted: #8a8590; --text-dim: #5a5560;
+  --accent: #b07ce8; --accent-dim: #7a55b0; --accent-bright: #d4a0ff;
+  --green: #4a9e6e; --red: #c45c4a; --blue: #5a8fc4; --purple: #8a3cc4;
+  --brand-purple: #6b2fa0; --brand-magenta: #d946ef;
+  --font-serif: 'EB Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { height: 100%; overflow: hidden; }
+body {
+  height: 100%; width: 100%; overflow: hidden;
+  background: var(--bg);
+  background-image: radial-gradient(circle, rgba(107,47,160,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--text);
+  font-family: var(--font-serif);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+body.party-mode .beat-title h1 {
+  background: linear-gradient(45deg, #ff006e, #ffbe0b, #8338ec, #3a86ff, #fb5607);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: rainbow-shift 3s infinite;
+}
+@keyframes rainbow-shift { 0%, 100% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(360deg); } }
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 2px;
+  background: linear-gradient(90deg, var(--brand-purple), var(--brand-magenta));
+  z-index: 1000; transition: width 0.1s linear;
+}
+.chapter-nav {
+  position: fixed; top: 50%; right: 20px; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 8px;
+}
+.chapter-nav .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border); cursor: pointer; transition: all 0.3s;
+}
+.chapter-nav .dot.active {
+  background: var(--accent); box-shadow: 0 0 8px rgba(138,60,196,0.4);
+}
+.chapter-nav .dot:hover { background: var(--accent-dim); }
+@media (max-width: 768px) { .chapter-nav { display: none; } }
+.beat {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 52px 24px 60px; opacity: 1; transform: translateY(0);
+  transition: opacity 0.3s, transform 0.35s ease-in-out;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+.beat-inner { max-width: 680px; width: 100%; }
+.beat-title {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 40px 24px;
+  background: radial-gradient(ellipse at center, #140a1a 0%, var(--bg) 70%);
+  position: relative; overflow: hidden;
+}
+.beat-title canvas { position: absolute; top: 0; left: 0; z-index: 0; }
+.beat-title .beat-inner { position: relative; z-index: 10; }
+.beat-title .series-name {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--accent-dim); margin-bottom: 40px;
+}
+.beat-title h1 {
+  font-family: var(--font-serif); font-size: clamp(42px, 7vw, 72px);
+  font-weight: 700; line-height: 1.1; color: var(--text);
+  margin-bottom: 16px; position: relative;
+}
+.beat-title h1.glitch::before, .beat-title h1.glitch::after {
+  content: attr(data-text); position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; opacity: 0.8;
+}
+.beat-title h1.glitch::before {
+  color: var(--brand-purple); clip-path: inset(40% 0 30% 0);
+  animation: glitch-anim 3s infinite linear alternate-reverse; z-index: -1;
+}
+.beat-title h1.glitch::after {
+  color: var(--brand-magenta); clip-path: inset(60% 0 10% 0);
+  animation: glitch-anim2 2.5s infinite linear alternate-reverse; z-index: -1;
+}
+@keyframes glitch-anim {
+  0% { transform: translate(0); } 20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -1px); } 60% { transform: translate(-1px, 1px); }
+  80% { transform: translate(1px, -2px); } 100% { transform: translate(0); }
+}
+@keyframes glitch-anim2 {
+  0% { transform: translate(0); } 20% { transform: translate(2px, -2px); }
+  40% { transform: translate(-2px, 1px); } 60% { transform: translate(1px, -1px); }
+  80% { transform: translate(-1px, 2px); } 100% { transform: translate(0); }
+}
+.beat-title .subtitle {
+  font-family: var(--font-serif); font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400; font-style: italic; color: var(--accent);
+  margin-bottom: 60px;
+}
+.beat-title .chapter-num {
+  font-family: var(--font-mono); font-size: 13px; color: var(--text-dim);
+  letter-spacing: 2px;
+}
+.beat-scene .beat-inner { padding: 0; }
+.scene-location {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-dim); margin-bottom: 24px;
+  padding-left: 2px;
+}
+.scene-text {
+  font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
+  line-height: 1.8; color: var(--text);
+}
+.scene-text p { margin-bottom: 20px; }
+.scene-text p:last-child { margin-bottom: 0; }
+.dialogue { margin: 24px 0; padding-left: 0; }
+.dialogue .speaker {
+  font-family: var(--font-sans); font-weight: 600; font-size: 12px;
+  letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 6px; display: block;
+}
+.dialogue .line {
+  font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
+  line-height: 1.7; color: var(--text); margin-bottom: 20px; font-style: italic;
+}
+.beat-card .beat-inner {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 40px; max-width: 760px;
+}
+.card-label {
+  font-family: var(--font-sans); font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.card-label::before { content: ''; display: block; width: 16px; height: 1px; background: var(--accent); }
+.card-title {
+  font-family: var(--font-sans); font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700; color: var(--text); margin-bottom: 24px; line-height: 1.3;
+}
+.card-body {
+  font-family: var(--font-serif); font-size: 17px; line-height: 1.8;
+  color: var(--text-muted);
+}
+.card-body p { margin-bottom: 16px; }
+.card-body p:last-child { margin-bottom: 0; }
+.card-body strong { color: var(--text); font-weight: 600; }
+.card-table {
+  width: 100%; border-collapse: collapse; margin: 20px 0;
+  font-family: var(--font-mono); font-size: 13px;
+}
+.card-table th {
+  text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--accent-dim);
+  color: var(--accent); font-weight: 500; font-size: 10px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+}
+.card-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted);
+}
+.card-table tr:last-child td { border-bottom: none; }
+.card-table .row-highlight td { color: var(--text); font-weight: 600; }
+.card-table .row-accent td { color: var(--accent); font-weight: 600; }
+.card-table .num { text-align: right; }
+.card-table .negative { color: var(--red); }
+.card-table .positive { color: var(--green); }
+.margin-stack { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; }
+.margin-bar { display: flex; align-items: center; gap: 14px; }
+.margin-bar .label {
+  font-family: var(--font-sans); font-size: 11px; color: var(--text-dim);
+  width: 100px; text-align: right; flex-shrink: 0;
+}
+.margin-bar .bar-track {
+  flex: 1; height: 28px; background: var(--surface-2);
+  border-radius: 4px; overflow: hidden; position: relative;
+}
+.margin-bar .bar-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex; align-items: center; padding-left: 10px;
+}
+.margin-bar .bar-fill span {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--bg); font-weight: 600;
+}
+.beat-takeaway .beat-inner { max-width: 600px; text-align: center; padding: 20px 40px; }
+.takeaway-text {
+  font-family: var(--font-serif); font-size: clamp(22px, 3vw, 30px);
+  font-weight: 600; line-height: 1.5; color: var(--text); font-style: italic;
+}
+.takeaway-text .highlight { color: var(--accent); font-style: normal; }
+.beat-equation .beat-inner { text-align: center; max-width: 600px; }
+.equation {
+  font-family: var(--font-mono); font-size: clamp(20px, 3vw, 32px);
+  color: var(--accent); letter-spacing: 2px; margin: 20px 0; font-weight: 500;
+}
+.equation-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px;
+}
+.equation-note {
+  font-family: var(--font-serif); font-size: 17px; color: var(--text-muted);
+  margin-top: 16px; font-style: italic;
+}
+.beat-narrator .beat-inner { max-width: 600px; }
+.narrator-text {
+  font-family: var(--font-serif); font-size: 18px; line-height: 1.8;
+  color: var(--text-muted); font-style: italic;
+}
+.narrator-text p { margin-bottom: 16px; }
+.beat-divider .beat-inner { text-align: center; }
+.divider-num {
+  font-family: var(--font-sans); font-size: 14px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+}
+.divider-title {
+  font-family: var(--font-serif); font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700; color: var(--text); line-height: 1.2;
+}
+.beat-hottake .beat-inner {
+  max-width: 640px; border: 2px solid var(--red); border-radius: 12px;
+  padding: 32px 40px; background: linear-gradient(135deg, rgba(196,92,74,0.08), transparent);
+}
+.hottake-text {
+  font-family: var(--font-sans); font-size: 16px; font-weight: 600;
+  line-height: 1.6; color: var(--text);
+}
+.comparison {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;
+}
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } }
+.comparison .company {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 24px;
+}
+.company-name {
+  font-family: var(--font-sans); font-size: 12px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 16px;
+}
+.company-stat {
+  display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px;
+}
+.company-stat .label { color: var(--text-dim); }
+.company-stat .value { color: var(--text); font-family: var(--font-mono); font-weight: 600; }
+.slider-group { margin: 24px 0; padding: 20px; background: var(--surface-2); border-radius: 8px; }
+.slider-group label {
+  display: block; font-family: var(--font-sans); font-size: 12px;
+  color: var(--text-muted); margin-bottom: 8px; font-weight: 600;
+}
+.slider-group input[type="range"] {
+  width: 100%; height: 6px; border-radius: 3px; background: var(--border);
+  outline: none; -webkit-appearance: none;
+}
+.slider-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 16px; height: 16px;
+  border-radius: 50%; background: var(--accent); cursor: pointer;
+}
+.slider-group input[type="range"]::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 50%; background: var(--accent);
+  cursor: pointer; border: none;
+}
+.slider-val { display: inline-block; margin-left: 12px; font-family: var(--font-mono); color: var(--accent); font-weight: 600; }
+.interactive-output {
+  margin-top: 20px; padding: 16px; background: var(--surface-2); border-radius: 8px;
+  font-family: var(--font-mono); font-size: 13px;
+}
+.output-row {
+  display: flex; justify-content: space-between; margin-bottom: 8px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+.output-row:last-child { border-bottom: none; margin-bottom: 0; }
+.output-label { color: var(--text-dim); }
+.output-value { color: var(--accent); font-weight: 600; }
+.brand-footer {
+  border-top: none;
+}
+.brand-footer .footer-logo { margin-bottom: 16px; opacity: 0.6; }
+.brand-footer .footer-text {
+  font-family: var(--font-sans); font-size: 11px; color: var(--text-dim);
+  line-height: 1.8; max-width: 500px; margin: 0 auto;
+}
+.brand-footer .footer-text a { color: var(--accent-dim); text-decoration: none; }
+.brand-footer .footer-text a:hover { color: var(--accent); }
+.brand-footer .footer-disclaimer {
+  font-family: var(--font-sans); font-size: 9px; color: var(--text-dim);
+  opacity: 0.6; margin-top: 20px; line-height: 1.6; max-width: 600px;
+  margin-left: auto; margin-right: auto;
+}
+.lingo-grid { display: grid; gap: 16px; margin: 20px 0; }
+.lingo-item {
+  background: var(--surface-2); border-left: 3px solid var(--accent);
+  padding: 16px; border-radius: 4px;
+}
+.lingo-term {
+  font-family: var(--font-sans); font-size: 12px; font-weight: 700;
+  letter-spacing: 1px; color: var(--accent); text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.lingo-def {
+  font-family: var(--font-serif); font-size: 15px; color: var(--text-muted);
+  line-height: 1.6;
+}
+.two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+@media (max-width: 768px) { .two-column { grid-template-columns: 1fr; } }
+
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px -10px;
+  padding: 0 10px;
+}
+.table-scroll::-webkit-scrollbar { height: 4px; }
+.table-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* Character icons */
+.char-icon {
+  width: 56px; height: 56px; border-radius: 50%; display: inline-flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+  overflow: hidden; margin-right: 10px; vertical-align: middle;
+}
+.char-icon svg { width: 100%; height: 100%; display: block; }
+.back-button {
+  position: fixed; top: max(12px, env(safe-area-inset-top, 12px)); left: 12px; z-index: 999;
+  background: rgba(10, 10, 12, 0.7);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.back-button:hover, .back-button:active {
+  background: rgba(107, 47, 160, 0.4);
+  border-color: var(--accent-dim);
+  color: var(--text);
+}
+.beat-counter {
+  position: fixed; bottom: max(16px, env(safe-area-inset-bottom, 16px)); right: 16px; z-index: 999;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(10, 10, 12, 0.7);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ===== TIKTOK MODE: MOBILE ===== */
+@media (max-width: 768px) {
+  .beat {
+    position: fixed; top: 0; left: 0; width: 100%;
+    min-height: 100vh; height: 100vh;
+    padding: 52px 20px 60px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* Long-content beats — top-align so user scrolls naturally */
+  .beat-scene { align-items: flex-start; padding-top: 52px; }
+  .beat-card { align-items: flex-start; padding-top: 52px; }
+  .beat-inner { max-width: 100%; }
+  .beat-card .beat-inner { padding: 20px 14px; }
+  .card-table { font-size: 11px; }
+  .card-table th, .card-table td { padding: 8px 6px; }
+  .scene-text, .card-body { font-size: 16px; line-height: 1.75; }
+  .beat-title h1 { font-size: 28px; }
+  .comparison { grid-template-columns: 1fr; }
+  .two-column { grid-template-columns: 1fr; }
+  .slider-group input[type="range"] { width: 100%; }
+  .lingo-def { font-size: 14px; }
+  .hottake-text { font-size: 15px; padding: 20px 16px; }
+  .beat-takeaway .beat-inner { padding: 20px 16px; }
+  .takeaway-text { font-size: 20px; }
+  .beat-narrator .beat-inner { max-width: 100%; }
+  .narrator-text { font-size: 16px; }
+  .progress-bar { height: 3px; }
+  /* Character secrets visible on mobile (no hover) */
+  .character-secret { opacity: 1; }
+  /* Footer beat centering */
+  .brand-footer { align-items: center; padding-top: 40px; }
+}
+
+@media (max-width: 480px) {
+  .card-table { font-size: 10px; }
+  .card-table th, .card-table td { padding: 6px 4px; }
+  .beat-title h1 { font-size: 24px; }
+  .beat { padding-left: 16px; padding-right: 16px; }
+}
+
+.swipe-hint {
+  position: fixed; bottom: max(70px, env(safe-area-inset-bottom, 70px)); left: 50%; transform: translateX(-50%);
+  z-index: 200; display: flex; flex-direction: column; align-items: center;
+  gap: 6px; opacity: 0; animation: swipe-hint-show 0.6s ease 2s forwards;
+  pointer-events: none;
+}
+.swipe-hint svg { width: 28px; height: 28px; animation: swipe-gesture 1.8s ease-in-out infinite; }
+.swipe-hint span { font-family: var(--font-sans); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
+@keyframes swipe-hint-show { to { opacity: 1; } }
+@keyframes swipe-gesture { 0%,100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-16px); opacity: 1; } }
+
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<a href="../index.html" class="back-button">← Back</a>
+<div class="beat-counter" id="beatCounter"></div>
+<div class="swipe-hint" id="swipeHint">
+<svg viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="1.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+<span>Swipe up</span>
+</div>
+
+<!-- BEAT 1: TITLE -->
+<section class="beat beat-title" data-section="0">
+<canvas id="particleCanvas"></canvas>
+<div class="beat-inner">
+<div class="series-name">From Greenhorn to Gold(wo)man — Chapter 7</div>
+<h1 class="glitch" data-text="Other People's Money">Other People's Money</h1>
+<div class="subtitle">Understanding Financing, Capital Structure & the Cost of Capital</div>
+<div class="chapter-num">CHAPTER 7 OF 11</div>
+</div>
+</section>
+
+<!-- BEAT 2: LONDON SCENE - HAIRCUT & SUBTRAX -->
+<section class="beat beat-scene" data-section="1">
+<div class="beat-inner">
+<div class="scene-location">London, SBCI Tower — Haircut's Office</div>
+<div class="scene-text">
+<p>Haircut leans back, eyes fixed on a cap table spreadsheet. Subtrax Ltd's shareholder list is short and lopsided. Magda holds ~73% equity—enough for absolute control. The rest belongs to a scattering of early backers, notably a Romanian LLP that now finds itself on the outside looking in. Haircut notes how that LLP's stake has been diluted over successive funding rounds. No board seat, no veto rights; effectively frozen out.</p>
+
+<p>He drums his fingers, considering the opening this presents. A marginalized investor might welcome an exit—perhaps even support a takeover. His phone buzzes with a calendar reminder: a flight to London in 12 hours. He's booked it quietly, not even telling his team. If the clouds burst, he wants to be on the ground. His phone glows with a reminder: a flight to London in 12 hours. He's booked it quietly. If the clouds burst, he wants to be on the ground.</p>
+</div>
+</section>
+
+<!-- BEAT 3: FRANKFURT SCENE - SILENT SIZING -->
+<section class="beat beat-scene" data-section="1">
+<div class="beat-inner">
+<div class="scene-location">Frankfurt, SBCI Tower — Trace's Office (Night)</div>
+<div class="scene-text">
+<p>Across the Thames in Frankfurt, Trace closes yet another Excel file that no one asked her to create: "Revolver Sizing – Königshof." She rubs her eyes. It's past midnight on an otherwise empty floor.</p>
+
+<p>By day, she answers Haircut's query about Königshof's WACC (Weighted Average Cost of Capital). By night, she went further—drafting an internal memo on how large a revolving credit facility Königshof Maschinen might need post-buyout. She calculates seasonal working capital swings, shock-absorbers for bad years, buffer for delayed subsidies. The result: a €41.5m revolving line, enough to cover a 600-day cash cycle (inventory sitting ~600 days, receivables ~90, payables ~45). No one requested this analysis. Trace anticipates the unasked questions. A highly leveraged Königshof will need liquidity support; others might harvest harvest season cash paper profits. She prints the memo, unsigned, and slips it onto the VP's desk before leaving.</p>
+</div>
+</section>
+
+<!-- BEAT 4: FRANKFURT SCENE - MEZZANINE MYTHOLOGIES -->
+<section class="beat beat-scene" data-section="1">
+<div class="beat-inner">
+<div class="scene-location">Frankfurt, Ballroom — A Mezzanine Debt Panel (Morning)</div>
+<div class="scene-text">
+<p>Wilhelm Königshof adjusts an ill-fitting conference lanyard around his neck. The ballroom is buzzing with financiers gathered for a panel titled "Mezzanine Debt: Myths & Reality." Wilhelm feels utterly out of place. At Haircut's gentle urging, he agreed to attend. "Just listen, no commitments," the banker had said. Now he sits quietly in the front row, flanked by polished investors half his age.</p>
+
+<p>The panelists toss around terms like "unitranche," "covenant-lite structures." Wilhelm's English is fluent, but this sounds like another language. One speaker cheerfully notes, "With mezz yields around 12%, investors are hungry." Covenants these days are pretty loose—just an incurrence test or two." The audience nods. Wilhelm's brow furrows. Finally, during Q&A, he raises a hand. In a calm baritone, he asks: "Excuse me… what does a covenant actually do?" A few chuckles ripple through the crowd. The moderator blinks, unsure if he misheard. Wilhelm continues, earnest: "I hear this word often. Covenant. What is its actual purpose?" An awkward hush falls. Then a panelist smiles and tackles it: explaining that covenants are promises—the financial conditions meant to protect lenders. Wilhelm listens intently, nodding as the explanation lands. He scribbles a note in his program: "Covenant = leash for lenders (protect from borrower mischief)." The panel moves on, but Wilhelm feels a small spark of empowerment; finance is starting to make sense, one honest question at a time.</p>
+</div>
+</section>
+
+<!-- BEAT 5: NARRATOR - FINANCING PHILOSOPHY -->
+<section class="beat beat-narrator" data-section="1">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>This chapter asks the central question: When a company needs money, how should it raise it? Not from operations (that's profitability). But from outside—from lenders, from investors, from capital markets. The answer shapes everything: who controls the company, how risky it is, whether it survives a downturn, and what it's worth.</p>
+
+<p>Two companies, two philosophies. As dawn breaks, the cast will collide with the realities of capital structure.</p>
+</div>
+</section>
+
+<!-- BEAT 6: DIVIDER - DEBT VS EQUITY -->
+<section class="beat beat-divider" data-section="2">
+<div class="beat-inner">
+<div class="divider-num">01 — Debt vs. Equity</div>
+<div class="divider-title">The Fundamental Trade-Off in How You Finance</div>
+</div>
+</section>
+
+<!-- BEAT 7: LINGO CARD - CAPITAL STACK -->
+<section class="beat beat-card" data-section="2">
+<div class="beat-inner">
+<div class="card-label">Terminology</div>
+<div class="card-title">Capital Stack: The Hierarchy of Your Funding Sources</div>
+<div class="lingo-grid">
+<div class="lingo-item">
+<div class="lingo-term">Capital Stack</div>
+<div class="lingo-def">The hierarchy of a company's funding sources, from safest (debt at the bottom) to riskiest (equity on top). Debt gets paid first; equity absorbs losses.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Mezzanine (Mezz)</div>
+<div class="lingo-def">A hybrid financing layer sitting between senior debt and equity. It's junior debt—riskier than bank loans, but safer than pure equity. Mezz investors demand higher returns (often 10–15% interest plus equity upside).</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Revolver (RCF)</div>
+<div class="lingo-def">A flexible credit line a company can draw, repay, and re-draw as needed—like a corporate credit card. Used for working capital swings. Ranks senior with other bank debt.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Covenant</div>
+<div class="lingo-def">A binding condition written into a loan or bond. The borrower must meet specific metrics (e.g., maintain Net Debt/EBITDA &lt; 4x, or EBITDA/Interest &gt; 3x). Break a covenant, and lenders can demand immediate repayment or seize assets.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Call Protection</div>
+<div class="lingo-def">The right to repay (call back) debt before maturity. For example, a high-yield bond might be non-callable for 2 years, guaranteeing investors a minimum interest period. Locks in their expected return.</div>
+</div>
+<div class="lingo-item">
+<div class="lingo-term">Term Loan A (TLA)</div>
+<div class="lingo-def">A senior amortizing loan, usually from banks, with a 5–10 year tenor and scheduled repayment. Lower interest than mezz; gets paid first after revolvers.</div>
+</div>
+</div>
+</section>
+
+<!-- BEAT 8: NARRATOR - DEBT VS EQUITY TRADE-OFFS -->
+<section class="beat beat-narrator" data-section="2">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>When companies need money, they face a fundamental choice: borrow it (debt) or sell part of the ownership (equity). Each has costs. Debt costs less on paper—lenders accept lower returns because they get paid first. But debt is inflexible: you must pay interest regardless of performance. Equity is the opposite: flexible, but expensive. Shareholders demand high returns because they're last in line.</p>
+
+<p>The optimal capital structure balances these trade-offs. Too much debt and you're fragile. Too much equity and you're inefficient. This chapter shows you how to think about that balance.</p>
+</div>
+</section>
+
+<!-- BEAT 9: CARD - CONTROL, COST, RISK, FLEXIBILITY -->
+<section class="beat beat-card" data-section="2">
+<div class="beat-inner">
+<div class="card-label">Framework</div>
+<div class="card-title">Debt vs. Equity: The Four Key Trade-Offs</div>
+<div class="comparison">
+<div class="company">
+<div class="company-name">Debt Financing</div>
+<div class="company-stat"><span class="label">Ownership Impact</span><span class="value">No Dilution</span></div>
+<div class="company-stat"><span class="label">Cost</span><span class="value">Cheaper (5-8%)</span></div>
+<div class="company-stat"><span class="label">Flexibility</span><span class="value">Constrained</span></div>
+<div class="company-stat"><span class="label">Risk</span><span class="value">Higher Default Risk</span></div>
+</div>
+<div class="company">
+<div class="company-name">Equity Financing</div>
+<div class="company-stat"><span class="label">Ownership Impact</span><span class="value">Dilutes Control</span></div>
+<div class="company-stat"><span class="label">Cost</span><span class="value">Expensive (15-25%)</span></div>
+<div class="company-stat"><span class="label">Flexibility</span><span class="value">Max Freedom</span></div>
+<div class="company-stat"><span class="label">Risk</span><span class="value">Lower Default Risk</span></div>
+</div>
+</div>
+<div class="card-body">
+<p style="margin-top: 20px;"><strong>The fundamental asymmetry:</strong> Debt is cheap but demands priority repayment. Equity is expensive but flexible. The optimal capital structure varies by business: a mature industrial firm like Königshof can carry more debt. A volatile growth company like Subtrax should carry less.</p>
+</div>
+</section>
+
+<!-- BEAT 10: HOT TAKE -->
+<section class="beat beat-hottake" data-section="2">
+<div class="beat-inner">
+<div class="hottake-text">Founders keep more upside by avoiding equity dilution, but they also keep all the downside risk. Debt lets you keep control at the cost of fixed obligations.</div>
+</div>
+</section>
+
+<!-- BEAT 11: DIVIDER - BUILDING THE CAPITAL STACK -->
+<section class="beat beat-divider" data-section="3">
+<div class="divider-num">02 — Building the Capital Stack</div>
+<div class="divider-title">Components of Financing in an LBO</div>
+</div>
+
+<!-- BEAT 12: CARD - REVOLVER -->
+<section class="beat beat-card" data-section="3">
+<div class="beat-inner">
+<div class="card-label">Component 1</div>
+<div class="card-title">Revolver (RCF) — The Safety Net</div>
+<div class="card-body">
+<p>A Revolving Credit Facility is the top layer. It's liquidity, not growth financing. Think of it as a corporate credit card. Königshof might secure a €30m revolver to buffer seasonal inventory swings. The company draws when cash is tight, repays when harvest season ends and cash flows in. It ranks pari-passu (equal seniority) with other senior debt but is used as-needed, not permanently drawn.</p>
+
+<p><strong>Cost:</strong> A commitment fee on unused amounts (0.5–0.75%) + floating interest when drawn (Euribor + 2%). <strong>Why needed:</strong> In a leveraged deal, the core debt service consumes most operating cash flow. A revolver handles timing gaps.</p>
+</div>
+</section>
+
+<!-- BEAT 13: CARD - TERM LOAN A -->
+<section class="beat beat-card" data-section="3">
+<div class="beat-inner">
+<div class="card-label">Component 2</div>
+<div class="card-title">Term Loan A (TLA) — The Workhorse</div>
+<div class="card-body">
+<p>A Term Loan A is the senior amortizing debt. It's provided by a syndicate of banks and is typically 5–10 year tenor with scheduled repayment. TLAs are secured by assets and rank first (after the revolver). Interest rates are lower than mezz because banks have first claim on cash flows and assets.</p>
+
+<p><strong>Example:</strong> Königshof might take a TLA of €50m from a bank syndicate, paying down 10% per year. It's senior secured debt, meaning if Königshof stumbles, banks can seize machines, receivables, etc. TLAs are the backbone of an LBO.</p>
+
+<p><strong>Cost:</strong> Perhaps Euribor + 2–3%. <strong>Benefit:</strong> Lower rates than mezz, but strict covenants and mandatory amortization.</p>
+</div>
+</section>
+
+<!-- BEAT 14: CARD - TERM LOAN B -->
+<section class="beat beat-card" data-section="3">
+<div class="beat-inner">
+<div class="card-label">Component 3</div>
+<div class="card-title">Term Loan B (TLB) — The Institutional Play</div>
+<div class="card-body">
+<p>A Term Loan B is the institutional piece, typically from non-bank lenders (debt funds, CLOs, insurance funds). TLBs are longer-term (7–8 years), minimal amortization (often just 1% per year), and carry higher rates (maybe Euribor + 4–5%) but call protection—the borrower can't repay early without a fee, locking in the investor's yield.</p>
+
+<p><strong>Example:</strong> Königshof's LBO might include a TLB of €70m at floating rate (Euribor + 4%), with a bullet payment due year 7. It sits just below the revolver and TLA in the stack, so it's less protected. In return for higher risk, institutional investors get higher returns and less restrictive covenants (compared to bank TLAs).</p>
+
+<p><strong>When to use:</strong> When banks max out their exposure. A TLB fills the gap between senior bank debt and equity.</p>
+</div>
+</section>
+
+<!-- BEAT 15: CARD - MEZZANINE DEBT -->
+<section class="beat beat-card" data-section="3">
+<div class="beat-inner">
+<div class="card-label">Component 4</div>
+<div class="card-title">Mezzanine Debt — The Bridge Between Debt & Equity</div>
+<div class="card-body">
+<p>Mezzanine debt sits in the middle—between senior debt and equity. It's subordinated (gets paid only after senior debt is satisfied) and carries high interest, often partially as cash interest (say 8%) and partially as PIK (Payment-in-Kind) interest that accrues to the debt balance.</p>
+
+<p><strong>Example:</strong> If Haircut wanted to maximize leverage on Königshof, he might add a €20m mezz piece at 10% cash + 3% PIK. Each year the loan grows by 3% (unpaid interest) and Haircut's debt gets larger. But investors accept equity-like risk in exchange for higher returns (often 12–15% blended). Mezz investors may also get warrants—the right to convert or buy equity upside. It's an incentive to help the company succeed.</p>
+
+<p><strong>When to use:</strong> When banks stop lending. Mezz fills the gap if senior lenders cap at €120m but you need €145m. Mezz investors step in, accepting higher risk.</p>
+</div>
+</section>
+
+<!-- BEAT 16: CARD - EQUITY -->
+<section class="beat beat-card" data-section="3">
+<div class="beat-inner">
+<div class="card-label">Component 5</div>
+<div class="card-title">Equity — The Foundation & Cushion</div>
+<div class="card-body">
+<p>Equity is the top and bottom layer—both the foundation and the ultimate cushion. In an LBO, the private equity sponsor's equity fills whatever gap isn't covered by debt. If the purchase price is €245m and total debt is €190m, the PE fund puts in €55m equity (plus management rollover, if any).</p>
+
+<p><strong>In Königshof's case:</strong> If Haircut's team determined ~€150m enterprise value, with €120m senior debt and €15m mezz, the PE fund would contribute ~€15m equity. The sponsor targets a 20–25% IRR over 5–7 years. Post-LBO, cash flows go first to servicing debt; whatever's left increases the value of that equity.</p>
+
+<p><strong>Key insight:</strong> Equity is the residual. If things go well, equity reaps the rewards. If things go badly, equity is wiped out first. Equity investors typically get board seats and operational control during the hold period.</p>
+</div>
+</section>
+
+<!-- BEAT 17: HOT TAKE -->
+<section class="beat beat-hottake" data-section="3">
+<div class="beat-inner">
+<div class="hottake-text">A capital stack is like a wedding cake in an earthquake: debt gets its piece first, equity gets whatever is left standing.</div>
+</div>
+</section>
+
+<!-- BEAT 18: DIVIDER - WACC -->
+<section class="beat beat-divider" data-section="4">
+<div class="divider-num">03 — WACC: The Weighted Average Cost of Capital</div>
+<div class="divider-title">Why Capital Structure Matters for Valuation</div>
+</div>
+
+<!-- BEAT 19: NARRATOR - WACC INTRO -->
+<section class="beat beat-narrator" data-section="4">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>Finance professionals obsess over a company's Weighted Average Cost of Capital (WACC). Why? Because WACC is the hurdle rate—the discount rate used in valuations. Lower WACC = higher valuation. So capital structure directly affects what a company is worth.</p>
+
+<p>WACC blends the cost of equity and the after-tax cost of debt, weighted by their proportions in the capital structure. A company with low debt has high WACC (expensive equity). A company with optimal debt has lower WACC (balanced mix). Too much debt and WACC climbs again (risky debt becomes expensive).</p>
+</div>
+</section>
+
+<!-- BEAT 20: EQUATION - WACC FORMULA -->
+<section class="beat beat-equation" data-section="4">
+<div class="beat-inner">
+<div class="equation-label">Weighted Average Cost of Capital</div>
+<div class="equation">WACC = (E/V × Re) + (D/V × Rd × (1 - Tc))</div>
+<div class="equation-note">E = market value of equity, D = market value of debt, V = E + D, Re = cost of equity, Rd = cost of debt, Tc = corporate tax rate. The magic: debt is cheaper because interest is tax-deductible (the "1 - Tc" term).</div>
+</section>
+
+<!-- BEAT 21: CARD - WACC CALCULATION FOR KÖNIGSHOF -->
+<section class="beat beat-card" data-section="4">
+<div class="beat-inner">
+<div class="card-label">Example</div>
+<div class="card-title">WACC Build: Königshof at Different Leverage Levels</div>
+<div class="card-body">
+<p><strong>Scenario 1: Königshof Unlevered (All-Equity Financed)</strong></p>
+<p>Cost of Equity (unlevered): ~10% (mature industrial business, cyclical risk)</p>
+<p><strong>WACC (100% equity) = 10%</strong></p>
+
+<p><strong>Scenario 2: Königshof at Moderate Leverage (50% debt, 50% equity)</strong></p>
+<p>Cost of Debt (senior loans): ~5% | After-tax: 5% × (1 - 0.30) = 3.5% | Cost of Equity (levered): ~15% (higher risk due to debt obligations) | WACC = (0.5 × 15%) + (0.5 × 3.5%) = 7.5% + 1.75% = <strong>9.25%</strong></p>
+
+<p><strong>Scenario 3: Königshof at High Leverage (80% debt, 20% equity)</strong></p>
+<p>Cost of Debt (blended): ~6% (higher rates as leverage rises, lenders demand compensation) | After-tax: 6% × (1 - 0.30) = 4.2% | Cost of Equity (levered): ~25% (equity is very thin, very risky) | WACC = (0.2 × 25%) + (0.8 × 4.2%) = 5% + 3.36% = <strong>8.36%</strong></p>
+
+<p style="margin-top: 20px;"><strong>Key insight:</strong> At 50% leverage, WACC drops to 9.25% (lower than 10% all-equity). But at 80% leverage, while WACC drops further to 8.36%, the cost of both debt and equity spiked (due to distress risk). The "optimal" capital structure is somewhere between, where WACC is minimized without flirting with insolvency.</p>
+</div>
+</section>
+
+<!-- BEAT 22: HOT TAKE -->
+<section class="beat beat-hottake" data-section="4">
+<div class="beat-inner">
+<div class="hottake-text">WACC is why financial engineers obsess over leverage. Lower WACC = higher valuation. But too much leverage makes both debt and equity expensive, defeating the purpose.</div>
+</div>
+</section>
+
+<!-- BEAT 23: DIVIDER - CREDIT METRICS -->
+<section class="beat beat-divider" data-section="5">
+<div class="divider-num">04 — Credit Metrics & Covenants</div>
+<div class="divider-title">How Lenders Manage Risk</div>
+</div>
+
+<!-- BEAT 24: CARD - LEVERAGE & INTEREST COVERAGE -->
+<section class="beat beat-card" data-section="5">
+<div class="beat-inner">
+<div class="card-label">Key Metrics</div>
+<div class="card-title">Net Debt/EBITDA & Interest Coverage</div>
+<div class="card-body">
+<p><strong>Net Debt / EBITDA (Leverage Ratio):</strong> This measures debt load relative to earnings. A company with €50m net debt and €16.9m EBITDA has a 3.0x leverage ratio. Lenders watch this closely. For industrial firms, 3.0–3.5x is acceptable; 4x+ is risky; 5x+ is aggressive.</p>
+
+<p><strong>EBITDA / Interest (Interest Coverage):</strong> This measures how easily the company can pay interest. If Königshof's EBITDA is €16.9m and annual interest is €2.5m, coverage is 6.8x (healthy). If coverage drops below 3x, lenders get nervous. Below 1.5x is distress territory.</p>
+
+<p><strong>Why they matter:</strong> These metrics feed into credit ratings and loan covenants. If a covenant requires "Leverage &lt; 4x," the company must stay below that threshold or face default. This forces operational discipline.</p>
+</div>
+</section>
+
+<!-- BEAT 25: CARD - COVENANT MATRIX -->
+<section class="beat beat-card" data-section="5">
+<div class="beat-inner">
+<div class="card-label">Reference</div>
+<div class="card-title">Rating Sensitivity: How Metrics Drive Credit Ratings</div>
+<div class="table-scroll"><table class="card-table">
+<thead>
+<tr><th>Rating</th><th>Leverage (ND/EBITDA)</th><th>Interest Coverage (EBITDA/Int)</th><th>Profile</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Investment Grade (BBB-)</strong></td><td class="num">&lt; 2.5x</td><td class="num">&gt; 5x</td><td>Stable, low default risk</td></tr>
+<tr><td><strong>Sub-Investment (BB)</strong></td><td class="num">2.5x – 3.5x</td><td class="num">3x – 5x</td><td>Moderate risk</td></tr>
+<tr><td><strong>High Yield (B)</strong></td><td class="num">3.5x – 5x</td><td class="num">2x – 3x</td><td>Speculative, elevated risk</td></tr>
+<tr><td><strong>Distressed (CCC)</strong></td><td class="num">&gt; 5x</td><td class="num">&lt; 2x</td><td>Highly risky, default possible</td></tr>
+</tbody>
+</table></div>
+<p style="margin-top: 20px;"><strong>Königshof's Position:</strong> Pre-buyout, Königshof has ~€40m net cash, EBITDA ~€16.9m. Its ND/EBITDA is negative (it's a net cash position)—ultra-conservative. Post-LBO with €120m net debt and (conservatively) €14m EBITDA, leverage would be 8.5x—deep into distressed territory. This is why Haircut must be confident in earnings stability and synergy realization.</p>
+</section>
+
+<!-- BEAT 26: NARRATOR - WHY COVENANTS MATTER -->
+<section class="beat beat-narrator" data-section="5">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>Covenants are rules. Break them and lenders have the legal right to demand immediate repayment—even if the company isn't technically bankrupt. They're safeguards against borrower mischief: no unexpected dividend payments, no debt subordination, no asset sales without lender consent.</p>
+
+<p>For Wilhelm and other borrowers, covenants can feel restrictive. But from a lender's perspective, they're essential. Without them, a borrower could strip assets, pay out dividends, and leave debt behind. Covenants prevent that.</p>
+</div>
+</section>
+
+<!-- BEAT 27: HOT TAKE -->
+<section class="beat beat-hottake" data-section="5">
+<div class="beat-inner">
+<div class="hottake-text">A covenant breach isn't just bad news—it's legal default. Lenders can foreclose, take control, or force a sale immediately.</div>
+</div>
+</section>
+
+<!-- BEAT 28: DIVIDER - DEBT VS EQUITY SUMMARY -->
+<section class="beat beat-divider" data-section="6">
+<div class="divider-num">05 — The Strategic Choice: Debt vs. Equity</div>
+<div class="divider-title">Comparing Subtrax & Königshof</div>
+</div>
+
+<!-- BEAT 29: CARD - COMPARATIVE CAPITAL STRUCTURE -->
+<section class="beat beat-card" data-section="6">
+<div class="beat-inner">
+<div class="card-label">Case Study</div>
+<div class="card-title">Capital Structures: Growth (Subtrax) vs. Stability (Königshof)</div>
+<div class="table-scroll"><table class="card-table">
+<thead>
+<tr><th>Factor</th><th>Subtrax (SaaS, Early Stage)</th><th>Königshof (Manufacturing, Mature)</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Ownership & Control</strong></td><td>Magda owns ~73%, minority diluted. Founders keep control through voting equity.</td><td>Wilhelm owns 100%, would dilute in LBO to PE sponsor control.</td></tr>
+<tr><td><strong>Cost of Capital</strong></td><td>Expensive. Equity investors demand 15–20% returns. No traditional debt (banks won't lend).</td><td>Cheaper post-LBO. Debt at 5% (tax-adjusted 3.5%), equity at 15%+. Blended WACC ~9%.</td></tr>
+<tr><td><strong>Risk Profile</strong></td><td>High. Churn, competitive pressure. Financially safer: no debt means no bankruptcy.</td><td>Lower revenue volatility (industrial contracts). But highly leveraged post-LBO; default risk significant if earnings miss.</td></tr>
+<tr><td><strong>Flexibility & Covenants</strong></td><td>Maximum. Magda runs Subtrax with no lender restrictions. Can pivot, reinvest, take on losses.</td><td>Post-LBO: tightly constrained. Debt covenants limit capex, dividends, leverage ratio. Wilhelm loses autonomy.</td></tr>
+<tr><td><strong>Upside vs. Downside</strong></td><td>Founders keep more upside (no debt dilution) but absorb all downside loss (equity goes to zero).</td><td>Post-LBO: PE sponsor captures most upside via equity; Wilhelm might have rollover equity or earn-out. Downside: debt could force asset sales or restructuring.</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<!-- BEAT 30: CARD - CAPITAL STACK MAPS -->
+<section class="beat beat-card" data-section="6">
+<div class="beat-inner">
+<div class="card-label">Visualization</div>
+<div class="card-title">Capital Stack Comparison: Two Companies, Two Strategies</div>
+<div class="card-body">
+<p><strong>SUBTRAX (Current Structure):</strong> 100% Equity. Magda and other shareholders own all. No debt. If Subtrax reaches scale profitably, equity reaps all returns. If it fails, equity loses everything but company doesn't default.</p>
+
+<p><strong>KÖNIGSHOF (Post-LBO Scenario):</strong> Multi-layered debt + equity. At the bottom: €30m Revolver (liquidity). €50m TLA (senior, amortizing). €70m TLB (institutional, longer-dated). €20m Mezz (high-yield, subordinated). Top: €25m PE equity (rollover for Wilhelm + management). Total: €195m for a €245m purchase (rest cash on balance sheet or seller financing).</p>
+
+<p style="margin-top: 20px;"><strong>The asymmetry:</strong> Subtrax's simplicity (all equity) makes it flexible but expensive. Königshof's leverage (mostly debt) makes it cheaper to structure but operationally constrained. Both strategies can work—context matters.</p>
+</div>
+</section>
+
+<!-- BEAT 31: TAKEAWAY -->
+<section class="beat beat-takeaway" data-section="6">
+<div class="beat-inner">
+<div class="takeaway-text">Capital structure is not a tax problem. It's a <span class="highlight">control</span> and <span class="highlight">risk</span> problem. Choose accordingly.</div>
+</div>
+</section>
+
+<!-- BEAT 32: SCENE - TRACE'S NOTEBOOK -->
+<section class="beat beat-scene" data-section="6">
+<div class="beat-inner">
+<div class="scene-location">London, Evening — Trace's Hotel Room</div>
+<div class="scene-text">
+<p>Trace reviews her notes before tomorrow's presentation to Haircut. She's distilled the chapter into a single page:</p>
+
+<p>"Capital Structure 101:<br>
+1. When companies need money, they choose: debt or equity.<br>
+2. Debt is cheaper (5% vs. 15% for equity) but demands fixed repayment and imposes covenants.<br>
+3. Equity is expensive but flexible—no mandatory payments, no default risk.<br>
+4. The optimal capital structure balances cost of capital against flexibility and default risk.<br>
+5. WACC (discount rate) is lower with some leverage but rises again at extreme leverage due to distress risk.<br>
+6. Lenders control borrowers via covenants and leverage ratios. Break a covenant = default, even if cash-generative.<br>
+7. For Königshof: buying at 8x debt/EBITDA is aggressive. Wilhelm's margin for error is thin."</p>
+
+<p>She circles point 7 twice. This is the crux. Haircut is pushing for maximum leverage—€120m debt, maybe €145m with mezz. But if Königshof's earnings drop 20% (economic downturn, lost customer, factory incident), EBITDA falls from €14m to €11.2m. Leverage balloons from 8.5x to 12.9x. Most covenants are breached. Lenders demand repayment. Königshof is forced to sell assets or restructure.</p>
+
+<p>"This is why leverage works when growth is predictable and downside is manageable. Manufacturing is neither. Wilhelm knows this. Haircut is betting that the cost-cutting synergies offset the risk. The question is: by how much?"</p>
+</div>
+</section>
+
+<!-- BEAT 33: HOT TAKE -->
+<section class="beat beat-hottake" data-section="6">
+<div class="beat-inner">
+<div class="hottake-text">A leveraged buyout is a bet that you can run the business profitably enough to service the debt. If you're wrong, the debt owns you.</div>
+</div>
+</section>
+
+<!-- BEAT 34: FINAL NARRATOR -->
+<section class="beat beat-narrator" data-section="7">
+<div class="beat-inner">
+<div class="narrator-text">
+<p>Capital structure—how you finance—is the architecture of business risk and return. Get it right, and the lower cost of capital unlocks value. Get it wrong, and debt becomes a guillotine.</p>
+
+<p>Königshof faces this choice now. Magda has already made hers: pure equity, high dilution, maximum flexibility. Haircut must decide: is Königshof worth the risk of levering it 8x over? Only time will tell.</p>
+</div>
+</section>
+
+<!-- BEAT 35: DIVIDER - TAKEAWAY -->
+<section class="beat beat-divider" data-section="7">
+<div class="divider-num">⁂</div>
+<div class="divider-title">Other People's Money Is Not Free</div>
+</div>
+
+<!-- BEAT 36: FINAL SCENE - THE CHOICE -->
+<section class="beat beat-scene" data-section="7">
+<div class="beat-inner">
+<div class="scene-location">London, Next Morning — Haircut's Office</div>
+<div class="scene-text">
+<p>Haircut sits across from Wilhelm. The cap table is spread between them. Haircut explains the deal: we buy Königshof for €245m. We layer in €120m debt (TLA + TLB), €20m mezz, and €55m equity. You keep a rollover stake of, say, 5%—worth maybe €10m in our eyes. Management incentives are tied to EBITDA targets. If you hit them, your stake grows with equity value. You earn your way back in.</p>
+
+<p>Wilhelm listens. He's skeptical of leverage, but he's also 68 and tired. A minority stake, a salary, and the potential for a €50m+ exit in 5 years? It's tempting.</p>
+
+<p>"What if we miss the EBITDA targets?" Wilhelm asks.</p>
+
+<p>Haircut doesn't flinch. "Then covenants will be breached, lenders will tighten controls, and the business enters restructuring. Your rollover stake gets diluted or wiped. But Königshof survives—it's still a solid manufacturer. Debt can be refinanced or restructured."</p>
+
+<p>"And if we don't survive?" Wilhelm presses.</p>
+
+<p>"Then debt holders take the assets, sell the business, and equity holders (you and me) lose everything. That's why we're cautious. That's why every model includes downside scenarios."</p>
+
+<p>Wilhelm nods. He understands now. "Other people's money," he says quietly. "It's never free."</p>
+
+<p>Haircut smiles. "It's the cheapest money you'll find. But it comes with a price: loss of control, operational constraints, and the constant pressure to hit targets."</p>
+
+<p>Wilhelm sets down his pen. "Let me think about it."</p>
+
+<p>Haircut nods. He's learned not to push. The best deals are the ones where both parties understand what they're signing up for.</p>
+</div>
+</section>
+
+<!-- BEAT 37: FINAL TAKEAWAY -->
+<section class="beat beat-takeaway" data-section="7">
+<div class="beat-inner">
+<div class="takeaway-text">The question is not whether to use <span class="highlight">other people's money</span>. The question is how much, and at what <span class="highlight">cost</span>.</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="beat brand-footer">
+<div class="beat-inner" style="text-align:center;">
+<svg style="width: 40px; height: 40px; margin: 0 auto 16px;" viewBox="0 0 100 100">
+<defs>
+<linearGradient id="g2g-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#6b2fa0;stop-opacity:1" />
+<stop offset="100%" style="stop-color:#d946ef;stop-opacity:1" />
+</linearGradient>
+</defs>
+<text x="50" y="65" font-family="Inter, sans-serif" font-size="48" font-weight="700" text-anchor="middle" fill="white">G2G</text>
+<path d="M 70 50 L 85 50 M 80 45 L 85 50 L 80 55" stroke="url(#g2g-gradient)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<div class="footer-text">
+<strong>From Greenhorn to Gold(wo)man</strong><br>
+Chapter 7 — Other People's Money: Financing & Capital Structure<br><br>
+© 2026 G2G Advisory Limited, registered England & Wales No. 16909015<br>
+<a href="https://g2gadvisory.co.uk">www.g2gadvisory.co.uk</a>
+</div>
+<div class="footer-disclaimer">
+<strong>Educational Disclaimer:</strong> This material is for educational purposes only. It is not financial advice. Nothing herein constitutes a recommendation to buy or sell securities, engage professional advisors, or pursue any business strategy. The financial information presented (Königshof, Subtrax) is illustrative and simplified. Actual company data, market conditions, and valuations differ significantly. All valuations, forecasts, and analyses are subject to uncertainty and risk. Readers should consult qualified financial, legal, and business advisors before making decisions. G2G Advisory makes no warranties regarding the accuracy or completeness of this material.
+</div>
+</div>
+</footer>
+
+<script>
+// Particle canvas for title beat
+(function() {
+  const canvas = document.getElementById('particleCanvas');
+  if (!canvas) return;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const ctx = canvas.getContext('2d');
+  const particles = Array.from({length: 50}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.4,
+    r: Math.random() * 2 + 0.5,
+    o: Math.random() * 0.4 + 0.15
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(176,124,232,${p.o})`; ctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    });
+    particles.forEach((a, i) => {
+      particles.slice(i+1).forEach(b => {
+        const dx = a.x - b.x, dy = a.y - b.y, dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 150) { ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(176,124,232,${0.1 * (1 - dist/150)})`; ctx.stroke(); }
+      });
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+  window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+})();
+
+// Konami code easter egg
+let konamiCode = [];
+const konamiSequence = [38,38,40,40,37,39,37,39,66,65];
+document.addEventListener('keydown', e => {
+  konamiCode.push(e.keyCode); konamiCode = konamiCode.slice(-10);
+  if (konamiCode.join(',') === konamiSequence.join(',')) document.body.classList.toggle('party-mode');
+});
+</script>
+
+<script>
+// PWA Swipe Engine
+let currentBeat = 0;
+let startY = 0;
+let isAnimating = false;
+const beats = document.querySelectorAll('.beat');
+const totalBeats = beats.length;
+
+function positionBeats() {
+  beats.forEach((beat, i) => {
+    if (i < currentBeat) {
+      beat.style.transform = 'translateY(-100vh)'; beat.style.opacity = '0';
+      beat.style.pointerEvents = 'none'; beat.style.visibility = 'hidden';
+    } else if (i === currentBeat) {
+      beat.style.transform = 'translateY(0)'; beat.style.opacity = '1';
+      beat.style.pointerEvents = 'auto'; beat.style.visibility = 'visible';
+    } else {
+      beat.style.transform = 'translateY(100vh)'; beat.style.opacity = '0';
+      beat.style.pointerEvents = 'none'; beat.style.visibility = 'hidden';
+    }
+  });
+}
+
+function updateCounter() {
+  const counter = document.getElementById('beatCounter');
+  if (counter) counter.textContent = `${currentBeat + 1} / ${totalBeats}`;
+}
+
+function updateProgress() {
+  const bar = document.getElementById('progressBar');
+  if (bar) bar.style.width = ((currentBeat + 1) / totalBeats * 100) + '%';
+}
+
+function goTo(index) {
+  if (isAnimating || index < 0 || index >= totalBeats) return;
+  isAnimating = true;
+  const hint = document.getElementById('swipeHint');
+  if (hint) { hint.style.opacity = '0'; setTimeout(() => hint.remove(), 500); try { localStorage.setItem('g2g-swipe-seen', '1'); } catch(e) {} }
+  const direction = index > currentBeat ? -1 : 1;
+  beats[currentBeat].style.transform = `translateY(${direction * 100}vh)`;
+  beats[currentBeat].style.opacity = '0';
+  beats[currentBeat].style.pointerEvents = 'none';
+  beats[currentBeat].style.visibility = 'hidden';
+  beats[index].style.transform = 'translateY(0)';
+  beats[index].style.opacity = '1';
+  beats[index].style.pointerEvents = 'auto';
+  beats[index].style.visibility = 'visible';
+  currentBeat = index;
+  updateCounter();
+  updateProgress();
+  document.querySelectorAll('.chapter-nav .dot').forEach((d, di) => d.classList.toggle('active', di === currentBeat));
+  setTimeout(() => { isAnimating = false; }, 350);
+}
+
+// Touch swipe
+document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+document.addEventListener('touchend', e => {
+  const beat = beats[currentBeat];
+  const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+  const atTop = beat.scrollTop <= 5;
+  const diff = startY - e.changedTouches[0].clientY;
+  if (diff > 50 && atBottom) goTo(currentBeat + 1);
+  if (diff < -50 && atTop) goTo(currentBeat - 1);
+}, { passive: true });
+
+// Mouse wheel with trackpad accumulator
+let wheelAccum = 0;
+let wheelTimer = null;
+document.addEventListener('wheel', e => {
+  const beat = beats[currentBeat];
+  const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+  const atTop = beat.scrollTop <= 5;
+
+  wheelAccum += e.deltaY;
+  clearTimeout(wheelTimer);
+  wheelTimer = setTimeout(() => { wheelAccum = 0; }, 200);
+
+  if (wheelAccum > 50 && atBottom) { wheelAccum = 0; goTo(currentBeat + 1); }
+  if (wheelAccum < -50 && atTop) { wheelAccum = 0; goTo(currentBeat - 1); }
+}, { passive: true });
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  const beat = beats[currentBeat];
+  const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+  const atTop = beat.scrollTop <= 5;
+
+  if (['ArrowDown', 'ArrowRight', 'PageDown'].includes(e.key)) {
+    if (atBottom) { e.preventDefault(); goTo(currentBeat + 1); }
+  } else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) {
+    if (atTop) { e.preventDefault(); goTo(currentBeat - 1); }
+  } else if (e.key === ' ') {
+    e.preventDefault();
+    if (atBottom) goTo(currentBeat + 1);
+    else beat.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+  } else if (e.key === 'Home') {
+    e.preventDefault(); goTo(0);
+  } else if (e.key === 'End') {
+    e.preventDefault(); goTo(totalBeats - 1);
+  }
+});
+
+const swipeHint = document.getElementById('swipeHint');
+if (swipeHint) {
+  try { if (localStorage.getItem('g2g-swipe-seen')) swipeHint.remove(); } catch(e) {}
+}
+
+positionBeats();
+updateCounter();
+updateProgress();
+</script>
+</body>
+</html>
