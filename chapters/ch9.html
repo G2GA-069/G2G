@@ -138,8 +138,13 @@ body.party-mode .beat-title h1 {
 .dialogue .speaker {
   font-family: var(--font-sans); font-weight: 600; font-size: 12px;
   letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold);
-  margin-bottom: 6px; display: block;
+  margin-bottom: 6px; display: flex; align-items: center; gap: 10px;
 }
+.speaker-portrait {
+  width: 32px; height: 32px; border-radius: 50%; object-fit: cover;
+  flex-shrink: 0; border: 1.5px solid var(--accent-dim);
+}
+
 .dialogue .line {
   font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
   line-height: 1.7; color: var(--text); margin-bottom: 20px; font-style: italic;
@@ -345,11 +350,11 @@ body.party-mode .beat-title h1 {
 <p>Le Pitch's desk faces the river. Three folders sit in a tray marked "Forge". His partner Alain has been mandated to run the dual-track process for Königshof. "Dual-track" means: prepare the company for either a PE sale or a minority investment. Both paths require one thing.</p>
 </div>
 <div class="dialogue">
-<span class="speaker">Le Pitch</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
 <div class="line">"Trace, you're lead analyst. Build me a football field by Friday."</div>
-<span class="speaker">Trace</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/trace.jpg" alt="">Trace</span>
 <div class="line">"A what?"</div>
-<span class="speaker">Le Pitch</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
 <div class="line">"A valuation. Range of values. Three methods. Comps, precedents, DCF. You have four days. Königshof is 120 years old. It has a balance sheet. It has a P&L. Make it speak."</div>
 </div>
 <div class="scene-text">
@@ -561,11 +566,11 @@ body.party-mode .beat-title h1 {
 <p>Haircut has not yet named a number. He is waiting for Wilhelm to commit to what "fair value" means.</p>
 </div>
 <div class="dialogue">
-<span class="speaker">Haircut</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/haircut.jpg" alt="">Haircut</span>
 <div class="line">"We buy companies every few years. We understand the industrial equipment market. Königshof is interesting."</div>
-<span class="speaker">Wilhelm</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/wilhelm.jpg" alt="">Wilhelm</span>
 <div class="line">"Interesting is not a price."</div>
-<span class="speaker">Haircut</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/haircut.jpg" alt="">Haircut</span>
 <div class="line">"Neither is pride. But that is what most family businesses are built on. We're trying to understand if there's another story."</div>
 </div>
 </div>
@@ -776,15 +781,15 @@ body.party-mode .beat-title h1 {
 <p>Trace presents the football field. Three bars. Three ranges. Comps: €80–100m. Precedents: €90–110m. DCF: €85–135m. The bars overlap. There's a reasonable range where all three methods agree: €85–110m.</p>
 </div>
 <div class="dialogue">
-<span class="speaker">Le Pitch</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
 <div class="line">"Three pillars. Clean work. What's the midpoint?"</div>
-<span class="speaker">Trace</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/trace.jpg" alt="">Trace</span>
 <div class="line">"€97m. Call it €100m for the story."</div>
-<span class="speaker">Le Pitch</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
 <div class="line">"Good. Now make the bars wider."</div>
-<span class="speaker">Trace</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/trace.jpg" alt="">Trace</span>
 <div class="line">"Why?"</div>
-<span class="speaker">Le Pitch</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
 <div class="line">"Because every advisor we show this to will want to argue their case. Give them room to argue."</div>
 </div>
 <div class="scene-text">

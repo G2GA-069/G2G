@@ -132,8 +132,13 @@ body.party-mode .beat-title h1 {
 .dialogue .speaker {
   font-family: var(--font-sans); font-weight: 600; font-size: 12px;
   letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent);
-  margin-bottom: 6px; display: block;
+  margin-bottom: 6px; display: flex; align-items: center; gap: 10px;
 }
+.speaker-portrait {
+  width: 32px; height: 32px; border-radius: 50%; object-fit: cover;
+  flex-shrink: 0; border: 1.5px solid var(--accent-dim);
+}
+
 .dialogue .line {
   font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
   line-height: 1.7; color: var(--text); margin-bottom: 20px; font-style: italic;
@@ -400,17 +405,17 @@ body.party-mode .beat-title h1 {
       <p>The conference room smells of leather and old oak. Floor 37. The Main snakes below, glinting in January sun. Wilhelm sits at the head of the polished table, his three-piece suit pressed to military precision. His left hand rests on a Mont Blanc fountain pen — the same pen his grandfather used to sign contracts in 1952.</p>
       <p>Haircut sits across from him, flanked by two lawyers in grey. Both sides have already signed the 120-page agreement. Now comes the symbolic moment: the purchase agreement itself.</p>
       <div class="dialogue">
-        <span class="speaker">Wilhelm</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/wilhelm.jpg" alt="">Wilhelm</span>
         <span class="line">"Blue ink. Schwarz ist für Beerdigungen."</span>
       </div>
       <p>Black is for funerals. He twists the cap off a blue Pelikan cartridge, dips the nib, and signs: <em>Wilhelm Ludwig von Raunheim</em>. His signature is a calligrapher's prayer — slow, deliberate, final.</p>
       <div class="dialogue">
-        <span class="speaker">Haircut</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/haircut.jpg" alt="">Haircut</span>
         <span class="line">"Congratulations, Wilhelm. You've just sold a 120-year-old factory."</span>
       </div>
       <p>Wilhelm sets the pen down and slides it across the table. A gesture. Not resignation. Transition.</p>
       <div class="dialogue">
-        <span class="speaker">Wilhelm</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/wilhelm.jpg" alt="">Wilhelm</span>
         <span class="line">"You've bought a 120-year-old factory, Herr Eisenberg. Whether you keep it that way is not my concern."</span>
       </div>
       <p>Trace stands at the edge of the room, notebook in hand. Her pen hovers over the page. She doesn't write down the conversation. She writes down the time: 09:47. The deal closes at this moment — even though the money won't clear for three days.</p>
@@ -703,7 +708,7 @@ body.party-mode .beat-title h1 {
       </div>
       <p>Wilhelm nods. He expected this.</p>
       <div class="dialogue">
-        <span class="speaker">Wilhelm</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/wilhelm.jpg" alt="">Wilhelm</span>
         <span class="line">"The factory has run the same way for 60 years. I am not interested in new systems. I am interested in new numbers."</span>
       </div>
       <div class="dialogue">
@@ -712,7 +717,7 @@ body.party-mode .beat-title h1 {
       </div>
       <p>She pulls up a dashboard on the new laptop. Real-time cash balance. Königshof currently sits at €18m liquid (down from €40m before the deal, due to the €22m purchase price paid at close). A red line shows the debt covenant: minimum €15m liquidity at all times.</p>
       <div class="dialogue">
-        <span class="speaker">Wilhelm</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/wilhelm.jpg" alt="">Wilhelm</span>
         <span class="line">"Three million euros from covenant breach. That is not a lot of room for weather."</span>
       </div>
       <div class="dialogue">
@@ -758,11 +763,11 @@ body.party-mode .beat-title h1 {
       <p>Trace visits on a Tuesday. She has not been to the factory since signing day. She pulls into the visitor car park — a new sign, new lines, Skarn Capital branding at the entrance — and walks into the management building.</p>
       <p>Wilhelm greets her in his office, same leather chairs, same photographs on the wall. But there is a new painting: a stylised chart showing "Post-Close Synergies: €1.8m Identified to Date."</p>
       <div class="dialogue">
-        <span class="speaker">Wilhelm</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/wilhelm.jpg" alt="">Wilhelm</span>
         <span class="line">"They have decorated my office with spreadsheets."</span>
       </div>
       <div class="dialogue">
-        <span class="speaker">Trace</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/trace.jpg" alt="">Trace</span>
         <span class="line">"That's what happens when accountants buy factories."</span>
       </div>
       <p>They walk the floor together. The line is busy — 18 harvesters in assembly stages 1 through 8. Wilhelm's eye catches a harvester near the end of the line.</p>
@@ -772,11 +777,11 @@ body.party-mode .beat-title h1 {
       <p>Spoken for. After 60 years, with 10,000 harvesters sold, the supply chain has evolved. The machines are now pre-sold. The factory now builds to order, not to forecast.</p>
       <p>Integration works in small ways.</p>
       <div class="dialogue">
-        <span class="speaker">Trace</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/trace.jpg" alt="">Trace</span>
         <span class="line">"The deal is real now, isn't it?"</span>
       </div>
       <div class="dialogue">
-        <span class="speaker">Wilhelm</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/wilhelm.jpg" alt="">Wilhelm</span>
         <span class="line">"The deal was real the moment I signed. This is just the numbers catching up."</span>
       </div>
     </div>

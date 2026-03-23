@@ -493,16 +493,17 @@
       height: 90px;
       margin: 0 auto 20px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-sans);
-      font-size: 32px;
-      font-weight: 700;
-      color: white;
       position: relative;
       z-index: 1;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .cast-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .cast-card:nth-child(1) .cast-avatar {
@@ -1161,7 +1162,7 @@
         Investment banking looks intimidating. Not because the ideas are hard, but because the explanations usually are.
       </p>
       <p class="enter-world-premise">
-        Five characters. Two companies. Eleven chapters. Zero formulas to memorise.
+        Five characters. Two companies. Thirteen chapters. Zero formulas to memorise.
       </p>
     </div>
   </section>
@@ -1174,7 +1175,7 @@
 
       <div class="cast-grid">
         <div class="cast-card">
-          <div class="cast-avatar">JB</div>
+          <div class="cast-avatar"><img src="images/le-pitch.jpg" alt="Jean-Baptiste Fournier"></div>
           <div class="cast-name">Jean-Baptiste Fournier</div>
           <div class="cast-nickname">"Le Pitch"</div>
           <div class="cast-title">MD, SBCI</div>
@@ -1182,7 +1183,7 @@
         </div>
 
         <div class="cast-card">
-          <div class="cast-avatar">T</div>
+          <div class="cast-avatar"><img src="images/trace.jpg" alt="Tracy Flint"></div>
           <div class="cast-name">Tracy Flint</div>
           <div class="cast-nickname">"Trace"</div>
           <div class="cast-title">Analyst II, SBCI</div>
@@ -1190,7 +1191,7 @@
         </div>
 
         <div class="cast-card">
-          <div class="cast-avatar">K</div>
+          <div class="cast-avatar"><img src="images/haircut.jpg" alt="Kai Eisenberg"></div>
           <div class="cast-name">Kai Eisenberg</div>
           <div class="cast-nickname">"Haircut"</div>
           <div class="cast-title">Principal, Skarn Capital</div>
@@ -1198,7 +1199,7 @@
         </div>
 
         <div class="cast-card">
-          <div class="cast-avatar">W</div>
+          <div class="cast-avatar"><img src="images/wilhelm.jpg" alt="Wilhelm von Raunheim"></div>
           <div class="cast-name">Wilhelm von Raunheim</div>
           <div class="cast-nickname">"The Builder"</div>
           <div class="cast-title">CEO, Königshof</div>
@@ -1206,7 +1207,7 @@
         </div>
 
         <div class="cast-card">
-          <div class="cast-avatar">M</div>
+          <div class="cast-avatar"><img src="images/magda.jpg" alt="Magdalena Kowalska"></div>
           <div class="cast-name">Magdalena Kowalska</div>
           <div class="cast-nickname">"Magda"</div>
           <div class="cast-title">Founder, Subtrax</div>

@@ -129,8 +129,13 @@ body.party-mode .beat-title h1 {
 .dialogue .speaker {
   font-family: var(--font-sans); font-weight: 600; font-size: 12px;
   letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent);
-  margin-bottom: 6px; display: block;
+  margin-bottom: 6px; display: flex; align-items: center; gap: 10px;
 }
+.speaker-portrait {
+  width: 32px; height: 32px; border-radius: 50%; object-fit: cover;
+  flex-shrink: 0; border: 1.5px solid var(--accent-dim);
+}
+
 .dialogue .line {
   font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
   line-height: 1.7; color: var(--text); margin-bottom: 20px; font-style: italic;
@@ -458,24 +463,24 @@ body.party-mode .beat-title h1 {
 <p>Magda paces before the glass, phone pressed to her ear. On the other end, Jean-Baptiste "Le Pitch" de Fournier, Subtrax's relentless investor.</p>
 
 <div class="dialogue">
-<span class="speaker">Le Pitch</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
 <span class="line">"Think about it. Königshof's maintenance contracts, long-term supply agreements. It could be positioned as a kind of SaaS—an industrial platform with recurring revenue streams!"</span>
 </div>
 
 <p>Magda pinches the bridge of her nose. Moments ago she answered Le Pitch's call expecting urgency. Instead, he's breathlessly rebranding a 120-year-old machinery manufacturer as cloud software.</p>
 
 <div class="dialogue">
-<span class="speaker">Magda</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/magda.jpg" alt="">Magda</span>
 <span class="line">"Jean-Baptiste, do you know Königshof's business?"</span>
 </div>
 
 <div class="dialogue">
-<span class="speaker">Le Pitch</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
 <span class="line">"They sell harvesters, one by one, in cycles. Seasonal, high-cost sales. Not monthly software subscriptions."</span>
 </div>
 
 <div class="dialogue">
-<span class="speaker">Magda</span>
+<span class="speaker"><img class="speaker-portrait" src="../images/magda.jpg" alt="">Magda</span>
 <span class="line">"But maintenance could be subscription-like. We just need to reshape the story. Investors love recurring revenue, high gross margins. The Subtrax of steel, right?"</span>
 </div>
 

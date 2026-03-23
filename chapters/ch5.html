@@ -129,8 +129,13 @@ body.party-mode .beat-title h1 {
 .dialogue .speaker {
   font-family: var(--font-sans); font-weight: 600; font-size: 12px;
   letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent);
-  margin-bottom: 6px; display: block;
+  margin-bottom: 6px; display: flex; align-items: center; gap: 10px;
 }
+.speaker-portrait {
+  width: 32px; height: 32px; border-radius: 50%; object-fit: cover;
+  flex-shrink: 0; border: 1.5px solid var(--accent-dim);
+}
+
 .dialogue .line {
   font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
   line-height: 1.7; color: var(--text); margin-bottom: 20px; font-style: italic;

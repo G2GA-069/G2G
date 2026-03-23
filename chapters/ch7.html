@@ -126,8 +126,13 @@ body {
 .dialogue .speaker {
   font-family: var(--font-sans); font-weight: 600; font-size: 12px;
   letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent);
-  margin-bottom: 6px; display: block;
+  margin-bottom: 6px; display: flex; align-items: center; gap: 10px;
 }
+.speaker-portrait {
+  width: 32px; height: 32px; border-radius: 50%; object-fit: cover;
+  flex-shrink: 0; border: 1.5px solid var(--accent-dim);
+}
+
 .dialogue .line {
   font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
   line-height: 1.7; color: var(--text); margin-bottom: 20px; font-style: italic;
@@ -327,20 +332,20 @@ body {
       <p>She has modelled the debt. She has stress-tested the cash flows. She has sensitised the exit multiple. But she has never once asked the obvious question.</p>
       <p>She picks up her phone and texts Le Pitch.</p>
       <div class="dialogue">
-        <span class="speaker">Trace</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/trace.jpg" alt="">Trace</span>
         <span class="line">"Quick question. The Skarn equity cheque — €55m. Where does that actually come from?"</span>
       </div>
       <p>Three dots appear. Then disappear. Then appear again. Le Pitch is composing something longer than "Google it."</p>
       <div class="dialogue">
-        <span class="speaker">Le Pitch</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
         <span class="line">"From their fund. Skarn Capital Fund III. €1.2 billion committed."</span>
       </div>
       <div class="dialogue">
-        <span class="speaker">Trace</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/trace.jpg" alt="">Trace</span>
         <span class="line">"Committed by whom?"</span>
       </div>
       <div class="dialogue">
-        <span class="speaker">Le Pitch</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
         <span class="line">"Now you are asking the right question. Come to the office early tomorrow. I will draw you a picture."</span>
       </div>
     </div>
@@ -495,24 +500,24 @@ body {
     <div class="scene-text">
       <p>Le Pitch is already on his second espresso. He has a whiteboard marker in his hand and a clean board behind him. Trace sits across from him, notebook open.</p>
       <div class="dialogue">
-        <span class="speaker">Le Pitch</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
         <span class="line">"Draw a graph. X-axis is time — years one through ten. Y-axis is the fund's cumulative net IRR. What does it look like?"</span>
       </div>
       <div class="dialogue">
-        <span class="speaker">Trace</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/trace.jpg" alt="">Trace</span>
         <span class="line">"Starts negative. Management fees go out, capital gets called, but nothing has been sold yet. Then as exits happen, it climbs."</span>
       </div>
       <div class="dialogue">
-        <span class="speaker">Le Pitch</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
         <span class="line">"Exactly. And the shape of that curve?"</span>
       </div>
       <div class="dialogue">
-        <span class="speaker">Trace</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/trace.jpg" alt="">Trace</span>
         <span class="line">"Like a J."</span>
       </div>
       <p>Le Pitch draws it on the board. A steep dip in years one and two, a gradual climb through year four, then a sharp rise as exits materialise in years five through seven.</p>
       <div class="dialogue">
-        <span class="speaker">Le Pitch</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
         <span class="line">"This is why LPs are patient capital. If you judge a fund at year two, every fund in history looks like a disaster. The art is knowing whether the J will curve upward — or stay flat."</span>
       </div>
     </div>
@@ -588,12 +593,12 @@ body {
       <p>Haircut stands in a wood-panelled boardroom. Twelve people sit around a rectangular table. The Bayerische Versicherungskammer — Bavaria's largest public insurance group — is considering a €90m commitment to Skarn Capital Fund III.</p>
       <p>He clicks to slide 34. The headline reads: <em>"Industriewerk Augsburg — Fund II Case Study."</em></p>
       <div class="dialogue">
-        <span class="speaker">Haircut</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/haircut.jpg" alt="">Haircut</span>
         <span class="line">"We acquired Augsburg in 2018 at 6.5 times EBITDA. Entry equity: €48 million. We exited in 2022 at 8.0 times. Exit equity: €149 million. A 3.1x multiple of invested capital."</span>
       </div>
       <p>He clicks to the next slide. A horizontal bar chart — the value creation bridge.</p>
       <div class="dialogue">
-        <span class="speaker">Haircut</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/haircut.jpg" alt="">Haircut</span>
         <span class="line">"But the 3.1x is not the answer. It is the question. The answer is: where did the 3.1x come from?"</span>
       </div>
       <p>The room is silent. The CIO of the pension fund leans forward.</p>
@@ -717,19 +722,19 @@ body {
     <div class="scene-text">
       <p>Le Pitch caps his whiteboard marker. The board is covered in arrows: LP → Fund → Portfolio Company → Exit → Distribution → LP. A circle. An ecosystem.</p>
       <div class="dialogue">
-        <span class="speaker">Trace</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/trace.jpg" alt="">Trace</span>
         <span class="line">"So when we pitch Königshof to Skarn, we are not just pitching a company. We are pitching a use of their fund's capital that has to beat every other deal they could do."</span>
       </div>
       <div class="dialogue">
-        <span class="speaker">Le Pitch</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
         <span class="line">"Correct. And every other deal they have already done. Because if Königshof returns 1.5x and their average is 2.5x, Königshof drags down the fund. Haircut does not want to explain a below-average deal to his LPs."</span>
       </div>
       <div class="dialogue">
-        <span class="speaker">Trace</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/trace.jpg" alt="">Trace</span>
         <span class="line">"What return does Skarn need on Königshof?"</span>
       </div>
       <div class="dialogue">
-        <span class="speaker">Le Pitch</span>
+        <span class="speaker"><img class="speaker-portrait" src="../images/le-pitch.jpg" alt="">Le Pitch</span>
         <span class="line">"Minimum 2.0x gross. Target 2.5x. Dream scenario 3.0x or above. Below 2.0x and the deal is a drag. Below 1.5x and it is a write-down they will spend three years explaining."</span>
       </div>
       <p>Trace writes in her notebook: <em>"€55m equity → need €110m+ back in 5 years. That means exit EV of ~€170m at 3.5x debt paydown. Realistic?"</em></p>
