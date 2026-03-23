@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="manifest" href="../manifest.json">
+<title>G2G Chapter 17 — The Industrials Special</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0c; --surface: #131318; --surface-2: #1a1a22; --border: #2a2a35;
+  --text: #e8e4df; --text-muted: #8a8590; --text-dim: #5a5560;
+  --accent: #b07ce8; --accent-dim: #7a55b0; --accent-bright: #d4a0ff;
+  --green: #4a9e6e; --red: #c45c4a; --blue: #5a8fc4; --purple: #8a3cc4;
+  --brand-purple: #6b2fa0; --brand-magenta: #d946ef;
+  --font-serif: 'EB Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { height: 100%; overflow: hidden; }
+body {
+  height: 100%; width: 100%; overflow: hidden;
+  background: var(--bg);
+  background-image: radial-gradient(circle, rgba(107,47,160,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--text);
+  font-family: var(--font-serif);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 2px;
+  background: linear-gradient(90deg, var(--brand-purple), var(--brand-magenta));
+  z-index: 1000; transition: width 0.1s linear;
+}
+.chapter-nav {
+  position: fixed; top: 50%; right: 20px; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 8px;
+}
+.chapter-nav .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border); cursor: pointer; transition: all 0.3s;
+}
+.chapter-nav .dot.active {
+  background: var(--accent); box-shadow: 0 0 8px rgba(176,124,232,0.4);
+}
+.chapter-nav .dot:hover { background: var(--accent-dim); }
+@media (max-width: 768px) { .chapter-nav { display: none; } }
+.beat {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 52px 24px 60px; opacity: 1; transform: translateY(0);
+  transition: opacity 0.3s, transform 0.35s ease-in-out;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+.beat-inner { max-width: 680px; width: 100%; }
+.beat-title {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 40px 24px;
+  background: radial-gradient(ellipse at center, #1a1028 0%, var(--bg) 70%);
+  position: relative; overflow: hidden;
+}
+.beat-title canvas { position: absolute; top: 0; left: 0; z-index: 0; }
+.beat-title .beat-inner { position: relative; z-index: 10; }
+.beat-title .series-name {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--accent-dim); margin-bottom: 40px;
+}
+.beat-title .g2g-logo {
+  width: 60px; height: 60px; margin-bottom: 30px; opacity: 0.8;
+}
+.beat-title h1 {
+  font-family: var(--font-serif); font-size: clamp(42px, 7vw, 72px);
+  font-weight: 700; line-height: 1.1; color: var(--text);
+  margin-bottom: 16px; position: relative;
+}
+.beat-title .subtitle {
+  font-family: var(--font-serif); font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400; font-style: italic; color: var(--accent);
+  margin-bottom: 60px;
+}
+.beat-title .chapter-num {
+  font-family: var(--font-mono); font-size: 13px; color: var(--text-dim);
+  letter-spacing: 2px;
+}
+.beat-scene .beat-inner { padding: 0; }
+.scene-location {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-dim); margin-bottom: 24px;
+  padding-left: 2px;
+}
+.scene-text {
+  font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 21px);
+  line-height: 1.8; color: var(--text);
+}
+.scene-text p { margin-bottom: 20px; }
+.scene-text p:last-child { margin-bottom: 0; }
+.beat-card .beat-inner {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 40px; max-width: 760px;
+}
+.card-label {
+  font-family: var(--font-sans); font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.card-label::before { content: ''; display: block; width: 16px; height: 1px; background: var(--accent); }
+.card-title {
+  font-family: var(--font-sans); font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700; color: var(--text); margin-bottom: 24px; line-height: 1.3;
+}
+.card-body {
+  font-family: var(--font-serif); font-size: 17px; line-height: 1.8;
+  color: var(--text-muted);
+}
+.card-body p { margin-bottom: 16px; }
+.card-body p:last-child { margin-bottom: 0; }
+.card-body strong { color: var(--text); font-weight: 600; }
+
+/* Metrics and Formula Boxes */
+.metric-item {
+  background: var(--surface-2); border-left: 3px solid var(--accent);
+  padding: 20px; margin: 16px 0; border-radius: 4px;
+  transition: all 0.3s ease;
+}
+.metric-item:hover { border-left-color: var(--accent-bright); }
+.metric-name {
+  font-family: var(--font-sans); font-size: 12px; font-weight: 700;
+  letter-spacing: 1px; color: var(--accent); text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.metric-def {
+  font-family: var(--font-serif); font-size: 15px; color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.formula-box {
+  background: var(--surface-2); border: 1px solid var(--accent-dim);
+  border-radius: 8px; padding: 24px; margin: 20px 0;
+}
+.formula-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+  font-weight: 700;
+}
+.formula-text {
+  font-family: var(--font-mono); font-size: 16px; color: var(--text);
+  word-break: break-word; line-height: 1.6; margin-bottom: 12px;
+}
+.formula-note {
+  font-family: var(--font-serif); font-size: 14px; color: var(--text-muted);
+  font-style: italic; line-height: 1.5;
+}
+
+.example-box {
+  background: linear-gradient(135deg, rgba(74,158,110,0.08), transparent);
+  border: 1px solid var(--green); border-radius: 8px; padding: 24px; margin: 20px 0;
+}
+.example-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--green); margin-bottom: 12px;
+  font-weight: 700;
+}
+.example-body {
+  font-family: var(--font-serif); font-size: 15px; color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.warning-box {
+  background: linear-gradient(135deg, rgba(196,92,74,0.08), transparent);
+  border: 1px solid var(--red); border-radius: 8px; padding: 24px; margin: 20px 0;
+}
+.warning-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--red); margin-bottom: 12px;
+  font-weight: 700;
+}
+.warning-body {
+  font-family: var(--font-serif); font-size: 15px; color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.bullet-list {
+  list-style: none; margin: 16px 0; padding: 0;
+}
+.bullet-list li {
+  margin-bottom: 12px; padding-left: 24px; position: relative;
+  font-family: var(--font-serif); font-size: 15px; color: var(--text-muted);
+  line-height: 1.6;
+}
+.bullet-list li::before {
+  content: '▪'; position: absolute; left: 8px; color: var(--accent);
+  font-weight: 700;
+}
+
+.comparison-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px; margin: 20px 0;
+}
+.comparison-col {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 20px;
+}
+.comparison-header {
+  font-family: var(--font-sans); font-size: 12px; font-weight: 700;
+  letter-spacing: 1px; color: var(--accent); text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.comparison-body {
+  font-family: var(--font-serif); font-size: 14px; color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.section-divider {
+  border-top: 1px solid var(--border); margin: 32px 0; padding: 0;
+}
+
+.part-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-dim); margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.beat-takeaway .beat-inner { max-width: 600px; text-align: center; padding: 20px 40px; }
+.takeaway-text {
+  font-family: var(--font-serif); font-size: clamp(22px, 3vw, 30px);
+  font-weight: 600; line-height: 1.5; color: var(--text); font-style: italic;
+}
+.takeaway-text .highlight { color: var(--accent); font-style: normal; }
+
+.beat-divider .beat-inner { text-align: center; }
+.divider-num {
+  font-family: var(--font-sans); font-size: 14px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+}
+.divider-title {
+  font-family: var(--font-serif); font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700; color: var(--text); line-height: 1.2;
+}
+
+.back-button {
+  position: fixed; top: max(12px, env(safe-area-inset-top, 12px)); left: 12px; z-index: 999;
+  background: rgba(10, 10, 12, 0.85);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-left: 2px solid var(--accent, #b07ce8);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.back-button:hover, .back-button:active {
+  background: rgba(107, 47, 160, 0.4);
+  border-color: var(--accent-dim);
+  color: var(--text);
+}
+
+.beat-counter {
+  position: fixed; bottom: max(16px, env(safe-area-inset-bottom, 16px)); right: 16px; z-index: 999;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(10, 10, 12, 0.7);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+@media (max-width: 768px) {
+  .beat {
+    position: fixed; top: 0; left: 0; width: 100%;
+    min-height: 100vh; height: 100vh;
+    padding: 52px 20px 60px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .beat-scene {
+    align-items: flex-start;
+    padding-top: 52px;
+  }
+  .beat-card {
+    align-items: flex-start;
+    padding-top: 52px;
+  }
+  .beat-inner { max-width: 100%; }
+  .beat-card .beat-inner { padding: 20px 14px; }
+  .scene-text, .card-body { font-size: 16px; line-height: 1.75; }
+  .beat-title h1 { font-size: 28px; }
+  .metric-item { font-size: 14px; }
+  .progress-bar { height: 3px; }
+}
+
+.swipe-hint {
+  position: fixed; bottom: max(70px, env(safe-area-inset-bottom, 70px)); left: 50%; transform: translateX(-50%);
+  z-index: 200; display: flex; flex-direction: column; align-items: center;
+  gap: 6px; opacity: 0; animation: swipe-hint-show 0.6s ease 2s forwards;
+  pointer-events: none;
+}
+.swipe-hint svg { width: 28px; height: 28px; animation: swipe-gesture 1.8s ease-in-out infinite; }
+.swipe-hint span { font-family: var(--font-sans); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
+@keyframes swipe-hint-show { to { opacity: 1; } }
+@keyframes swipe-gesture { 0%,100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-16px); opacity: 1; } }
+
+.beat-finale {
+  background: radial-gradient(ellipse at center, #1a1028 0%, var(--bg) 70%);
+  position: relative; overflow: hidden;
+}
+.beat-finale canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+.finale-pre {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--accent-dim); margin-bottom: 32px;
+}
+.finale-title {
+  font-family: var(--font-serif); font-size: clamp(36px, 7vw, 64px);
+  font-weight: 700; line-height: 1.1;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent-bright) 50%, var(--brand-magenta) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 28px;
+}
+.finale-line {
+  width: 60px; height: 2px; margin: 0 auto 28px;
+  background: linear-gradient(90deg, var(--brand-purple), var(--brand-magenta));
+}
+.finale-sub {
+  font-family: var(--font-sans); font-size: 13px; line-height: 1.8;
+  letter-spacing: 0.5px; color: var(--text-muted);
+}
+
+.resume-toast {
+  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+  z-index: 1000; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px 24px; display: flex; align-items: center; gap: 16px;
+  font-family: var(--font-sans); font-size: 13px; color: var(--text);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  animation: toast-in 0.4s ease-out;
+}
+.resume-toast button {
+  padding: 6px 14px; border-radius: 6px; border: none; font-family: var(--font-sans);
+  font-size: 12px; font-weight: 600; cursor: pointer; letter-spacing: 0.5px;
+}
+.resume-toast .resume-btn { background: var(--brand-purple); color: white; }
+.resume-toast .skip-btn { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+@keyframes toast-in { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<a href="../index.html" class="back-button">← Back</a>
+<div class="beat-counter" id="beatCounter"></div>
+<div class="chapter-nav" id="chapterNav"></div>
+<div class="swipe-hint" id="swipeHint">
+<svg viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="1.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+<span>Swipe up</span>
+</div>
+
+<!-- BEAT 1: TITLE -->
+<section class="beat beat-title" data-section="0">
+<canvas id="particleCanvas"></canvas>
+<div class="beat-inner">
+<svg class="g2g-logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g2gGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6b2fa0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d946ef;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <text x="60" y="75" font-family="Inter, sans-serif" font-size="48" font-weight="700" text-anchor="middle" fill="url(#g2gGradient)">G2G</text>
+</svg>
+<div class="series-name">G2G ADVISORY | CHAPTER 17</div>
+<h1>The Industrials Special</h1>
+<div class="subtitle">Capital Goods, Aerospace, Defence & Infrastructure — Models, Metrics & Valuation</div>
+<div class="chapter-num">LONDON IB INDUSTRY DEEP DIVE</div>
+</div>
+</section>
+
+<!-- BEAT 2: ROADMAP -->
+<section class="beat beat-card" data-section="1">
+<div class="beat-inner">
+<div class="card-label">CHAPTER ROADMAP</div>
+<div class="card-title">What We Cover</div>
+<div class="card-body">
+<p>The Industrials sector as understood by London investment banking: Aerospace & Defence, Capital Goods & Machinery, Building Materials & Construction, Engineering & Professional Services, Transport & Logistics, Packaging, Conglomerates, and Environmental Services/Waste.</p>
+<p>We drill into key metrics, valuation frameworks, and sector-specific due diligence—everything you need to pitch an industrial M&A deal or challenge management earnings.</p>
+<div class="part-label">PART I — FOUNDATIONS</div>
+<ul class="bullet-list">
+<li>Industrial metrics: book-to-bill, backlog, organic growth, aftermarket revenue, utilisation, capex intensity</li>
+<li>Advanced metrics: EBITDA margin, ROIC, FCF conversion, working capital efficiency, incremental margin</li>
+<li>Key formulas and worked examples</li>
+</ul>
+<div class="part-label">PART II — SUB-SECTOR DEEP DIVES</div>
+<ul class="bullet-list">
+<li>Aerospace (commercial OEM and aftermarket), Defence, Capital Goods, Building Materials, Engineering Services, Transport, Packaging, Environmental, Conglomerates, Industrial Technology, Infrastructure</li>
+</ul>
+<div class="part-label">PART III — VALUATION & DILIGENCE</div>
+<ul class="bullet-list">
+<li>EV/EBITDA, SOTP for conglomerates, M&A synergy types, LBO structuring, cyclicality normalisation, red flag checklist</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- BEAT 3: INDUSTRIAL METRICS I -->
+<section class="beat beat-card" data-section="2">
+<div class="beat-inner">
+<div class="card-label">PART I: FOUNDATIONS</div>
+<div class="card-title">Industrial Metrics I</div>
+<div class="card-body">
+
+<div class="metric-item">
+<div class="metric-name">Book-to-Bill Ratio</div>
+<div class="metric-def">Orders Received / Revenue in Period. Above 1.0x = growing demand backlog. Below 1.0x = backlog declining. Strong leading indicator of revenue trajectory 6-12 months forward.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Order Backlog</div>
+<div class="metric-def">Total contracted but undelivered orders. Critical revenue visibility metric. Divide by annual revenue to estimate years of production coverage. Aerospace: 2-4 years. Defence: 5-10 years.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Organic Growth</div>
+<div class="metric-def">Revenue growth excluding M&A and FX. Essential for industrial conglomerates with serial M&A. Separates true operational improvement from deal-driven growth.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Aftermarket / Service Revenue</div>
+<div class="metric-def">Recurring revenue from spare parts, maintenance, and services on installed base. Often 50%+ of profit in aerospace. Aerospace aftermarket trades at 15-22x EBITDA vs OEM at 8-12x.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Utilisation Rate</div>
+<div class="metric-def">Actual production / available capacity. High utilisation (85%+) = operating leverage and margin expansion. Low utilisation (<70%) = fixed cost burden and margin compression.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Capex Intensity</div>
+<div class="metric-def">Capex / Revenue. Typical industrials: 3-8%. Asset-heavy (airlines, rail): 10-15%. Watch for creeping capex as sign of margin pressure or cyclical downturn.</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 4: INDUSTRIAL METRICS II -->
+<section class="beat beat-card" data-section="3">
+<div class="beat-inner">
+<div class="card-label">PART I: FOUNDATIONS</div>
+<div class="card-title">Industrial Metrics II</div>
+<div class="card-body">
+
+<div class="metric-item">
+<div class="metric-name">EBITDA Margin by Segment</div>
+<div class="metric-def">Industrials margins vary enormously by sub-sector. Aerospace aftermarket: 25-35%. Construction: 5-10%. Packaging: 15-20%. Testing/Inspection/Cert (TIC): 16-22%.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Return on Invested Capital (ROIC)</div>
+<div class="metric-def">NOPAT / Invested Capital. The gold standard for capital-intensive businesses. Compare to WACC—above = value creation, below = value destruction. Industrial leaders: ROIC 12-18%.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Free Cash Flow Conversion</div>
+<div class="metric-def">FCF / Net Income or FCF / EBITDA. Strong industrials convert 80-100% of EBITDA to FCF. Poor conversion (<60%) suggests: capex creep, working capital inefficiency, or restructuring drag.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Working Capital % of Revenue</div>
+<div class="metric-def">Receivable days + inventory days − payable days. Industrial working capital typically 15-30% of revenue. Improvement in WC = cash generation opportunity.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Incremental Margin / Drop-Through</div>
+<div class="metric-def">How much additional revenue flows to EBITDA. High drop-through (40-60%) indicates strong operating leverage. Low (<20%) suggests fixed costs are not fully leveraged.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Revenue per Employee</div>
+<div class="metric-def">Revenue / headcount. Productivity metric. Automation companies: £300K+. Labour-intensive services: £60-100K. Rising RPE = efficiency improvement.</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 5: KEY INDUSTRIAL FORMULAS -->
+<section class="beat beat-card" data-section="4">
+<div class="beat-inner">
+<div class="card-label">PART I: FOUNDATIONS</div>
+<div class="card-title">Key Industrial Formulas</div>
+<div class="card-body">
+
+<div class="formula-box">
+<div class="formula-label">Book-to-Bill Ratio</div>
+<div class="formula-text">Book-to-Bill = Orders Received / Revenue</div>
+<div class="formula-note">Above 1.0x: backlog growing. Below 1.0x: backlog shrinking. Watch the trend.</div>
+</div>
+
+<div class="formula-box">
+<div class="formula-label">Backlog Coverage</div>
+<div class="formula-text">Backlog Coverage = Backlog / Annual Revenue</div>
+<div class="formula-note">Years of production visibility. Aerospace OEM: 2-4 years. Defence: 5-10 years.</div>
+</div>
+
+<div class="formula-box">
+<div class="formula-label">ROIC (Return on Invested Capital)</div>
+<div class="formula-text">ROIC = NOPAT / (Total Equity + Net Debt − Excess Cash)</div>
+<div class="formula-note">Compare to WACC (typically 7-9% for industrials). ROIC > WACC = value creation.</div>
+</div>
+
+<div class="formula-box">
+<div class="formula-label">FCF Conversion</div>
+<div class="formula-text">FCF Conversion = Free Cash Flow / EBITDA</div>
+<div class="formula-note">Strong: 80-100%. Weak: <60%. Red flag: <40% (working capital trap, capex creep).</div>
+</div>
+
+<div class="formula-box">
+<div class="formula-label">Incremental Margin</div>
+<div class="formula-text">Incremental Margin = Δ EBITDA / Δ Revenue</div>
+<div class="formula-note">50% incremental margin = £1 of revenue growth delivers £0.50 EBITDA growth.</div>
+</div>
+
+<div class="formula-box">
+<div class="formula-label">Working Capital Cycle</div>
+<div class="formula-text">WC Cycle = Inventory Days + Receivable Days − Payable Days</div>
+<div class="formula-note">Lower = better. Reducing by 5 days at £1B revenue = £137M cash released.</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 6: AEROSPACE — COMMERCIAL -->
+<section class="beat beat-card" data-section="5">
+<div class="beat-inner">
+<div class="card-label">PART II: SUB-SECTOR DEEP DIVES</div>
+<div class="card-title">Aerospace — Commercial</div>
+<div class="card-body">
+
+<div class="metric-item">
+<div class="metric-name">Business Model</div>
+<div class="metric-def">OEM (aircraft/engine) and aftermarket (MRO — maintenance, repair, overhaul). OEMs: Airbus, Boeing. Engines: Rolls-Royce, GE Aerospace, Safran, Pratt & Whitney.</div>
+</div>
+
+<p><strong>Revenue Model:</strong> Aircraft/engine sales (OEM, often at low/negative margin to establish base) + aftermarket (25-40% EBITDA margin). "Selling the engine is marketing for the aftermarket"—engines are sold at loss to lock in decades of high-margin service contracts.</p>
+
+<div class="metric-item">
+<div class="metric-name">Key Metrics</div>
+<div class="metric-def">Order backlog (production years), aftermarket revenue growth, engine flight hours (drives maintenance demand), aircraft deliveries, RPK (revenue passenger kilometres—air traffic proxy).</div>
+</div>
+
+<div class="example-box">
+<div class="example-label">Example: Rolls-Royce Strategy</div>
+<div class="example-body">Sells Trent engine at breakeven. Each engine: 30+ years of flying life. Annual maintenance spend per engine: £2-3M. Installed base: 10,000 engines = £25-30B annual aftermarket addressable market.</div>
+</div>
+
+<p><strong>Cycle:</strong> Tied to airline profitability and air traffic growth. Long-term secular growth (3-5% annual RPK growth) with cyclical downturns (COVID impact was extreme: RPK down 65% in 2020, recovered by 2024).</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 7: AEROSPACE — DEFENCE -->
+<section class="beat beat-card" data-section="6">
+<div class="beat-inner">
+<div class="card-label">PART II: SUB-SECTOR DEEP DIVES</div>
+<div class="card-title">Aerospace — Defence</div>
+<div class="card-body">
+
+<div class="metric-item">
+<div class="metric-name">Business Model</div>
+<div class="metric-def">Government contracts for military equipment, systems, services. Key players: BAE Systems, Leonardo, Thales, Rheinmetall, Lockheed Martin, RTX.</div>
+</div>
+
+<p><strong>Revenue Model:</strong> Cost-plus contracts (cost + fixed margin, low execution risk) vs fixed-price contracts (higher margin but execution risk). Programme-based revenue with long timelines.</p>
+
+<div class="metric-item">
+<div class="metric-name">Key Metrics</div>
+<div class="metric-def">Order backlog (funded vs unfunded), contract type mix, international vs domestic, programme milestones, margin progression (learning curve on fixed-price contracts).</div>
+</div>
+
+<div class="warning-box">
+<div class="warning-label">Geopolitical Risk</div>
+<div class="warning-body">Defence budgets tied to geopolitical tension. NATO 2% GDP target driving European rearmament post-Ukraine. UK defence spending: £68B → £75B by 2026. Structural growth driver, but policy-dependent.</div>
+</div>
+
+<p><strong>Margin Profile:</strong> EBITDA 10-15% for platforms/equipment. Higher for services and mission systems. <strong>Valuation:</strong> EV/EBITDA 12-18x. Premium for: long backlog visibility, margin expansion from scale, aftermarket growth.</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 8: CAPITAL GOODS & MACHINERY -->
+<section class="beat beat-card" data-section="7">
+<div class="beat-inner">
+<div class="card-label">PART II: SUB-SECTOR DEEP DIVES</div>
+<div class="card-title">Capital Goods & Machinery</div>
+<div class="card-body">
+
+<p><strong>Sub-segments:</strong> Industrial automation (Siemens, ABB, Schneider), mining equipment (Caterpillar, Komatsu), machine tools, HVAC, compressors (Atlas Copco), power equipment.</p>
+
+<div class="metric-item">
+<div class="metric-name">Business Model</div>
+<div class="metric-def">Manufacturing capital goods + aftermarket/service contracts. Global operations with local service networks. Highly cyclical—tied to industrial capex cycles and PMI.</div>
+</div>
+
+<p><strong>Cyclicality:</strong> Short-cycle products (tools, consumables) recover first in upturns. Long-cycle (large infrastructure equipment) lags. Watch PMI and industrial production as leading indicators.</p>
+
+<p><strong>Aftermarket Importance:</strong> Service, spare parts, and digitalisation (remote monitoring, predictive maintenance) are the margin enhancers and create recurring revenue.</p>
+
+<div class="metric-item">
+<div class="metric-name">Key Metrics</div>
+<div class="metric-def">Organic order growth, book-to-bill, aftermarket as % of revenue, EBITA margin (industrials often use EBITA to exclude acquisition-related amortisation).</div>
+</div>
+
+<p><strong>Megatrends:</strong> Industry 4.0, electrification of transport, energy transition. Secular growth drivers for automation/electrification companies.</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 9: BUILDING MATERIALS & CONSTRUCTION -->
+<section class="beat beat-card" data-section="8">
+<div class="beat-inner">
+<div class="card-label">PART II: SUB-SECTOR DEEP DIVES</div>
+<div class="card-title">Building Materials & Construction</div>
+<div class="card-body">
+
+<p><strong>Sub-segments:</strong> Cement (Holcim, CRH, Heidelberg), aggregates, bricks, insulation, roofing, timber, glass.</p>
+
+<div class="metric-item">
+<div class="metric-name">Business Model & Moats</div>
+<div class="metric-def">Local/regional manufacturing and distribution. Heavily weight-to-value—products expensive to transport, creating natural geographic moats. Limited competition in local markets = pricing power.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Revenue Drivers</div>
+<div class="metric-def">Residential & non-residential construction starts, infrastructure spending, renovation activity. Tied to economic growth and housing cycles.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Margin Structure</div>
+<div class="metric-def">Cement EBITDA 25-35%. Aggregates: 25-30%. Distribution: 5-10%. Pass-through inflation = pricing power, but labour and energy costs can squeeze.</div>
+</div>
+
+<div class="warning-box">
+<div class="warning-label">ESG / Decarbonisation</div>
+<div class="warning-body">Cement production ≈ 8% of global CO2. Decarbonisation pressure (carbon capture, alternative fuels, energy efficiency) is a major cost burden. EU ETS carbon pricing increases costs. Winners: companies with decarbonisation capex efficiency.</div>
+</div>
+
+<p><strong>Valuation:</strong> EV/EBITDA 8-14x. CRH at premium due to US exposure and infrastructure spending tailwinds.</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 10: ENGINEERING & PROFESSIONAL SERVICES -->
+<section class="beat beat-card" data-section="9">
+<div class="beat-inner">
+<div class="card-label">PART II: SUB-SECTOR DEEP DIVES</div>
+<div class="card-title">Engineering & Professional Services</div>
+<div class="card-body">
+
+<p><strong>Sub-segments:</strong> Design & engineering (WSP, Arcadis, Jacobs), technical consulting, testing/inspection/certification (Bureau Veritas, SGS, Intertek), project management.</p>
+
+<div class="metric-item">
+<div class="metric-name">Business Model</div>
+<div class="metric-def">Fee-based professional services. Revenue = billable hours × rate or project-based contracts. Capital-light (low capex). Growth via talent acquisition and M&A.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Key Metrics</div>
+<div class="metric-def">Organic revenue growth, book-to-bill, utilisation rate (billable hours / total hours), headcount growth, revenue per consultant.</div>
+</div>
+
+<p><strong>Margin Structure:</strong> Design/engineering: 12-18% EBITDA. TIC (testing, inspection, certification): 16-22%. High-quality TIC is recurring and resilient.</p>
+
+<div class="example-box">
+<div class="example-label">TIC Advantage</div>
+<div class="example-body">SGS: £6.5B revenue, £1.4B EBITDA (21% margin). Recurring customer base. Growth drivers: ESG compliance, supply chain audits, product certification. Trade at 18-25x EBITDA (SaaS-like quality).</div>
+</div>
+
+<p><strong>Valuation:</strong> High-quality TIC: 18-25x EBITDA. Engineering services: 10-15x.</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 11: TRANSPORT & LOGISTICS -->
+<section class="beat beat-card" data-section="10">
+<div class="beat-inner">
+<div class="card-label">PART II: SUB-SECTOR DEEP DIVES</div>
+<div class="card-title">Transport & Logistics</div>
+<div class="card-body">
+
+<p><strong>Sub-segments:</strong> Freight forwarding (DSV, Kuehne+Nagel), contract logistics (DHL, XPO), express delivery (FedEx, DHL Express), shipping/containers, rail freight, airlines.</p>
+
+<div class="metric-item">
+<div class="metric-name">Revenue Model — Critical Distinction</div>
+<div class="metric-def">Freight forwarders report GROSS revenue (including bought-in transport) and NET revenue (gross profit). ALWAYS use NET for multiples. Gross confuses the picture.</div>
+</div>
+
+<div class="example-box">
+<div class="example-label">Gross vs Net Revenue</div>
+<div class="example-body">Freight forwarder: £1B gross revenue, £200M cost of bought-in transport = £800M net revenue. If you value at 12x revenue using gross £1B, you're massively overvaluing. Use £800M net.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Key Metrics</div>
+<div class="metric-def">Volume growth, yield per shipment, net revenue margin, warehouse utilisation, on-time delivery rate, customer concentration.</div>
+</div>
+
+<p><strong>Cyclicality:</strong> Highly cyclical. Container shipping rates: 5x+ swing during COVID, then collapsed. Express more stable (essential service). Freight forwarding suffers in downturns.</p>
+
+<p><strong>Valuation:</strong> Freight forwarding: 10-16x EV/EBITDA on normalised earnings. Contract logistics: 8-12x. Airlines: EV/EBITDAR (include operating lease costs).</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 12: PACKAGING -->
+<section class="beat beat-card" data-section="11">
+<div class="beat-inner">
+<div class="card-label">PART II: SUB-SECTOR DEEP DIVES</div>
+<div class="card-title">Packaging</div>
+<div class="card-body">
+
+<p><strong>Sub-segments:</strong> Plastic packaging, paper/cardboard, metal cans, glass, flexible packaging.</p>
+
+<div class="metric-item">
+<div class="metric-name">Business Model</div>
+<div class="metric-def">Manufacturing packaging for FMCG, food & beverage, healthcare, industrial. Often long-term contracts with pass-through raw material costs (protects margins).</div>
+</div>
+
+<p><strong>Revenue Model:</strong> Volume × price. Raw material cost pass-through mechanisms critical. If energy/resin costs spike, companies pass through to customers. Better than being stuck with fixed costs.</p>
+
+<div class="metric-item">
+<div class="metric-name">Key Metrics</div>
+<div class="metric-def">Organic volume growth, price/mix (pricing power), EBITDA margin, capex intensity, customer concentration (customer diversification reduces risk).</div>
+</div>
+
+<p><strong>Sustainability Theme:</strong> Shift from plastic to paper/recycled materials. EU single-use plastics directive driving change. Companies with recycled content = regulatory tailwind. Companies with high plastic = stranded assets risk.</p>
+
+<p><strong>Margin Structure:</strong> EBITDA 15-22%. Beverage cans at premium (15-20% volume growth, pricing power). Commodity plastic at lower end (8-12% margin).</p>
+
+<p><strong>Valuation:</strong> EV/EBITDA 8-14x. Premium for sustainable packaging and beverage can exposure.</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 13: ENVIRONMENTAL SERVICES & WASTE -->
+<section class="beat beat-card" data-section="12">
+<div class="beat-inner">
+<div class="card-label">PART II: SUB-SECTOR DEEP DIVES</div>
+<div class="card-title">Environmental Services & Waste</div>
+<div class="card-body">
+
+<p><strong>Sub-segments:</strong> Waste collection/disposal, recycling, hazardous waste, water treatment, environmental consulting.</p>
+
+<div class="metric-item">
+<div class="metric-name">Business Model</div>
+<div class="metric-def">Contracted waste collection (recurring revenue), landfill operation (tipping fees), recycling (commodity-linked). Essential service with limited local competition.</div>
+</div>
+
+<p><strong>Key Characteristics:</strong> Highly recurring and defensive. Subscription-like. Pricing power. ESG tailwind (regulation drives volumes).</p>
+
+<div class="metric-item">
+<div class="metric-name">Key Metrics</div>
+<div class="metric-def">Route density (cost to serve), yield per stop, recycling rates (revenue per ton), landfill remaining capacity, contract renewal rates (stickiness).</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Margin Structure</div>
+<div class="metric-def">EBITDA 25-35%. Landfill operations particularly high-margin (£50-100 per ton, minimal capex vs collection). Scale = margin expansion.</div>
+</div>
+
+<p><strong>Valuation:</strong> Premium multiples (15-20x EBITDA) reflecting defensive characteristics, pricing power, and ESG tailwinds. Waste is recession-resistant—you still need to dispose of waste in downturns.</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 14: INDUSTRIAL CONGLOMERATES -->
+<section class="beat beat-card" data-section="13">
+<div class="beat-inner">
+<div class="card-label">PART II: SUB-SECTOR DEEP DIVES</div>
+<div class="card-title">Industrial Conglomerates</div>
+<div class="card-body">
+
+<p><strong>Key Players:</strong> Siemens, Honeywell, 3M, General Electric, TechnipFMC.</p>
+
+<div class="metric-item">
+<div class="metric-name">Conglomerate Discount</div>
+<div class="metric-def">Markets apply 10-20% discount to conglomerates vs pure-play peers. Reasons: complexity, capital allocation inefficiency, management distraction, hidden cross-subsidies.</div>
+</div>
+
+<p><strong>Portfolio Reshaping Trend:</strong> GE splitting into Aerospace, Healthcare, Energy. Siemens spinning off Siemens Energy. Honeywell considering separation. Thesis: conglomerate discount is real; break-ups unlock value.</p>
+
+<div class="metric-item">
+<div class="metric-name">SOTP Valuation (Sum-of-the-Parts)</div>
+<div class="metric-def">Value each segment using pure-play peer multiples, sum enterprise values, deduct HQ costs, apply conglomerate discount if warranted. Compare sum-of-parts to current market cap = upside/downside.</div>
+</div>
+
+<div class="example-box">
+<div class="example-label">SOTP Example: 3M</div>
+<div class="example-body">Div 1: Safety/Industrial (13x EBITDA) = £3B. Div 2: Transport (11x) = £2B. Div 3: Healthcare (14x) = £4B. Sum = £9B. HQ costs (-£200M EBITDA) = £9B − (£200M × 11x) = £6.8B. Market cap £8B = £1.2B overvalued vs SOTP breakup scenario.</div>
+</div>
+
+<p><strong>M&A Strategy:</strong> Industrials are among the most acquisitive sectors. Bolt-on M&A with synergy extraction (procurement, manufacturing, SG&A).</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 15: INDUSTRIAL TECHNOLOGY & AUTOMATION -->
+<section class="beat beat-card" data-section="14">
+<div class="beat-inner">
+<div class="card-label">PART II: SUB-SECTOR DEEP DIVES</div>
+<div class="card-title">Industrial Technology & Automation</div>
+<div class="card-body">
+
+<p><strong>Megatrend:</strong> Industry 4.0 — IoT, digital twins, predictive maintenance, robotics, AI in manufacturing.</p>
+
+<div class="metric-item">
+<div class="metric-name">Business Model Shift</div>
+<div class="metric-def">Hardware (robots, sensors) + software (industrial cloud platforms, MES/SCADA) + services. Revenue increasingly recurring (subscription-based). Increases valuation multiples.</div>
+</div>
+
+<p><strong>Key Players:</strong> Siemens Digital Industries, Rockwell Automation, Fanuc, ABB Robotics, Dassault Systèmes, Autodesk (industrial cloud).</p>
+
+<div class="metric-item">
+<div class="metric-name">Valuation Multiple Re-rating</div>
+<div class="metric-def">Industrial software trades at SaaS-like multiples (15-25x revenue) vs traditional industrial multiples (10-16x EV/EBITDA). A key driver of re-rating. Companies with 30%+ software revenue mix are valued 50%+ higher.</div>
+</div>
+
+<p><strong>Growth Drivers:</strong> Digital transformation, electrification, supply chain resilience (near-shoring). Accelerating adoption post-COVID.</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 16: INFRASTRUCTURE & CONCESSIONS -->
+<section class="beat beat-card" data-section="15">
+<div class="beat-inner">
+<div class="card-label">PART II: SUB-SECTOR DEEP DIVES</div>
+<div class="card-title">Infrastructure & Concessions</div>
+<div class="card-body">
+
+<div class="metric-item">
+<div class="metric-name">Business Model</div>
+<div class="metric-def">Operating infrastructure assets under long-term concessions—toll roads, airports, ports, regulated utilities. Revenue = toll/tariff-based, often inflation-linked. Very long duration (20-40 years).</div>
+</div>
+
+<p><strong>Key Metrics:</strong> Traffic/volume growth, tariff escalation mechanism (CPI-linked = inflation hedge), EBITDA margin, debt capacity, years remaining on concession.</p>
+
+<div class="metric-item">
+<div class="metric-name">Valuation Approach</div>
+<div class="metric-def">DCF of remaining concession cash flows. Yield-based analysis (dividend yield, equity IRR). NOT EV/EBITDA. Typical equity IRR target: 8-10%.</div>
+</div>
+
+<div class="example-box">
+<div class="example-label">UK Infrastructure</div>
+<div class="example-body">Heathrow: 30-year concession, 30 years remaining, £15B debt. Tariff escalates with inflation. EBITDA £4B, 25% debt/EBITDA. Equity value = DCF of 30-year cash flows at 9% IRR (infrastructure hurdle rate).</div>
+</div>
+
+<p><strong>Leverage Capacity:</strong> High. Stable, predictable cash flows support 5-8x leverage. Attractive for infrastructure funds (pension funds, infrastructure specialists).</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 17: VALUATION — EV/EBITDA & SOTP -->
+<section class="beat beat-card" data-section="16">
+<div class="beat-inner">
+<div class="card-label">PART III: VALUATION & DILIGENCE</div>
+<div class="card-title">Industrial Valuation — EV/EBITDA & SOTP</div>
+<div class="card-body">
+
+<div class="comparison-row">
+<div class="comparison-col">
+<div class="comparison-header">Aerospace Aftermarket</div>
+<div class="comparison-body">15-22x EV/EBITDA. High recurring revenue. Pricing power. Secular growth.</div>
+</div>
+<div class="comparison-col">
+<div class="comparison-header">Defence</div>
+<div class="comparison-body">12-18x. Long backlog visibility. Government customer credit quality. NATO spending tailwind.</div>
+</div>
+<div class="comparison-col">
+<div class="comparison-header">Capital Goods</div>
+<div class="comparison-body">10-16x. Cyclical. Aftermarket exposure drives premium end.</div>
+</div>
+</div>
+
+<div class="comparison-row">
+<div class="comparison-col">
+<div class="comparison-header">Building Materials</div>
+<div class="comparison-body">8-14x. Geographic moats. Construction cycle exposure. Pricing power.</div>
+</div>
+<div class="comparison-col">
+<div class="comparison-header">Transport/Logistics</div>
+<div class="comparison-body">8-14x. Cyclical. Margin compression in downturns. Normalise earnings.</div>
+</div>
+<div class="comparison-col">
+<div class="comparison-header">Environmental Services</div>
+<div class="comparison-body">15-20x. Recurring revenue. Defensive. ESG tailwind.</div>
+</div>
+</div>
+
+<div class="formula-box">
+<div class="formula-label">Through-Cycle Normalisation</div>
+<div class="formula-text">Use mid-cycle or normalised EBITDA (3-5 year average), not peak earnings.</div>
+<div class="formula-note">Peak earnings valuation overstates value. Trough earnings undervalues. Use normalised to avoid cyclicality trap.</div>
+</div>
+
+<p><strong>Key Adjustments:</strong> Add back non-recurring restructuring charges. Normalise capex (maintenance vs growth split). Adjust for IFRS 16 lease impact (add back lease rentals).</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 18: M&A & LBO -->
+<section class="beat beat-card" data-section="17">
+<div class="beat-inner">
+<div class="card-label">PART III: VALUATION & DILIGENCE</div>
+<div class="card-title">Industrial M&A & LBO</div>
+<div class="card-body">
+
+<div class="metric-item">
+<div class="metric-name">M&A Rationale</div>
+<div class="metric-def">Geographic expansion, product line extension, technology acquisition (bolt-on IT companies), vertical integration. Synergy extraction critical for returns.</div>
+</div>
+
+<p><strong>Synergy Types:</strong> Procurement (buying power on raw materials), manufacturing (plant rationalisation, consolidation), SG&A (eliminate duplicate HQ), revenue synergies (cross-selling, customer cross-contamination).</p>
+
+<div class="metric-item">
+<div class="metric-name">LBO Suitability</div>
+<div class="metric-def">Best for stable, cash-generative businesses: aftermarket, services, environmental, TIC. Avoid: highly cyclical OEM, construction equipment (cyclical margin compression kills returns).</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Leverage Capacity</div>
+<div class="metric-def">Aftermarket/services: 4-6x EBITDA. Capital goods: 3-5x. Construction/cyclical: 2-3x. Use through-cycle EBITDA to stress test.</div>
+</div>
+
+<div class="example-box">
+<div class="example-label">TIC LBO Thesis</div>
+<div class="example-body">Acquire TIC company (£500M EBITDA). Recurring customer base (stickiness). Margin expansion (SG&A consolidation): 20% → 23% EBITDA = +£15M. Leverage: 4.5x = £2.25B debt. Equity: £500M. 5-year exit at 6x = £3B enterprise value. Equity return: £500M → £750M (1.5x MOIC). IRR: 20%+.</div>
+</div>
+
+<p><strong>PE in Industrials:</strong> Very active. Buy-and-build platforms in fragmented sub-sectors (testing, engineering services, distribution). Consolidate 10-15 small players into platform, cross-sell services, extract SG&A synergies.</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 19: DEFENCE-SPECIFIC VALUATION -->
+<section class="beat beat-card" data-section="18">
+<div class="beat-inner">
+<div class="card-label">PART III: VALUATION & DILIGENCE</div>
+<div class="card-title">Defence-Specific Valuation</div>
+<div class="card-body">
+
+<div class="metric-item">
+<div class="metric-name">Long-Term Visibility</div>
+<div class="metric-def">Defence backlogs provide multi-year revenue visibility (5-10 years). Airbus Defence backlog: 4.5 years. BAE Systems: 7+ years. Rare in industrials. Justifies premium valuation.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Contract Mix</div>
+<div class="metric-def">Cost-plus (low execution risk, margin ~8-10%) vs fixed-price (higher risk, margin 12-15%+). Learning curve: early-programme loss, later-programme margin expansion as unit costs decline.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Government Budget Dependency</div>
+<div class="metric-def">Revenue tied to defence budgets. NATO 2% GDP target driving European spend: 1.5% → 2%+ = 33% budget growth. Structural tailwind through 2030s.</div>
+</div>
+
+<div class="warning-box">
+<div class="warning-label">Export Risk</div>
+<div class="warning-body">International defence sales = geopolitical risk. Russia invasion drove European demand. China tensions create volatility. But long-term: structural demand increase from NATO rearmament.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Valuation</div>
+<div class="metric-def">EV/EBITDA 12-18x. Premium expanding as European defence investment increases. Key drivers: backlog growth, contract margin progression, international revenue mix.</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 20: CYCLICALITY & NORMALISATION -->
+<section class="beat beat-card" data-section="19">
+<div class="beat-inner">
+<div class="card-label">PART III: VALUATION & DILIGENCE</div>
+<div class="card-title">Cyclicality & Normalisation</div>
+<div class="card-body">
+
+<div class="metric-item">
+<div class="metric-name">Cycle Identification</div>
+<div class="metric-def">Early cycle: capital goods orders recovering, book-to-bill expanding, utilisation rising. Mid cycle: capex expansion, margin leverage. Late cycle: overinvestment, order peaks, margin pressure. Downturn: order collapse, capacity cuts.</div>
+</div>
+
+<p><strong>Leading Indicators:</strong> PMI (above 50 = expansion), capex spending plans, utilisation rates, order flow trends.</p>
+
+<div class="metric-item">
+<div class="metric-name">Normalised Earnings</div>
+<div class="metric-def">Don't value at peak. Estimate mid-cycle EBITDA using 5-7 year average margins. Avoids over/under-valuation from cyclical distortions.</div>
+</div>
+
+<div class="formula-box">
+<div class="formula-label">Book-to-Bill as Cycle Indicator</div>
+<div class="formula-text">Book-to-Bill >1.2x = early cycle, backlog growing, revenue growth ahead. BTB 0.9-1.1x = mid cycle, normalising. BTB <0.9x = late cycle/downturn, backlog shrinking, revenue decline risk.</div>
+<div class="formula-note">Watch quarterly BTB trends. Declining BTB is the clearest leading indicator of revenue trouble 6-12 months forward.</div>
+</div>
+
+<div class="warning-box">
+<div class="warning-label">Working Capital Release Trap</div>
+<div class="warning-body">In downturns, working capital release (inventory and receivables decline) boosts FCF temporarily. Don't confuse cash generation with operational strength. Look at revenue and margin trends to assess quality.</div>
+</div>
+
+<p><strong>Red Flag Checklist:</strong> Record EBITDA margins + declining book-to-bill = cycle peak. Aggressive capex guidance in downturn = management miscreading cycle. Margin expansion in weak demand = cost-cutting (not operational leverage).</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 21: BACKLOG QUALITY & REVENUE RECOGNITION -->
+<section class="beat beat-card" data-section="20">
+<div class="beat-inner">
+<div class="card-label">PART III: VALUATION & DILIGENCE</div>
+<div class="card-title">Backlog Quality & Revenue Recognition</div>
+<div class="card-body">
+
+<div class="warning-box">
+<div class="warning-label">Backlog ≠ Revenue</div>
+<div class="warning-body">Orders can be cancelled, deferred, or renegotiated. Examine cancellation clauses. Unfunded defence contracts (not yet allocated budget) carry execution risk vs funded backlog.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Long-Cycle Programmes</div>
+<div class="metric-def">Aerospace/defence programmes span decades. Revenue recognition method (% of completion vs point-in-time) impacts earnings volatility. Understand the accounting.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Contract Profitability</div>
+<div class="metric-def">Backlog contains profitable AND loss-making contracts. Fixed-price defence contracts can become loss-making if costs overrun. Watch for "forward losses" provisions.</div>
+</div>
+
+<div class="example-box">
+<div class="example-label">Forward Loss Example</div>
+<div class="example-body">Defence contractor: £10B backlog, mostly fixed-price fighter jet programme. Unit costs: projected £80M, selling at £85M. Looks profitable. But actual costs trending £90M = £5M loss per unit × 100 units = £500M loss provision. Backlog quality deteriorated.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Customer Concentration</div>
+<div class="metric-def">Dependency on government contracts (defence) or single large customers. High concentration = execution risk (customer can defer, renegotiate, or restructure contracts).</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 22: MARGIN BRIDGE & COST ANALYSIS -->
+<section class="beat beat-card" data-section="21">
+<div class="beat-inner">
+<div class="card-label">PART III: VALUATION & DILIGENCE</div>
+<div class="card-title">Margin Bridge & Cost Analysis</div>
+<div class="card-body">
+
+<div class="formula-box">
+<div class="formula-label">Margin Bridge</div>
+<div class="formula-text">Prior Year EBITDA Margin + Volume Leverage + Price/Cost Spread + Mix Effect + Restructuring + FX = Current Year Margin</div>
+<div class="formula-note">Walk through each component. Identify sustainable vs non-recurring margin drivers.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Input Cost Sensitivity</div>
+<div class="metric-def">Energy (cement, metals), steel (capital goods), labour (services), logistics. Which costs can be passed through to customers? Which are absorbed?</div>
+</div>
+
+<p><strong>Example:</strong> Cement: energy is 30% of COGS. EU energy crisis pushed energy costs +60%. Can companies pass through? Yes (CPI-linked pricing). Margins protected. But plastic packaging: oil is input. Can't always pass through. Exposed.</p>
+
+<div class="metric-item">
+<div class="metric-name">Restructuring Red Flag</div>
+<div class="metric-def">Serial restructuring charges (3+ years) suggest structural cost problems, not one-off events. Adjust normalised earnings by adding back (but don't assume they'll disappear).</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Operating Leverage</div>
+<div class="metric-def">High fixed cost base = dramatic margin expansion in upturns, compression in downturns. Measure incremental margin: how much revenue growth flows to EBITDA?</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 23: ESG & DECARBONISATION -->
+<section class="beat beat-card" data-section="22">
+<div class="beat-inner">
+<div class="card-label">PART III: VALUATION & DILIGENCE</div>
+<div class="card-title">ESG & Decarbonisation in Industrials</div>
+<div class="card-body">
+
+<div class="metric-item">
+<div class="metric-name">Carbon-Intensive Sectors</div>
+<div class="metric-def">Cement, steel, heavy transport, chemicals. Face significant decarbonisation costs. Carbon pricing (EU ETS) makes emissions a direct cost. Companies must buy allowances or invest in reduction.</div>
+</div>
+
+<div class="warning-box">
+<div class="warning-label">Carbon Pricing Impact</div>
+<div class="warning-body">EU ETS: carbon allowances ~£80/ton CO2 (2024). Cement: 800 kg CO2 per ton cement = £64/ton carbon cost. If price-setting competition doesn't allow pass-through, margins compress. Winners: efficient producers with low carbon intensity.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Transition Opportunities</div>
+<div class="metric-def">Electrification (Schneider, ABB), renewable energy infrastructure, grid modernisation, green hydrogen. These are growth drivers for industrial tech/services companies.</div>
+</div>
+
+<div class="metric-item">
+<div class="metric-name">Stranded Asset Risk</div>
+<div class="metric-def">High-emission assets (coal plants, old cement kilns) may be forced to close early if regulation tightens. Write-offs reduce earnings. Watch for high-emission capex plans—may not have ROI if regulations change.</div>
+</div>
+
+<p><strong>Valuation Impact:</strong> Companies with decarbonisation capex planned = higher capex intensity (near term margin pressure). But long-term competitive moat if they build efficient assets. Discount near-term, premium long-term.</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 24: DILIGENCE CHECKLIST -->
+<section class="beat beat-card" data-section="23">
+<div class="beat-inner">
+<div class="card-label">PART III: VALUATION & DILIGENCE</div>
+<div class="card-title">Industrials Diligence Checklist</div>
+<div class="card-body">
+
+<ul class="bullet-list">
+<li><strong>Order Intake / Book-to-Bill Trend:</strong> Where in the cycle? Growing or shrinking backlog?</li>
+<li><strong>Backlog Quality:</strong> Cancellation terms? Unfunded vs funded? Contract profitability?</li>
+<li><strong>Aftermarket / Recurring Revenue %:</strong> Higher = more stable, higher margins, premium valuation.</li>
+<li><strong>ROIC vs WACC:</strong> Creating or destroying value? ROIC trend improving or declining?</li>
+<li><strong>FCF Conversion:</strong> 80%+ = quality earnings. <60% = working capital trap or capex creep.</li>
+<li><strong>Working Capital Efficiency:</strong> Receivable days, inventory days, payable days. Improving = cash generation opportunity.</li>
+<li><strong>Capex: Maintenance vs Growth Split:</strong> Growth capex for which markets/products? Expected returns?</li>
+<li><strong>Normalised Margin:</strong> Mid-cycle EBITDA margin. Exclude one-off items. Stress test in downturn scenario.</li>
+<li><strong>M&A Integration Track Record:</strong> Past deals: hit targets? Synergies realised? Management quality?</li>
+<li><strong>ESG / Carbon Exposure:</strong> Carbon-intensive? Decarbonisation capex planned? Stranded asset risk?</li>
+<li><strong>Management Incentives:</strong> Aligned with ROIC? Or chasing revenue/EBITDA growth at expense of returns?</li>
+</ul>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 25: SUB-SECTOR COMPARISON TABLE -->
+<section class="beat beat-card" data-section="24">
+<div class="beat-inner">
+<div class="card-label">PART V: APPENDIX</div>
+<div class="card-title">Sub-Sector Comparison</div>
+<div class="card-body">
+
+<div style="overflow-x: auto; margin: 20px 0;">
+<table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 13px;">
+<tr style="border-bottom: 1px solid var(--border);">
+<td style="padding: 10px; color: var(--accent-dim); font-weight: 700;">Sub-Sector</td>
+<td style="padding: 10px; color: var(--accent-dim); font-weight: 700;">EBITDA %</td>
+<td style="padding: 10px; color: var(--accent-dim); font-weight: 700;">Typical EV/EBITDA</td>
+<td style="padding: 10px; color: var(--accent-dim); font-weight: 700;">Cyclicality</td>
+<td style="padding: 10px; color: var(--accent-dim); font-weight: 700;">Visibility</td>
+</tr>
+<tr style="border-bottom: 1px solid var(--border);">
+<td style="padding: 10px;">Aerospace OEM</td>
+<td style="padding: 10px;">8-12%</td>
+<td style="padding: 10px;">8-12x</td>
+<td style="padding: 10px;">High</td>
+<td style="padding: 10px;">3-4 yrs</td>
+</tr>
+<tr style="border-bottom: 1px solid var(--border);">
+<td style="padding: 10px;">Aerospace Aftermarket</td>
+<td style="padding: 10px;">25-35%</td>
+<td style="padding: 10px;">15-22x</td>
+<td style="padding: 10px;">Low</td>
+<td style="padding: 10px;">5+ yrs</td>
+</tr>
+<tr style="border-bottom: 1px solid var(--border);">
+<td style="padding: 10px;">Defence</td>
+<td style="padding: 10px;">10-15%</td>
+<td style="padding: 10px;">12-18x</td>
+<td style="padding: 10px;">Low</td>
+<td style="padding: 10px;">5-10 yrs</td>
+</tr>
+<tr style="border-bottom: 1px solid var(--border);">
+<td style="padding: 10px;">Capital Goods</td>
+<td style="padding: 10px;">10-15%</td>
+<td style="padding: 10px;">10-16x</td>
+<td style="padding: 10px;">High</td>
+<td style="padding: 10px;">1-2 yrs</td>
+</tr>
+<tr style="border-bottom: 1px solid var(--border);">
+<td style="padding: 10px;">Building Materials</td>
+<td style="padding: 10px;">15-25%</td>
+<td style="padding: 10px;">8-14x</td>
+<td style="padding: 10px;">High</td>
+<td style="padding: 10px;">1 yr</td>
+</tr>
+<tr style="border-bottom: 1px solid var(--border);">
+<td style="padding: 10px;">Engineering Services</td>
+<td style="padding: 10px;">12-18%</td>
+<td style="padding: 10px;">10-15x</td>
+<td style="padding: 10px;">Medium</td>
+<td style="padding: 10px;">1-2 yrs</td>
+</tr>
+<tr style="border-bottom: 1px solid var(--border);">
+<td style="padding: 10px;">Transport/Logistics</td>
+<td style="padding: 10px;">10-15%</td>
+<td style="padding: 10px;">8-14x</td>
+<td style="padding: 10px;">High</td>
+<td style="padding: 10px;">0-1 yr</td>
+</tr>
+<tr style="border-bottom: 1px solid var(--border);">
+<td style="padding: 10px;">Packaging</td>
+<td style="padding: 10px;">15-22%</td>
+<td style="padding: 10px;">8-14x</td>
+<td style="padding: 10px;">Low</td>
+<td style="padding: 10px;">1-2 yrs</td>
+</tr>
+<tr style="border-bottom: 1px solid var(--border);">
+<td style="padding: 10px;">Environmental/Waste</td>
+<td style="padding: 10px;">25-35%</td>
+<td style="padding: 10px;">15-20x</td>
+<td style="padding: 10px;">Low</td>
+<td style="padding: 10px;">5+ yrs</td>
+</tr>
+<tr style="border-bottom: 1px solid var(--border);">
+<td style="padding: 10px;">TIC</td>
+<td style="padding: 10px;">16-22%</td>
+<td style="padding: 10px;">18-25x</td>
+<td style="padding: 10px;">Low</td>
+<td style="padding: 10px;">3+ yrs</td>
+</tr>
+</table>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 26: LONDON INDUSTRIALS IB LANDSCAPE -->
+<section class="beat beat-card" data-section="25">
+<div class="beat-inner">
+<div class="card-label">PART V: APPENDIX</div>
+<div class="card-title">London Industrials IB Landscape</div>
+<div class="card-body">
+
+<p><strong>Industrials is one of the broadest sector groups in London investment banking, covering dozens of sub-sectors and thousands of listed/private companies globally.</strong></p>
+
+<div class="metric-item">
+<div class="metric-name">Top Tier Banks</div>
+<div class="metric-def">Goldman Sachs, J.P. Morgan, Morgan Stanley, Rothschild, Lazard, RBC (particularly strong in industrials M&A), Jefferies.</div>
+</div>
+
+<p><strong>Deal Types:</strong> Conglomerate break-ups (GE, Siemens), aerospace M&A (consolidation post-COVID), defence consolidation (NATO spending tailwinds), PE buy-and-build (fragmented services), infrastructure concession M&A (airports, toll roads).</p>
+
+<p><strong>Recent Activity:</strong> GE separation (Aerospace, Healthcare, Energy). Siemens Energy spin-off. Raytheon/Collins merger. BAE Systems acquisition activity. Leonardo strategic M&A. Infrastructure funds consolidating waste/environmental services.</p>
+
+<p><strong>Skill Set:</strong> Deep understanding of cyclicality, order visibility, backlog quality, programme economics (especially defence), aftermarket/recurring revenue, ROIC, and working capital. Ability to stress-test through cycles and normalise earnings is critical.</p>
+
+</div>
+</div>
+</section>
+
+<!-- BEAT 27: FINALE -->
+<section class="beat beat-finale" data-section="26">
+<canvas id="finaleCanvas"></canvas>
+<div class="beat-inner" style="position: relative; z-index: 10;">
+<div class="finale-pre">CHAPTER 17 COMPLETE</div>
+<div class="finale-title">The Industrials Special</div>
+<div class="finale-line"></div>
+<div class="finale-sub">
+From aerospace aftermarket economics to defence backlogs to building materials' geographic moats—the industrial sector rewards those who understand cyclicality, capital intensity, and the difference between peak and normalised earnings.<br><br>
+<strong>Normalise the earnings. Respect the cycle. Follow the backlog.</strong><br><br>
+← <a href="../index.html" style="color: var(--accent); text-decoration: none;">Return to G2G</a>
+</div>
+</div>
+</section>
+
+</body>
+
+<script>
+// Particle canvas for title beat
+(function() {
+  const canvas = document.getElementById('particleCanvas');
+  if (!canvas) return;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const ctx = canvas.getContext('2d');
+  const particles = Array.from({length: 40}, () => ({
+    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+    r: Math.random() * 1.5 + 0.5, o: Math.random() * 0.3 + 0.1
+  }));
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(176,124,232,${p.o})`; ctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    });
+    particles.forEach((a, i) => {
+      particles.slice(i+1).forEach(b => {
+        const dx = a.x - b.x, dy = a.y - b.y, dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 120) { ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(176,124,232,${0.08 * (1 - dist/120)})`; ctx.stroke(); }
+      });
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+  window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+})();
+
+// Finale canvas — rising particles
+(function() {
+  const fc = document.getElementById('finaleCanvas');
+  if (!fc) return;
+  fc.width = window.innerWidth; fc.height = window.innerHeight;
+  const fctx = fc.getContext('2d');
+  const sparks = Array.from({length: 60}, () => ({
+    x: Math.random() * fc.width,
+    y: fc.height + Math.random() * 200,
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: -(Math.random() * 0.8 + 0.3),
+    r: Math.random() * 2 + 0.5,
+    o: Math.random() * 0.5 + 0.1,
+    hue: Math.random() > 0.5 ? '176,124,232' : '217,70,239'
+  }));
+  function drawF() {
+    fctx.clearRect(0, 0, fc.width, fc.height);
+    sparks.forEach(s => {
+      fctx.beginPath(); fctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      fctx.fillStyle = `rgba(${s.hue},${s.o})`; fctx.fill();
+      s.x += s.vx; s.y += s.vy;
+      if (s.y < -10) { s.y = fc.height + 20; s.x = Math.random() * fc.width; }
+    });
+    sparks.forEach((a, i) => {
+      sparks.slice(i+1).forEach(b => {
+        const dx = a.x-b.x, dy = a.y-b.y, dist = Math.sqrt(dx*dx+dy*dy);
+        if (dist < 100) { fctx.beginPath(); fctx.moveTo(a.x,a.y); fctx.lineTo(b.x,b.y);
+          fctx.strokeStyle = `rgba(176,124,232,${0.06*(1-dist/100)})`; fctx.stroke(); }
+      });
+    });
+    requestAnimationFrame(drawF);
+  }
+  drawF();
+  window.addEventListener('resize', () => { fc.width = window.innerWidth; fc.height = window.innerHeight; });
+})();
+</script>
+
+<script>
+// PWA Swipe Engine
+let currentBeat = 0;
+let startY = 0;
+let isAnimating = false;
+const beats = document.querySelectorAll('.beat');
+const totalBeats = beats.length;
+const CHAPTER_NUM = 17;
+
+function positionBeats() {
+  beats.forEach((beat, i) => {
+    if (i < currentBeat) { beat.style.transform = 'translateY(-100vh)'; beat.style.opacity = '0'; beat.style.pointerEvents = 'none'; beat.style.visibility = 'hidden'; }
+    else if (i === currentBeat) { beat.style.transform = 'translateY(0)'; beat.style.opacity = '1'; beat.style.pointerEvents = 'auto'; beat.style.visibility = 'visible'; }
+    else { beat.style.transform = 'translateY(100vh)'; beat.style.opacity = '0'; beat.style.pointerEvents = 'none'; beat.style.visibility = 'hidden'; }
+  });
+}
+
+function updateCounter() {
+  const counter = document.getElementById('beatCounter');
+  if (counter) counter.textContent = `${currentBeat + 1} / ${totalBeats}`;
+}
+
+function updateProgress() {
+  const bar = document.getElementById('progressBar');
+  if (bar) bar.style.width = ((currentBeat + 1) / totalBeats * 100) + '%';
+}
+
+function updateNavDots() {
+  const nav = document.getElementById('chapterNav');
+  if (!nav.hasChildNodes()) {
+    for (let i = 0; i < totalBeats; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goTo(i);
+      nav.appendChild(dot);
+    }
+  }
+  document.querySelectorAll('.chapter-nav .dot').forEach((d, di) => d.classList.toggle('active', di === currentBeat));
+}
+
+function goTo(index) {
+  if (isAnimating || index < 0 || index >= totalBeats) return;
+  isAnimating = true;
+  const direction = index > currentBeat ? -1 : 1;
+  beats[currentBeat].style.transform = `translateY(${direction * 100}vh)`;
+  beats[currentBeat].style.opacity = '0';
+  beats[currentBeat].style.pointerEvents = 'none';
+  beats[currentBeat].style.visibility = 'hidden';
+  beats[index].style.transform = 'translateY(0)';
+  beats[index].style.opacity = '1';
+  beats[index].style.pointerEvents = 'auto';
+  beats[index].style.visibility = 'visible';
+  currentBeat = index;
+  updateCounter();
+  updateProgress();
+  updateNavDots();
+  saveProgress();
+  const hint = document.getElementById('swipeHint');
+  if (hint) { hint.style.opacity = '0'; setTimeout(() => hint.remove(), 500); try { localStorage.setItem('g2g-swipe-seen', '1'); } catch(e) {} }
+  setTimeout(() => { isAnimating = false; }, 350);
+}
+
+// Touch swipe
+document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+document.addEventListener('touchend', e => {
+  const beat = beats[currentBeat];
+  const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+  const atTop = beat.scrollTop <= 5;
+  const diff = startY - e.changedTouches[0].clientY;
+  if (diff > 50 && atBottom) goTo(currentBeat + 1);
+  if (diff < -50 && atTop) goTo(currentBeat - 1);
+}, { passive: true });
+
+// Mouse wheel with trackpad accumulator
+let wheelAccum = 0;
+let wheelTimer = null;
+document.addEventListener('wheel', e => {
+  const beat = beats[currentBeat];
+  const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+  const atTop = beat.scrollTop <= 5;
+
+  wheelAccum += e.deltaY;
+  clearTimeout(wheelTimer);
+  wheelTimer = setTimeout(() => { wheelAccum = 0; }, 200);
+
+  if (wheelAccum > 50 && atBottom) { wheelAccum = 0; goTo(currentBeat + 1); }
+  if (wheelAccum < -50 && atTop) { wheelAccum = 0; goTo(currentBeat - 1); }
+}, { passive: true });
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  const beat = beats[currentBeat];
+  const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+  const atTop = beat.scrollTop <= 5;
+
+  if (['ArrowDown', 'ArrowRight', 'PageDown'].includes(e.key)) {
+    if (atBottom) { e.preventDefault(); goTo(currentBeat + 1); }
+  } else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) {
+    if (atTop) { e.preventDefault(); goTo(currentBeat - 1); }
+  } else if (e.key === ' ') {
+    e.preventDefault();
+    if (atBottom) goTo(currentBeat + 1);
+    else beat.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+  } else if (e.key === 'Home') {
+    e.preventDefault(); goTo(0);
+  } else if (e.key === 'End') {
+    e.preventDefault(); goTo(totalBeats - 1);
+  }
+});
+
+// Initialize
+positionBeats();
+updateCounter();
+updateProgress();
+updateNavDots();
+
+function saveProgress() {
+  try { localStorage.setItem('g2g-progress-ch' + CHAPTER_NUM, currentBeat); } catch(e) {}
+}
+
+// Resume prompt on load
+(function() {
+  try {
+    const saved = parseInt(localStorage.getItem('g2g-progress-ch' + CHAPTER_NUM));
+    if (saved && saved > 0 && saved < totalBeats) {
+      const toast = document.createElement('div');
+      toast.className = 'resume-toast';
+      toast.innerHTML = 'Resume from beat ' + (saved + 1) + '/' + totalBeats + '? ' +
+        '<button class="resume-btn" onclick="goTo(' + saved + '); this.parentElement.remove();">Resume</button>' +
+        '<button class="skip-btn" onclick="this.parentElement.remove();">Start Over</button>';
+      document.body.appendChild(toast);
+      setTimeout(() => { if (toast.parentElement) toast.remove(); }, 8000);
+    }
+  } catch(e) {}
+})();
+</script>
+
+</html>

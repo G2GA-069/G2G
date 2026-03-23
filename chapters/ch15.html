@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G2G Chapter 15 — The Consumer & Retail Special</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --surface: #131318;
+      --surface-2: #1a1a22;
+      --border: #2a2a35;
+      --text: #e8e4df;
+      --text-muted: #8a8590;
+      --text-dim: #5a5560;
+      --accent: #b07ce8;
+      --accent-dim: #7a55b0;
+      --accent-bright: #d4a0ff;
+      --green: #4a9e6e;
+      --red: #c45c4a;
+      --blue: #5a8fc4;
+      --purple: #8a3cc4;
+      --brand-purple: #6b2fa0;
+      --brand-magenta: #d946ef;
+      --font-serif: 'EB Garamond', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { height: 100%; overflow: hidden; }
+    body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-serif);
+      line-height: 1.7;
+    }
+
+    .beat {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 52px 24px 60px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.3s, transform 0.35s ease-in-out;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .beat-inner {
+      max-width: 680px;
+      width: 100%;
+    }
+
+    /* TITLE BEAT */
+    .beat-title {
+      background: radial-gradient(ellipse at 60% 40%, rgba(176, 124, 232, 0.15) 0%, rgba(107, 47, 160, 0.08) 40%, var(--bg) 100%);
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .beat-title .beat-inner {
+      text-align: center;
+    }
+
+    .series-name {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 16px;
+    }
+
+    .chapter-number {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+
+    .beat-title h1 {
+      font-family: var(--font-serif);
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--accent-bright);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .beat-title .subtitle {
+      font-family: var(--font-sans);
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* CARD BEAT */
+    .beat-card {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .beat-card .beat-inner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+    }
+
+    .card-label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .card-body {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    .card-body p {
+      margin-bottom: 16px;
+    }
+
+    .card-body strong {
+      color: var(--accent-bright);
+      font-weight: 600;
+    }
+
+    .metric-item {
+      margin-bottom: 16px;
+      padding-left: 16px;
+      border-left: 2px solid var(--accent-dim);
+    }
+
+    .metric-name {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--accent-bright);
+    }
+
+    .metric-def {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .comparison-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comparison-row:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .comparison-col {
+      flex: 1;
+    }
+
+    .comparison-header {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .comparison-value {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .bullet-list {
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+
+    .bullet-list li {
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .bullet-list li strong {
+      color: var(--accent-bright);
+    }
+
+    .formula-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--accent-bright);
+      line-height: 1.6;
+    }
+
+    .formula-box .formula-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .example-box {
+      background: linear-gradient(135deg, rgba(74,158,110,0.08), rgba(74,158,110,0.03));
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .example-box .example-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .warning-box {
+      background: linear-gradient(135deg, rgba(196,92,74,0.08), rgba(196,92,74,0.03));
+      border-left: 3px solid var(--red);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+
+    .warning-box .warning-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .warning-box p {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .section-divider {
+      background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+      height: 1px;
+      margin: 24px 0;
+    }
+
+    .part-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 4px;
+    }
+
+    /* SCENE BEAT */
+    .beat-scene {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .beat-scene .beat-inner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+    }
+
+    .scene-location {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 16px;
+    }
+
+    .scene-text {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.9;
+    }
+
+    .scene-text strong {
+      color: var(--accent-bright);
+    }
+
+    .scene-text a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .scene-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* UI ELEMENTS */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand-purple), var(--brand-magenta), var(--accent-bright));
+      z-index: 999;
+      width: 0%;
+      transition: width 0.35s ease-in-out;
+    }
+
+    .beat-counter {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      z-index: 998;
+    }
+
+    .chapter-nav {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 997;
+    }
+
+    .chapter-nav .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .chapter-nav .dot:hover {
+      background: var(--text-dim);
+      transform: scale(1.2);
+    }
+
+    .chapter-nav .dot.active {
+      background: var(--accent-bright);
+      transform: scale(1.3);
+    }
+
+    .back-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      z-index: 996;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    .swipe-hint {
+      position: fixed;
+      bottom: 60px;
+      left: 24px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text-dim);
+      z-index: 995;
+      animation: fadeOutAfter 7s forwards;
+    }
+
+    @keyframes fadeOutAfter {
+      0%, 85% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .resume-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--surface);
+      border: 1px solid var(--accent-dim);
+      border-radius: 12px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 1000;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .resume-toast button {
+      background: var(--accent-dim);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+
+    .resume-toast button:first-of-type {
+      background: var(--brand-purple);
+    }
+
+    .resume-toast button:hover {
+      opacity: 0.9;
+    }
+
+    /* Wider beat-inner for comparison tables */
+    .beat-card.comparison-wide .beat-inner {
+      max-width: 760px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .beat-title h1 {
+        font-size: 40px;
+      }
+
+      .beat-title .subtitle {
+        font-size: 16px;
+      }
+
+      .card-title {
+        font-size: 26px;
+      }
+
+      .chapter-nav {
+        display: none;
+      }
+
+      .beat-counter {
+        bottom: 16px;
+        right: 16px;
+        font-size: 11px;
+      }
+
+      .back-link {
+        top: 16px;
+        left: 16px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="beat-counter" id="beatCounter"></div>
+  <a href="../index.html" class="back-link">← G2G</a>
+  <div class="chapter-nav"></div>
+  <div class="swipe-hint" id="swipeHint">Swipe up to navigate</div>
+
+  <!-- BEAT 1: TITLE -->
+  <div class="beat beat-title">
+    <div class="beat-inner">
+      <div class="series-name">G2G ADVISORY</div>
+      <div class="chapter-number">CHAPTER 15</div>
+      <h1>The Consumer & Retail Special</h1>
+      <p class="subtitle">From FMCG to Luxury — Business Models, Metrics & Valuation</p>
+    </div>
+  </div>
+
+  <!-- BEAT 2: ROADMAP -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">CHAPTER OVERVIEW</div>
+      <h2 class="card-title">The Retail Landscape</h2>
+      <div class="card-body">
+        <p><strong>What This Chapter Covers:</strong> The Consumer & Retail sector as understood by London investment banking teams. Fast-moving consumer goods (FMCG/CPG), luxury goods, apparel & fashion, food & beverage, restaurants & QSR, e-commerce & DTC, grocery retail, and specialty retail. Key metrics, valuation frameworks, diligence red flags, and sector-specific acquisition dynamics.</p>
+        <p><strong>Why It Matters:</strong> Consumer-facing businesses dominate deal flow. Vast majority of portfolio companies have some consumer exposure. Understanding brand power, inventory management, like-for-like growth, and customer acquisition fundamentals is core to any retail IB analyst's toolkit.</p>
+        <p><strong>Design:</strong> This chapter provides deep technical reference material suitable for interview prep, sell-side diligence, and M&A modelling. Dense beats covering metrics, sub-sector profiles, valuation frameworks, and red flags.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 3: CONSUMER & RETAIL METRICS I -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="part-label">PART I — FOUNDATIONS</div>
+      <div class="card-label">CORE METRICS</div>
+      <h2 class="card-title">Consumer & Retail Metrics I</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <div class="metric-name">Like-for-Like (LFL) / Same-Store Sales Growth (SSSG)</div>
+          <div class="metric-def">Revenue growth from stores open 12+ months. Strips out new store openings and closures. The single most important metric in retail. Formula: (Current Period LFL Sales − Prior Period LFL Sales) / Prior Period × 100%. Positive LFL signals genuine organic demand expansion, not just store count growth.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">Revenue per Square Foot/Metre</div>
+          <div class="metric-def">Total revenue / total selling space. Benchmark of space productivity. Luxury: £2,000-5,000/sqft. Grocery: £800-1,200/sqft. Apparel: £300-600/sqft. Higher is always better (same revenue in less space = higher-quality location or brand power).</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">Gross Margin</div>
+          <div class="metric-def">(Revenue − COGS) / Revenue. Varies dramatically by sub-sector. FMCG: 40-60%. Luxury: 65-75%. Grocery: 25-30%. Fast fashion: 50-55%. Absolute level and trend matter equally. Margin expansion signals pricing power or operational leverage; compression signals competitive pressure or cost inflation.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">EBITDA Margin</div>
+          <div class="metric-def">Operating profit before depreciation & amortization. Sub-sector variation is extreme. Luxury: 25-35%. FMCG: 15-25%. Grocery: 3-7%. Restaurants: 15-25%. EBITDA is preferred over EBIT because it neutralizes capex intensity and lease accounting distortions (though IFRS 16 has changed this).</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">Inventory Turnover</div>
+          <div class="metric-def">COGS / Average Inventory. Higher = more efficient. Grocery: 12-20x (rapid turnover, perishables). Apparel: 4-6x (seasonal, trend-driven). Luxury: 1.5-3x (intentionally low to maintain scarcity narrative). Watch for deterioration as early warning sign.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">Inventory Days</div>
+          <div class="metric-def">365 / Inventory Turnover. Days of stock on hand. Same insights as turnover but more intuitive. Rising inventory days without revenue growth is a red flag (forced markdowns coming).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 4: CONSUMER & RETAIL METRICS II -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">ADVANCED METRICS</div>
+      <h2 class="card-title">Consumer & Retail Metrics II</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <div class="metric-name">Sell-Through Rate</div>
+          <div class="metric-def">Units Sold / Units Received (or Shipped). Target: 60-80% at full price. Remainder marked down. Critical quality measure. High sell-through = strong demand and correct inventory sizing. Low sell-through = over-ordering, demand miscalculation, or fashion miss.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">Markdown Rate</div>
+          <div class="metric-def">Discount depth × percentage of units marked down. Lower is better. Fast fashion: high volume, high markdown (30-40% of units). Luxury: minimal markdowns (3-5%) to protect brand equity. Rising markdown rate is a major warning sign (inventory bloat or demand weakness).</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">Customer Acquisition Cost (CAC)</div>
+          <div class="metric-def">Particularly relevant for DTC/e-commerce. Total S&M spend / new customers acquired. Include: digital ad spend, influencer costs, sampling, promotional discounts, referral incentives. CAC should decline as brand scales due to organic/word-of-mouth.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">Customer Lifetime Value (CLV)</div>
+          <div class="metric-def">Average order value × purchase frequency × average customer lifespan × gross margin. More sophisticated than simple arithmetic — varies dramatically by cohort and channel. Target LTV/CAC ≥ 3:1.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">Basket Size / Average Transaction Value (ATV)</div>
+          <div class="metric-def">Revenue / number of transactions. Retail obsession. Rising ATV signals mix improvement or upselling success. Declining ATV suggests customer downtrading or competitive pressure. Track separately for store vs e-commerce channels.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">Footfall / Traffic</div>
+          <div class="metric-def">Number of store visitors (physical) or website sessions (digital). Conversion rate = transactions / traffic. Declining footfall despite stable revenue = improving conversion (positive). Stable footfall with declining revenue = conversion collapse (negative).</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">Working Capital Cycle</div>
+          <div class="metric-def">Inventory Days + Receivable Days − Payable Days. Critical in retail. Negative working capital (collect before you pay suppliers) is the holy grail. Grocery retailers often have negative cycles (£10M sales with negative £2M working capital = free cash flow generation). Rising cycle = cash flow headwind.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 5: KEY FORMULAS -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">REFERENCE</div>
+      <h2 class="card-title">Key Formulas & Calculations</h2>
+      <div class="card-body">
+        <div class="formula-box">
+          <span class="formula-label">Like-for-Like Growth</span>
+          (LFL Sales Current − LFL Sales Prior) / LFL Sales Prior × 100%
+        </div>
+
+        <div class="formula-box">
+          <span class="formula-label">Gross Margin</span>
+          (Revenue − COGS) / Revenue
+        </div>
+
+        <div class="formula-box">
+          <span class="formula-label">Inventory Turnover</span>
+          COGS / Average Inventory
+        </div>
+
+        <div class="formula-box">
+          <span class="formula-label">Working Capital Cycle</span>
+          Inventory Days + Receivable Days − Payable Days
+        </div>
+
+        <div class="formula-box">
+          <span class="formula-label">Revenue per sqft</span>
+          Total Revenue / Total Selling Area
+        </div>
+
+        <div class="formula-box">
+          <span class="formula-label">4-Wall EBITDA</span>
+          Store Revenue − Store-level Costs (excl. HQ overhead)
+        </div>
+
+        <div class="formula-box">
+          <span class="formula-label">Payback Period (new store)</span>
+          Net Capex / Annual 4-Wall EBITDA
+        </div>
+
+        <div class="example-box">
+          <span class="example-label">Worked Example: New Store Economics</span>
+          Retailer opens new £1.2M buildout. Generates £3M revenue, 30% gross margin = £900K GP. Store-level operating costs £300K → £600K 4-Wall EBITDA. Payback = £1.2M / £600K = 2.0 years. Unit IRR ≈ 35-40% (excellent). Critical: must normalize capex to distinguish growth capex (new stores) from maintenance capex.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 6: FMCG / CPG -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="part-label">PART II — SUB-SECTOR DEEP DIVES</div>
+      <div class="card-label">SUB-SECTOR</div>
+      <h2 class="card-title">FMCG / CPG: The Staples Model</h2>
+      <div class="card-body">
+        <p><strong>Business Model:</strong> Branded consumer packaged goods sold through retail channels (supermarkets, pharmacies, online). Revenue = volume × price. Organic growth decomposed into volume growth + price/mix effect. Key players: Unilever, P&G, Nestlé, Reckitt, Danone.</p>
+
+        <p><strong>Margin Structure:</strong> Gross margin 45-65%, EBITDA margin 18-28%. High marketing spend (8-15% of revenue) required to maintain brand equity and shelf space. Portfolio management is constant — pruning underperformers, acquiring growth brands, cutting SKUs.</p>
+
+        <p><strong>Pricing Power:</strong> The critical question. Can the company pass through cost inflation without losing volume to private label? Brands with strong consumer loyalty have pricing power. Commodity-like products (tissue, detergent) face pricing pressure.</p>
+
+        <p><strong>Portfolio Dynamics:</strong> Bolt-on M&A is core strategy. Acquiring emerging-market brands, premium/natural brands (health trend), or distribution footprints. Divestiture of "tail" brands (low growth, low margin) is ongoing. Portfolio quality matters.</p>
+
+        <p><strong>Valuation:</strong> EV/EBITDA 12-18x. Premium for: organic growth visibility, margin expansion potential, emerging market exposure, innovation pipeline strength, M&A synergy visibility. DCF using perpetuity growth 2-3%.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 7: FMCG — VOLUME & PRICE -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">FMCG MECHANICS</div>
+      <h2 class="card-title">FMCG: Volume, Price/Mix & Organic Growth</h2>
+      <div class="card-body">
+        <p><strong>Organic Growth Decomposition:</strong> Volume growth + Price/Mix effect. This is the most scrutinized metric in FMCG earnings calls. Market wants to see volume growth (genuine demand expansion), not pure price growth (inflation passing, risks future volume loss).</p>
+
+        <p><strong>Volume vs Price Split:</strong> Volume growth signals healthy demand. Pure price growth (without volume) indicates passing inflation but risks volume loss to private label or private equity consolidation. "Premiumisation" strategy — selling more premium SKUs — shifts mix upward without headline price increases.</p>
+
+        <p><strong>A&P (Advertising & Promotions) Spend:</strong> Typically 8-15% of revenue. Trade spend (discounts to retailers, shelf allowances) vs consumer-facing marketing. A&P cuts boost short-term margins but risk long-term brand erosion. Watch for sudden A&P reductions as margin engineering.</p>
+
+        <p><strong>Private Label Threat:</strong> Retailer own-brands competing directly. Private label share varies: ~40% in UK/Germany, ~20% in US, rising in inflationary environments. Key question: is the company gaining or losing share to private label?</p>
+
+        <div class="warning-box">
+          <span class="warning-label">Warning</span>
+          <p>Volume declines coupled with price increases are a massive red flag. This signals the company is trying to improve margin through price but sacrificing volume competitiveness. Expect margin compression when the price/mix benefit normalizes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 8: LUXURY GOODS -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">SUB-SECTOR</div>
+      <h2 class="card-title">Luxury Goods: Brand Moats & Scarcity</h2>
+      <div class="card-body">
+        <p><strong>Business Model:</strong> Aspirational brands selling high-margin products. Revenue drivers: leather goods (highest margin), ready-to-wear, watches & jewellery, perfumes & cosmetics (entry-level). Key players: LVMH, Kering (Gucci, Saint Laurent), Hermès, Richemont (Cartier), Prada, Burberry.</p>
+
+        <p><strong>Margin Profile:</strong> Gross margin 65-75%, EBITDA margin 25-40% (Hermès at 40%+). Operating leverage from brand power and controlled distribution. No discounting allowed — brand essence depends on perceived scarcity and exclusivity.</p>
+
+        <p><strong>Distribution Strategy:</strong> Heavy shift toward DOS (Directly Operated Stores) for brand control and margin capture. Wholesale still important but declining. Luxury does NOT want to be in every shopping mall — curated location strategy.</p>
+
+        <p><strong>Pricing Strategy:</strong> Never discount. Price increases of 5-10% annually are standard and accepted by aspirational consumers. Scarcity drives desirability. Waitlists for Hermès bags and Patek Philippe watches. Inflation hedging narrative.</p>
+
+        <p><strong>Key Metrics:</strong> Revenue per store (DOS), DOS vs wholesale mix, ASP trends, geographic mix (China/Asia exposure is critical — 30-40% of global luxury spend from Chinese consumers including travel retail).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 9: LUXURY — VALUATION & CHINA EXPOSURE -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">LUXURY VALUATION</div>
+      <h2 class="card-title">Luxury: Valuation & Geographic Risk</h2>
+      <div class="card-body">
+        <p><strong>EV/EBITDA Range:</strong> 15-25x typically. Hermès at 30x+. Premium multiples reflect: consistent organic growth, margin resilience through economic cycles, powerful intangible assets (brand), pricing power, and defensive characteristics.</p>
+
+        <p><strong>Sum-of-the-Parts Valuation:</strong> Conglomerates like LVMH are often valued by division. Fashion & Leather (30-35% of revenue, highest margin), Wines & Spirits (12-15%, exceptional margin), Perfumes (8-12%), Watches (5-10%), Selective Retailing (DFS/duty-free, 15-20%, lower margin). Each division gets different multiple.</p>
+
+        <p><strong>China/Asia Risk:</strong> Chinese consumers represent 30-40% of global luxury spend. Any slowdown in Chinese consumer sentiment is a major catalyst. COVID-era border closures devastated luxury travel retail. Recovery linked directly to Chinese outbound tourism reopening.</p>
+
+        <p><strong>Currency Effects:</strong> Luxury revenues are global but often reported in EUR or GBP. FX translation effects can be material (GBP strength = reported revenue drag for UK luxury). Constant currency growth vs reported growth — always compare both.</p>
+
+        <p><strong>Cyclicality:</strong> Luxury is less cyclical than general retail but NOT immune. Aspirational luxury (entry-level cosmetics, small leather goods) is more cyclical. Absolute luxury (Hermès, Patek Philippe) is nearly recession-proof for ultra-high-net-worth individuals.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 10: APPAREL & FASHION -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">SUB-SECTOR</div>
+      <h2 class="card-title">Apparel & Fashion: Speed, Inventory, Markdowns</h2>
+      <div class="card-body">
+        <p><strong>Sub-Segments:</strong> Fast fashion (Zara/Inditex, H&M, Primark), mid-market (Next, M&S), premium/designer, sportswear (Nike, Adidas). Each has vastly different unit economics and competitive dynamics.</p>
+
+        <p><strong>Fast Fashion Model:</strong> Speed-to-market (Zara: 2-3 weeks from design to store), frequent inventory refreshes, lower ASP, high markdown risk. Volume model with thin margins (relying on high-velocity inventory turns). Markdown rate is THE critical metric (30-40% of volume marked down).</p>
+
+        <p><strong>Inventory Management Discipline:</strong> The single biggest differentiator. Too much inventory → markdowns → margin erosion. Too little → lost sales. Sell-through rate is gospel. Zara's genius is managing sub-10% markdown by controlling supply tightly and refreshing inventory constantly.</p>
+
+        <p><strong>DTC Shift:</strong> Brands moving away from wholesale toward own stores and e-commerce. Higher margin (60%+ EBITDA) but requires retail operating capability. Capital intensity of store network offsets margin benefit. Omnichannel execution is critical (inventory visibility, returns, fulfillment).</p>
+
+        <p><strong>Key Metrics:</strong> Sell-through rate, markdown rate, inventory turnover, LFL growth, online penetration, conversion rate (physical + digital). ESG pressures (supply chain transparency, circular economy) increasingly material to valuation.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 11: FOOD & BEVERAGE -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">SUB-SECTOR</div>
+      <h2 class="card-title">Food & Beverage: Spirits, Health Trends</h2>
+      <div class="card-body">
+        <p><strong>Sub-Segments:</strong> Packaged food (Nestlé, Mondelez), beverages (Coca-Cola, Diageo, AB InBev), ingredients. Revenue model: branded products sold through retail and food service. Volume × price same as FMCG.</p>
+
+        <p><strong>Alcohol/Spirits Specifics:</strong> Diageo, Pernod Ricard, LVMH Wines & Spirits. Premium spirits have exceptional pricing power (single malts, cognac, tequila). Ageing inventory (whisky maturation 10-20 years) ties up working capital for years but enables premium pricing on release.</p>
+
+        <p><strong>Health & Wellness Trend:</strong> Consumer shift toward better-for-you products. Sugar reduction, plant-based alternatives, organic, functional beverages (probiotics, adaptogens). Driving massive M&A in F&B sector. Pure packaged food companies struggling; health-focused companies commanding premiums.</p>
+
+        <p><strong>Margin Dynamics:</strong> Staples/packaged food trade at EV/EBITDA 12-16x. Spirits/premium beverages at 15-20x due to pricing power and lower competition. Defensive characteristics (demand resilient in recessions) support premium multiples vs cyclical retail.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 12: RESTAURANTS & QSR -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">SUB-SECTOR</div>
+      <h2 class="card-title">Restaurants & QSR: Franchise Economics</h2>
+      <div class="card-body">
+        <p><strong>Business Models:</strong> Company-owned vs franchised. Franchise model: franchisor collects royalties (4-6% of revenue) + marketing fund (2-3%) + initial franchise fees. Asset-light, high-margin model (60-70% EBITDA for franchisors like McDonald's). Company-owned stores generate higher revenue but lower margins (15-25% store-level).</p>
+
+        <p><strong>Key Metrics:</strong> Same-store sales growth (SSSG), average unit volume (AUV), new unit openings (growth trajectory), restaurant-level margin ("4-wall margin"), franchisee profitability (franchisor's partners must be healthy to expand).</p>
+
+        <p><strong>Unit Economics:</strong> New restaurant buildout typically £500K-1.5M. Payback period 2-3 years. Unit-level IRR 30%+ for strong concepts. Critical to model: does franchisee have sufficient AUV to support royalty payments and reinvestment?</p>
+
+        <p><strong>Digital & Delivery:</strong> Third-party delivery (Deliveroo, UberEats) expands reach but at 15-30% commission cost (destroys margins). Own-app ordering is more profitable. Dark kitchens (delivery-only, no physical dining) emerging as capital-efficient unit model.</p>
+
+        <p><strong>Valuation:</strong> Franchise-heavy models trade at 15-25x EBITDA (McDonald's, Domino's). Company-owned models trade at 8-14x. Premium for: unit growth runway, franchisee quality, digital adoption, consistency of unit economics.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 13: E-COMMERCE & DTC -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">SUB-SECTOR</div>
+      <h2 class="card-title">E-Commerce & DTC: Customer Economics</h2>
+      <div class="card-body">
+        <p><strong>Pure-Play E-Commerce:</strong> Amazon, ASOS, Zalando, Farfetch. Marketplace vs 1P (first-party retail) models. Marketplace revenue = GMV × take rate (3-15%). 1P = full revenue but with inventory risk and fulfillment cost.</p>
+
+        <p><strong>DTC (Direct-to-Consumer):</strong> Brands selling directly via own website. Higher margin (60%+ gross) but requires customer acquisition capability. Unit economics critical: CAC vs CLV. Many DTC brands acquire customers at loss on first order, relying on repeat purchases for profitability.</p>
+
+        <p><strong>Key Metrics:</strong> GMV/revenue, gross margin, CAC, CLV, LTV/CAC ratio (target ≥ 3:1), repeat purchase rate, AOV, return rate (critical — online fashion returns can be 20-40%, destroying unit economics).</p>
+
+        <p><strong>Return Rate Economics:</strong> Hidden killer of e-commerce. £100 order with 30% return rate and £10 return processing cost effectively reduces margin by £3 per order. Returns logistics (reverse logistics) increasingly sophisticated. Rental/subscription models (Rent the Runway) solve this.</p>
+
+        <p><strong>Customer Cohort Analysis:</strong> Acquisition channel matters enormously. Instagram, TikTok, Google shopping, affiliate — each has different CAC, LTV profile. Platform concentration risk: losing Meta ad access = CAC inflation for Instagram-dependent brands.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 14: GROCERY RETAIL -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">SUB-SECTOR</div>
+      <h2 class="card-title">Grocery Retail: Negative Working Capital, Thin Margins</h2>
+      <div class="card-body">
+        <p><strong>Business Model:</strong> High-volume, low-margin retail. Gross margins 25-30%, EBITDA margins 3-7%. Tesco, Sainsbury's, Carrefour, Ahold Delhaize dominate. Intense price competition. Discounters (Aldi, Lidl) gaining share structurally despite Big 4 price-matching.</p>
+
+        <p><strong>Private Label Strategy:</strong> Grocers' own-brand products often 20-40% of sales. Higher margin than branded (18-20% vs 12-15%). Growing as consumers trade down in inflationary environments. Own-label quality has improved dramatically (Tesco Finest, Sainsbury's Taste the Difference).</p>
+
+        <p><strong>Working Capital Advantage:</strong> Negative working capital cycle — cash collected from customers (credit card, loyalty data) before paying suppliers. This generates significant operating cash flow relative to thin reported margins. A £10B revenue grocer might have £500M negative working capital (free cash factory).</p>
+
+        <p><strong>Online Grocery Challenge:</strong> Accelerated by COVID. Profitability elusive — fulfillment economics are brutal. Pick-and-pack from stores vs dark stores vs automated microfulfillment — all variants have pros/cons. Traditional grocery margins don't support delivery cost.</p>
+
+        <p><strong>Valuation:</strong> EV/EBITDA 6-10x (low multiples reflect structural margin pressure, intense competition, capex intensity for logistics/automation). FCF yield often more relevant than growth multiple. Enterprise value skewed by lease liabilities (IFRS 16).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 15: SPECIALTY RETAIL & TRAVEL RETAIL -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">SUB-SECTOR</div>
+      <h2 class="card-title">Specialty Retail & Travel Retail</h2>
+      <div class="card-body">
+        <p><strong>Specialty Retail:</strong> Niche-focused retailers — pet supplies (Pets at Home), DIY (Kingfisher, B&Q), electronics (Currys), beauty (Sephora), sporting goods (JD Sports, Decathlon). Moat: category expertise, curated assortment, loyalty programs, store experience.</p>
+
+        <p><strong>Key Drivers:</strong> LFL growth, new store rollout, online penetration, category market share. Omnichannel execution critical — click-and-collect, ship-from-store, unified inventory. Retailers executing this effectively outperform brick-and-mortar-only operators by 200-300bps.</p>
+
+        <p><strong>Travel Retail & Duty-Free:</strong> Retail in airports, cruise ships, border shops. Concession-based model — retailer pays airport authority minimum annual guarantee + % of revenue. Key players: Dufry (Avolta), Lagardère Travel Retail, DFS (LVMH subsidiary).</p>
+
+        <p><strong>Travel Retail Dynamics:</strong> Revenue highly correlated with international passenger volumes. Chinese outbound tourism critical for luxury categories. COVID impact was catastrophic; recovery gradual. Margin structure: concession fees (20-30% of revenue) compress operating margins. Typical EBITDA margin 8-12%.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 16: VALUATION FRAMEWORK - EV/EBITDA -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="part-label">PART III — VALUATION & DILIGENCE</div>
+      <div class="card-label">VALUATION</div>
+      <h2 class="card-title">Consumer Valuation: EV/EBITDA by Sub-Sector</h2>
+      <div class="card-body">
+        <p><strong>EV/EBITDA is the primary metric in Consumer & Retail:</strong></p>
+        <ul class="bullet-list">
+          <li><strong>Luxury:</strong> 15-30x (premium for brand, pricing power, margin resilience)</li>
+          <li><strong>FMCG/Staples:</strong> 12-18x (defensive characteristics, but volume growth slowing)</li>
+          <li><strong>Premium Spirits:</strong> 15-22x (scarcity, pricing power, inflation hedging)</li>
+          <li><strong>QSR (Franchise):</strong> 15-25x (asset-light, recurring royalty streams, predictable cash flow)</li>
+          <li><strong>Apparel:</strong> 8-14x (inventory/markdown risk, competitive intensity, trend-dependent)</li>
+          <li><strong>Grocery:</strong> 6-10x (margin pressure, low growth, capital intensive)</li>
+          <li><strong>E-Commerce (profitable):</strong> 10-20x (growth opportunity but unit economics scrutiny)</li>
+          <li><strong>E-Commerce (unprofitable):</strong> EV/Revenue 0.5-3x (valued on path-to-profitability)</li>
+        </ul>
+
+        <p><strong>Drivers of Premium Multiples:</strong> Organic growth visibility, pricing power, brand strength, margin expansion potential, defensive characteristics, NRR (for DTC/subscription), inventory discipline (for fashion), franchisee quality (for QSR).</p>
+
+        <p><strong>EV/EBITDA vs P/E:</strong> EBITDA preferred because it strips out capital structure (leverage) and depreciation (important for asset-heavy retailers). P/E used more for mature staples/luxury where capex is minimal and capital structure is stable.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 17: DCF & LBO CONSIDERATIONS -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">DCF & M&A</div>
+      <h2 class="card-title">DCF for Consumer & LBO Suitability</h2>
+      <div class="card-body">
+        <p><strong>DCF for Consumer Retail:</strong> Typically 5-year explicit period + terminal value. Terminal growth 1.5-3% (staples/mature) or 2-4% (luxury/growth brands). WACC 7-10% depending on leverage. Terminal value often 60-70% of enterprise value.</p>
+
+        <p><strong>Free Cash Flow Modeling:</strong> Critical nuance: distinguish maintenance capex (store refreshes, systems) from growth capex (new stores). Many retailers disguise growth capex as maintenance. DCF should use normalized steady-state capex, not actual year-to-date spend.</p>
+
+        <p><strong>Working Capital Modeling:</strong> Highly seasonal. Retail builds inventory for Q4 (December peak), then runs it down Jan-Feb. Model working capital as % of revenue with seasonal adjustments. Negative working capital (grocery) is a cash flow tailwind; positive working capital (apparel with inventory) is a headwind.</p>
+
+        <p><strong>LBO Suitability:</strong> Stable, predictable cash flow businesses ideal for LBO. FMCG, franchise QSR, luxury — all good LBO candidates. Grocery less suitable (thin margins, high competition). Luxury LBOs are rare (family control resists PE).</p>
+
+        <p><strong>Leverage Capacity:</strong> FMCG can sustain 4-5x Net Debt/EBITDA. Grocery: 2-3x (lenders restrict due to margin volatility). Luxury: 1-2x (cultural preference for low leverage). QSR franchise: 5-7x (stable royalty streams justify higher leverage).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 18: COMPS & PRECEDENTS -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">M&A & ANALYSIS</div>
+      <h2 class="card-title">Comparable Companies & Precedent Transactions</h2>
+      <div class="card-body">
+        <p><strong>Peer Group Construction:</strong> Same sub-sector (don't comp luxury with grocery), similar geographic exposure, similar growth/margin profile, similar business model (franchise vs company-owned, DTC vs wholesale). 8-12 comps minimum for statistical validity.</p>
+
+        <p><strong>Key Adjustments:</strong> Lease capitalization (IFRS 16 impact on EBITDA — add back operating lease expense to compute comparable EBITDA), exceptional items (one-offs, restructuring), currency normalization, organic vs inorganic growth separation.</p>
+
+        <p><strong>Multiple Selection:</strong> Use median, not mean (outliers distort). Consider quartiles — is the company in top/bottom quartile of growth, margin, or quality? Apply different multiple within range based on relative positioning.</p>
+
+        <p><strong>Precedent Transactions:</strong> Recent M&A data for control premiums. Consumer/Retail acquisitions typically fetch 20-40% premium to pre-announcement trading multiple. Strategic buyer willing to pay more for synergies; financial buyer more disciplined on valuation.</p>
+
+        <div class="example-box">
+          <span class="example-label">Worked Example: Apparel Valuation</span>
+          Building comp set for mid-market apparel retailer: ASOS (online pure-play, 45% organic growth, 8% EBITDA margin, 12x EV/EBITDA), Next (omnichannel, 10% growth, 18% margin, 9x), Inditex (Zara parent, 5% growth, 20% margin, 18x). Target company: 8% growth, 12% margin → use 10-11x (below ASOS due to slower growth, below Inditex due to lower margin). Valuation: £500M EBITDA × 10.5x = £5.25B.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 19: M&A RATIONALE IN CONSUMER -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">M&A DYNAMICS</div>
+      <h2 class="card-title">M&A in Consumer & Retail</h2>
+      <div class="card-body">
+        <p><strong>Strategic Rationale:</strong> Portfolio expansion (bolt-on brands in growth categories), geographic expansion (emerging markets, new regions), category entry, vertical integration, digital capability acquisition (technology talent, infrastructure), cost synergies.</p>
+
+        <p><strong>FMCG M&A Trend:</strong> Acquiring growth brands (health/wellness, premium, plant-based). Divesting low-growth "tail" brands. P&G acquired Brands Essence (plant-based CPG), Unilever sold spreads business. Portfolio reshaping, not expansion.</p>
+
+        <p><strong>Luxury M&A:</strong> Rare — family control limits hostile activity. LVMH's Tiffany acquisition (£16B, 2021) was exceptional. Vertical integration (LVMH acquiring suppliers, retail). Minority stakes in emerging luxury brands (investment strategy).</p>
+
+        <p><strong>Retail M&A:</strong> Consolidation plays (merging competing retailers for synergies — e.g., Sainsbury's/Asda merger blocked by UK regulators), PE buyouts of undervalued chains, tech/capability acquisitions (e-commerce, data analytics), discount store rollups.</p>
+
+        <p><strong>Synergies Estimation:</strong> Cost synergies in FMCG (procurement, distribution, HQ overhead elimination). Typical target: 3-7% of target's cost base. Revenue synergies harder to prove (cross-sell often fails post-integration). Conservative approach: build only cost synergies, show revenue as upside.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 20: COMPARISON TABLE -->
+  <div class="beat beat-card comparison-wide">
+    <div class="beat-inner">
+      <div class="card-label">REFERENCE</div>
+      <h2 class="card-title">Sub-Sector Comparison Matrix</h2>
+      <div class="card-body">
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <div class="comparison-header">METRIC</div>
+            <div class="comparison-value"><strong>FMCG</strong></div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value"><strong>LUXURY</strong></div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value"><strong>FASHION</strong></div>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <div class="comparison-header">Gross Margin</div>
+            <div class="comparison-value">45-60%</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">65-75%</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">50-60%</div>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <div class="comparison-header">EBITDA Margin</div>
+            <div class="comparison-value">18-28%</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">25-40%</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">12-20%</div>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <div class="comparison-header">Typical EV/EBITDA</div>
+            <div class="comparison-value">12-18x</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">15-30x</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">8-14x</div>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <div class="comparison-header">Inventory Turnover</div>
+            <div class="comparison-value">6-10x</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">1.5-3x</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">4-6x</div>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <div class="comparison-header">Key Value Driver</div>
+            <div class="comparison-value">Pricing power, volume growth</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">Brand equity, scarcity</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">Inventory mgmt, sell-through</div>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <div class="comparison-header">Primary Risk</div>
+            <div class="comparison-value">Private label, inflation</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">China exposure, counterfeits</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">Markdowns, trend risk</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 21: BRAND HEALTH & PRICING POWER -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="part-label">PART IV — DILIGENCE & RED FLAGS</div>
+      <div class="card-label">DILIGENCE</div>
+      <h2 class="card-title">Brand Health & Pricing Power Assessment</h2>
+      <div class="card-body">
+        <p><strong>Brand Equity Assessment:</strong> Aided/unaided awareness (how many people know the brand unprompted vs after prompting), Net Promoter Score (NPS — recommend to others?), brand preference surveys (vs competitors), social media sentiment (Twitter, TikTok brand mentions trending up/down).</p>
+
+        <p><strong>Pricing Power Test:</strong> Has the company successfully raised prices without volume loss? Track price/volume split over 3+ years. If volume declining while prices rising = deteriorating pricing power (eventual margin compression). If volume stable/growing with price increases = genuine pricing power.</p>
+
+        <p><strong>Private Label Threat Assessment:</strong> What % of the company's categories face strong private label competition? Monitor private label share trend. Are consumers actively trading down? Rising private label penetration in company's categories = warning sign (margin pressure ahead).</p>
+
+        <p><strong>Innovation Pipeline:</strong> % of revenue from products launched last 2-3 years. FMCG targets 20%+. Stale innovation = vulnerable to disruption. Check: are launches incremental (flavor/packaging variants) or transformational (new category entry, genuine consumer benefit)?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 22: INVENTORY & WORKING CAPITAL RED FLAGS -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">RED FLAGS</div>
+      <h2 class="card-title">Inventory & Working Capital Red Flags</h2>
+      <div class="card-body">
+        <p><strong>Rising Inventory Days:</strong> If inventory growing faster than revenue, the company may be over-ordering or facing slowing demand. Markdowns will follow. Track on year-over-year basis at consistent seasonal point (avoid Q4 for retailers, always seasonal spike).</p>
+
+        <p><strong>Channel Stuffing:</strong> Pushing excess inventory to wholesalers/retailers near quarter-end to inflate reported revenue. Red flags: revenue spikes at quarter-end, rising trade receivables (retailers buying but not selling), subsequent period returns/credits, aggressive end-of-period "sell-through promotions."</p>
+
+        <p><strong>Negative Working Capital Deterioration:</strong> If a retailer's negative working capital cycle (holy grail for cash generation) starts deteriorating → suppliers demanding faster payment, payment terms shrinking → cash flow can collapse. Watch payable days trend closely.</p>
+
+        <div class="warning-box">
+          <span class="warning-label">Warning</span>
+          <p>A retailer reporting strong revenue growth but with inventory growing 2x faster is a massive red flag. Markdowns and margin compression are coming. This often precedes earnings misses by 1-2 quarters as inventory is slowly marked down.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 23: STORE PORTFOLIO & LEASE ANALYSIS -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">ASSET QUALITY</div>
+      <h2 class="card-title">Store Portfolio & Lease Obligations</h2>
+      <div class="card-body">
+        <p><strong>Store Economics Analysis:</strong> 4-wall EBITDA for each store (or at least for portfolio segments). What % of stores are profitable? What's the distribution (top 10% of stores driving 40%+ of profit)? Unprofitable stores = closure risk, write-off risk.</p>
+
+        <p><strong>Lease Obligations (Post-IFRS 16):</strong> Operating leases now sit on balance sheet as lease liabilities. Lease-adjusted leverage can be 30-50% higher than reported net debt/EBITDA. Pre-IFRS 16 analysis requires adjusting for off-balance-sheet operating leases (capitalized value ≈ annual rent / 8-10%).</p>
+
+        <p><strong>Store Age & Refresh Cycle:</strong> Aging store estate requires capex for refurbishment. Deferred maintenance inflates short-term profits but degrades customer experience. Compare store age distribution vs refurbishment spend — underfunded estate = future earnings headwind.</p>
+
+        <p><strong>Closure Risk & Lease Tails:</strong> Unprofitable stores may have long lease tails (5-10+ years remaining). Closure costs (lease buyouts, redundancy, inventory write-offs) can be substantial. Model closure costs explicitly in underwriting.</p>
+
+        <p><strong>New Store Payback Analysis:</strong> Payback period, cannibalization of nearby existing stores (new store taking 10-15% of local revenue from existing store?), site selection quality (are new locations in prime real estate or secondary locations?).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 24: E-COMMERCE & DTC RED FLAGS -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">DTC RED FLAGS</div>
+      <h2 class="card-title">E-Commerce & DTC Diligence Red Flags</h2>
+      <div class="card-body">
+        <p><strong>CAC Inflation:</strong> Digital advertising costs (Google, Meta, TikTok) have risen 50%+ since 2020. DTC brands that acquired customers cheaply in 2018-2020 face unit economics deterioration. Is CAC stable/declining or rising? Rising CAC + flat LTV = deteriorating unit economics.</p>
+
+        <p><strong>Return Rate Economics:</strong> Headline revenue masks true profitability. A company reporting 40% growth but with 35% return rates in fashion is not growing as fast as appears. Return rate × cost per return = real margin headwind. Monitor closely.</p>
+
+        <p><strong>Customer Concentration Risk:</strong> What % of revenue comes from repeat customers vs new? Heavy reliance on new customer acquisition is expensive and fragile. Target: 60%+ repeat/returning customers for healthy cohorts. Cohort repeat rates declining = acquisition quality deteriorating.</p>
+
+        <p><strong>Channel Dependency:</strong> Over-reliance on single acquisition channel (Instagram ads, TikTok, Google) creates platform risk. Meta ad targeting changes (iOS ATT) hurt Instagram/Facebook acquisition efficiency. Diversified channel mix is healthier.</p>
+
+        <div class="warning-box">
+          <span class="warning-label">Caution</span>
+          <p>DTC brands reporting strong growth with rising CAC and flat/declining LTV are on borrowed time. Invariably results in margin compression and eventual slowdown. Look for evidence of unit economics sustainability before assigning high valuation multiple.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 25: DILIGENCE CHECKLIST -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">SUMMARY</div>
+      <h2 class="card-title">Consumer & Retail Diligence Checklist</h2>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li><strong>Like-for-Like Growth Trajectory:</strong> Accelerating, stable, or decelerating? Multi-year trend matters.</li>
+          <li><strong>Organic Growth Decomposition:</strong> Volume vs price vs mix. Is growth genuine demand or just inflation passing?</li>
+          <li><strong>Gross Margin Trend:</strong> Expanding or compressing? 3-year trend. Flags pricing power or cost pressure.</li>
+          <li><strong>Inventory Health:</strong> Turnover, days, sell-through rate, markdown rate. Rising inventory relative to revenue is a red flag.</li>
+          <li><strong>Working Capital Cycle:</strong> Trend in payable days, receivable days, inventory days. Deteriorating cycle = cash flow headwind.</li>
+          <li><strong>Store Portfolio Quality:</strong> % profitable, new store payback, cannibalization, estate age and maintenance.</li>
+          <li><strong>Brand Health Metrics:</strong> NPS, awareness, preference, pricing power evidence, innovation pipeline strength.</li>
+          <li><strong>Pricing Power Evidence:</strong> Price/volume history. Can company raise prices without volume loss?</li>
+          <li><strong>Private Label / Competitive Threat:</strong> Is the company gaining/losing share? Category attractiveness.</li>
+          <li><strong>Management Track Record:</strong> Capital allocation (ROIC), M&A integration success, dividend sustainability.</li>
+          <li><strong>Lease-Adjusted Leverage:</strong> Post-IFRS 16, operating leases matter. Check true lease burden.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 26: LONDON IB LANDSCAPE -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">CONTEXT</div>
+      <h2 class="card-title">London Consumer & Retail IB Landscape</h2>
+      <div class="card-body">
+        <p><strong>Major Sector Coverage Banks:</strong> Goldman Sachs, Morgan Stanley, J.P. Morgan, Barclays, Rothschild, Lazard, Centerview Partners, Evercore ISI, Perceptive Advisors. Consumer/Retail is a top-3 sector for deal flow in London (alongside financials and industrials).</p>
+
+        <p><strong>Deal Patterns:</strong> Mix of strategic acquisitions (consolidation, geographic expansion, portfolio reshaping) and sponsor-backed transactions (PE acquisitions of undervalued retail chains, bolt-on add-ons). Trend toward FMCG bolt-ons, luxury M&A, DTC platform consolidation.</p>
+
+        <p><strong>Valuation Environment:</strong> Post-COVID, multiples compressed significantly from 2020-2021 peak. FMCG at 12-15x (vs 16-18x in 2021), Luxury at 18-25x (vs 30x peak), Retail at 7-10x (vs 10-12x). Interest rate normalization materially affects discount rates in DCF.</p>
+
+        <p><strong>Career Note:</strong> Consumer & Retail is one of largest sector groups in London IB. High deal flow, strong exit opportunities (many sector teams have spinouts, some partners move to PE/strategic buyer). Technical skills: comps, precedents, working capital modelling, inventory analysis are tested heavily.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 27: SCENARIO & SUMMARY -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">APPLICATION</div>
+      <h2 class="card-title">Putting It All Together: IB Scenario</h2>
+      <div class="card-body">
+        <p><strong>Example Deal Situation:</strong> Your bank is advising on the acquisition of a mid-market apparel retailer. Company has 150 stores, £500M revenue, 12% EBITDA margin. Last 3 years: LFL growth 2%, 1%, −1% (decelerating trend is bad). Inventory days rising: 120 → 130 → 145 (red flag). Sell-through rate declining from 75% to 65% (inventory bloat). What's a fair valuation?</p>
+
+        <p><strong>Analysis:</strong> Company is in margin compression cycle. Rising inventory + declining sell-through + rising markdowns = EBITDA margin will compress from 12% to 8-10% within 12 months. Use 10% normalized margin, not current 12%. LFL negative suggests mature/declining category. Use 0-2% long-term growth, not historical 2%.</p>
+
+        <p><strong>Comps:</strong> ASOS 12x (online, growth), Next 9x (omnichannel, mature), Inditex 18x (Zara, premium). This company: 8x (mature, inventory risk, margin compression evident). Valuation: £500M × 10% margin × 8x = £400M (vs potentially £600M if using current margin and higher multiple).</p>
+
+        <p><strong>Red Flags to Highlight:</strong> Deteriorating LFL trend, inventory days rising, sell-through declining, markdown rate likely rising (request detailed markdown data). These suggest normalized EBITDA is significantly below current reported level.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 28: FINALE -->
+  <div class="beat beat-scene">
+    <div class="beat-inner">
+      <div class="scene-location">— THE CONSUMER & RETAIL SPECIAL, COMPLETE</div>
+      <div class="scene-text">
+        <p>You've now covered the full landscape. From FMCG pricing dynamics and private label threats, through luxury brand moats and scarcity narratives, to grocery working capital mechanics and e-commerce unit economics.</p>
+
+        <p>The metrics — like-for-like growth, inventory turnover, sell-through rates, markdown rates — are your daily vocabulary in retail banking. The valuation frameworks — EV/EBITDA by sub-sector, Rule of 40 analogues (Rule of 30 for retail), comps and precedents — are your workhorses.</p>
+
+        <p>And the red flags — rising inventory relative to revenue, channel stuffing, CAC inflation, store closures, lease deterioration — are the tripwires that catch misses before earnings do.</p>
+
+        <p><strong>The Bottom Line:</strong> Consumer & Retail is fundamentally about understanding brand power, inventory discipline, and customer economics. Know the brand. Interrogate the inventory. Trust the like-for-likes. This trinity unlocks deal value.</p>
+
+        <p><strong><a href="../index.html">← Return to G2G</a></strong></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const beats = document.querySelectorAll('.beat');
+    const totalBeats = beats.length;
+    let currentBeat = 0;
+    let isAnimating = false;
+    let startY = 0;
+
+    function positionBeats() {
+      beats.forEach((beat, index) => {
+        if (index === 0) {
+          beat.style.transform = 'translateY(0)';
+          beat.style.visibility = 'visible';
+          beat.style.opacity = '1';
+          beat.style.pointerEvents = 'auto';
+        } else {
+          beat.style.transform = 'translateY(100vh)';
+          beat.style.visibility = 'hidden';
+          beat.style.opacity = '0';
+          beat.style.pointerEvents = 'none';
+        }
+      });
+    }
+
+    function updateCounter() {
+      const counter = document.getElementById('beatCounter');
+      if (counter) counter.textContent = (currentBeat + 1) + ' / ' + totalBeats;
+    }
+
+    function updateProgress() {
+      const bar = document.getElementById('progressBar');
+      if (bar) bar.style.width = ((currentBeat + 1) / totalBeats * 100) + '%';
+    }
+
+    function goTo(index) {
+      if (isAnimating || index < 0 || index >= totalBeats) return;
+      isAnimating = true;
+      const direction = index > currentBeat ? -1 : 1;
+      beats[currentBeat].style.transform = `translateY(${direction * 100}vh)`;
+      beats[currentBeat].style.opacity = '0';
+      beats[currentBeat].style.pointerEvents = 'none';
+      beats[currentBeat].style.visibility = 'hidden';
+      beats[index].style.transform = 'translateY(0)';
+      beats[index].style.opacity = '1';
+      beats[index].style.pointerEvents = 'auto';
+      beats[index].style.visibility = 'visible';
+      currentBeat = index;
+      updateCounter();
+      updateProgress();
+      saveProgress();
+      document.querySelectorAll('.chapter-nav .dot').forEach((d, di) => d.classList.toggle('active', di === currentBeat));
+      const hint = document.getElementById('swipeHint');
+      if (hint) {
+        hint.style.opacity = '0';
+        setTimeout(() => hint.remove(), 500);
+        try { localStorage.setItem('g2g-swipe-seen', '1'); } catch(e) {}
+      }
+      setTimeout(() => { isAnimating = false; }, 350);
+    }
+
+    document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+    document.addEventListener('touchend', e => {
+      const beat = beats[currentBeat];
+      const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+      const atTop = beat.scrollTop <= 5;
+      const diff = startY - e.changedTouches[0].clientY;
+      if (diff > 50 && atBottom) goTo(currentBeat + 1);
+      if (diff < -50 && atTop) goTo(currentBeat - 1);
+    }, { passive: true });
+
+    let wheelAccum = 0;
+    let wheelTimer = null;
+    document.addEventListener('wheel', e => {
+      const beat = beats[currentBeat];
+      const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+      const atTop = beat.scrollTop <= 5;
+      wheelAccum += e.deltaY;
+      clearTimeout(wheelTimer);
+      wheelTimer = setTimeout(() => { wheelAccum = 0; }, 200);
+      if (wheelAccum > 50 && atBottom) { wheelAccum = 0; goTo(currentBeat + 1); }
+      if (wheelAccum < -50 && atTop) { wheelAccum = 0; goTo(currentBeat - 1); }
+    }, { passive: true });
+
+    document.addEventListener('keydown', e => {
+      const beat = beats[currentBeat];
+      const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+      const atTop = beat.scrollTop <= 5;
+      if (['ArrowDown', 'ArrowRight', 'PageDown'].includes(e.key)) {
+        if (atBottom) { e.preventDefault(); goTo(currentBeat + 1); }
+      } else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) {
+        if (atTop) { e.preventDefault(); goTo(currentBeat - 1); }
+      } else if (e.key === ' ') {
+        e.preventDefault();
+        if (atBottom) goTo(currentBeat + 1);
+        else beat.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+      } else if (e.key === 'Home') {
+        e.preventDefault(); goTo(0);
+      } else if (e.key === 'End') {
+        e.preventDefault(); goTo(totalBeats - 1);
+      }
+    });
+
+    const swipeHint = document.getElementById('swipeHint');
+    if (swipeHint) {
+      try { if (localStorage.getItem('g2g-swipe-seen')) swipeHint.remove(); } catch(e) {}
+    }
+
+    const navContainer = document.querySelector('.chapter-nav');
+    for (let i = 0; i < totalBeats; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goTo(i);
+      navContainer.appendChild(dot);
+    }
+
+    positionBeats();
+    updateCounter();
+    updateProgress();
+
+    const CHAPTER_NUM = 15;
+    function saveProgress() {
+      try { localStorage.setItem('g2g-progress-ch' + CHAPTER_NUM, currentBeat); } catch(e) {}
+    }
+
+    (function() {
+      try {
+        const saved = parseInt(localStorage.getItem('g2g-progress-ch' + CHAPTER_NUM));
+        if (saved && saved > 0 && saved < totalBeats) {
+          const toast = document.createElement('div');
+          toast.className = 'resume-toast';
+          toast.innerHTML = `<span>Resume from beat ${saved + 1}?</span><button onclick="goTo(${saved}); this.parentNode.remove();">Resume</button><button onclick="this.parentNode.remove();">Start Over</button>`;
+          document.body.appendChild(toast);
+          setTimeout(() => { if (toast.parentNode) toast.remove(); }, 8000);
+        }
+      } catch(e) {}
+    })();
+  </script>
+</body>
+</html>

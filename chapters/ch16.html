@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G2G Chapter 16 — The Healthcare Special | London IB Prep</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0c;
+            --surface: #131318;
+            --surface-alt: #1a1a20;
+            --text-primary: #f5f5f7;
+            --text-secondary: #b5b5b8;
+            --accent: #b07ce8;
+            --brand-purple: #6b2fa0;
+            --brand-magenta: #d946ef;
+            --success: #34c759;
+            --warning: #ff9500;
+            --danger: #ff3b30;
+            --border: #2a2a2f;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --duration: 0.5s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .viewport {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            perspective: 1000px;
+        }
+
+        .beat {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            padding: 60px 40px;
+            overflow-y: auto;
+            transform: translateY(100vh);
+            opacity: 0;
+            visibility: hidden;
+            transition: transform var(--duration) cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity var(--duration) ease,
+                        visibility var(--duration) ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .beat.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .beat.prev {
+            transform: translateY(-100vh);
+        }
+
+        .beat-content {
+            max-width: 900px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--brand-magenta), var(--brand-purple));
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        /* Beat Counter & Nav Dots */
+        .beat-counter {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            z-index: 50;
+        }
+
+        .nav-dots {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 50;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .dot.active {
+            background: var(--accent);
+            width: 12px;
+            height: 12px;
+        }
+
+        .dot:hover {
+            background: var(--text-secondary);
+        }
+
+        /* Back Link */
+        .back-link {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            font-size: 14px;
+            color: var(--accent);
+            text-decoration: none;
+            cursor: pointer;
+            z-index: 50;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--brand-magenta);
+        }
+
+        /* Swipe Hint */
+        .swipe-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: var(--text-secondary);
+            opacity: 0.6;
+            z-index: 40;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Resume Toast */
+        .resume-toast {
+            position: fixed;
+            bottom: 100px;
+            right: 40px;
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 40;
+            max-width: 200px;
+            text-align: center;
+        }
+
+        .resume-toast.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Content Styling */
+        .series-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .chapter-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-family: 'EB Garamond', serif;
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .card-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .card-body {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .card-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            margin-top: 24px;
+        }
+
+        .metric-item {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .metric-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .metric-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .metric-def {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .formula-box {
+            background: var(--surface-alt);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            padding: 16px;
+            margin: 20px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .formula-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .example-box {
+            background: rgba(52, 199, 89, 0.08);
+            border-left: 3px solid var(--success);
+            border-radius: 4px;
+            padding: 16px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .example-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--success);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .warning-box {
+            background: rgba(255, 59, 48, 0.08);
+            border-left: 3px solid var(--danger);
+            border-radius: 4px;
+            padding: 16px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .warning-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--danger);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 32px 0;
+            opacity: 0.5;
+        }
+
+        .part-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--brand-magenta);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            margin-top: 32px;
+        }
+
+        .bullet-list {
+            list-style: none;
+            margin: 16px 0;
+        }
+
+        .bullet-list li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .bullet-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .comparison-row {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .comparison-col {
+            background: var(--surface-alt);
+            padding: 16px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        /* Scrollbar */
+        .beat::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .beat::-webkit-scrollbar-track {
+            background: var(--surface);
+        }
+
+        .beat::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        .beat::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .beat {
+                padding: 60px 24px;
+            }
+
+            .card-title {
+                font-size: 36px;
+            }
+
+            .card-subtitle {
+                font-size: 16px;
+            }
+
+            .nav-dots {
+                right: 24px;
+                gap: 8px;
+            }
+
+            .beat-counter {
+                right: 24px;
+                bottom: 24px;
+            }
+
+            .back-link {
+                left: 24px;
+                top: 24px;
+            }
+
+            .swipe-hint {
+                bottom: 10px;
+            }
+
+            .resume-toast {
+                right: 24px;
+                bottom: 80px;
+                max-width: 150px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="viewport" id="viewport">
+        <!-- Beat 1: TITLE -->
+        <div class="beat" data-beat="1">
+            <div class="beat-content">
+                <div class="series-label">G2G ADVISORY</div>
+                <div class="chapter-label">Chapter 16</div>
+                <h1 class="card-title">The Healthcare Special</h1>
+                <p class="card-subtitle">Pharma, MedTech, Services & Biotech — Models, Metrics & Valuation</p>
+                <p class="card-body" style="margin-top: 40px;">Deep dive into healthcare investment banking: from patent cliff quantification to pipeline rNPV valuation. Frameworks for London IB interviews and deal work across Big Pharma, Biotech, MedTech, Healthcare Services, CROs/CDMOs, Life Sciences Tools, and emerging genomics.</p>
+            </div>
+        </div>
+
+        <!-- Beat 2: ROADMAP -->
+        <div class="beat" data-beat="2">
+            <div class="beat-content">
+                <h2 class="card-title">Chapter Roadmap</h2>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p style="margin-bottom: 20px;">This chapter maps the healthcare sector as understood by London investment banking teams:</p>
+                    <ul class="bullet-list">
+                        <li><strong>Big Pharma:</strong> Large integrated companies with patent protection, patent cliffs, and R&D-driven growth.</li>
+                        <li><strong>Specialty Pharma:</strong> Focused on niche therapies and rare diseases. Higher concentration risk.</li>
+                        <li><strong>Biotech:</strong> R&D companies developing novel therapies. High risk, high reward. Often pre-revenue or early-revenue.</li>
+                        <li><strong>Medical Devices / MedTech:</strong> Capital equipment + consumables. Razor/blade recurring revenue models.</li>
+                        <li><strong>Healthcare Services:</strong> Hospitals, clinics, diagnostic labs. Fee-for-service and capitated reimbursement.</li>
+                        <li><strong>Life Sciences Tools:</strong> Instruments, reagents, software for research. Recurring consumables.</li>
+                        <li><strong>CROs/CDMOs:</strong> Contract research and manufacturing. Fee-based, backlog-driven revenue.</li>
+                        <li><strong>Animal Health & Consumer Health:</strong> Veterinary and OTC segments with unique dynamics.</li>
+                        <li><strong>Genomics & Precision Medicine:</strong> Emerging segment. Early-stage, high valuation uncertainty.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 3: Healthcare Metrics I — Pharma & Biotech -->
+        <div class="beat" data-beat="3">
+            <div class="beat-content">
+                <div class="part-label">PART I — FOUNDATIONS</div>
+                <h2 class="card-title">Healthcare Metrics I</h2>
+                <p class="card-subtitle">Pharma & Biotech Fundamentals</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <div class="metric-item">
+                        <div class="metric-name">Revenue by Product / Franchise</div>
+                        <div class="metric-def">Pharma companies report revenue by drug and therapy area. Track concentration: top drug as % of total revenue. Concentration >50% = high risk. Monitor each franchise for peak sales, current attach rate, and trend.</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-name">Patent Cliff / LOE (Loss of Exclusivity)</div>
+                        <div class="metric-def">Date when generic or biosimilar competition can enter. The single biggest revenue risk in pharma. Revenue typically drops 70-90% within 2 years of small-molecule LOE. Biosimilars erode slower: 30-50% in year 1. Quantify revenue at risk by LOE date.</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-name">Pipeline Value</div>
+                        <div class="metric-def">Present value of drugs in clinical development. Probability-weighted by stage: Preclinical ~5%, Phase I ~10%, Phase II ~15-20%, Phase III ~50-60%, Filed ~85-90%. Sum across all pipeline assets = pipeline rNPV.</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-name">Peak Sales Estimate</div>
+                        <div class="metric-def">Projected maximum annual revenue for a drug at market maturity. Driven by addressable patient population, market penetration assumptions, and pricing. Critical input to pipeline valuation.</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-name">R&D Productivity</div>
+                        <div class="metric-def">R&D spend ÷ number of drugs approved over a period. Industry average: $1-2B per approved drug. Declining productivity is a structural industry challenge.</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-name">Royalty Revenue</div>
+                        <div class="metric-def">Income from licensing IP to other companies. Near 100% gross margin but declining as patents expire. Extract as a separate revenue stream in DCF.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 4: Healthcare Metrics II — MedTech & Services -->
+        <div class="beat" data-beat="4">
+            <div class="beat-content">
+                <h2 class="card-title">Healthcare Metrics II</h2>
+                <p class="card-subtitle">MedTech & Services Fundamentals</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <div class="metric-item">
+                        <div class="metric-name">Organic Growth</div>
+                        <div class="metric-def">Revenue growth excluding M&A and FX. MedTech organic growth typically 4-7% annually. Above 7% = exceptional. Threshold for premium valuation.</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-name">Procedure Volumes</div>
+                        <div class="metric-def">Number of surgeries/procedures using the company's devices. Driven by demographics (aging), clinical adoption, and hospital budgets. Growth in volumes = operating leverage.</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-name">ASP (Average Selling Price)</div>
+                        <div class="metric-def">Price per device/unit sold. Under constant pressure from hospital procurement consolidation (GPOs) and competitive intensity. ASP erosion = organic growth risk.</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-name">Installed Base & Razor/Blade Model</div>
+                        <div class="metric-def">Capital equipment (the "razor") sold at low margin. Consumables and service contracts (the "blade") generate recurring high-margin revenue. Ratio of consumables/service to capital = quality of revenue.</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-name">Admissions / Bed Occupancy</div>
+                        <div class="metric-def">For hospitals and healthcare services. Revenue = admissions × revenue per admission or bed occupancy × revenue per bed day. Key drivers of top-line growth.</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-name">Payer Mix</div>
+                        <div class="metric-def">Percentage of revenue from private insurance, government (NHS/Medicare), self-pay. Private payer mix = higher reimbursement rates and margins. Track shift in mix as key operational driver.</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-name">Reimbursement Rate</div>
+                        <div class="metric-def">The price that payers (NHS, insurers) will pay for a procedure or drug. Set by regulatory bodies (NICE in UK, CMS in US). Rate changes directly impact margin and volume demand.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 5: Key Healthcare Formulas -->
+        <div class="beat" data-beat="5">
+            <div class="beat-content">
+                <h2 class="card-title">Key Healthcare Formulas</h2>
+                <p class="card-subtitle">Probability-Weighted Valuation & Pipeline Assessment</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <div class="formula-box">
+                        <span class="formula-label">rNPV (Risk-Adjusted NPV)</span>
+rNPV = Σ [PoS × ((Peak Sales × Market Share) × Years in Market) / (1 + r)^t - Costs]
+where PoS = probability of success by stage, r = discount rate (10-12%)
+                    </div>
+                    <div class="formula-box">
+                        <span class="formula-label">Pipeline Asset Value</span>
+Asset Value = Peak Sales × PoS × NPV Factor (adjusted for time to market)
+                    </div>
+                    <div class="formula-box">
+                        <span class="formula-label">Patent Cliff Impact</span>
+Cliff Risk = (Revenue at Risk / Total Revenue) × Expected Erosion % by Year
+                    </div>
+                    <div class="formula-box">
+                        <span class="formula-label">MedTech Recurring Revenue Ratio</span>
+Recurring Ratio = (Consumables Revenue + Service Revenue) / Total Revenue
+Higher ratio = more predictable, lower growth optionality but stability
+                    </div>
+                    <div class="formula-box">
+                        <span class="formula-label">R&D Yield</span>
+Yield = Peak Sales Potential of Approved Drugs / Cumulative R&D Spend
+                    </div>
+
+                    <div class="example-box">
+                        <span class="example-label">Worked Example: Pipeline rNPV</span>
+                        <p><strong>Scenario:</strong> Drug in Phase III, peak sales $3B, 55% PoS for Phase III, 8-year commercial life from launch, launch in 3 years, 10% discount rate.</p>
+                        <p style="margin-top: 8px;"><strong>Calculation:</strong> rNPV = 55% × PV($3B annuity for 8 years, discounted back 3 years at 10%) = 55% × $15.5B = ~$8.5B</p>
+                        <p style="margin-top: 8px;"><strong>Interpretation:</strong> This asset is worth ~$8.5B to the company in expected value terms, accounting for execution risk.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 6: Big Pharma -->
+        <div class="beat" data-beat="6">
+            <div class="beat-content">
+                <div class="part-label">PART II — SUB-SECTOR DEEP DIVES</div>
+                <h2 class="card-title">Big Pharma</h2>
+                <p class="card-subtitle">Integrated Drug Development & Marketing</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p><strong>Business Model:</strong> Discover, develop, manufacture, and market patented drugs. Revenue from branded pharmaceuticals with patent protection (typically 10-15 years from filing).</p>
+                    <p style="margin-top: 12px;"><strong>Key Players:</strong> AstraZeneca, GSK, Novartis, Roche, Pfizer, J&J, Merck, Sanofi.</p>
+
+                    <div class="metric-item" style="margin-top: 20px;">
+                        <div class="metric-name">Margin Structure</div>
+                        <div class="metric-def">Gross margin 70-80%, EBITDA margin 30-40%. R&D spend 15-20% of revenue. SG&A 25-30% (large sales forces for branded marketing).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Revenue Model</div>
+                        <div class="metric-def">Drug sales + royalties + licensing income. Revenue concentration: top 5 drugs often 40-60% of revenue. Identifies key risks.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Patent Cliff Management</div>
+                        <div class="metric-def">The existential challenge. Companies must: develop new drugs internally (R&D), acquire drugs/companies (M&A), or extend franchise life (new indications, formulations, combinations). Failure to manage cliff = secular revenue decline.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Geographic Diversification</div>
+                        <div class="metric-def">US typically 40-50% of revenue (highest pricing), Europe 20-25%, Japan 5-10%, rest of world 15-25%. Pricing power varies by region. US IRA impact = margin pressure.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 7: Big Pharma — Pipeline & Patent Cliffs -->
+        <div class="beat" data-beat="7">
+            <div class="beat-content">
+                <h2 class="card-title">Big Pharma — Pipeline & Patent Cliffs</h2>
+                <p class="card-subtitle">Managing Secular Decline through Innovation</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p><strong>Pipeline Stages:</strong> Preclinical → Phase I (safety) → Phase II (efficacy) → Phase III (efficacy at scale) → Regulatory Filing → Approval → Launch.</p>
+
+                    <div class="metric-item" style="margin-top: 20px;">
+                        <div class="metric-name">Attrition Rates</div>
+                        <div class="metric-def">Only ~10% of Phase I drugs reach approval. Phase III is the most expensive ($100M-500M per trial) and riskiest. Attrition rates by stage: Phase I→II ~30%, Phase II→III ~25%, Phase III→Approval ~60%.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Patent Cliff Quantification</div>
+                        <div class="metric-def">List each major drug, its current revenue, LOE date, and expected revenue erosion. Sum = total revenue at risk. Critical for DCF: project year-by-year erosion.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Biosimilar Competition</div>
+                        <div class="metric-def">Biologic drugs face biosimilar competition post-patent. Erosion slower than small-molecule generics: 30-50% revenue loss in year 1 vs 70-90% for generics. Biosimilars are harder to manufacture and administer.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Life Cycle Management</div>
+                        <div class="metric-def">Extend patent life and revenue: new indications (expand label), new formulations (extended-release), combination products (with other drugs), paediatric extensions (add 6 months exclusivity).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Pipeline Probability-Weighting</div>
+                        <div class="metric-def">Value each asset by stage, peak sales estimate, time-to-market, and PoS by stage. Sum = total pipeline rNPV. This replaces cash cow revenue decline in valuation.</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <span class="warning-label">Key Risk</span>
+                        A large patent cliff (>30% of revenue at risk in next 5 years) with no offsetting Phase III pipeline = secular decline in cash flows. Valuation must assume acquisitions or productivity improvements to offset.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 8: Specialty Pharma -->
+        <div class="beat" data-beat="8">
+            <div class="beat-content">
+                <h2 class="card-title">Specialty Pharma</h2>
+                <p class="card-subtitle">Focused Portfolios, Niche Indications</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p><strong>Definition:</strong> Focused on specific therapeutic areas or niche patient populations. Smaller scale than big pharma, often with fewer but higher-value drugs.</p>
+
+                    <div class="metric-item" style="margin-top: 20px;">
+                        <div class="metric-name">Business Model</div>
+                        <div class="metric-def">Often relies on in-licensing or acquiring drugs from biotech, then commercialising with own sales force. Higher growth potential but higher concentration risk: 1-3 drugs may represent 80%+ of revenue.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Orphan Drugs</div>
+                        <div class="metric-def">Treatments for rare diseases (<200K patients in US). Orphan drug designation provides: 7-10 year market exclusivity, tax credits, regulatory fast-track. Higher pricing accepted due to small patient population. Recombivax (hepatitis B vaccine) priced at $1k+ per dose.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Key Valuation Consideration</div>
+                        <div class="metric-def">Patent cliff is even more acute for specialty pharma (fewer drugs to offset). Loss of one major drug = material revenue decline. Stress-test scenarios for key drug losses.</div>
+                    </div>
+
+                    <div class="example-box">
+                        <span class="example-label">Specialty Pharma Example</span>
+                        <p>Company with 3 drugs: Drug A ($800M, LOE in 4 years), Drug B ($300M, LOE in 7 years), Drug C ($200M, LOE in 2 years). Total revenue ~$1.3B. Revenue at risk in 5 years assuming 80% cliff = $800M + $200M = $1B cliff (77% of revenue). This company must have Phase III assets worth >$10B rNPV to offset.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 9: Biotech -->
+        <div class="beat" data-beat="9">
+            <div class="beat-content">
+                <h2 class="card-title">Biotech</h2>
+                <p class="card-subtitle">R&D-Focused, High Risk, High Reward</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p><strong>Business Model:</strong> R&D-focused companies developing novel therapies. Many are pre-revenue or early-revenue. High risk, high reward.</p>
+
+                    <div class="metric-item" style="margin-top: 20px;">
+                        <div class="metric-name">Revenue Model</div>
+                        <div class="metric-def">Either commercialising own drugs or partnering/licensing to big pharma. Revenue = upfront payments + milestone payments + royalties (5-15% of net sales). Limited revenue predictability early-stage.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Cash Burn Rate</div>
+                        <div class="metric-def">Pre-revenue biotechs burn cash. Key metric: cash runway = current cash / quarterly burn rate. Determines when next financing needed. Runway <12 months = equity dilution risk or strategic deal pressure.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Valuation Methodology</div>
+                        <div class="metric-def">Primarily rNPV of pipeline. Sum probability-weighted NPV of each drug candidate. Enterprise Value = Cash on balance sheet + pipeline rNPV − debt. No earnings-based multiples apply.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Binary Events</div>
+                        <div class="metric-def">Phase III readouts, FDA advisory committee votes, regulatory decisions. Stock can move 50%+ on a single event. Volatility is high; investors must understand trial success rates and competitive positioning.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Financing Cycles</div>
+                        <div class="metric-def">Equity issuances, convertible notes, royalty financing, licensing deals. Dilution risk is constant. Successful biotech execs balance: reducing burn (disciplined R&D), raising capital (minimize dilution), and achieving clinical milestones (fund raises or partnerships).</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <span class="warning-label">Valuation Risk</span>
+                        Biotech valuations are extremely sensitive to discount rate (small changes in r significantly impact rNPV), PoS estimates, and peak sales assumptions. Scenario analysis (base, upside, downside) is essential.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 10: Medical Devices / MedTech -->
+        <div class="beat" data-beat="10">
+            <div class="beat-content">
+                <h2 class="card-title">Medical Devices / MedTech</h2>
+                <p class="card-subtitle">Capital Equipment & Recurring Consumables</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p><strong>Business Model:</strong> Develop, manufacture, sell medical devices and instruments. Ranges from high-value implants (orthopaedics, cardiac) to consumables (surgical tools, diagnostics).</p>
+
+                    <div class="metric-item" style="margin-top: 20px;">
+                        <div class="metric-name">Key Players</div>
+                        <div class="metric-def">Medtronic, Abbott, Boston Scientific, Stryker, Smith & Nephew, Zimmer Biomet, Siemens Healthineers, GE Healthcare.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Revenue Model</div>
+                        <div class="metric-def">Capital equipment + consumables + service contracts. Razor/blade model: place capital equipment cheaply (low margin), earn recurring revenue on consumables (high margin, 60-70% gross).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Margin Structure</div>
+                        <div class="metric-def">Gross margin 60-70%, EBITDA margin 25-35%. Lower R&D intensity than pharma (6-10% of revenue). Manufacturing and supply chain are key cost drivers.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Organic Growth Drivers</div>
+                        <div class="metric-def">Procedure volumes (demographics, clinical adoption), new product launches, emerging market expansion, ASP management. Typical organic growth 4-7% annually.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Regulatory Pathway</div>
+                        <div class="metric-def">FDA 510(k) (predicate device, faster clearance) vs PMA (novel device, slower, requires clinical data). CE marking in Europe (MDR regulation tightening). Regulatory delays = revenue delays.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">M&A Activity</div>
+                        <div class="metric-def">MedTech is highly acquisitive. Bolt-on acquisitions for technology, product portfolio expansion, geographic reach. Typical entry multiples 15-25x EBITDA for quality targets.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 11: MedTech — Recurring Revenue & Valuation -->
+        <div class="beat" data-beat="11">
+            <div class="beat-content">
+                <h2 class="card-title">MedTech — Recurring Revenue & Valuation</h2>
+                <p class="card-subtitle">Predictability & Multiple Expansion</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <div class="metric-item">
+                        <div class="metric-name">Recurring Revenue Ratio</div>
+                        <div class="metric-def">Higher is better. Consumables and service contracts provide predictable revenue. Capital equipment is lumpy. Target recurring revenue ratio: >50% of total = high quality. Medtronic's ratio ~60%.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Hospital Procurement Dynamics</div>
+                        <div class="metric-def">GPOs (Group Purchasing Organisations) and IDNs (Integrated Delivery Networks) consolidate buying power, pressuring ASPs. GPO contracts award to 1-2 vendors per product category, creating winner-take-most dynamics. ASP erosion = top-line pressure.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Innovation Cycles</div>
+                        <div class="metric-def">New product launches critical for maintaining premium pricing. Clinical evidence and surgeon preference drive adoption. Companies must invest in R&D to stay competitive; launched innovation = >50% revenue growth driver.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Valuation Multiples</div>
+                        <div class="metric-def">EV/EBITDA 15-25x for quality MedTech. Premium multiples for: high recurring revenue (>60%), market leadership, demographic tailwinds (aging population), innovation pipeline.</div>
+                    </div>
+
+                    <div class="formula-box">
+                        <span class="formula-label">MedTech DCF Framework</span>
+Revenue Growth = (Procedure Volume Growth + New Product Launch Impact + Emerging Market Expansion) × (1 − ASP Erosion %)
+EBITDA Margin = (Consumables Margin × Consumables %) + (Capital Equipment Margin × Capital %) + (Service Margin × Service %)
+Terminal Growth = 2-4% (mature company growth)
+                    </div>
+
+                    <div class="example-box">
+                        <span class="example-label">MedTech Valuation Example</span>
+                        <p><strong>Company:</strong> Cardiac device maker, current EBITDA $500M, organic growth 6%, 65% recurring revenue, $2B capex returns from new product, EV/EBITDA trading at 18x (industry median 16x premium for growth).</p>
+                        <p style="margin-top: 8px;"><strong>Fair Value:</strong> $500M × 18x = $9B EV. Premium justified: 6% organic growth, 65% recurring revenue, innovation pipeline, demographic tailwinds.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 12: Healthcare Services -->
+        <div class="beat" data-beat="12">
+            <div class="beat-content">
+                <h2 class="card-title">Healthcare Services</h2>
+                <p class="card-subtitle">Fee-for-Service, Capitated, Consolidation</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p><strong>Sub-segments:</strong> Hospitals/clinics, primary care, dental chains, diagnostics/labs, rehabilitation, mental health, home health.</p>
+
+                    <div class="metric-item" style="margin-top: 20px;">
+                        <div class="metric-name">Revenue Model</div>
+                        <div class="metric-def">Fee-for-service (volume × price per procedure) or capitated (fixed payment per patient per month, risk-bearing to provider). Mix of both: 60% FFS + 40% capitated typical for US health systems.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Key Metrics</div>
+                        <div class="metric-def">Bed occupancy rate, revenue per admission, payer mix, same-facility growth, physician count, patient volumes. For diagnostics: tests per patient, price per test, volume growth.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Margin Drivers</div>
+                        <div class="metric-def">Payer mix (private vs government), operational efficiency, capacity utilisation, labour costs (nurses, physicians largest cost). Private payer mix = 20-30% higher margins than government.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Regulatory Risk</div>
+                        <div class="metric-def">Heavily regulated. NHS tariff system in UK, DRG-based reimbursement in many markets. Reimbursement rates set externally. Rate cuts directly impact margin and demand elasticity.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Consolidation Trend</div>
+                        <div class="metric-def">Fragmented market being consolidated by PE and strategic acquirers. Roll-up strategies in dental (Smile Diagnostics), veterinary (VetPartners), ophthalmology. Entry multiples 6-10x EBITDA, exit 12-18x.</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <span class="warning-label">Reimbursement Risk</span>
+                        NHS tariff changes or Medicare DRG cuts can materially reduce margins overnight. Monitor regulatory proposals; quantify revenue impact of potential rate cuts.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 13: CROs & CDMOs -->
+        <div class="beat" data-beat="13">
+            <div class="beat-content">
+                <h2 class="card-title">CROs & CDMOs</h2>
+                <p class="card-subtitle">Contract Research & Manufacturing Infrastructure</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <div class="metric-item">
+                        <div class="metric-name">CRO (Contract Research Organisation)</div>
+                        <div class="metric-def">Outsourced clinical trial management and data analysis. Key players: IQVIA, Covance (LabCorp), PPD (Thermo Fisher), ICON, Syneos Health. Revenue: clinical trial services, regulatory consulting, data analytics.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">CDMO (Contract Development & Manufacturing)</div>
+                        <div class="metric-def">Outsourced drug manufacturing and scale-up. Key players: Lonza, Samsung Biologics, Catalent, WuXi, Recro Pharma. Revenue: manufacturing fees, capacity leasing, tech transfer.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Business Model & Visibility</div>
+                        <div class="metric-def">Fee-for-service or milestone-based contracts. Revenue visibility through backlog and book-to-bill ratio (>1.0x = growing demand). Backlog typically 12-24 months forward.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Key Metrics</div>
+                        <div class="metric-def">Backlog, book-to-bill ratio, revenue per employee, win rate (% of bidding), customer concentration (top 10 customers as % of revenue).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Growth Drivers</div>
+                        <div class="metric-def">Pharma outsourcing trend (increasing % of R&D spend goes to CROs), biotech funding cycles (more biotech = more CRO demand), regulatory complexity (FDA requirements), pandemic demand surge (vaccine manufacturing).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Margin Profile</div>
+                        <div class="metric-def">CRO EBITDA margins 20-30%. CDMO margins vary by complexity: small molecule 15-20%, biologics 25-35%. High variable costs; scale and efficiency critical.</div>
+                    </div>
+
+                    <div class="example-box">
+                        <span class="example-label">CRO/CDMO Valuation</span>
+                        <p><strong>IQVIA Example:</strong> Largest CRO globally. Revenue ~$15B, EBITDA margin ~22%, EV/EBITDA 15-17x. Premium for scale, customer diversification, and biotech growth exposure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 14: Life Sciences Tools -->
+        <div class="beat" data-beat="14">
+            <div class="beat-content">
+                <h2 class="card-title">Life Sciences Tools</h2>
+                <p class="card-subtitle">Instruments, Reagents, Mission-Critical Recurring Revenue</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p><strong>Business Model:</strong> Selling instruments, reagents, consumables, and software to pharma, biotech, academic, and government research labs.</p>
+
+                    <div class="metric-item" style="margin-top: 20px;">
+                        <div class="metric-name">Key Players</div>
+                        <div class="metric-def">Thermo Fisher, Danaher, Agilent, Waters, PerkinElmer, Illumina, 10x Genomics.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Razor/Blade Model</div>
+                        <div class="metric-def">Instruments sold to labs (capital budget). Consumables (reagents, kits) are recurring and mission-critical (operating budget). Consumables are 60-70% of revenue. Instruments = customer acquisition; consumables = lifetime value.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Growth Drivers</div>
+                        <div class="metric-def">R&D spending growth (pharma, biotech), government research funding (NIH grants), clinical diagnostics adoption, COVID pandemic demand surge for genomics and diagnostics.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Margin Structure</div>
+                        <div class="metric-def">Gross margin 55-65%, EBITDA margin 25-35%. High operating leverage: consumables scale with existing customer base at high incremental margin.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Valuation</div>
+                        <div class="metric-def">High-quality life sciences tools trade at 20-30x EBITDA. Premium for: recurring consumables revenue, mission-critical products, long product lifecycles (10+ years), market leadership in niche segments.</div>
+                    </div>
+
+                    <div class="example-box">
+                        <span class="example-label">Life Sciences Tools Example</span>
+                        <p><strong>Thermo Fisher:</strong> Global leader in life sciences. Revenue ~$43B (2023), EBITDA margin ~35%, trading at ~24x EBITDA (~$20B EBITDA value). Premium justified: 60%+ recurring consumables revenue, global scale, mission-critical products.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 15: Consumer Health & OTC -->
+        <div class="beat" data-beat="15">
+            <div class="beat-content">
+                <h2 class="card-title">Consumer Health & OTC</h2>
+                <p class="card-subtitle">Stable, Branded, FMCG-Like Dynamics</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p><strong>Definition:</strong> Over-the-counter medicines and consumer wellness products. Recent spins: Haleon (from GSK, 2022), Kenvue (from J&J, 2023).</p>
+
+                    <div class="metric-item" style="margin-top: 20px;">
+                        <div class="metric-name">Revenue Model</div>
+                        <div class="metric-def">Branded consumer products sold through retail (supermarkets, pharmacies, online). Closer to FMCG (Unilever, P&G) than pharma in operating model. Shelf space and marketing are critical.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Key Characteristics</div>
+                        <div class="metric-def">Lower growth (2-4% organic) but very stable. No patent cliff risk (brands not patent-dependent). Strong brand loyalty (Paracetamol, ibuprofen, Listerine, Nicorette). Recurring revenue from repeat purchases.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Margin Profile</div>
+                        <div class="metric-def">Gross margin 55-65%, EBITDA margin 20-28%. Lower than pharma due to retail distribution costs and promotional spending.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Valuation</div>
+                        <div class="metric-def">EV/EBITDA 14-18x. Valued like consumer staples with a slight healthcare premium. Discount to big pharma multiples reflects slower growth and lower barriers to entry.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Recent M&A</div>
+                        <div class="metric-def">Haleon IPO (GSK spinoff) priced at ~16x EBITDA (2023). Kenvue IPO (J&J spinoff) priced at ~15x EBITDA (2023). Both stable growth, high free cash flow, dividend payers.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 16: Animal Health -->
+        <div class="beat" data-beat="16">
+            <div class="beat-content">
+                <h2 class="card-title">Animal Health</h2>
+                <p class="card-subtitle">Companion & Livestock, Secular Growth, No Reimbursement Risk</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p><strong>Definition:</strong> Veterinary pharmaceuticals and diagnostics. Key players: Zoetis (public, largest), Elanco, IDEXX, Dechra, Boehringer Ingelheim Animal Health.</p>
+
+                    <div class="metric-item" style="margin-top: 20px;">
+                        <div class="metric-name">Growth Drivers</div>
+                        <div class="metric-def">Pet ownership growth (secular trend), humanisation of pets (owners spending >$20B/year in US on pet care), livestock health demand from food production, antibiotic alternatives (regulatory ban on growth-promoting antibiotics).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Companion vs Livestock</div>
+                        <div class="metric-def">Companion animal is higher growth (5-8%) and higher margin. Livestock is cyclical (linked to commodity prices and farming economics). Zoetis: 60% companion, 40% livestock.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">No Reimbursement Risk</div>
+                        <div class="metric-def">Pet owners pay out of pocket (no insurance for most). Minimal government pricing intervention. Price increases easier to implement than human healthcare. Pricing power advantage.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Valuation</div>
+                        <div class="metric-def">Premium multiples 20-30x EBITDA (vs 15-25x for pharma). Premium reflects: durable growth, no reimbursement risk, secular tailwinds, defensive characteristics (recession-resistant pet spending).</div>
+                    </div>
+
+                    <div class="example-box">
+                        <span class="example-label">Animal Health Valuation</span>
+                        <p><strong>Zoetis:</strong> Listed 2013, ~$20B market cap. Revenue ~$8B, EBITDA margin ~33%, trading at ~25x EBITDA. Premium justified: 6% organic growth, 60% high-margin companion animal, emerging market expansion, no reimbursement risk.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 17: Genomics & Precision Medicine -->
+        <div class="beat" data-beat="17">
+            <div class="beat-content">
+                <h2 class="card-title">Genomics & Precision Medicine</h2>
+                <p class="card-subtitle">Emerging, Early-Stage, High Uncertainty</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p><strong>Definition:</strong> Genomic sequencing, gene therapy, cell therapy, personalised medicine. Rapidly expanding segment with transformative potential.</p>
+
+                    <div class="metric-item" style="margin-top: 20px;">
+                        <div class="metric-name">Key Players</div>
+                        <div class="metric-def">Illumina (sequencing leader), 10x Genomics, CRISPR Therapeutics, Editas Medicine, BioNTech, Moderna, Velo3D.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Revenue Models</div>
+                        <div class="metric-def">Instrument + consumables (Illumina), product sales (approved therapies like Zolgensma gene therapy $3M+), licensing/milestone (early-stage), diagnostic testing (companion diagnostics).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Valuation Challenges</div>
+                        <div class="metric-def">Many companies pre-revenue or early-revenue. Valued on TAM-based analysis, pipeline rNPV, and strategic premium (big pharma buying for platform capability). Discount rates 15-20% (high execution risk).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Gene Therapy Pricing</div>
+                        <div class="metric-def">One-time curative therapies priced at $1-3M+ per patient. Reimbursement and payer acceptance is critical risk. Zolgensma (spinal muscular atrophy): $3.5M per patient one-time therapy. Payers negotiating outcome-based pricing (refund if therapy fails).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Strategic Premium</div>
+                        <div class="metric-def">Pharma companies pay 2-3x revenue multiples for genomics platforms due to optionality value (potential to transform drug development pipeline). This creates valuation disconnects with traditional metrics.</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <span class="warning-label">Emerging Sector Risk</span>
+                        Genomics is high-growth but early-stage. Regulatory frameworks evolving (FDA guidance on gene therapy, EMA standards). Patent landscape contested (CRISPR patent disputes). Technology risk (off-target effects, manufacturing scale). Assume 15-20% failure rates even for late-stage assets.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 18: Pharma Valuation — Sum-of-the-Parts + rNPV -->
+        <div class="beat" data-beat="18">
+            <div class="beat-content">
+                <div class="part-label">PART III — VALUATION FRAMEWORKS</div>
+                <h2 class="card-title">Pharma Valuation</h2>
+                <p class="card-subtitle">Sum-of-the-Parts + Risk-Adjusted NPV</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p><strong>Standard Pharma Valuation Framework:</strong> Mature products (DCF or multiples) + pipeline (rNPV) + net cash = enterprise value.</p>
+
+                    <div class="metric-item" style="margin-top: 20px;">
+                        <div class="metric-name">Sum-of-Parts Approach</div>
+                        <div class="metric-def">Value each drug franchise separately. Declining products get lower multiples (e.g., 8-12x EBITDA). Growing/peak products 15-25x EBITDA. Sum franchises + pipeline rNPV + net cash = equity value.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">rNPV Methodology</div>
+                        <div class="metric-def">For each pipeline asset: estimate peak sales, market ramp profile (slow launch → peak over 5-7 years), probability of success by stage, cost assumptions, discount rate (10-12% for pharma). Calculate NPV of annual cash flows. Discount further for PoS. Sum all assets = pipeline rNPV.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Terminal Value Critical</div>
+                        <div class="metric-def">For pharma, use caution with terminal value. Patents expire, drugs don't grow forever. Use finite commercial life (8-12 years from launch, not perpetuity). Terminal value = Year N EBITDA × exit multiple (8-12x), not Gordon growth model.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Comparable Transactions</div>
+                        <div class="metric-def">Look at licensing deals and acquisitions for similar-stage assets in the same therapeutic area. E.g., Roche paid $2.4B for in-Phase III immunotherapy = ~$1.5-2B per Phase III asset in oncology depending on peak sales assumptions.</div>
+                    </div>
+
+                    <div class="formula-box">
+                        <span class="formula-label">Pharma Sum-of-Parts DCF</span>
+Mature Revenue (R) × (1 − erosion) / (1 + WACC)^t
++ Pipeline rNPV
++ Net Cash
+= Equity Value
+                    </div>
+
+                    <div class="example-box">
+                        <span class="example-label">Pharma Valuation Worked Example</span>
+                        <p><strong>Company:</strong> AZ-like company, $40B revenue, $50B EBITDA, top 5 drugs ~50% of revenue with LOE 3-7 years, Phase III pipeline $50B rNPV (prob-weighted), $10B net cash.</p>
+                        <p style="margin-top: 8px;"><strong>Valuation:</strong> DCF on mature revenue (assuming -30% cliff in years 4-6) + $50B pipeline rNPV + $10B cash = ~$400-500B EV (assuming terminal value and timing assumptions).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 19: MedTech & Services Valuation -->
+        <div class="beat" data-beat="19">
+            <div class="beat-content">
+                <h2 class="card-title">MedTech & Services Valuation</h2>
+                <p class="card-subtitle">EV/EBITDA Multiples & Roll-Up Economics</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <div class="metric-item">
+                        <div class="metric-name">MedTech Multiples</div>
+                        <div class="metric-def">EV/EBITDA primary metric. 15-25x for quality names (Medtronic, Boston Scientific, Stryker). Premium for: market leadership, recurring revenue >60%, innovation pipeline, demographic tailwinds (aging), emerging market exposure.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Healthcare Services Multiples</div>
+                        <div class="metric-def">EV/EBITDA 8-15x. Lower than MedTech due to: labour intensity, lower barriers to entry, regulatory risk, lower growth potential. Hospital operators 8-12x. Diagnostics companies 12-15x (higher recurring revenue).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Roll-Up Valuation Model</div>
+                        <div class="metric-def">PE-backed healthcare services play (dental, vet, ophthalmology): buy single units at 6-8x EBITDA. Build platform (consolidate, integrate, improve operations). Exit platform at 12-15x EBITDA. Arbitrage = 50-75% return.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">DCF Framework</div>
+                        <div class="metric-def">Project: procedure volumes (% growth annually), pricing power (ASP change), new product launches (% revenue from new launches), margin expansion (scale), working capital needs, capex requirements. Terminal growth 2-4%.</div>
+                    </div>
+
+                    <div class="formula-box">
+                        <span class="formula-label">MedTech DCF</span>
+Revenue = Base Year × (1 + Organic Growth %) × (1 − ASP Erosion %) × New Product Uplift
+EBITDA = Revenue × Adj. EBITDA Margin (accounting for FX, mix shift)
+FCF = EBITDA − D&A − Capex − Working Capital Change − Taxes
+Terminal Value = Year N FCF × (1 + g) / (WACC − g), where g = 2-4%
+                    </div>
+
+                    <div class="example-box">
+                        <span class="example-label">MedTech Roll-Up Economics</span>
+                        <p><strong>Scenario:</strong> PE firm buys dental platform: entry at 5x EBITDA ($50M EBITDA = $250M entry price). Add 3 bolt-on acquisitions at 6x EBITDA each ($150M + $100M + $75M acquisitions). Build platform EBITDA to $150M through synergies and growth. Exit at 12x EBITDA ($1.8B). Invested capital $575M, exit $1.8B, 3.1x MoIC.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 20: Biotech Valuation — rNPV & Special Situations -->
+        <div class="beat" data-beat="20">
+            <div class="beat-content">
+                <h2 class="card-title">Biotech Valuation</h2>
+                <p class="card-subtitle">rNPV, Option Value & M&A Premiums</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <div class="metric-item">
+                        <div class="metric-name">Pre-Revenue Biotech</div>
+                        <div class="metric-def">Sum of rNPV of pipeline + cash − debt = equity value. No earnings-based multiples applicable. Valuation = development-stage sum-of-parts.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Key rNPV Assumptions</div>
+                        <div class="metric-def">Peak sales (derived from addressable patient population × market share × price), probability of success (by stage), time to market (when cash hits), discount rate (12-15% for biotech reflecting execution risk).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Discount Rate Sensitivity</div>
+                        <div class="metric-def">Small changes in discount rate materially change rNPV. Shifting discount rate from 10% to 15% can reduce NPV 20-30%. Sensitivity analysis mandatory: show base, upside, downside scenarios.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Option Value</div>
+                        <div class="metric-def">Even failed drugs have optionality (new indications, combination approaches, platform technology value). Don't write assets to zero; include tail value. Platform value often >50% of sum of individual drugs.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">M&A Premium & Pharma Acquisitions</div>
+                        <div class="metric-def">Pharma acquires biotech at significant premiums (40-100%+) to market price for de-risked late-stage assets. Incentive: in-license drug at Phase III (55-60% PoS) vs develop internally (10% PoS). Pharma pays up for risk reduction.</div>
+                    </div>
+
+                    <div class="formula-box">
+                        <span class="formula-label">Biotech rNPV Valuation</span>
+EV = Σ [PoS × NPV(Peak Sales × Market Share × Commercial Life / (1 + r)^t)] − Dev Costs + Cash − Debt
+where PoS = cumulative probability from current stage to approval
+r = 12-15% (biotech discount rate)
+t = time to launch
+                    </div>
+
+                    <div class="example-box">
+                        <span class="example-label">Biotech Valuation Sensitivity</span>
+                        <p><strong>Scenario:</strong> Biotech with Phase III drug, peak sales $2B, 55% PoS, 4 years to launch, 10-year commercial life, $150M dev costs remaining, $200M cash, $0 debt.</p>
+                        <p style="margin-top: 8px;"><strong>Base (r=12%):</strong> rNPV ≈ $4.2B, EV ≈ $4.25B (55% × ~$7.8B PV − $150M + $200M)</p>
+                        <p style="margin-top: 4px;"><strong>Upside (r=10%, PoS 65%):</strong> rNPV ≈ $6B+</p>
+                        <p style="margin-top: 4px;"><strong>Downside (r=15%, PoS 40%):</strong> rNPV ≈ $2B</p>
+                        <p style="margin-top: 4px;"><strong>Insight:</strong> Wide valuation range based on discount rate and PoS. Pharma buyer offering $5-6B premium justified if they believe >55% PoS and can integrate into platform.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 21: Healthcare M&A Dynamics -->
+        <div class="beat" data-beat="21">
+            <div class="beat-content">
+                <h2 class="card-title">Healthcare M&A Dynamics</h2>
+                <p class="card-subtitle">Deal Drivers, Multiples, Regulatory Considerations</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <div class="metric-item">
+                        <div class="metric-name">Pharma M&A</div>
+                        <div class="metric-def">Driven by patent cliff replacement. Pharma buys biotech for pipeline. Large deals ($10B+) for transformative platform acquisitions (Roche → Genentech $47B; Pfizer → Hospira $17B; AZ → Rixibixi stage immunotherapy). Smaller bolt-ons ($1-5B) for individual drug assets. Strategic premiums 40-100%+.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">MedTech M&A</div>
+                        <div class="metric-def">Highly acquisitive sector. Bolt-on acquisitions for technology, product line expansion, geographic reach. Medtronic, Abbott, Boston Scientific constantly acquiring. Typical multiples: 15-25x EBITDA for quality targets. Integration focus: cross-selling, eliminating redundant SG&A, supply chain optimization.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Healthcare Services M&A</div>
+                        <div class="metric-def">PE-driven consolidation. Buy-and-build in fragmented segments (dental, diagnostic labs, optometry, mental health). Entry multiples 6-10x EBITDA (consolidation discount), exit 12-18x EBITDA (platform premium). Multiple arbitrage is the value creation lever.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Regulatory Approval Risk</div>
+                        <div class="metric-def">Antitrust review for large pharma mergers (FTC/CMA scrutiny). CFIUS review for cross-border deals involving sensitive healthcare assets (genomics, diagnostics, data). Deal certainty: 85-90% for <$5B, 70-80% for >$10B.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Recent Mega-Deals (2022-2024)</div>
+                        <div class="metric-def">Roche → Exseris ($2.7B, diagnostics), Bristol Myers → Mirati ($4.8B, oncology biotech), Eli Lilly → Loxo ($8B+, oncology), Novo Nordisk → Heart Therapeutics ($300M, cardiometabolic), Zimmer Biomet → LivaNova ($4.3B, cardiac), Sandoz IPO (ex-Novartis generics) valued at $10B+.</div>
+                    </div>
+
+                    <div class="formula-box">
+                        <span class="formula-label">M&A Deal Value Estimation</span>
+Base Valuation (DCF or trading multiples)
++ Strategic Premium (30-80% for synergy value)
++ Control Premium (30-50% for 100% acquisition vs. minority stake)
+= Acquisition Price
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 22: Patent Cliff & Pipeline Risk -->
+        <div class="beat" data-beat="22">
+            <div class="beat-content">
+                <div class="part-label">PART IV — DILIGENCE & RED FLAGS</div>
+                <h2 class="card-title">Patent Cliff & Pipeline Risk</h2>
+                <p class="card-subtitle">Quantification & Stress Testing</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <p><strong>The Fundamental Question:</strong> Can the company replace revenue from expiring products?</p>
+
+                    <div class="metric-item" style="margin-top: 20px;">
+                        <div class="metric-name">Patent Cliff Quantification</div>
+                        <div class="metric-def">List every product >5% of revenue: name, current revenue, LOE date, expected erosion curve (30-90% depending on small-molecule vs. biologic). Sum = total revenue at risk by year. Example: AZ 2023 cliff: $6B at risk 2024-2027 on mature portfolio.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Pipeline Quality Assessment</div>
+                        <div class="metric-def">For each Phase III asset: stage, unmet medical need, competitive landscape (how many competitors?), differentiation (better efficacy, safety, convenience?). A large Phase III pipeline can be worthless if drugs target crowded indications with existing therapies.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">R&D Productivity</div>
+                        <div class="metric-def">Compare R&D spend (% of revenue) to approved drugs approved. Declining productivity = red flag. Example: if Company A spends 20% of revenue on R&D but hasn't approved a drug in 5 years, productivity is declining. Contrast with Company B (18% spend, 1 approval annually).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Peak Sales Credibility</div>
+                        <div class="metric-def">For pipeline assets, check if peak sales estimates are credible. Addressable market size × estimated market share. Example: small-cell lung cancer is ~50K patients annually in US. If a company estimates peak sales of $5B for an SCLC drug, they're assuming ~$100K per patient per year pricing (possible but aggressive). Sanity-check numbers.</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <span class="warning-label">Patent Cliff Red Flag</span>
+                        <p><strong>MAJOR RED FLAG:</strong> A pharma company with >30% of revenue at risk from patent cliffs in the next 5 years, with NO Phase III assets, and R&D productivity declining = structurally challenged. Even with M&A, this company is a value trap.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <span class="example-label">Patent Cliff Diligence Case</span>
+                        <p><strong>GSK 2023:</strong> Top drugs: Shingrix (vaccines), Nucala (asthma), Trelegy (respiratory). Most patents extend to 2027-2032. Phase III pipeline includes ~10 late-stage assets (immunology, oncology, vaccines). Conclusion: managed cliff risk through both new product pipeline and diversification. Not a red flag.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 23: Reimbursement & Pricing Risk -->
+        <div class="beat" data-beat="23">
+            <div class="beat-content">
+                <h2 class="card-title">Reimbursement & Pricing Risk</h2>
+                <p class="card-subtitle">Regulatory Headwinds & Market Dynamics</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <div class="metric-item">
+                        <div class="metric-name">Government Pricing Pressure</div>
+                        <div class="metric-def">Most developed markets impose drug pricing controls. UK: NICE HTA (health technology assessment) determines price/access. Europe: reference pricing (many countries tied to Germany/France benchmarks). US: IRA allows Medicare to negotiate prices on certain drugs (implemented 2024). Price cuts = margin pressure.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">IRA (Inflation Reduction Act) Impact</div>
+                        <div class="metric-def">Allows Medicare to negotiate prices on high-revenue drugs without generics/biosimilars. List includes: Enbrel, Imbruvica, Januvia, Stelara, Xarelto. Price cuts 20-55% expected for first negotiation wave (2024). Revenue impact material for affected companies.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">NICE HTA Assessment Risk</div>
+                        <div class="metric-def">UK/EU drug access determined by cost-effectiveness vs. existing therapies. NICE uses £30K per QALY willingness-to-pay threshold (though flexible). Negative NICE opinion = reimbursement denial in UK. Examples: some drugs approved in US rejected by NICE (too expensive, insufficient clinical benefit).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">MedTech Reimbursement</div>
+                        <div class="metric-def">Hospital budgets are finite. New devices must demonstrate clinical AND economic value (cost per procedure vs. existing standard). Reimbursement pressure: hospitals consolidating (GPOs), negotiating lower prices. ASP erosion 1-3% annually typical.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Healthcare Services Reimbursement</div>
+                        <div class="metric-def">NHS tariff changes directly impact revenue per procedure. Example: NHS reduced hip replacement tariff 3% in 2022 = direct margin compression for hospital operators. Regulatory event risk.</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <span class="warning-label">Pricing Risk Stress Testing</span>
+                        <p><strong>Scenario Analysis Required:</strong> Assume 10-15% price reduction from IRA/payer negotiation for key drugs. Model EBITDA impact. Example: $3B drug at 40% EBITDA margin, 15% price cut = $180M EBITDA loss (~5% of total for integrated pharma).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 24: Clinical & Regulatory Risk -->
+        <div class="beat" data-beat="24">
+            <div class="beat-content">
+                <h2 class="card-title">Clinical & Regulatory Risk</h2>
+                <p class="card-subtitle">Binary Events, Safety, Manufacturing</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <div class="metric-item">
+                        <div class="metric-name">Phase III Failure</div>
+                        <div class="metric-def">The most expensive failure. $200M-500M trial cost wasted. Stock impact for biotech: 50-80% decline possible. For integrated pharma, one Phase III failure = 5-15% equity value impact. Risk appetite matters; clinical stage assessment is paramount.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Regulatory Risk</div>
+                        <div class="metric-def">FDA Complete Response Letter (CRL) = rejection or request for more data (not approval). EMA CHMP negative opinion. Both result in delayed launches or resubmissions, affecting valuation timing assumptions.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Post-Marketing Safety</div>
+                        <div class="metric-def">Black box warnings, REMS (Risk Evaluation & Mitigation Strategies), label narrowing, or market withdrawals can destroy drug value years after approval. Example: Avandia (diabetes drug) faced restrictions post-approval, reducing peak sales 50-70%.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Manufacturing Risk</div>
+                        <div class="metric-def">Drug shortages (quality control failures), FDA warning letters, consent decrees = supply disruption and revenue loss. Example: Biohaven faced manufacturing issues delaying launch of key psychiatric drug.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Regulatory Track Record</div>
+                        <div class="metric-def">Review management's FDA approval rate, cycle times, and any warning letters/Form 483 observations from FDA inspections. Track record is predictive of future execution risk.</div>
+                    </div>
+
+                    <div class="example-box">
+                        <span class="example-label">Clinical Risk Quantification</span>
+                        <p><strong>Phase III Asset Valuation:</strong> Peak sales $2B, 55% PoS (industry average Phase III). If trial fails (45% probability), stock could decline 60%. Implied expected value adjustment already captured in 55% probability. But scenario analysis shows downside to $400-500M value if trial fails.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 25: Healthcare Diligence Checklist -->
+        <div class="beat" data-beat="25">
+            <div class="beat-content">
+                <h2 class="card-title">Healthcare Diligence Checklist</h2>
+                <p class="card-subtitle">Essential Questions for IB Deal Work</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <ul class="bullet-list">
+                        <li><strong>Revenue Concentration:</strong> Top drug as % of total? Top 5 drugs? Industry risk <50% from single drug.</li>
+                        <li><strong>Patent Cliff Timeline:</strong> Revenue at risk over next 5 years? Estimate % erosion by year. Compare to pipeline value.</li>
+                        <li><strong>Pipeline Quality:</strong> Number and stage of assets? Probability-weighted value? Realistic peak sales assumptions? Competitive landscape?</li>
+                        <li><strong>R&D Productivity:</strong> R&D spend (% revenue) vs. approved drugs (per $10B spent)? Trend improving or declining?</li>
+                        <li><strong>Reimbursement Environment:</strong> Payer mix (private vs. govt)? Pricing trends? IRA, NICE, NHS tariff impacts? Risk of cuts?</li>
+                        <li><strong>Competitive Landscape:</strong> Peers per therapy area? Market share trends? Generic/biosimilar threats? Differentiation of pipeline?</li>
+                        <li><strong>Regulatory History:</strong> FDA approval rate, cycle times, warning letters? Management track record?</li>
+                        <li><strong>Geographic Diversification:</strong> % US revenue (highest pricing, IRA risk)? Europe, Japan, emerging markets? FX exposure?</li>
+                        <li><strong>Cash Generation & Capital Allocation:</strong> FCF trends? Dividend sustainability? M&A capacity? Share buybacks vs. growth investing?</li>
+                        <li><strong>Management Track Record:</strong> M&A integration success? Pipeline delivery history? Strategic vision clarity?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 26: Sub-Sector Comparison Table -->
+        <div class="beat" data-beat="26">
+            <div class="beat-content">
+                <h2 class="card-title">Sub-Sector Comparison</h2>
+                <p class="card-subtitle">Key Metrics Across Healthcare Segments</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 24px;">
+                        <div class="comparison-row" style="grid-template-columns: 1fr 1fr;">
+                            <div class="comparison-col">
+                                <div class="comparison-header">Big Pharma</div>
+                                <p>Gross Margin: 70-80%</p>
+                                <p>EBITDA Margin: 30-40%</p>
+                                <p>EV/EBITDA: 12-16x</p>
+                                <p>Growth: 2-5%</p>
+                                <p>Primary Risk: Patent cliff</p>
+                                <p>Revenue Model: Drug sales, royalties</p>
+                                <p>M&A Activity: High (bolt-ons, pipeline)</p>
+                            </div>
+                            <div class="comparison-col">
+                                <div class="comparison-header">Biotech</div>
+                                <p>Gross Margin: N/A (pre-revenue)</p>
+                                <p>EBITDA Margin: Negative</p>
+                                <p>Valuation: rNPV-based</p>
+                                <p>Growth: High (if successful)</p>
+                                <p>Primary Risk: Clinical/regulatory</p>
+                                <p>Revenue Model: Licensing, milestones, royalties</p>
+                                <p>M&A Activity: Very high (acquisition target)</p>
+                            </div>
+                        </div>
+                        <div class="comparison-row" style="grid-template-columns: 1fr 1fr;">
+                            <div class="comparison-col">
+                                <div class="comparison-header">MedTech</div>
+                                <p>Gross Margin: 60-70%</p>
+                                <p>EBITDA Margin: 25-35%</p>
+                                <p>EV/EBITDA: 15-25x</p>
+                                <p>Growth: 4-7%</p>
+                                <p>Primary Risk: ASP erosion, competition</p>
+                                <p>Revenue Model: Equipment + consumables</p>
+                                <p>M&A Activity: Very high (bolt-ons)</p>
+                            </div>
+                            <div class="comparison-col">
+                                <div class="comparison-header">Healthcare Services</div>
+                                <p>Gross Margin: 25-40%</p>
+                                <p>EBITDA Margin: 15-25%</p>
+                                <p>EV/EBITDA: 8-15x</p>
+                                <p>Growth: 2-4%</p>
+                                <p>Primary Risk: Reimbursement cuts</p>
+                                <p>Revenue Model: FFS, capitated</p>
+                                <p>M&A Activity: High (PE roll-ups)</p>
+                            </div>
+                        </div>
+                        <div class="comparison-row" style="grid-template-columns: 1fr 1fr;">
+                            <div class="comparison-col">
+                                <div class="comparison-header">Life Sciences Tools</div>
+                                <p>Gross Margin: 55-65%</p>
+                                <p>EBITDA Margin: 25-35%</p>
+                                <p>EV/EBITDA: 20-30x</p>
+                                <p>Growth: 6-10%</p>
+                                <p>Primary Risk: R&D spending cycles</p>
+                                <p>Revenue Model: Equipment + consumables</p>
+                                <p>M&A Activity: High (tuck-ins)</p>
+                            </div>
+                            <div class="comparison-col">
+                                <div class="comparison-header">CRO/CDMO</div>
+                                <p>Gross Margin: 40-50%</p>
+                                <p>EBITDA Margin: 20-30%</p>
+                                <p>EV/EBITDA: 12-18x</p>
+                                <p>Growth: 5-8%</p>
+                                <p>Primary Risk: Customer concentration</p>
+                                <p>Revenue Model: Fee-for-service, backlog</p>
+                                <p>M&A Activity: Moderate (capacity deals)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 27: London Healthcare IB Landscape -->
+        <div class="beat" data-beat="27">
+            <div class="beat-content">
+                <div class="part-label">PART V — APPENDIX</div>
+                <h2 class="card-title">London Healthcare IB Landscape</h2>
+                <p class="card-subtitle">Teams, Deal Types, Market Leadership</p>
+                <div class="card-body" style="margin-top: 24px;">
+                    <div class="metric-item">
+                        <div class="metric-name">Major Investment Banking Teams</div>
+                        <div class="metric-def">Goldman Sachs, Morgan Stanley, J.P. Morgan, Lazard, Centerview, Jefferies (especially strong in healthcare M&A), SVB Securities (focused on biotech/life sciences), Leerink (pure biotech play now part of Mizuho).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Deal Types</div>
+                        <div class="metric-def">Pharma M&A (large-cap consolidation, patent cliff replacement), biotech licensing/acquisitions (pharma buying R&D), MedTech bolt-ons, healthcare services PE buyouts and roll-ups, biotech IPOs (frequent exit strategy), clinical trial services consolidation.</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Market Leadership</div>
+                        <div class="metric-def">Healthcare is one of the most active M&A sectors globally. 2023: $126B healthcare M&A (Dealogic). London teams competing for: pharma advisory, biotech fundraising, MedTech bolt-on support, PE healthcare deals, public company advisory (strategic options, capital allocation).</div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-name">Interview Themes</div>
+                        <div class="metric-def">Patent cliff management, pipeline valuation, comparable transaction multiples, M&A synergy analysis, healthcare sector dynamics (pricing pressure, consolidation, regulation), deal structuring (earn-outs for biotech, etc.), regulatory approval risk assessment.</div>
+                    </div>
+
+                    <div class="example-box">
+                        <span class="example-label">Recent Healthcare M&A (London IB Active)</span>
+                        <p><strong>Deals 2023-2024:</strong> Roche → Carmot therapeutics (obesity/diabetes, preclinical), Novo Nordisk → Presco (early-stage obesity), Eli Lilly → Loxo Oncology ($8B), Sanofi → Fvax (vaccines platform), Takeda → Dompe ($380M, rare disease). London IB teams advised on numerous bolt-on MedTech acquisitions and healthcare services PE deals.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beat 28: FINALE -->
+        <div class="beat" data-beat="28">
+            <div class="beat-content">
+                <h2 class="card-title">Healthcare Special Complete</h2>
+                <p class="card-subtitle">Key Takeaways & Framework Mastery</p>
+                <div class="card-body" style="margin-top: 40px;">
+                    <p><strong>From patent cliffs to pipeline rNPV, from MedTech razor/blade models to PE-backed healthcare services roll-ups — the healthcare sector is complex but the frameworks are consistent.</strong></p>
+
+                    <p style="margin-top: 20px;"><strong>Mastery Requirements:</strong></p>
+                    <ul class="bullet-list">
+                        <li>Quantify patent cliff impact: revenue at risk, erosion curves, timing of generic/biosimilar entry.</li>
+                        <li>Probability-weight pipeline assets: assess PoS by stage, peak sales credibility, competitive positioning, time to market.</li>
+                        <li>Value recurring revenue: MedTech consumables, life sciences tools, healthcare services loyalty = stability and margin upside.</li>
+                        <li>Stress test reimbursement: model price cuts from IRA, NICE, payer negotiation. Impact to EBITDA and valuation.</li>
+                        <li>M&A arbitrage: pharma acquiring biotech at 40-100% premium for risk reduction; PE rolling up fragmented services at 2-3x MoIC; MedTech bolt-ons for synergy.</li>
+                        <li>Regulatory risk awareness: Phase III failure, FDA response times, manufacturing risk, post-marketing safety — all binary, all material.</li>
+                    </ul>
+
+                    <p style="margin-top: 20px;"><strong>Interview Closing:</strong></p>
+                    <p style="color: var(--accent); font-size: 16px; font-weight: 600; margin-top: 20px;">"Value the pipeline. Stress-test the patent cliff. Respect the regulator."</p>
+
+                    <div style="margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--border);">
+                        <p style="font-size: 13px; color: var(--text-secondary);">Chapter 16 complete. Healthcare sector mastery = IB edge.</p>
+                        <p style="font-size: 13px; color: var(--accent); margin-top: 16px;"><a href="#" onclick="window.history.back(); return false;" style="color: var(--accent); text-decoration: none;">← Return to G2G</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Beat Counter -->
+    <div class="beat-counter">
+        <span id="beatNumber">1</span> / <span id="totalBeats">28</span>
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots" id="navDots"></div>
+
+    <!-- Back Link -->
+    <a href="#" onclick="history.back(); return false;" class="back-link">← Back</a>
+
+    <!-- Swipe Hint -->
+    <div class="swipe-hint" id="swipeHint">Scroll or swipe to navigate</div>
+
+    <!-- Resume Toast -->
+    <div class="resume-toast" id="resumeToast"></div>
+
+    <script>
+        const CHAPTER_NUM = 16;
+        const TOTAL_BEATS = 28;
+        let currentBeat = 1;
+        let lastScrollTime = 0;
+        const scrollThrottle = 500;
+
+        const beats = document.querySelectorAll('.beat');
+        const progressBar = document.getElementById('progressBar');
+        const beatNumberEl = document.getElementById('beatNumber');
+        const navDotsContainer = document.getElementById('navDots');
+        const swipeHint = document.getElementById('swipeHint');
+        const resumeToast = document.getElementById('resumeToast');
+
+        // Initialize nav dots
+        function initNavDots() {
+            for (let i = 1; i <= TOTAL_BEATS; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i === 1) dot.classList.add('active');
+                dot.addEventListener('click', () => goTo(i));
+                navDotsContainer.appendChild(dot);
+            }
+        }
+
+        // Position beats
+        function positionBeats() {
+            beats.forEach((beat, index) => {
+                const beatNum = index + 1;
+                if (beatNum < currentBeat) {
+                    beat.classList.remove('active');
+                    beat.classList.add('prev');
+                } else if (beatNum === currentBeat) {
+                    beat.classList.add('active');
+                    beat.classList.remove('prev');
+                } else {
+                    beat.classList.remove('active', 'prev');
+                }
+            });
+
+            // Update progress bar
+            const progress = (currentBeat / TOTAL_BEATS) * 100;
+            progressBar.style.width = progress + '%';
+
+            // Update beat counter
+            beatNumberEl.textContent = currentBeat;
+
+            // Update nav dots
+            const dots = navDotsContainer.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                if (index + 1 === currentBeat) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Go to beat
+        function goTo(beatNum) {
+            if (beatNum < 1 || beatNum > TOTAL_BEATS) return;
+            currentBeat = beatNum;
+            positionBeats();
+            swipeHint.style.opacity = currentBeat === TOTAL_BEATS ? '0.3' : '0.6';
+
+            if (currentBeat > 1) {
+                showResumeToast();
+            }
+        }
+
+        // Wheel navigation
+        document.addEventListener('wheel', (e) => {
+            const now = Date.now();
+            if (now - lastScrollTime < scrollThrottle) return;
+            lastScrollTime = now;
+
+            if (e.deltaY > 0) {
+                if (currentBeat < TOTAL_BEATS) goTo(currentBeat + 1);
+            } else {
+                if (currentBeat > 1) goTo(currentBeat - 1);
+            }
+            e.preventDefault();
+        }, { passive: false });
+
+        // Touch navigation
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        }, false);
+
+        document.addEventListener('touchend', (e) => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
+            const now = Date.now();
+            if (now - lastScrollTime < scrollThrottle) return;
+            lastScrollTime = now;
+
+            if (touchStartY - touchEndY > 50) {
+                if (currentBeat < TOTAL_BEATS) goTo(currentBeat + 1);
+            } else if (touchEndY - touchStartY > 50) {
+                if (currentBeat > 1) goTo(currentBeat - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const now = Date.now();
+            if (now - lastScrollTime < scrollThrottle) return;
+
+            if (e.key === 'ArrowDown' || e.key === ' ') {
+                lastScrollTime = now;
+                if (currentBeat < TOTAL_BEATS) goTo(currentBeat + 1);
+                e.preventDefault();
+            } else if (e.key === 'ArrowUp') {
+                lastScrollTime = now;
+                if (currentBeat > 1) goTo(currentBeat - 1);
+                e.preventDefault();
+            }
+        });
+
+        // Resume toast
+        function showResumeToast() {
+            resumeToast.textContent = `Beat ${currentBeat} of ${TOTAL_BEATS}`;
+            resumeToast.classList.add('show');
+            setTimeout(() => {
+                resumeToast.classList.remove('show');
+            }, 2000);
+        }
+
+        // Prevent default scroll on body
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+
+        // Initialize
+        initNavDots();
+        positionBeats();
+    </script>
+</body>
+</html>

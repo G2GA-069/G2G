@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 18: The FIG Special - G2G IB Interview Prep</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0c;
+            --surface: #131318;
+            --surface-2: #1a1a22;
+            --border: #2a2a35;
+            --text: #e8e4df;
+            --text-muted: #8a8590;
+            --accent: #b07ce8;
+            --brand-purple: #6b2fa0;
+            --brand-magenta: #d946ef;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .chapter-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .beats-viewport {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
+        }
+
+        .beat {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .beat.active {
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        .beat-inner {
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 40px;
+            border-radius: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .beat-inner::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .beat-inner::-webkit-scrollbar-track {
+            background: var(--surface-2);
+            border-radius: 4px;
+        }
+
+        .beat-inner::-webkit-scrollbar-thumb {
+            background: var(--brand-purple);
+            border-radius: 4px;
+        }
+
+        .beat-title {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .beat-title h1 {
+            font-family: 'EB Garamond', serif;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--accent), var(--brand-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .beat-title p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .beat-scene, .beat-card, .beat-takeaway, .beat-divider {
+            text-align: left;
+        }
+
+        .beat-scene h2, .beat-card h2, .beat-takeaway h2, .beat-divider h2 {
+            font-family: 'EB Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--accent);
+        }
+
+        .beat-scene p, .beat-card p, .beat-takeaway p, .beat-divider p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .beat-scene ul, .beat-card ul, .beat-takeaway ul, .beat-divider ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .beat-scene li, .beat-card li, .beat-takeaway li, .beat-divider li {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .beat-finale {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .beat-finale.active {
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        .beat-finale canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .finale-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: var(--text);
+        }
+
+        .finale-content h2 {
+            font-family: 'EB Garamond', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .finale-content p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .formula-box {
+            background: var(--surface-2);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--accent);
+            line-height: 1.8;
+        }
+
+        .example-box {
+            background: rgba(107, 47, 160, 0.1);
+            border-left: 4px solid var(--brand-purple);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .example-box strong {
+            color: var(--brand-purple);
+        }
+
+        .warning-box {
+            background: rgba(217, 70, 239, 0.1);
+            border-left: 4px solid var(--brand-magenta);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .warning-box strong {
+            color: var(--brand-magenta);
+        }
+
+        .metric-item {
+            background: var(--surface-2);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .metric-item strong {
+            color: var(--accent);
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-row > div {
+            background: var(--surface-2);
+            padding: 20px;
+            border-radius: 6px;
+            border-top: 3px solid var(--accent);
+        }
+
+        .comparison-row h4 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .bullet-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .bullet-list li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .bullet-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .nav-bottom {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            z-index: 100;
+            background: rgba(19, 19, 24, 0.9);
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--accent);
+            transform: scale(1.3);
+        }
+
+        .beat-counter {
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--brand-magenta));
+            z-index: 101;
+            transition: width 0.6s ease;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.95rem;
+            z-index: 99;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--surface-2);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .swipe-hint {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+            z-index: 50;
+            animation: swipe-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes swipe-pulse {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .beat-title h1 {
+                font-size: 2.5rem;
+            }
+            .beat-scene h2, .beat-card h2, .beat-takeaway h2, .beat-divider h2 {
+                font-size: 1.8rem;
+            }
+            .beat-inner {
+                padding: 30px;
+            }
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chapter-container">
+        <div class="beats-viewport" id="beatsViewport">
+            <!-- BEAT 1: TITLE -->
+            <div class="beat beat-title" data-beat="0">
+                <div class="beat-inner">
+                    <h1>The FIG Special</h1>
+                    <p>Financial Institutions Group Coverage Universe</p>
+                    <p style="margin-top: 40px; font-size: 1rem; color: var(--text-muted);">Everything you need to master the most regulated sector in investment banking</p>
+                </div>
+            </div>
+
+            <!-- BEAT 2: FIG OVERVIEW -->
+            <div class="beat beat-scene" data-beat="1">
+                <div class="beat-inner">
+                    <h2>Why FIG is Different</h2>
+                    <p>Financial Institutions Group is the crown jewel of investment banking M&A and capital markets coverage. But it demands a fundamentally different analytical framework than corporates.</p>
+                    <div class="metric-item">
+                        <strong>Regulated Capital:</strong> Every decision flows through regulatory constraints (CET1, leverage ratios, MREL, Solvency II)
+                    </div>
+                    <div class="metric-item">
+                        <strong>Mark-to-Market Volatility:</strong> Trading books create earnings volatility banks can't control
+                    </div>
+                    <div class="metric-item">
+                        <strong>No Traditional EBITDA:</strong> Net Interest Income (NII), Net Revenue, Operating Profit replace EBITDA
+                    </div>
+                    <div class="metric-item">
+                        <strong>Liability Side Matters:</strong> Cost of deposits, funding structure, and refinancing risk are existential
+                    </div>
+                    <p style="margin-top: 30px;"><strong>Interview Rule:</strong> Never value a bank like you value a corporate. The regulatory lens is non-negotiable.</p>
+                </div>
+            </div>
+
+            <!-- BEAT 3: BANKS - UNIVERSAL/RETAIL -->
+            <div class="beat beat-card" data-beat="2">
+                <div class="beat-inner">
+                    <h2>BANKS: Universal/Retail Banking Fundamentals</h2>
+                    <p>The heart of traditional banking. Key metrics for any bank interview question.</p>
+                    <div class="metric-item">
+                        <strong>Net Interest Income (NII):</strong> Interest earned on loans minus cost of deposits. The core earnings driver.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Net Interest Margin (NIM):</strong> NII as % of average earning assets. Typically 1.5–3.5% for Tier 1 banks.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Cost-to-Income Ratio:</strong> Opex / Net revenue. Lower is better. Top-tier: 40–50%. Stressed: 80%+
+                    </div>
+                    <div class="metric-item">
+                        <strong>CET1 Ratio:</strong> Common Equity Tier 1 as % of RWA. Minimum requirement ~4.5%, plus buffers = 13–15% target for Tier 1 banks.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Loan Deposit Ratio (LDR):</strong> Total loans / total deposits. 80–100% is healthy; above 110% signals funding stress.
+                    </div>
+                    <div class="formula-box">
+NIM = NII / Average Earning Assets
+Example: NII €10bn / avg assets €500bn = 2% NIM
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 4: BANKS - CREDIT QUALITY -->
+            <div class="beat beat-card" data-beat="3">
+                <div class="beat-inner">
+                    <h2>BANKS: Credit Quality & Impairments</h2>
+                    <p>The early warning system. Credit metrics tell you where losses are hiding.</p>
+                    <div class="metric-item">
+                        <strong>NPL Ratio:</strong> Non-Performing Loans / Total Loans. Tier 1 EU banks: 0.5–2%. Above 3% = concern.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Coverage Ratio:</strong> Loan Loss Provisions / NPLs. Target: 50–100%. Low coverage = future charge.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Cost of Risk (CoR):</strong> Impairment charges / average loans. 20–50 bps is normal. 150+ bps = stress.
+                    </div>
+                    <div class="metric-item">
+                        <strong>IFRS 9 Stage Classification:</strong> Stage 1 (performing), Stage 2 (early warning), Stage 3 (defaulted). Migration to Stage 2/3 = future provisions.
+                    </div>
+                    <div class="warning-box">
+                        <strong>Critical Interview Trap:</strong> IFRS 9 introduced forward-looking provisioning (expected loss) vs. old IAS 39 incurred loss model. Banks must provision earlier now. Overlay management (subjective add-ons) can mask deterioration. Always ask about model overlays and PMO (Post-Model Overlays).
+                    </div>
+                    <div class="example-box">
+                        <strong>Example:</strong> Bank A: €100bn loans, 2% NPL ratio, 60% coverage = €1.2bn reserves. If 50% of Stage 2 loans (say €8bn) migrate to Stage 3 next year, potential €400m additional provision hit.
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 5: BANKS - VALUATION FRAMEWORK -->
+            <div class="beat beat-card" data-beat="4">
+                <div class="beat-inner">
+                    <h2>BANKS: The P/TBV & ROTE Valuation Framework</h2>
+                    <p>P/E multiples are useless for banks. The real valuation story lives in ROTE and justified P/TBV.</p>
+                    <div class="formula-box">
+Justified P/TBV = (ROTE − g) / (Cost of Equity − g)
+
+Where:
+- ROTE = Return on Tangible Equity (Net Income / Tangible Equity)
+- g = long-term growth rate (typically 2–3%)
+- COE = Cost of Equity (8–10% for developed market banks)
+                    </div>
+                    <div class="example-box">
+                        <strong>Worked Example:</strong>
+                        Bank trades at 0.9x TBV. Is it cheap?
+                        - ROTE = 9%
+                        - g = 2%
+                        - COE = 9.5%
+
+Justified P/TBV = (9% − 2%) / (9.5% − 2%) = 7% / 7.5% = 0.93x
+Trading at 0.9x vs justified 0.93x = Slight discount. Fair value around 0.91x.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Why P/E is Broken for Banks:</strong> Earnings fluctuate with credit cycles, funding costs, and trading revenue. A bank earning 8% ROTE at 10x P/E is expensive; earning 12% ROTE at 8x P/E is cheap.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Benchmark P/TBV:</strong> Tier 1 EU banks in normal environments: 0.8–1.2x. Crisis: 0.4–0.6x. Peak: 1.5–2.0x (mid-2000s).
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 6: BANKS - CAPITAL & REGULATION -->
+            <div class="beat beat-card" data-beat="5">
+                <div class="beat-inner">
+                    <h2>BANKS: Capital, Basel III/IV & Regulation</h2>
+                    <p>Regulatory capital is the "debt ceiling" that sets the strategy. Get this wrong and you miss the whole thesis.</p>
+                    <div class="metric-item">
+                        <strong>CET1 Ratio:</strong> Minimum 4.5% (pillar 1) + 2.5% capital buffer + 0–3% systemic buffer = 7–10.5% hard floor
+                    </div>
+                    <div class="metric-item">
+                        <strong>Leverage Ratio:</strong> Capital / Total assets (not RWA-weighted). ~3% floor. Backstop for RWA arbitrage.
+                    </div>
+                    <div class="metric-item">
+                        <strong>MREL/TLAC:</strong> Total Loss Absorbing Capacity. Systemically important banks must hold 16–20% of RWA in bail-in debt.
+                    </div>
+                    <div class="metric-item">
+                        <strong>RWA Density:</strong> Total RWA / Total assets. Higher = more leverage. 40–50% normal, 35% = low-risk mix, 55%+ = concentrated risk.
+                    </div>
+                    <div class="formula-box">
+Maximum Lending Capacity = CET1 Capital / CET1 Ratio Requirement
+Example: €50bn CET1 capital at 12% requirement = €417bn max RWA
+If RWA density is 45%, max total assets ≈ €926bn
+                    </div>
+                    <div class="warning-box">
+                        <strong>Key Interview Point:</strong> Banks can't just grow assets freely. They're capital-constrained. Any acquisition that increases RWA density eats into future growth capacity. Always model "excess capital" available for buybacks/dividends.
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 7: INVESTMENT BANKING & CAPITAL MARKETS -->
+            <div class="beat beat-card" data-beat="6">
+                <div class="beat-inner">
+                    <h2>Investment Banking & Capital Markets Divisions</h2>
+                    <p>The volatility engine. 40–50% of Tier 1 bank revenues, but lumpy and cycle-dependent.</p>
+                    <div class="metric-item">
+                        <strong>FICC (Fixed Income, Currencies, Commodities):</strong> 40–50% of capital markets revenue. Highly dependent on vol, repo spreads, and client flow.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Equities (cash + derivatives):</strong> 20–30% of capital markets revenue. Client facilitation more stable than prop trading.
+                    </div>
+                    <div class="metric-item">
+                        <strong>ECM (Equity Capital Markets):</strong> IPOs and secondaries. ~5–10% of capital markets revenue.
+                    </div>
+                    <div class="metric-item">
+                        <strong>DCM (Debt Capital Markets):</strong> Bond issuance advisory. 5–8% of capital markets revenue.
+                    </div>
+                    <div class="metric-item">
+                        <strong>M&A Advisory:</strong> 10–15% of total revenue. More stable, less capital-intensive, but cyclical.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Compensation Ratio:</strong> Typically 40–50% of division revenue goes to comp. Compete hard for top talent = variable cost base.
+                    </div>
+                    <div class="metric-item">
+                        <strong>RoTE by Division:</strong> IB/Capital Markets: 12–20% RoTE. Deposit-gathering retail: 15–25% RoTE. Asset management: 20–35% RoTE.
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 8: INSURANCE - LIFE INSURANCE -->
+            <div class="beat beat-card" data-beat="7">
+                <div class="beat-inner">
+                    <h2>INSURANCE: Life Insurance Key Metrics</h2>
+                    <p>Life insurers are long-duration asset managers with embedded optionality. Very different from P&C.</p>
+                    <div class="metric-item">
+                        <strong>Embedded Value (EV):</strong> PV of future profits from in-force business plus net worth. Growing EV = value creation.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Value of New Business (VNB):</strong> PV of profits on new policies sold in a period. 15–25% VNB margin is strong for life insurers.
+                    </div>
+                    <div class="metric-item">
+                        <strong>VNB Margin:</strong> VNB / New Annual Premium Income. Indicates pricing discipline and cost control.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Solvency II SCR Ratio:</strong> Own funds / Solvency Capital Requirement. Minimum 100%, typically 150–200% for Tier 1 insurers. Higher = more capacity to grow.
+                    </div>
+                    <div class="formula-box">
+Embedded Value = Net Worth + PV(Future Profits on In-Force Book)
+Example: NW €5bn + PV(future profits) €8bn = €13bn EV
+If next year EV grows to €14bn, value creation = €1bn
+                    </div>
+                    <div class="metric-item">
+                        <strong>Key Sensitivity:</strong> Long-duration books = huge interest rate risk. 100 bps yield drop = 10–15% EV gain (but negative for profitability).
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 9: INSURANCE - P&C/GENERAL INSURANCE -->
+            <div class="beat beat-card" data-beat="8">
+                <div class="beat-inner">
+                    <h2>INSURANCE: P&C/General Insurance Fundamentals</h2>
+                    <p>Simpler than life, but catastrophe-driven. Pure insurance business model.</p>
+                    <div class="metric-item">
+                        <strong>Combined Ratio = Loss Ratio + Expense Ratio:</strong> Below 100% = underwriting profit. Above 100% = underwriting loss.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Loss Ratio:</strong> Claims / Earned Premium. 60–80% for healthy books. Fire/motor higher; specialty lower.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Expense Ratio:</strong> Opex / Earned Premium. 25–35% for efficient players; 40%+ = under pressure.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Reserve Development:</strong> Run-off of prior-year reserves. Positive = prior-year reserves were conservative (good). Negative = adverse development (red flag).
+                    </div>
+                    <div class="metric-item">
+                        <strong>CAT Exposure:</strong> Max probable loss from single catastrophe. 5–10% of equity is typical. 20%+ = speculative positioning.
+                    </div>
+                    <div class="example-box">
+                        <strong>Worked Example:</strong> P&C insurer:
+                        - Earned premium: €500m
+                        - Claims paid: €360m (loss ratio 72%)
+                        - Operating expenses: €140m (expense ratio 28%)
+                        - Combined ratio: 100% = break-even underwriting
+                        - Profit from investment yield on float (must be positive to offset)
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 10: INSURANCE - VALUATION -->
+            <div class="beat beat-card" data-beat="9">
+                <div class="beat-inner">
+                    <h2>INSURANCE: Valuation Frameworks</h2>
+                    <p>Price-to-Embedded Value for life; Price-to-Book for general. DCF of distributable earnings is the gold standard.</p>
+                    <div class="metric-item">
+                        <strong>P/EV Multiple (Life Insurers):</strong> Share Price / Embedded Value per Share. 0.8–1.2x normal range. Below 1x = discount to embedded value.
+                    </div>
+                    <div class="metric-item">
+                        <strong>P/TBV Multiple (General Insurers):</strong> Share Price / Tangible Book Value. 1.0–1.5x normal. Below 1x during stress.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Distributable Earnings (DEC):</strong> Expected profits on in-force (EPI) + investment return on reserves. DCF of DEC with long-duration risk is the most rigorous valuation.
+                    </div>
+                    <div class="formula-box">
+DCF(Distributable Earnings) = ∑[DEC_t / (1+WACC)^t]
+- Long-duration bond-like cash flows require 4–5% WACC
+- Terminal growth typically 2–3%
+                    </div>
+                    <div class="warning-box">
+                        <strong>Critical Interview Mistake:</strong> Using 8–10% WACC for a long-duration insurer. These are quasi-fixed-income businesses. Use 4–5% WACC or you'll overpay massively. Discount rate assumption = everything.
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 11: REINSURANCE -->
+            <div class="beat beat-card" data-beat="10">
+                <div class="beat-inner">
+                    <h2>REINSURANCE: Structure, Cycle & Pricing</h2>
+                    <p>The shock absorber for the insurance system. Highly cyclical and structured.</p>
+                    <div class="metric-item">
+                        <strong>Treaty Reinsurance:</strong> Automatic cover for large portion of portfolio. Catastrophe-driven pricing. 5–15% of premium is typical cost.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Facultative Reinsurance:</strong> Case-by-case. Higher margins, more flexible, but slower.
+                    </div>
+                    <div class="metric-item">
+                        <strong>ILS (Insurance-Linked Securities) / Cat Bonds:</strong> Capital market reinsurance. Transfers risk to investors. 4–6% annual yield typical.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Retrocession:</strong> Reinsurers buy reinsurance themselves to cap tail risk. 2–4% of reinsurer premium.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Reinsurance Cycle:</strong> Post-CAT event = hardening (prices spike 20–50%). 3–4 years of calm = softening. Affects profitability predictability.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Reserve Triangles:</strong> Run-off of historical loss triangles shows ultimate loss development. Reinsurers live by these.
+                    </div>
+                    <p style="margin-top: 30px;"><strong>Key Insight:</strong> Reinsurers are economic shock absorbers. In bull markets, Cat bond issuance soars (cost falls). In stress (post-CAT), reinsurance becomes expensive and scarce.</p>
+                </div>
+            </div>
+
+            <!-- BEAT 12: ASSET MANAGEMENT -->
+            <div class="beat beat-card" data-beat="11">
+                <div class="beat-inner">
+                    <h2>ASSET MANAGEMENT: AUM Growth & Economics</h2>
+                    <p>Fee-based, scalable, high-margin business model. But passive competition is relentless.</p>
+                    <div class="metric-item">
+                        <strong>AUM Growth Decomposition:</strong> Net flows + market returns. In down market, even with positive net flows, AUM shrinks.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Revenue Yield (bps):</strong> Total fees / average AUM. 30–80 bps for diversified AM. Passive funds: 5–15 bps. Alternatives: 100–200 bps.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Operating Margin:</strong> (Gross revenue − OpEx) / Gross revenue. 30–50% for large, efficient players. Scale = huge leverage.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Fee Pressure:</strong> Passive ETFs grow faster than active. AUM shifts to lower-fee products = revenue yield compression.
+                    </div>
+                    <div class="formula-box">
+Net Flows Margin = (New Inflows − Outflows) / Opening AUM
+Example: €500bn AUM, €50bn inflows, €30bn outflows = €20bn net flows
+Net flows margin = 20/500 = 4%
+
+Revenue = AUM × Revenue Yield (bps) / 10,000
+Example: €500bn AUM × 50 bps = €250m fees
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 13: WEALTH MANAGEMENT -->
+            <div class="beat beat-card" data-beat="12">
+                <div class="beat-inner">
+                    <h2>WEALTH MANAGEMENT: The Advisory Model</h2>
+                    <p>High touch, high fees, recurring revenue. HNW/UHNW segments are the crown jewels.</p>
+                    <div class="metric-item">
+                        <strong>AUM per Adviser:</strong> $50–100m per advisor for UHNW teams; $20–30m for mid-market. Productivity = economics of the whole division.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Net New Money (NNM) / AUM Margin:</strong> 2–5% annually is healthy. Driven by organic growth + client acquisition.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Recurring Revenue Mix:</strong> AUM-based fees are recurring (60–80%). Transactional fees are lumpy (20–40%). More recurring = higher valuation multiple.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Client Segment Economics:</strong> UHNW (€10m+) can support €5–10m AUM per advisor. Mass affluent (€500k–5m) = €20–40m per advisor.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Revenue Yield:</strong> 50–100 bps on AUM for developed market wealth. 150–250 bps emerging market wealth.
+                    </div>
+                    <div class="example-box">
+                        <strong>Worked Example:</strong> Wealth division:
+                        - 500 advisers, €100m AUM per adviser = €50bn total AUM
+                        - Revenue yield 75 bps = €375m revenue
+                        - 40% margin on recurring fees = €150m EBIT
+                        - Operating leverage = 30–35% EBIT margin growth YoY if you recruit 10% more advisers
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 14: PRIVATE EQUITY / ALTERNATIVES -->
+            <div class="beat beat-card" data-beat="13">
+                <div class="beat-inner">
+                    <h2>PRIVATE EQUITY & ALTERNATIVES: Fund Economics</h2>
+                    <p>Carried interest is where PE practitioners make their fortunes. Fund-level economics are the thesis driver.</p>
+                    <div class="metric-item">
+                        <strong>Fundraising:</strong> Management collects commitments for fund (e.g., Fund X: €5bn target). Typical mgmt fee: 2–2.5%.
+                    </div>
+                    <div class="metric-item">
+                        <strong>FRE (Floating Rate Equivalent) / DRE (Dry Return Equivalent):</strong> Returns to LPs from fees/carry alone, excluding base investment performance. 2–4% typical.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Carried Interest ("Carry"):</strong> 20% of profits above a hurdle (usually 8%). Waterfall matters (LP preferred return first, then GP gets carry).
+                    </div>
+                    <div class="metric-item">
+                        <strong>Management Fees:</strong> 2% of committed capital yr 1–5 (investment phase), 1.5–1% of remaining capital yr 6–10 (hold phase).
+                    </div>
+                    <div class="metric-item">
+                        <strong>Deployment Pace:</strong> 5 years to deploy €5bn fund = €1bn/year. Slow deployment = dead capital, lower realized returns.
+                    </div>
+                    <div class="metric-item">
+                        <strong>DPI / TVPI / IRR:</strong> Distributions Per Investment Dollar / Total Value Per Investment Dollar / Internal Rate of Return. 1.5x DPI, 2.5x TVPI, 15–20% IRR = strong fund.
+                    </div>
+                    <div class="formula-box">
+Carry Generated = Max(0, (Exit Multiple − Hurdle) × Investment) × 20%
+Example: €500m investment at 3.5x MOIC, 8% hurdle rate
+Profit = €500m × (3.5 − 1.08) = €1.21bn
+Carry = €1.21bn × 20% = €242m
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 15: EXCHANGES & MARKET INFRASTRUCTURE -->
+            <div class="beat beat-card" data-beat="14">
+                <div class="beat-inner">
+                    <h2>EXCHANGES & MARKET INFRASTRUCTURE</h2>
+                    <p>Oligopoly business models with exceptional margins. Regulatory moat is the key value driver.</p>
+                    <div class="metric-item">
+                        <strong>Trading Revenue:</strong> Transaction fees on equity/derivative trades. Volume-sensitive. 40–50% of total revenue for equity exchanges.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Clearing Revenue:</strong> Per-contract fees for clearing. Higher margins than trading. 20–30% of revenue.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Data Revenue:</strong> Real-time quotes, historical data, indices. Highest margin (80%+ EBIT margin). 10–20% of revenue but growing fastest.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Volumes vs. Pricing:</strong> Volumes decline in bear markets but can recover. Pricing power on data is structural (oligopoly).
+                    </div>
+                    <div class="metric-item">
+                        <strong>Regulatory Moat:</strong> Exchanges can't be created overnight (regulatory approval, liquidity network effects). Switching costs are high.
+                    </div>
+                    <div class="example-box">
+                        <strong>Case: LSE Group:</strong>
+                        - Total revenue ~€2.3bn (30% from trading, 25% from clearing, 20% from data, 25% other)
+                        - EBIT margin: 55–60%
+                        - Key risk: Brexit impact on volume migration to EU exchanges
+                        - Thesis: Protect data business, grow indices, consolidate in Europe
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 16: PAYMENTS & FINTECH -->
+            <div class="beat beat-card" data-beat="15">
+                <div class="beat-inner">
+                    <h2>PAYMENTS & FINTECH: The Disruption Narrative</h2>
+                    <p>TPV (Total Payment Volume) is NOT revenue. Take rates, net revenue retention, and unit economics are what matter.</p>
+                    <div class="metric-item">
+                        <strong>TPV (Total Payment Volume):</strong> Gross transaction value. Not revenue. €10bn TPV at 1.5% take rate = €150m revenue.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Take Rate:</strong> Revenue / TPV. 1–2% for fintech payments; 0.2–0.5% for mature card networks.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Revenue per Transaction:</strong> More meaningful than take rate. Includes subscription + transaction fees.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Net Revenue Retention (NRR):</strong> (Revenue this year + expansion − churn) / Revenue last year. 110%+ = strong SaaS; 90%+ = okay for fintech.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Rule of 40:</strong> Growth rate + EBIT margin = 40+ is sustainable. 50% growth at 0% margin = unsustainable.
+                    </div>
+                    <div class="warning-box">
+                        <strong>Critical Trap:</strong> Confusing TPV with revenue. Payment startups often cite massive TPV to impress. Then revenue growth misses because take rate is being compressed. Always calculate implied take rate from TPV and revenue.
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 17: SPECIALTY FINANCE -->
+            <div class="beat beat-card" data-beat="16">
+                <div class="beat-inner">
+                    <h2>SPECIALTY FINANCE: Consumer Finance & Leasing</h2>
+                    <p>Simpler credit models than banks, but with laser-focused economics and leverage.</p>
+                    <div class="metric-item">
+                        <strong>Net Interest Margin (NIM):</strong> 8–15% for consumer finance (auto loans, personal loans). Much higher than banks due to higher credit risk premium.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Cost of Risk:</strong> Impairment / avg portfolio. 150–400 bps for consumer finance (higher than banks).
+                    </div>
+                    <div class="metric-item">
+                        <strong>Cost of Funds:</strong> Fintech = funding from platforms + securitizations. Traditional specialty = deposit funding. Spread to cost of funds = key value driver.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Leverage / Equity Ratio:</strong> Often run at 5–10x leverage (vs. banks at ~10–15x with regulatory constraints). Higher leverage = higher ROE but lower safety margin.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Origination Volume Growth:</strong> Year-on-year growth in new loans/leases. 20–30% YoY = strong growth. 5% = maturity.
+                    </div>
+                    <div class="formula-box">
+ROE (DuPont) = Net Margin × Asset Turnover × Equity Multiplier
+Example: Specialty finance: 12% × 0.8x × 8x leverage = 76.8% ROE (pre-tax)
+High leverage + tighter credit spreads = attractive returns for equity
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 18: MORTGAGE LENDERS & BUILDING SOCIETIES -->
+            <div class="beat beat-card" data-beat="17">
+                <div class="beat-inner">
+                    <h2>MORTGAGE LENDERS & BUILDING SOCIETIES</h2>
+                    <p>Duration mismatch and prepayment risk are the defining features. UK building societies are unique structures.</p>
+                    <div class="metric-item">
+                        <strong>SVR vs Tracker Book Split:</strong> Standard Variable Rate (sticky, profitable) vs. Tracker (reprices immediately). More SVR = better NII resilience.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Mortgage Margin (basis points):</strong> SVR mortgages: 200–400 bps over SONIA. Tracker: 100–150 bps. Mix determines average margin.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Cost of Funds:</strong> Retail deposits (sticky), wholesale funding (SONIA + spread). Higher retail %= lower funding risk.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Prepayment Risk:</strong> If rates fall, borrowers refinance early (lose future NII). If rates rise, borrowers stay (lock in low rates). Option cost = significant.
+                    </div>
+                    <div class="metric-item">
+                        <strong>LTV Distribution:</strong> Loan-to-Value of mortgages. Higher LTV (90%+) = higher credit risk and regulatory scrutiny. <80% LTV is blue-chip.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Building Societies (UK):</strong> Mutual structures. Surplus capital can be returned to members or retained for growth. Simpler capital regime than banks (no Basel IV initially).
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 19: FIG M&A -->
+            <div class="beat beat-card" data-beat="18">
+                <div class="beat-inner">
+                    <h2>FIG M&A: Regulatory, Structural & Integration Challenges</h2>
+                    <p>The holy grail for FIG bankers. But regulatory complexity + cultural integration = execution minefield.</p>
+                    <div class="metric-item">
+                        <strong>Regulatory Approvals:</strong> PRA (Prudential Regulation Authority), FCA (Financial Conduct Authority), ECB for major EU deals. Timeline: 6–18 months. Approval not guaranteed.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Stress Testing Requirements:</strong> Acquirer must demonstrate combined entity meets capital/liquidity ratios post-acquisition. Failed stress test = deal blocked.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Book Value Adjustments:</strong> IFRS 9 loans carried at amortized cost. Acquirer marks portfolio to ECL (expected credit loss) model. Can create day-one losses (badwill).
+                    </div>
+                    <div class="metric-item">
+                        <strong>Badwill in Distressed Deals:</strong> When target's tangible book value is negative or distressed valuations create immediate gains. Regulatory approval easier when target is rescue case.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Cost of Risk on Acquired Portfolio:</strong> Target's NPLs migrate to acquirer's books. Must reserve for latent losses. Integration risk = 5–15% of deal value.
+                    </div>
+                    <div class="example-box">
+                        <strong>Integration Math:</strong> Acquire €50bn loan book at 0.90x TBV:
+                        - Announcement: Day 1 ECL provisioning = €500m charge
+                        - 18-month integration: System consolidation €100m, duplicate costs €300m
+                        - Synergies: Cost cuts €200m/yr, revenue synergies €100m/yr
+                        - Payback: ~2 years if execution perfect
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 20: FIG DCF & DIVIDEND DISCOUNT MODEL -->
+            <div class="beat beat-card" data-beat="19">
+                <div class="beat-inner">
+                    <h2>FIG DCF / Dividend Discount Model</h2>
+                    <p>Banks pay out 40–60% of earnings as dividends + buybacks. DDM captures this better than traditional FCF DCF.</p>
+                    <div class="metric-item">
+                        <strong>Dividend Payout Ratio:</strong> Dividends per share / Net earnings per share. 40–60% for Tier 1 banks (regulatory capital constraint limits excess).
+                    </div>
+                    <div class="metric-item">
+                        <strong>Excess Capital Return:</strong> Beyond regulatory minimum, extra capital can be returned as special dividends or accelerated buybacks.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Terminal Value Formula (Gordon Growth):</strong> TV = DPS_terminal × (1 + g) / (COE − g). Long-term dividend growth typically 2–3%.
+                    </div>
+                    <div class="formula-box">
+Dividend Discount Model:
+Price = ∑[Dividend_t / (1+COE)^t] + TV / (1+COE)^n
+
+Where:
+- Forecast dividends 5–10 years explicitly
+- Terminal payout ratio = 50% (normalize)
+- COE = 9–10% for developed market bank
+- g = GDP growth rate (2–3%)
+                    </div>
+                    <div class="example-box">
+                        <strong>Worked Example:</strong> Bank trading at €15/share
+                        - Current DPS: €0.80
+                        - Forecast 5-year DPS growth: 5% CAGR
+                        - Year 5 DPS: €1.02
+                        - Terminal payout ratio: 50%
+                        - Year 5 EPS: €2.04
+                        - Terminal EPS growth: 2.5%
+
+TV = (€2.04 × 0.5) × (1.025) / (0.09 − 0.025) = €1.05 / 0.065 = €16.15
+PV of TV (5 years at 9%): €10.50
+PV of explicit 5-year divs: €3.75
+Fair value: €14.25. Stock at €15 = slight premium.
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 21: BANK STRESS-TESTING & RESOLUTION -->
+            <div class="beat beat-card" data-beat="20">
+                <div class="beat-inner">
+                    <h2>Bank Stress-Testing & Resolution Frameworks</h2>
+                    <p>Every bank runs through ECB/Fed stress tests annually. Understanding scenarios + capital adequacy = interview gold.</p>
+                    <div class="metric-item">
+                        <strong>SREP (Supervisory Review and Evaluation Process):</strong> ECB/PRA assesses capital adequacy. Determines Pillar 2 requirement (P2R) above statutory minimums.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Pillar 2 Requirement (P2R):</strong> Additional capital banks must hold beyond pillar 1. Typical 1–3% of RWA for well-capitalized banks; 4–5% for weaker ones.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Stress Test Scenarios:</strong> Adverse scenario = recession + credit losses. Severe scenario = 2008-style shock. Banks must pass capital ratios under stress.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Bail-In Mechanics:</strong> Failed bank's debt holders (creditors) absorb losses in resolution order: equity → AT1 → senior unsecured → deposits. TLAC/MREL ensures enough loss-absorbing capacity.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Gone-Concern Loss-Absorbing Capacity (GLAC):</strong> MREL requirement for systemically important banks. 16–20% of RWA must be in instruments that can absorb losses.
+                    </div>
+                    <p style="margin-top: 30px;"><strong>Interview Key:</strong> Regulators want to ensure no taxpayer bailouts. Banks must hold enough capital + loss-absorbing debt so creditors absorb failure costs. This limits bank leverage and capital returns.</p>
+                </div>
+            </div>
+
+            <!-- BEAT 22: SOLVENCY II DEEP-DIVE -->
+            <div class="beat beat-card" data-beat="21">
+                <div class="beat-inner">
+                    <h2>Solvency II: The Insurance Regulatory Framework</h2>
+                    <p>Replaced Solvency I in 2016. Economic balance sheet approach with risk-based capital requirements. Complex and essential for insurance valuation.</p>
+                    <div class="metric-item">
+                        <strong>SCR (Solvency Capital Requirement):</strong> Capital needed to cover tail risk (99.5% VaR over 1 year). Typically 20–40% of technical provisions.
+                    </div>
+                    <div class="metric-item">
+                        <strong>MCR (Minimum Capital Requirement):</strong> Floor below SCR. 25–45% of SCR. Fall below MCR = license revoked.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Technical Provisions:</strong> Economic value of liabilities (discounted future claims). Interest rate sensitive.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Matching Adjustment (MA):</strong> Reduces discount rate for long-duration liabilities matched with long-duration assets. Increases SCR but makes capital ratio look better.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Volatility Adjustment (VA):</strong> Increases discount rate during credit spread widening. Reduces SCR mechanically (controversial).
+                    </div>
+                    <div class="metric-item">
+                        <strong>Transitional Measures:</strong> Phase-in of SII rules over 16 years. Banks using transitional = different capital ratios than full SII.
+                    </div>
+                    <div class="warning-box">
+                        <strong>Critical Understanding:</strong> Solvency II SCR can be manipulated via MA/VA usage. Insurers with highest SCRs may actually have lowest economic risk (long-duration matched portfolios). Always adjust for MA/VA usage when comparing insurers.
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 23: IFRS 17 FOR INSURERS -->
+            <div class="beat beat-card" data-beat="22">
+                <div class="beat-inner">
+                    <h2>IFRS 17: New Insurance Accounting Standard (2023+)</h2>
+                    <p>Replaced IFRS 4. Huge impact on reported earnings and balance sheet. Many insurers still transitioning.</p>
+                    <div class="metric-item">
+                        <strong>CSM (Contractual Service Margin):</strong> Represents insurer's profit locked in at contract inception. Amortized over contract lifetime as "contract service expense release."
+                    </div>
+                    <div class="metric-item">
+                        <strong>Risk Adjustment:</strong> Explicit charge for non-financial risk (mortality, morbidity, lapse). Locked in at inception, unwinds over time.
+                    </div>
+                    <div class="metric-item">
+                        <strong>GMM (General Measurement Model):</strong> For most insurance contracts. Balance sheet = Liability for Remaining Coverage (LRC) + Liability for Incurred Claims (LIC).
+                    </div>
+                    <div class="metric-item">
+                        <strong>PAA (Premium Allocation Approach):</strong> Simplified method for short-duration contracts (most P&C). Balance sheet = Liability for Remaining Coverage simplified.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Earnings Impact:</strong> Under IFRS 4, insurers front-loaded profit via technical provisions. IFRS 17 spreads earnings ratably over contract lifetime. Reported earnings more stable but lumpy at contract inception.
+                    </div>
+                    <div class="example-box">
+                        <strong>Impact Example:</strong> Life insurer writes €100m 20-year contracts with 15% CSM margin
+                        - Year 1 (IFRS 4): Large upfront profit recognition
+                        - Year 1 (IFRS 17): €100m × 15% CSM amortized over 20 years = €7.5m/year from CSM unwinding + cost of services
+                        - Reported earnings now more aligned with economic performance
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 24: FIG EQUITY RESEARCH -->
+            <div class="beat beat-card" data-beat="23">
+                <div class="beat-inner">
+                    <h2>FIG Equity Research: What Drives Share Prices</h2>
+                    <p>Understanding the trading drivers is essential for pitch preparation and sell-side analysis.</p>
+                    <div class="metric-item">
+                        <strong>Interest Rate Expectations:</strong> Higher rates = higher NIMs for banks (0.5–1% change in rates = 2–5% change in stock). But also increases default risk.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Credit Cycle:</strong> Recession expectations = rising NPL fears = multiple compression. Expansion = multiple expansion + NIM pressure.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Capital Return Expectations:</strong> Dividend/buyback guidance changes = stock re-rating. CET1 release (through lower RWA or capital build) = buyback upside.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Regulatory Changes:</strong> Basel IV finalization, leverage ratio tightening, Solvency II review = multiple compression.
+                    </div>
+                    <div class="metric-item">
+                        <strong>M&A Thesis:</strong> Consolidation stories drive re-rating. "Bank X is an acquisition target" = premium valuation.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Sector Rotation:</strong> Value trades when rates are expected to rise (financials outperform growth). Growth wins in low-rate, high-growth scenarios.
+                    </div>
+                    <p style="margin-top: 30px;"><strong>Key Insight:</strong> FIG stocks are not efficient. Thematic narratives (fintech disruption, rates higher for longer) drive 20–30% swings. Data + narrative = winning thesis.</p>
+                </div>
+            </div>
+
+            <!-- BEAT 25: FINTECH DISRUPTION -->
+            <div class="beat beat-card" data-beat="24">
+                <div class="beat-inner">
+                    <h2>Fintech Disruption: Incumbent Responses</h2>
+                    <p>Neobanks, BNPL, embedded finance, open banking/PSD2. The incumbents are adapting—mostly successfully.</p>
+                    <div class="metric-item">
+                        <strong>Neobanks (Revolut, N26, etc.):</strong> Digital-first, low cost of acquisition via social, but unit economics poor (high CAC, low LTV). Profitability elusive.
+                    </div>
+                    <div class="metric-item">
+                        <strong>BNPL (Buy Now, Pay Later):</strong> Fintech lenders (Klarna, Affirm) take credit risk. Take rates 2–4% from merchants. High loss rates (15–25% default rates in downturns) limit profitability.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Embedded Finance:</strong> Banks providing finance via third-party platforms (Stripe Capital, etc.). Revenue share model. Huge TAM but commoditizing.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Open Banking / PSD2:</strong> EU regulation forces banks to open APIs. Third parties can access customer data (with consent). Enables new fintech players but erodes bank moats.
+                    </div>
+                    <div class="metric-item">
+                        <strong>Incumbent Response:</strong> Build digital channels (BBVA, ING), acquire fintech players (PayPal/iZettle, JPM/You Invest), or white-label solutions (Solarisbank model).
+                    </div>
+                    <div class="metric-item">
+                        <strong>Emerging Winner Pattern:</strong> Capital-light platforms (payment networks, lending marketplaces) > capital-heavy lenders. Embedded finance > standalone neobanks.
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 26: RED FLAGS IN FIG -->
+            <div class="beat beat-card" data-beat="25">
+                <div class="beat-inner">
+                    <h2>Red Flags: Warning Signs in FIG Analysis</h2>
+                    <p>The tells that something is rotting beneath the surface. Essential for due diligence and interview rigor.</p>
+                    <div class="warning-box">
+                        <strong>Rapid RWA Migration:</strong> RWA per unit of assets rising sharply. Indicates: (1) Book quality deterioration, (2) Model changes favoring higher RWA, (3) Acquisition of riskier assets. Flag concentration risk.
+                    </div>
+                    <div class="warning-box">
+                        <strong>Declining Coverage Ratios:</strong> NPL coverage falling while NPL ratios stable/rising. Indicates: bank reserves being released prematurely, or complacency on loss severity. Loan loss reserves will spike next downturn.
+                    </div>
+                    <div class="warning-box">
+                        <strong>Heavy Reliance on IFRS 9 Model Overlays:</strong> If "Post-Model Overlays" (subjective additions to ECL model) exceed model output by >50%, management is adjusting provisions for narrative, not economics. Red flag on model integrity.
+                    </div>
+                    <div class="warning-box">
+                        <strong>Opaque Level 3 Assets:</strong> Assets marked at "fair value" using unobservable inputs. Banks increase Level 3 classifications in down markets to avoid mark-to-market losses. Verify Level 3 sensitivity disclosures.
+                    </div>
+                    <div class="warning-box">
+                        <strong>Rising Cost-to-Income Ratios:</strong> Despite efficiency initiatives, operating leverage not materializing. Indicates: structural cost issues, revenue headwinds, or integration gone wrong.
+                    </div>
+                    <div class="warning-box">
+                        <strong>Mortgage Book Pre-Payment Risk Unhedged:</strong> Rising rate environment + fixed-rate mortgages = refinance risk. If bank hasn't hedged, NII will collapse if rates fall. Ask about hedge ratios.
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 27: CHEAT SHEET - KEY RATIOS -->
+            <div class="beat beat-card" data-beat="26">
+                <div class="beat-inner">
+                    <h2>FIG Key Ratios Cheat Sheet</h2>
+                    <p>One-page reference for all major FIG subsectors. Memorize these benchmarks.</p>
+                    <div class="metric-item">
+                        <strong>BANKS (Tier 1):</strong>
+                        NIM: 1.5–3.5% | Cost-to-Income: 40–50% | CET1: 13–15% | NPL: 0.5–2% | P/TBV: 0.8–1.2x
+                    </div>
+                    <div class="metric-item">
+                        <strong>LIFE INSURANCE:</strong>
+                        VNB Margin: 15–25% | Solvency II SCR: 150–200% | P/EV: 0.8–1.2x | Embedded Value Growth: 5–10% CAGR
+                    </div>
+                    <div class="metric-item">
+                        <strong>GENERAL/P&C INSURANCE:</strong>
+                        Combined Ratio: <100% (profit) | Loss Ratio: 60–80% | Expense Ratio: 25–35% | P/TBV: 1.0–1.5x | Reserve Development: 0–3% positive
+                    </div>
+                    <div class="metric-item">
+                        <strong>REINSURANCE:</strong>
+                        Operating Ratio: 85–95% (profit) | Cat exposure: 5–10% of equity | Retrocession: 2–4% of premium | Cycle: 3–4 year hardening / softening
+                    </div>
+                    <div class="metric-item">
+                        <strong>ASSET MANAGEMENT:</strong>
+                        Revenue Yield: 30–80 bps | EBIT Margin: 30–50% | Net Flows: 2–5% p.a. | NNM growth: higher of NIM growth or 3%
+                    </div>
+                    <div class="metric-item">
+                        <strong>WEALTH MANAGEMENT:</strong>
+                        AUM per Adviser: $50–100m (UHNW) | Revenue Yield: 50–100 bps | EBIT Margin: 40–50% | NNM: 3–5% p.a.
+                    </div>
+                    <div class="metric-item">
+                        <strong>PRIVATE EQUITY:</strong>
+                        DPI: 1.2–1.5x (interim) | TVPI: 2.0–2.5x | IRR: 15–20% | Deployment pace: €1bn/year per fund size class
+                    </div>
+                    <div class="metric-item">
+                        <strong>SPECIALTY FINANCE:</strong>
+                        NIM: 8–15% | Cost of Risk: 150–400 bps | ROE: 20–40% | Leverage: 5–10x
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEAT 28: FINALE -->
+            <div class="beat beat-finale" data-beat="27">
+                <canvas id="finalCanvas"></canvas>
+                <div class="finale-content">
+                    <h2>You're FIG-Ready</h2>
+                    <p>Master these concepts. Own the interview.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-bar" id="progressBar"></div>
+        <button class="back-button" onclick="window.location.href='../index.html'">← Back to Index</button>
+        <div class="swipe-hint" id="swipeHint">Swipe or use arrow keys →</div>
+
+        <div class="nav-bottom">
+            <div class="nav-dots" id="navDots"></div>
+            <div class="beat-counter" id="beatCounter">1 / 28</div>
+        </div>
+    </div>
+
+    <script>
+        const CHAPTER_NUM = 18;
+        const TOTAL_BEATS = 28;
+        let currentBeat = 0;
+        let touchStartX = 0;
+        let scrollAccumulator = 0;
+
+        const beatsViewport = document.getElementById('beatsViewport');
+        const progressBar = document.getElementById('progressBar');
+        const beatCounter = document.getElementById('beatCounter');
+        const navDots = document.getElementById('navDots');
+        const swipeHint = document.getElementById('swipeHint');
+
+        // Initialize navigation dots
+        function initNavDots() {
+            for (let i = 0; i < TOTAL_BEATS; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goTo(i));
+                navDots.appendChild(dot);
+            }
+        }
+
+        // Position all beats
+        function positionBeats() {
+            const beats = document.querySelectorAll('.beat');
+            beats.forEach((beat, idx) => {
+                beat.style.opacity = '1';
+                beat.style.transform = 'translateY(0)';
+                beat.style.visibility = idx === 0 ? 'visible' : 'hidden';
+                beat.style.pointerEvents = idx === 0 ? 'auto' : 'none';
+            });
+        }
+
+        // Navigate to beat
+        function goTo(beatNum) {
+            if (beatNum < 0 || beatNum >= TOTAL_BEATS) return;
+
+            const beats = document.querySelectorAll('.beat');
+
+            // Hide current beat
+            beats[currentBeat].classList.remove('active');
+            beats[currentBeat].style.visibility = 'hidden';
+            beats[currentBeat].style.pointerEvents = 'none';
+
+            // Determine animation direction
+            const direction = beatNum > currentBeat ? 1 : -1;
+
+            // Show new beat
+            beats[beatNum].classList.add('active');
+            beats[beatNum].style.opacity = '1';
+            beats[beatNum].style.transform = 'translateY(0)';
+            beats[beatNum].style.visibility = 'visible';
+            beats[beatNum].style.pointerEvents = 'auto';
+
+            currentBeat = beatNum;
+            updateUI();
+            saveProgress();
+        }
+
+        // Update UI
+        function updateUI() {
+            // Progress bar
+            const progress = ((currentBeat + 1) / TOTAL_BEATS) * 100;
+            progressBar.style.width = progress + '%';
+
+            // Beat counter
+            beatCounter.textContent = `${currentBeat + 1} / ${TOTAL_BEATS}`;
+
+            // Navigation dots
+            document.querySelectorAll('.nav-dot').forEach((dot, idx) => {
+                if (idx === currentBeat) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+
+            // Hide swipe hint on last beat
+            if (currentBeat === TOTAL_BEATS - 1) {
+                swipeHint.style.display = 'none';
+            } else {
+                swipeHint.style.display = 'block';
+            }
+        }
+
+        // Touch swipe
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            if (diff > 50) goTo(currentBeat + 1);
+            if (diff < -50) goTo(currentBeat - 1);
+        });
+
+        // Mouse wheel
+        document.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            scrollAccumulator += e.deltaY;
+            if (scrollAccumulator > 100) {
+                goTo(currentBeat + 1);
+                scrollAccumulator = 0;
+            } else if (scrollAccumulator < -100) {
+                goTo(currentBeat - 1);
+                scrollAccumulator = 0;
+            }
+        }, { passive: false });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') goTo(currentBeat + 1);
+            if (e.key === 'ArrowLeft') goTo(currentBeat - 1);
+        });
+
+        // Save/resume progress
+        function saveProgress() {
+            localStorage.setItem(`ch${CHAPTER_NUM}_progress`, currentBeat);
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem(`ch${CHAPTER_NUM}_progress`);
+            if (saved !== null) {
+                currentBeat = parseInt(saved);
+            }
+        }
+
+        // Particle canvas for finale
+        function initFinalCanvas() {
+            const canvas = document.getElementById('finalCanvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 2;
+                    this.vy = (Math.random() - 0.5) * 2;
+                    this.size = Math.random() * 3 + 1;
+                    this.opacity = Math.random() * 0.5 + 0.3;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
+
+                draw() {
+                    ctx.fillStyle = `rgba(176, 124, 232, ${this.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // Initialize particles
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.fillStyle = 'rgba(10, 10, 12, 0.1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            initNavDots();
+            positionBeats();
+            loadProgress();
+            updateUI();
+            initFinalCanvas();
+            goTo(currentBeat);
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (currentBeat === TOTAL_BEATS - 1) {
+                initFinalCanvas();
+            }
+        });
+    </script>
+</body>
+</html>
