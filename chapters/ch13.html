@@ -107,6 +107,65 @@ body {
 .card-body p:last-child { margin-bottom: 0; }
 .card-body strong { color: var(--text); font-weight: 600; }
 .card-body em { font-style: italic; }
+
+/* Formula box */
+.formula-box {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-left: 3px solid var(--brand-purple); padding: 16px;
+  border-radius: 8px; margin: 16px 0; font-family: var(--font-mono);
+  font-size: 13px; line-height: 1.6; color: var(--text);
+  overflow-x: auto;
+}
+.formula-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+}
+
+/* Example box */
+.example-box {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-left: 3px solid var(--blue); padding: 16px;
+  border-radius: 8px; margin: 16px 0;
+}
+.example-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 8px;
+}
+.example-box .card-body { font-size: 15px; }
+
+/* Warning box */
+.warning-box {
+  background: var(--surface-2); border: 1px solid var(--red);
+  border-left: 3px solid var(--red); padding: 16px;
+  border-radius: 8px; margin: 16px 0;
+}
+.warning-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--red); margin-bottom: 8px;
+}
+.warning-box .card-body { font-size: 15px; }
+
+/* Metric item */
+.metric-item {
+  display: flex; justify-content: space-between; padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.metric-item:last-child { border-bottom: none; }
+.metric-label { font-family: var(--font-sans); font-size: 13px; color: var(--text); }
+.metric-value { font-family: var(--font-mono); font-size: 14px; color: var(--accent); font-weight: 600; }
+
+/* Comparison row */
+.comparison-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0;
+}
+.comparison-col { padding: 12px; background: var(--surface-2); border-radius: 8px; border: 1px solid var(--border); }
+.comparison-col h4 { font-family: var(--font-sans); font-size: 12px; color: var(--accent); margin-bottom: 8px; }
+
+/* Bullet list */
+.bullet-list { list-style: none; margin: 12px 0; padding: 0; }
+.bullet-list li { padding: 8px 0; padding-left: 16px; position: relative; line-height: 1.6; }
+.bullet-list li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
 .beat-takeaway .beat-inner {
   background: transparent; border: none; padding: 0;
   text-align: center;
@@ -115,6 +174,23 @@ body {
   font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 42px);
   font-weight: 700; color: var(--accent); line-height: 1.4;
   margin: 0;
+}
+
+/* Stats row */
+.stats-row {
+  display: flex; justify-content: center; gap: 40px; margin: 32px 0;
+  flex-wrap: wrap;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: var(--font-mono); font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700; color: var(--accent-bright);
+  background: linear-gradient(135deg, var(--brand-purple), var(--brand-magenta));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.stat-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--text-dim); margin-top: 4px;
 }
 
 /* Download button */
@@ -136,65 +212,6 @@ body {
 .download-note {
   font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
   letter-spacing: 0.5px;
-}
-
-/* TOC grid */
-.toc-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0;
-}
-.toc-item {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 12px 14px; background: var(--surface-2); border-radius: 8px;
-  border: 1px solid var(--border); transition: border-color 0.3s;
-}
-.toc-item:hover { border-color: var(--accent-dim); }
-.toc-num {
-  font-family: var(--font-mono); font-size: 11px; color: var(--brand-magenta);
-  font-weight: 600; min-width: 24px; padding-top: 2px;
-}
-.toc-label {
-  font-family: var(--font-sans); font-size: 13px; color: var(--text);
-  font-weight: 500; line-height: 1.4;
-}
-@media (max-width: 600px) {
-  .toc-grid { grid-template-columns: 1fr; }
-}
-
-/* Stats row */
-.stats-row {
-  display: flex; justify-content: center; gap: 40px; margin: 32px 0;
-  flex-wrap: wrap;
-}
-.stat-item { text-align: center; }
-.stat-num {
-  font-family: var(--font-mono); font-size: clamp(28px, 4vw, 40px);
-  font-weight: 700; color: var(--accent-bright);
-  background: linear-gradient(135deg, var(--brand-purple), var(--brand-magenta));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.stat-label {
-  font-family: var(--font-sans); font-size: 11px; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--text-dim); margin-top: 4px;
-}
-
-/* Section preview cards */
-.section-preview {
-  margin: 20px 0; padding: 20px; background: var(--surface-2); border-radius: 8px;
-  border-left: 3px solid var(--brand-purple);
-}
-.section-preview h3 {
-  font-family: var(--font-sans); font-size: 14px; font-weight: 700;
-  color: var(--text); margin-bottom: 12px; letter-spacing: 0.3px;
-}
-.section-preview ul {
-  list-style: none; margin: 0; padding: 0;
-}
-.section-preview li {
-  font-family: var(--font-serif); font-size: 15px; color: var(--text-muted);
-  padding: 4px 0; padding-left: 16px; position: relative; line-height: 1.6;
-}
-.section-preview li::before {
-  content: '›'; position: absolute; left: 0; color: var(--accent-dim); font-weight: 700;
 }
 
 /* Finale */
@@ -235,6 +252,7 @@ body {
 .finale-nav-item:hover {
   background: var(--surface); border-color: var(--accent); color: var(--text);
 }
+
 .footer-nav {
   position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
   display: flex; gap: 24px; z-index: 50; align-items: center;
@@ -252,27 +270,27 @@ body {
   font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
   letter-spacing: 1px;
 }
+
 @media (max-width: 768px) {
   .footer-nav, .beat-counter { display: none; }
   .beat { padding: 52px 12px 60px; }
   .beat-card .beat-inner { padding: 24px; }
+  .comparison-row { grid-template-columns: 1fr; }
 }
-.resume-toast {
-  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
-  z-index: 1000; background: var(--surface); border: 1px solid var(--border);
-  border-radius: 12px; padding: 16px 24px; display: flex; align-items: center; gap: 16px;
-  font-family: var(--font-sans); font-size: 13px; color: var(--text);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  animation: toast-in 0.4s ease-out;
+
+/* Swipe hint animation */
+@keyframes swipe-hint {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(-8px); opacity: 0.6; }
 }
-.resume-toast button {
-  padding: 6px 14px; border-radius: 6px; border: none; font-family: var(--font-sans);
-  font-size: 12px; font-weight: 600; cursor: pointer; letter-spacing: 0.5px;
+.swipe-hint {
+  position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+  z-index: 50; font-family: var(--font-sans); font-size: 12px; color: var(--text-dim);
+  letter-spacing: 0.5px; animation: swipe-hint 2s ease-in-out infinite;
+  pointer-events: none;
 }
-.resume-toast .resume-btn { background: var(--brand-purple); color: white; }
-.resume-toast .skip-btn { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
-@keyframes toast-in { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+@media (max-width: 768px) { .swipe-hint { display: none; } }
+@media (hover: none) { .swipe-hint { display: none; } }
 
 </style>
 </head>
@@ -297,6 +315,7 @@ body {
       <span class="download-note">PDF — Printable — Offline-ready</span>
     </div>
   </div>
+  <div class="swipe-hint">↓ Swipe or scroll to begin</div>
 </section>
 
 <!-- BEAT 2: WHAT THIS IS -->
@@ -305,176 +324,654 @@ body {
     <p class="card-label">About This Document</p>
     <h2 class="card-title">The One Source of Truth</h2>
     <div class="card-body">
-      <p>Chapters 1 through 11 told the story. Characters, drama, deals, tension. They made finance memorable.</p>
+      <p>Chapters 1 through 12 told the story. Characters, drama, tension, narrative arc. They made finance memorable.</p>
       <p><strong>This document strips all of that away.</strong></p>
-      <p>No narrative. No characters. No plot twists. Just the raw technical content — every concept, formula, framework, and definition from the entire G2G series, compressed into a single reference document designed for revision, exams, and interview preparation.</p>
-      <p>Think of it as the textbook behind the story.</p>
+      <p>No narrative. No characters. No plots. Pure technical content — every concept, formula, framework, and definition from the entire G2G series, compressed for revision, exams, and interview preparation.</p>
     </div>
-  </div>
-</section>
-
-<!-- BEAT 3: BY THE NUMBERS -->
-<section class="beat beat-takeaway">
-  <div class="beat-inner">
     <div class="stats-row">
       <div class="stat-item">
-        <div class="stat-num">14</div>
+        <div class="stat-num">16</div>
         <div class="stat-label">Sections</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">110+</div>
+        <div class="stat-num">120+</div>
         <div class="stat-label">Glossary Terms</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">50+</div>
+        <div class="stat-num">60+</div>
         <div class="stat-label">Formulas</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">65+</div>
+        <div class="stat-num">80+</div>
         <div class="stat-label">Acronyms</div>
       </div>
     </div>
-    <p class="takeaway-text" style="font-size: clamp(20px, 2.5vw, 30px); margin-top: 24px;">
-      Everything from twelve chapters.<br>Zero fluff.
-    </p>
+    <div class="card-body" style="margin-top: 24px;">
+      <p><strong>21 pages</strong> of pure reference material. Print it. Highlight it. Memorise it.</p>
+    </div>
   </div>
 </section>
 
-<!-- BEAT 4: TABLE OF CONTENTS -->
+<!-- BEAT 3: FUND ECONOMICS QUICK REF -->
 <section class="beat beat-card">
   <div class="beat-inner">
-    <p class="card-label">Inside the Reference</p>
-    <h2 class="card-title">Table of Contents</h2>
-    <div class="toc-grid">
-      <div class="toc-item"><span class="toc-num">I</span><span class="toc-label">Fund Economics &amp; GP/LP Structure</span></div>
-      <div class="toc-item"><span class="toc-num">II</span><span class="toc-label">Income Statement &amp; Revenue Recognition</span></div>
-      <div class="toc-item"><span class="toc-num">III</span><span class="toc-label">Cost Structure &amp; Operating Leverage</span></div>
-      <div class="toc-item"><span class="toc-num">IV</span><span class="toc-label">Balance Sheet Mechanics</span></div>
-      <div class="toc-item"><span class="toc-num">V</span><span class="toc-label">Cash Flow Statement &amp; Working Capital</span></div>
-      <div class="toc-item"><span class="toc-num">VI</span><span class="toc-label">Business Models &amp; Unit Economics</span></div>
-      <div class="toc-item"><span class="toc-num">VII</span><span class="toc-label">Financial Forecasting &amp; Modelling</span></div>
-      <div class="toc-item"><span class="toc-num">VIII</span><span class="toc-label">Leveraged Buyouts (LBOs)</span></div>
-      <div class="toc-item"><span class="toc-num">IX</span><span class="toc-label">Capital Structure &amp; Financing</span></div>
-      <div class="toc-item"><span class="toc-num">X</span><span class="toc-label">Credit Analysis &amp; Debt Documentation</span></div>
-      <div class="toc-item"><span class="toc-num">XI</span><span class="toc-label">Valuation I — Intrinsic Methods</span></div>
-      <div class="toc-item"><span class="toc-num">XII</span><span class="toc-label">Valuation II — Relative &amp; Advanced</span></div>
-      <div class="toc-item"><span class="toc-num">XIII</span><span class="toc-label">M&amp;A Process &amp; Deal Mechanics</span></div>
-      <div class="toc-item"><span class="toc-num">XIV</span><span class="toc-label">M&amp;A Accounting &amp; Integration</span></div>
-    </div>
+    <p class="card-label">Section 0 Quick Reference</p>
+    <h2 class="card-title">Fund Economics & GP/LP Structure</h2>
     <div class="card-body">
-      <p><strong>Plus three appendices:</strong> a master glossary of ~110 terms, a master formula sheet with ~55 formulas, and a complete acronym index.</p>
+      <p><strong>The Basic Deal:</strong> LPs (limited partners) invest capital into a blind pool. GPs (general partners) manage the fund, make investment decisions, and share in profits.</p>
+
+      <ul class="bullet-list">
+        <li>Capital calls: LPs commit capital; GP draws it down as needed</li>
+        <li>Management fee: 2% of committed capital (Years 1–5), 2% of invested (Years 6–10)</li>
+        <li>Carried interest: GP keeps 20% of profits after hurdle</li>
+        <li>Hurdle rate: 8% preferred return to LPs before carry begins</li>
+        <li>Blind pool: LPs don't know which companies before investing</li>
+      </ul>
+
+      <div class="formula-box">
+        <div class="formula-label">Carry Waterfall Formula</div>
+        Carry = 20% × (Total Distributions − Capital Called − Preferred Return)
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Return Metrics</div>
+        DPI = Distributions Paid / Capital Invested
+        RVPI = Remaining Value / Capital Invested
+        TVPI = (DPI + RVPI) — Total Value to Paid-In Capital
+      </div>
+
+      <p><strong>J-Curve:</strong> Fund returns are negative in years 1–3 (management fees drag), then climb as exits happen. Total TVPI should reach 1.5x–2.5x by exit.</p>
     </div>
   </div>
 </section>
 
-<!-- BEAT 5: SECTION PREVIEWS — CORE -->
+<!-- BEAT 4: INCOME STATEMENT & COSTS -->
 <section class="beat beat-card">
   <div class="beat-inner">
-    <p class="card-label">Sections I–VII</p>
-    <h2 class="card-title">Financial Foundations</h2>
-    <div class="section-preview">
-      <h3>Fund Economics &amp; GP/LP Structure</h3>
-      <ul>
-        <li>LP/GP structure, capital calls, blind pool, fund lifecycle</li>
-        <li>Management fees, carried interest, hurdle rate, waterfall</li>
-        <li>DPI, RVPI, TVPI, J-curve, value creation bridge</li>
-      </ul>
-    </div>
-    <div class="section-preview">
-      <h3>Income Statement, Balance Sheet &amp; Cash Flow</h3>
-      <ul>
-        <li>Revenue recognition, margins, EBITDA vs EBIT</li>
-        <li>Working capital cycle, cash conversion, FCF bridges</li>
-        <li>Three-statement modelling and circular references</li>
-      </ul>
-    </div>
-    <div class="section-preview">
-      <h3>Business Models &amp; Forecasting</h3>
-      <ul>
-        <li>SaaS metrics: ARR, MRR, churn, LTV/CAC, Rule of 40</li>
-        <li>Manufacturing: capacity utilisation, fixed/variable splits</li>
-        <li>Driver-based forecasting and scenario analysis</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- BEAT 6: SECTION PREVIEWS — ADVANCED -->
-<section class="beat beat-card">
-  <div class="beat-inner">
-    <p class="card-label">Sections VIII–XIV</p>
-    <h2 class="card-title">Deal Mechanics &amp; Valuation</h2>
-    <div class="section-preview">
-      <h3>LBOs, Capital Structure &amp; Credit</h3>
-      <ul>
-        <li>Sources &amp; Uses, debt tranches, WACC, leverage multiples</li>
-        <li>Term sheets, flex provisions, credit committee evaluation</li>
-        <li>Maintenance vs incurrence covenants, adjusted EBITDA definitions</li>
-      </ul>
-    </div>
-    <div class="section-preview">
-      <h3>Valuation (Intrinsic &amp; Relative)</h3>
-      <ul>
-        <li>DCF: UFCF → Enterprise Value → Equity Value</li>
-        <li>EV/EBITDA, P/E, EV/Revenue — when to use each</li>
-        <li>Football field charts and valuation triangulation</li>
-      </ul>
-    </div>
-    <div class="section-preview">
-      <h3>M&amp;A Process &amp; Accounting</h3>
-      <ul>
-        <li>Sell-side vs buy-side advisory, fee structures</li>
-        <li>Purchase Price Allocation, goodwill, impairment</li>
-        <li>Post-close consolidation and synergy tracking</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- BEAT 7: HOW TO USE IT -->
-<section class="beat beat-card">
-  <div class="beat-inner">
-    <p class="card-label">Usage Guide</p>
-    <h2 class="card-title">How to Use This Reference</h2>
+    <p class="card-label">Sections I–II Quick Reference</p>
+    <h2 class="card-title">Income Statement & Cost Structure</h2>
     <div class="card-body">
-      <p><strong>For exam revision:</strong> Print it. Highlight liberally. The sections mirror the chapter order, so cross-reference back to the story whenever a concept feels abstract.</p>
-      <p><strong>For interview prep:</strong> The formula sheet and glossary at the back are your best friends. Know every formula cold. Be able to explain any glossary term in one sentence.</p>
-      <p><strong>For on-the-job reference:</strong> Keep the PDF on your desktop. When you encounter a concept in a model or pitchbook, search the document. Everything is there.</p>
-      <p><strong>For the curious:</strong> Read it cover to cover once. Then never again — unless you need to look something up. That is the point of a reference document.</p>
+      <div class="formula-box">
+        <div class="formula-label">Income Statement Cascade</div>
+        Revenue
+        − COGS (Cost of Goods Sold)
+        = Gross Profit
+        − OpEx (Selling, General, Admin)
+        = EBITDA (Earnings Before Interest, Taxes, D&A)
+        − D&A (Depreciation & Amortisation)
+        = EBIT (Operating Profit)
+        − Interest Expense
+        − Taxes
+        = Net Income
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Key Margin Formulas</div>
+        Gross Margin % = (Revenue − COGS) / Revenue
+        EBITDA Margin % = EBITDA / Revenue
+        EBIT Margin % = EBIT / Revenue
+        Net Margin % = Net Income / Revenue
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Breakeven & Operating Leverage</div>
+        Breakeven Units = Fixed Costs / (Price − Variable Cost per Unit)
+        Contribution Margin = (Revenue − Variable Costs) / Revenue
+        DOL = % Change in EBIT / % Change in Revenue
+      </div>
+
+      <p><strong>Real example:</strong> Königshof (manufacturing) EBITDA margin ~22%. Subtrax (SaaS) EBITDA margin ~35%. Manufacturing has higher fixed costs; SaaS has higher variable costs but bigger operating leverage once scaled.</p>
     </div>
   </div>
 </section>
 
-<!-- BEAT 8: DOWNLOAD CTA -->
+<!-- BEAT 5: BALANCE SHEET & CASH FLOW -->
+<section class="beat beat-card">
+  <div class="beat-inner">
+    <p class="card-label">Sections III–IV Quick Reference</p>
+    <h2 class="card-title">Balance Sheet & Cash Conversion Cycle</h2>
+    <div class="card-body">
+      <div class="formula-box">
+        <div class="formula-label">Balance Sheet Identity</div>
+        Assets = Liabilities + Equity
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Working Capital & Days Metrics</div>
+        NWC = Current Assets − Current Liabilities
+        DIO = Days Inventory Outstanding = (Inventory / COGS) × 365
+        DSO = Days Sales Outstanding = (A/R / Revenue) × 365
+        DPO = Days Payable Outstanding = (A/P / COGS) × 365
+        CCC = DIO + DSO − DPO (Cash Conversion Cycle)
+      </div>
+
+      <div class="comparison-row">
+        <div class="comparison-col">
+          <h4>Königshof</h4>
+          <div class="metric-item">
+            <span class="metric-label">DIO</span><span class="metric-value">90d</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">DSO</span><span class="metric-value">60d</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">DPO</span><span class="metric-value">30d</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">CCC</span><span class="metric-value">120d</span>
+          </div>
+        </div>
+        <div class="comparison-col">
+          <h4>Subtrax (SaaS)</h4>
+          <div class="metric-item">
+            <span class="metric-label">DIO</span><span class="metric-value">0d</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">DSO</span><span class="metric-value">30d</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">DPO</span><span class="metric-value">45d</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">CCC</span><span class="metric-value">−15d</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Free Cash Flow</div>
+        FCF = Operating Cash Flow − CapEx
+        Cash Conversion Ratio = FCF / Net Income
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEAT 6: BUSINESS MODELS & FORECASTING -->
+<section class="beat beat-card">
+  <div class="beat-inner">
+    <p class="card-label">Sections V–VI Quick Reference</p>
+    <h2 class="card-title">Business Models & SaaS Metrics</h2>
+    <div class="card-body">
+      <div class="formula-box">
+        <div class="formula-label">SaaS Key Metrics</div>
+        ARR = Annual Recurring Revenue
+        MRR = Monthly Recurring Revenue = ARR / 12
+        NRR = Net Revenue Retention = (Starting MRR + Expansion − Churn) / Starting MRR
+        Churn Rate (Monthly) = Lost Customers / Starting Customers
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Unit Economics</div>
+        LTV = Customer Lifetime Value = ARPU × GM / Churn
+        CAC = Customer Acquisition Cost = Sales & Marketing / New Customers
+        Payback Period = CAC / (ARPU × GM)
+        Target LTV:CAC Ratio ≥ 3:1
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">SaaS Health Metrics</div>
+        Rule of 40 = Revenue Growth % + EBITDA Margin %
+        Must be ≥ 40% for healthy SaaS
+        Magic Number = (Current Quarter Revenue − Prior Quarter Revenue) / Prior Quarter S&M Spend
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Manufacturing Metrics</div>
+        Capacity Utilisation = Actual Output / Potential Output
+        Fixed Cost Absorption = Fixed Costs / Units Produced
+        Contribution Margin per Unit = Price − Variable Cost
+      </div>
+
+      <p><strong>Three-Statement Forecasting:</strong> P&L drives revenue and COGS. Balance sheet captures working capital and asset changes. Cash flow integrates both, showing actual cash movements. Link in circulars (e.g., retained earnings feed equity; operating CF feeds debt paydown).</p>
+    </div>
+  </div>
+</section>
+
+<!-- BEAT 7: TAKEAWAY -->
+<section class="beat beat-takeaway">
+  <div class="beat-inner">
+    <p class="takeaway-text">Sixty formulas. One hundred twenty terms. Zero shortcuts.</p>
+  </div>
+</section>
+
+<!-- BEAT 8: LEVERAGED BUYOUTS -->
+<section class="beat beat-card">
+  <div class="beat-inner">
+    <p class="card-label">Section VII Quick Reference</p>
+    <h2 class="card-title">Leveraged Buyouts & Value Creation</h2>
+    <div class="card-body">
+      <div class="example-box">
+        <div class="example-label">Königshof LBO Example</div>
+        <div class="card-body" style="font-size: 14px;">
+          <strong>Deal Structure:</strong><br>
+          Enterprise Value: €80m at 5.0x EBITDA (€16m EBITDA)<br>
+          Debt: €50m senior (3.1x leverage)<br>
+          Sponsor Equity: €15m<br>
+          Seller note: €15m<br>
+          <br>
+          <strong>Exit Year 5:</strong> €100m value at 4.2x leverage<br>
+          Equity Return: €50m → €100m = 2.0x MoM, ~15% IRR
+        </div>
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Value Creation Bridge</div>
+        Sponsor Equity Entry: €15m
+        + EBITDA Growth: €2m → €20m (multiple of 4.2x) = €8m
+        + Debt Paydown: €10m (from cash generation)
+        = Exit Equity Value: ~€35m
+        = Multiple of Money (MoM) = €35m / €15m = 2.3x
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Key LBO Formulas</div>
+        MoIC = Exit Equity / Entry Equity
+        IRR ≈ MOIC^(1/Years) − 1
+        Leverage Ratio = Total Debt / EBITDA
+        Interest Coverage = EBITDA / Interest Expense
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Typical LBO Thresholds</div>
+        Minimum Target: 2.0x MoM / 20% IRR
+        Entry leverage: 4–5x on EBITDA
+        Exit leverage: 2–3x on EBITDA
+        Annual debt paydown: €2–5m (depending on FCF)
+      </div>
+
+      <p><strong>Sources & Uses:</strong> Funds come from debt, sponsor equity, seller notes, and sometimes earn-outs. Uses go to purchase price, transaction costs, and working capital needs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BEAT 9: CAPITAL STRUCTURE -->
+<section class="beat beat-card">
+  <div class="beat-inner">
+    <p class="card-label">Section VIII Quick Reference</p>
+    <h2 class="card-title">Capital Structure & WACC</h2>
+    <div class="card-body">
+      <div class="formula-box">
+        <div class="formula-label">Debt vs Equity (High Level)</div>
+        Debt: Fixed obligations, tax-deductible, cheaper (cost ~4–6%)
+        Equity: Residual claim, costlier (cost ~10–12%)
+        Tradeoff: More debt = higher return but higher risk of default
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Capital Stack (Ranking of Claims)</div>
+        1. RCF (Revolver) — liquidity facility, 0.25x–0.5x
+        2. TLA (Term Loan A) — amortising, 3–4x
+        3. TLB (Term Loan B) — bullet, 2–3x
+        4. HY Bond (High Yield) — unsecured, 1–2x
+        5. Mezz (Mezzanine) — hybrid, equity-like
+        6. Equity — junior, highest risk, highest return
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Weighted Average Cost of Capital (WACC)</div>
+        WACC = (E/V) × Re + (D/V) × Rd × (1 − Tax Rate)
+        E = Market value of equity
+        D = Market value of debt
+        V = E + D
+        Re = Cost of equity (use CAPM)
+        Rd = Cost of debt
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Capital Asset Pricing Model (CAPM)</div>
+        Re = Risk-Free Rate + Beta × Market Risk Premium
+        Risk-Free Rate: ~2.5% (10Y govt bond)
+        Beta: 1.0 = market; > 1 = more volatile
+        Market Risk Premium: ~5–6%
+      </div>
+
+      <div class="example-box">
+        <div class="example-label">Königshof WACC Calculation</div>
+        <div class="card-body" style="font-size: 14px;">
+          Entry equity value: €30m, debt: €50m, total: €80m<br>
+          E/V = 30/80 = 37.5%, D/V = 50/80 = 62.5%<br>
+          Re = 2.5% + 1.2 × 5.5% = 9.1%<br>
+          Rd = 5.0% (blended cost of debt)<br>
+          Tax rate = 25%<br>
+          <br>
+          WACC = 0.375 × 9.1% + 0.625 × 5.0% × (1 − 0.25)<br>
+          = 3.4% + 2.34% = 5.74% ≈ 5.7%
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEAT 10: CREDIT ANALYSIS -->
+<section class="beat beat-card">
+  <div class="beat-inner">
+    <p class="card-label">Section VIII.5 Quick Reference</p>
+    <h2 class="card-title">Credit Analysis & Debt Documentation</h2>
+    <div class="card-body">
+      <div class="formula-box">
+        <div class="formula-label">Credit Committee Framework (6-Point Evaluation)</div>
+        1. Business quality: Margins, competitive position, track record
+        2. Sponsor quality: PE firm reputation, portfolio performance
+        3. Debt metrics: Leverage ratios, interest coverage, amortisation
+        4. Cash flow: Sustainability, working capital needs, seasonality
+        5. Covenants: Maintenance covenants protect lender; tight restrictions
+        6. Stressed case: EBITDA down 20% — can company still service debt?
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Typical Debt Covenants</div>
+        Net Debt / EBITDA ≤ 4.0x (Maintenance)
+        Interest Coverage (EBITDA / Interest) ≥ 2.5x (Maintenance)
+        Max CapEx or Min Cash Flow (Incurrence)
+        Financial Reporting requirements (quarterly)
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Adjusted EBITDA Add-Backs</div>
+        + One-time transaction costs
+        + Stock-based compensation
+        − Normalised maintenance CapEx
+        = Adjusted EBITDA (bank's view of recurring earnings)
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Term Sheet Essentials</div>
+        Amount, tenor (5–7 years typical)
+        Pricing: Base rate + spread (e.g., SOFR + 300bps)
+        Amortisation: 1–3% per year
+        Flex: How much lender can increase spread or tighten covenants
+        Covenant-Lite deals: Fewer restrictions, higher pricing
+      </div>
+
+      <p><strong>Key insight:</strong> Lenders care about downside. A stressed case where EBITDA drops 20% should still allow the company to cover interest and avoid covenant breach.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BEAT 11: VALUATION (INTRINSIC & RELATIVE) -->
+<section class="beat beat-card">
+  <div class="beat-inner">
+    <p class="card-label">Sections IX–X Quick Reference</p>
+    <h2 class="card-title">Valuation: DCF, Comps, & Precedent Deals</h2>
+    <div class="card-body">
+      <div class="formula-box">
+        <div class="formula-label">DCF Valuation Steps</div>
+        1. Project unlevered free cash flows (UFCF) for 5–10 years
+        2. Calculate Terminal Value = FCFn × (1 + g) / (WACC − g)
+           where g = perpetual growth rate (~2–3%)
+        3. Discount all flows at WACC to present value
+        4. Sum PV(UFCF) + PV(Terminal Value) = Enterprise Value
+        5. Less: Net Debt = Equity Value
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Terminal Value as % of EV</div>
+        Terminal Value typically 60–80% of total Enterprise Value
+        Sensitive to WACC and growth assumptions
+        Use multiple methods: perpetuity growth, exit multiple
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Trading Comps: Key Multiples</div>
+        EV / EBITDA: 8–15x for stable, mature businesses
+        EV / Revenue: 1–5x (SaaS: 5–10x; manufacturing: 0.5–1.5x)
+        P / E Ratio: 12–20x for equities (less useful for levered assets)
+        EV / EBIT: Similar to EV/EBITDA but uses operating profit
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Precedent Transactions</div>
+        Analyse past M&A deals in same industry
+        Typical control premium: 20–40% above stock price
+        Premium reflects: synergies, strategic value, take-private discount
+        Use as sanity check on valuation range
+      </div>
+
+      <div class="example-box">
+        <div class="example-label">Valuation Summary Example (Königshof)</div>
+        <div class="card-body" style="font-size: 14px;">
+          <strong>DCF:</strong> €75–85m EV<br>
+          <strong>Trading Comps (5.0–5.5x EBITDA):</strong> €80–88m<br>
+          <strong>Precedent Deals (4.8–5.2x):</strong> €77–83m<br>
+          <strong>Football Field: €75–88m (low–high range)</strong><br>
+          Deal at €80m = Mid-point, 5.0x, reasonable
+        </div>
+      </div>
+
+      <p><strong>EV-to-Equity Bridge:</strong> EV − Net Debt = Equity Value. Make sure to adjust for cash, debt, and minority interests.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BEAT 12: M&A PROCESS -->
+<section class="beat beat-card">
+  <div class="beat-inner">
+    <p class="card-label">Sections XI–XII Quick Reference</p>
+    <h2 class="card-title">M&A Process & Deal Mechanics</h2>
+    <div class="card-body">
+      <div class="formula-box">
+        <div class="formula-label">Sell-Side Process Timeline (6–9 months)</div>
+        1. Mandate: Engage investment bank, set process
+        2. IM (Information Memorandum): 30–50pp overview of business
+        3. Buyer ID: Bank identifies 15–25 strategic + financial buyers
+        4. NBO (Non-Binding Offer): Buyers submit preliminary bids
+        5. Data Room: Confidential details shared with top bidders
+        6. DD (Due Diligence): Financial, legal, tax, operational reviews
+        7. Final Bids: Down to 2–3 finalists; negotiations
+        8. SPA (Share Purchase Agreement): Signed, conditions to close
+        9. Closing: Conditions satisfied, ownership transfers
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Due Diligence Workstreams</div>
+        Financial DD: Revenue quality, EBITDA normalisation, working capital
+        Legal DD: Contracts, IP, litigation, compliance
+        Tax DD: Current/deferred tax liabilities, restructuring
+        Commercial DD: Market trends, customer concentration, churn
+        Operational DD: Processes, people, capex needs
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">SPA Key Terms</div>
+        Purchase Price: Usually cash at close
+        Reps & Warranties: Seller certifies accuracy of financial/legal data
+        Indemnification: Seller indemnifies buyer for breach of reps
+        Working Capital True-Up: Final balance adjusted post-close
+        Locked Box vs Completion Accounts: When valuation locked in?
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Purchase Price Allocation (PPA)</div>
+        Goodwill = Purchase Price − Fair Value of Net Identifiable Assets
+        FVNIA = FV of tangible assets − FV of liabilities
+        Identifiable intangibles: Customer relationships, trade names, tech
+        Excess = Goodwill (amortised over 5–10 years or impairment tested)
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Synergy Types</div>
+        Revenue synergies: Cross-sell, market expansion, pricing power
+        Cost synergies: Overlap elimination (often overestimated)
+        Financial synergies: Lower cost of capital
+        Typical combined target: 5–15% of combined revenue
+      </div>
+
+      <p><strong>Earnouts:</strong> Portion of price paid post-close if targets hit. Aligns seller/buyer on integration. Typical: 10–20% of purchase price, 2–3 year hold-backs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BEAT 13: TAKEAWAY 2 -->
+<section class="beat beat-takeaway">
+  <div class="beat-inner">
+    <p class="takeaway-text">The reference strips story away.<br>What remains is pure finance.</p>
+  </div>
+</section>
+
+<!-- BEAT 14: MASTER FORMULA SHEET PREVIEW -->
+<section class="beat beat-card">
+  <div class="beat-inner">
+    <p class="card-label">Formula Library</p>
+    <h2 class="card-title">Master Formula Sheet (Preview)</h2>
+    <div class="card-body" style="font-size: 15px;">
+      <p><strong>Top 25 formulas across all domains:</strong></p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0;">
+        <div class="formula-box" style="margin: 0;">
+          <div class="formula-label">Fund Economics</div>
+          DPI = Dist / Capital<br>
+          Carry = 20% × (Total − Capital)<br>
+          TVPI = DPI + RVPI
+        </div>
+        <div class="formula-box" style="margin: 0;">
+          <div class="formula-label">Income Statement</div>
+          Gross Margin = (Rev − COGS) / Rev<br>
+          EBITDA = EBIT + D&A<br>
+          DOL = ΔEBITx / ΔRev%
+        </div>
+        <div class="formula-box" style="margin: 0;">
+          <div class="formula-label">Working Capital</div>
+          CCC = DIO + DSO − DPO<br>
+          DSO = (A/R / Rev) × 365<br>
+          NWC = CA − CL
+        </div>
+        <div class="formula-box" style="margin: 0;">
+          <div class="formula-label">SaaS Metrics</div>
+          LTV = ARPU × GM / Churn<br>
+          Payback = CAC / (ARPU × GM)<br>
+          NRR = (Start + Exp − Churn) / Start
+        </div>
+        <div class="formula-box" style="margin: 0;">
+          <div class="formula-label">LBOs</div>
+          MoIC = Exit Equity / Entry<br>
+          Leverage = Debt / EBITDA<br>
+          IntCov = EBITDA / Interest
+        </div>
+        <div class="formula-box" style="margin: 0;">
+          <div class="formula-label">Capital Structure</div>
+          WACC = (E/V)Re + (D/V)Rd(1−Tx)<br>
+          Re = Rf + β(Rm − Rf)<br>
+          Debt/Equity, Interest Coverage
+        </div>
+        <div class="formula-box" style="margin: 0;">
+          <div class="formula-label">DCF Valuation</div>
+          TV = FCFn(1+g)/(WACC−g)<br>
+          EV = PV(UFCF) + PV(TV)<br>
+          Equity = EV − Net Debt
+        </div>
+        <div class="formula-box" style="margin: 0;">
+          <div class="formula-label">Multiples</div>
+          EV/EBITDA, EV/Revenue<br>
+          P/E Ratio, EV/EBIT<br>
+          Exit Multiple Analysis
+        </div>
+      </div>
+
+      <p style="margin-top: 16px; font-size: 14px; color: var(--text-muted);">Plus 35+ more in the complete reference including sensitivity analyses, reconciliations, and step-by-step worked examples.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BEAT 15: GLOSSARY PREVIEW -->
+<section class="beat beat-card">
+  <div class="beat-inner">
+    <p class="card-label">Glossary Preview</p>
+    <h2 class="card-title">120+ Key Terms (Sample)</h2>
+    <div class="card-body">
+      <ul class="bullet-list">
+        <li><strong>Accretion/Dilution:</strong> EPS impact of a deal (positive = accretive)</li>
+        <li><strong>Amortisation:</strong> Depreciation of intangible assets (goodwill, patents)</li>
+        <li><strong>Blind Pool:</strong> Fund where LPs don't know which companies until invested</li>
+        <li><strong>Breakeven:</strong> Revenue level where profit = zero</li>
+        <li><strong>Burndown:</strong> Rate at which a company burns cash (monthly)</li>
+        <li><strong>Carried Interest:</strong> GP's share of profits (typically 20%)</li>
+        <li><strong>CCC:</strong> Cash Conversion Cycle — DIO + DSO − DPO</li>
+        <li><strong>EBITDA:</strong> Earnings before interest, taxes, D&A — proxy for cash earnings</li>
+        <li><strong>Equity Value:</strong> What shareholders own (Enterprise Value − Net Debt)</li>
+        <li><strong>FCF:</strong> Free Cash Flow — OCF − CapEx, available to all investors</li>
+        <li><strong>Goodwill:</strong> Intangible excess paid over fair value of assets in M&A</li>
+        <li><strong>Hurdle Rate:</strong> Minimum return threshold before carry kicks in (8%)</li>
+        <li><strong>LBO:</strong> Leveraged Buyout — acquisition funded mostly with debt</li>
+        <li><strong>Leverage:</strong> Debt / EBITDA — measure of financial risk</li>
+        <li><strong>LTV:CAC Ratio:</strong> Lifetime value to customer acquisition cost (target 3:1+)</li>
+        <li><strong>Net Debt:</strong> Total debt − cash — true economic debt burden</li>
+        <li><strong>NRR:</strong> Net Revenue Retention — organic growth + expansion − churn</li>
+        <li><strong>Precedent Transactions:</strong> Past M&A deals used as valuation benchmarks</li>
+        <li><strong>Syndication:</strong> Multiple lenders share a debt facility</li>
+        <li><strong>Waterfall:</strong> Order in which profits are distributed (LPs first, then GP carry)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- BEAT 16: WARNING -->
+<section class="beat beat-card">
+  <div class="beat-inner">
+    <p class="card-label">Critical Note</p>
+    <h2 class="card-title">What This Reference Won't Do</h2>
+    <div class="warning-box">
+      <div class="warning-label">⚠ This is a cram sheet, not a textbook</div>
+      <div class="card-body">
+        <p>The reference is for <strong>revision and recall</strong>. Read the chapters first. The narrative teaches intuition — why markets move, why deals fail, why some structures work and others blow up.</p>
+        <p>This document tests whether you <strong>know</strong> the concepts. Chapters teach whether you <strong>understand</strong> them.</p>
+        <p>Skip the chapters and come straight here? You'll memorise formulas but fail to explain how leverage changes equity returns. You'll know DPI but not why J-curves exist. You'll pass the trivia test but flunk the real-world question: <em>"Walk me through the sources and uses of a leveraged buyout."</em></p>
+        <p><strong>Use this correctly:</strong> Read all 12 chapters → Test yourself with this reference → Go back to chapters for concepts you're hazy on → Use reference for final polish.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEAT 17: DOWNLOAD CTA -->
 <section class="beat beat-finale">
   <div class="finale-glow"></div>
   <div class="beat-inner">
     <p class="finale-text">Your Cram Sheet Awaits</p>
-    <p class="finale-subtitle">Every concept from eleven chapters.<br>One PDF. Zero narrative. Pure finance.</p>
+    <p class="finale-subtitle">Every concept from twelve chapters.<br>One PDF. Zero narrative. Pure finance.</p>
     <div class="download-hero" style="margin-top: 0;">
       <a href="G2G_Complete_Reference.pdf" download class="download-btn" style="font-size: 17px; padding: 18px 44px;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download the Complete Reference
       </a>
-      <span class="download-note">PDF — Printable — Offline-ready</span>
+      <span class="download-note">PDF — Printable — Offline-ready — 21 pages</span>
+    </div>
+  </div>
+</section>
+
+<!-- BEAT 18: NAVIGATION -->
+<section class="beat beat-card">
+  <div class="beat-inner">
+    <p class="card-label">You've Reached the End</p>
+    <h2 class="card-title">What's Next?</h2>
+    <div class="card-body">
+      <p>You have finished all twelve chapters and this reference document. You now have the complete foundation of institutional investment banking.</p>
+      <p><strong>Next steps:</strong></p>
+      <ul class="bullet-list">
+        <li>Review the chapters that felt weakest</li>
+        <li>Build a model (LBO, DCF, three-statement) from scratch</li>
+        <li>Use this reference to stress-test your understanding</li>
+        <li>Practice explaining concepts in 30 seconds (the "elevator pitch" test)</li>
+        <li>Read live pitchbooks from real deals and trace every number back to a chapter</li>
+      </ul>
+      <p><strong>The real learning:</strong> Happens when you apply these concepts to new situations. A formula is just a formula. Understanding when and why to use it — that's the game.</p>
     </div>
     <div class="finale-nav">
       <a href="../index.html" class="finale-nav-item">
         <span>← Return to Contents</span>
       </a>
       <a href="ch12.html" class="finale-nav-item">
-        <span>← Previous: Ch 12</span>
+        <span>← Previous: Ch 12 — M&A Integration</span>
       </a>
     </div>
   </div>
 </section>
 
 <div class="footer-nav">
-  <a href="ch12.html" class="nav-link">← Ch 12: Complete Reference</a>
+  <a href="ch12.html" class="nav-link">← Ch 12: M&A Integration</a>
   <div class="nav-divider"></div>
   <a href="../index.html" class="nav-link">Return to Contents</a>
 </div>
-<div class="beat-counter"><span id="beatCounter">1 / 8</span></div>
+<div class="beat-counter"><span id="beatCounter">1 / 18</span></div>
 
 <script>
 // Particle canvas animation
@@ -519,6 +1016,7 @@ body {
 let currentBeat = 0;
 let startY = 0;
 let isAnimating = false;
+const CHAPTER_NUM = 13;
 const beats = document.querySelectorAll('.beat');
 const totalBeats = beats.length;
 
@@ -563,7 +1061,6 @@ function goTo(index) {
   saveProgress();
   updateCounter();
   updateProgress();
-  // Update chapter nav dots
   document.querySelectorAll('.chapter-nav .dot').forEach((d, j) => d.classList.toggle('active', j === currentBeat));
   setTimeout(() => { isAnimating = false; }, 350);
 }
@@ -597,59 +1094,57 @@ document.addEventListener('wheel', e => {
   const beat = beats[currentBeat];
   const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
   const atTop = beat.scrollTop <= 5;
-  wheelAccum += e.deltaY;
-  clearTimeout(wheelTimer);
-  wheelTimer = setTimeout(() => { wheelAccum = 0; }, 200);
-  if (wheelAccum > 50 && atBottom) { wheelAccum = 0; goTo(currentBeat + 1); }
-  if (wheelAccum < -50 && atTop) { wheelAccum = 0; goTo(currentBeat - 1); }
-}, { passive: true });
+  if ((atTop && e.deltaY < 0) || (atBottom && e.deltaY > 0)) {
+    e.preventDefault();
+    wheelAccum += e.deltaY;
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => {
+      if (wheelAccum > 50) goTo(currentBeat + 1);
+      else if (wheelAccum < -50) goTo(currentBeat - 1);
+      wheelAccum = 0;
+    }, 50);
+  }
+}, { passive: false });
 
 // Keyboard navigation
 document.addEventListener('keydown', e => {
-  const beat = beats[currentBeat];
-  const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
-  const atTop = beat.scrollTop <= 5;
-  if (['ArrowDown', 'ArrowRight', 'PageDown'].includes(e.key)) {
-    if (atBottom) { e.preventDefault(); goTo(currentBeat + 1); }
-  } else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) {
-    if (atTop) { e.preventDefault(); goTo(currentBeat - 1); }
-  } else if (e.key === ' ') {
-    e.preventDefault();
-    if (atBottom) goTo(currentBeat + 1);
-    else beat.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
-  } else if (e.key === 'Home') {
-    e.preventDefault(); goTo(0);
-  } else if (e.key === 'End') {
-    e.preventDefault(); goTo(totalBeats - 1);
-  }
+  if (e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); goTo(currentBeat + 1); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); goTo(currentBeat - 1); }
+  else if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+  else if (e.key === 'End') { e.preventDefault(); goTo(totalBeats - 1); }
 });
 
-// Initialize
+// Initialise
 positionBeats();
-updateCounter();
 updateProgress();
+updateCounter();
 
-// Progress tracking
-const CHAPTER_NUM = 13;
+// Progress persistence
 function saveProgress() {
-  try { localStorage.setItem('g2g-progress-ch' + CHAPTER_NUM, currentBeat); } catch(e) {}
+  localStorage.setItem(`ch${CHAPTER_NUM}_beat`, currentBeat);
 }
-
-// Resume prompt on load
-(function() {
-  try {
-    const saved = parseInt(localStorage.getItem('g2g-progress-ch' + CHAPTER_NUM));
-    if (saved && saved > 0 && saved < totalBeats) {
+function resumeProgress() {
+  const saved = localStorage.getItem(`ch${CHAPTER_NUM}_beat`);
+  if (saved) {
+    const index = parseInt(saved);
+    if (index > 0 && index < totalBeats) {
       const toast = document.createElement('div');
       toast.className = 'resume-toast';
-      toast.innerHTML = 'Resume from beat ' + (saved + 1) + '/' + totalBeats + '? ' +
-        '<button class="resume-btn" onclick="goTo(' + saved + '); this.parentElement.remove();">Resume</button>' +
-        '<button class="skip-btn" onclick="this.parentElement.remove();">Start Over</button>';
+      toast.innerHTML = `Resume from beat ${index + 1}? <button class="resume-btn">Yes</button> <button class="skip-btn">Skip</button>`;
       document.body.appendChild(toast);
-      setTimeout(() => { if (toast.parentElement) toast.remove(); }, 8000);
+      toast.querySelector('.resume-btn').addEventListener('click', () => {
+        goTo(index);
+        toast.remove();
+      });
+      toast.querySelector('.skip-btn').addEventListener('click', () => {
+        localStorage.removeItem(`ch${CHAPTER_NUM}_beat`);
+        toast.remove();
+      });
     }
-  } catch(e) {}
-})();
+  }
+}
+resumeProgress();
 </script>
+
 </body>
 </html>
