@@ -224,6 +224,90 @@
       color: var(--accent-bright);
     }
 
+    .formula-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--accent-bright);
+      line-height: 1.6;
+    }
+
+    .formula-box .formula-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .example-box {
+      background: linear-gradient(135deg, rgba(74,158,110,0.08), rgba(74,158,110,0.03));
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .example-box .example-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .warning-box {
+      background: linear-gradient(135deg, rgba(196,92,74,0.08), rgba(196,92,74,0.03));
+      border-left: 3px solid var(--red);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+
+    .warning-box .warning-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .warning-box p {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .section-divider {
+      background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+      height: 1px;
+      margin: 24px 0;
+    }
+
+    .part-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 4px;
+    }
+
     /* SCENE BEAT */
     .beat-scene {
       flex-direction: column;
@@ -255,6 +339,15 @@
 
     .scene-text strong {
       color: var(--accent-bright);
+    }
+
+    .scene-text a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .scene-text a:hover {
+      text-decoration: underline;
     }
 
     /* UI ELEMENTS */
@@ -380,6 +473,11 @@
       opacity: 0.9;
     }
 
+    /* Wider beat-inner for comparison tables */
+    .beat-card.comparison-wide .beat-inner {
+      max-width: 760px;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .beat-title h1 {
@@ -425,7 +523,7 @@
       <div class="series-name">G2G ADVISORY</div>
       <div class="chapter-number">CHAPTER 14</div>
       <h1>The TMT Special</h1>
-      <p class="subtitle">Technology, Media & Telecom — From SaaS to Superapps</p>
+      <p class="subtitle">Technology, Media & Telecom — Business Models, Metrics & Diligence</p>
     </div>
   </div>
 
@@ -433,133 +531,360 @@
   <div class="beat beat-card">
     <div class="beat-inner">
       <div class="card-label">VOLUME OVERVIEW</div>
-      <h2 class="card-title">What This Chapter Covers</h2>
+      <h2 class="card-title">Two Volumes. One Operating Manual.</h2>
       <div class="card-body">
-        <p>This combined chapter merges <strong>Volume I</strong> and <strong>Volume II</strong> of the TMT Special into one comprehensive journey through Technology, Media, and Telecom business models.</p>
-        <p><strong>Volume I</strong> establishes the foundation: core models (B2B SaaS, cloud infrastructure, embedded finance, adtech), essential metrics (ARR, NRR, LTV/CAC), and unit economics that drive valuations.</p>
-        <p><strong>Volume II</strong> deepens the analysis: retention mechanics, marketplace dynamics, consumer platforms and superapps, creator economies, structural weaknesses across models, and the red flags that separate sound investments from value traps.</p>
-        <p>Together, they form a complete operating manual for understanding and evaluating any TMT company.</p>
+        <p><strong>Volume I Scope:</strong> Core TMT business models — B2B SaaS revenue mechanics, unit economics, forecasting. Cloud infrastructure, embedded finance, consumer subscriptions, adtech/martech, vertical SaaS. Key metrics tables and model comparison frameworks.</p>
+        <p><strong>Volume II Scope:</strong> Advanced dynamics — network effects and non-contractual retention. Marketplace economics (buyer/seller dynamics, take rates, disintermediation). Consumer platforms, superapps, creator economies. Structural weaknesses of niche models. Diligence red flags. LTV derivations and exit patterns.</p>
+        <p><strong>Design:</strong> This chapter merges both volumes into one comprehensive reference. Each beat is dense — treat it as a full page of a technical reference manual. Designed for investment banking interview prep and due diligence work.</p>
       </div>
     </div>
   </div>
 
-  <!-- BEAT 3: LEXICON -->
+  <!-- BEAT 3: SaaS & SUBSCRIPTION METRICS -->
   <div class="beat beat-card">
     <div class="beat-inner">
-      <div class="card-label">FOUNDATIONS</div>
-      <h2 class="card-title">The TMT Lexicon</h2>
+      <div class="part-label">PART I — FOUNDATIONS</div>
+      <div class="card-label">CORE METRICS</div>
+      <h2 class="card-title">SaaS & Subscription Metrics</h2>
       <div class="card-body">
         <div class="metric-item">
           <div class="metric-name">ARR / MRR</div>
-          <div class="metric-def">Annual / Monthly Recurring Revenue. The heartbeat of SaaS — predictable, contracted revenue.</div>
+          <div class="metric-def">Annual/Monthly Recurring Revenue. ARR = MRR × 12. The north star of SaaS. Components: new ARR, expansion ARR, churned ARR, contraction ARR, net new ARR. Waterfall analysis essential for understanding cohort health.</div>
         </div>
+
         <div class="metric-item">
           <div class="metric-name">NRR (Net Revenue Retention)</div>
-          <div class="metric-def">Retained revenue from existing customers plus expansion revenue, minus churn. Above 100% signals strong product-market fit.</div>
+          <div class="metric-def">The percentage of revenue retained from existing customers including expansion minus churn and contraction. Formula: NRR = (Beginning ARR + Expansion − Churn − Contraction) / Beginning ARR. Above 120% is elite (Snowflake, Datadog-tier). 100-120% is very strong. Below 100% means the business is leaking revenue customer-by-customer.</div>
         </div>
+
         <div class="metric-item">
-          <div class="metric-name">LTV / CAC</div>
-          <div class="metric-def">Lifetime Value divided by Customer Acquisition Cost. Gold standard unit economics. Target: 3.0x or higher.</div>
+          <div class="metric-name">GRR (Gross Revenue Retention)</div>
+          <div class="metric-def">Same as NRR but excludes expansion revenue. Measures pure retention/churn without upsell. GRR above 90% is strong for enterprise SaaS. Below 80% signals serious retention issues regardless of how many new customers you acquire.</div>
         </div>
+
         <div class="metric-item">
-          <div class="metric-name">DAU / MAU</div>
-          <div class="metric-def">Daily / Monthly Active Users. Engagement metric for consumer platforms. Ratio indicates "stickiness."</div>
+          <div class="metric-name">Rule of 40</div>
+          <div class="metric-def">Revenue Growth Rate (%) + EBITDA Margin (%) ≥ 40. Companies above the line are considered healthy — balancing growth and profitability. Below the line suggests either underinvesting in growth or burning capital unprofitably. Typical profiles: 40% growth + 0% margin (hypergrowth), 20% growth + 20% margin (balanced), 0% growth + 40% margin (cash cow).</div>
         </div>
+
         <div class="metric-item">
-          <div class="metric-name">GMV</div>
-          <div class="metric-def">Gross Merchandise Value. Total transaction volume in a marketplace. Not the same as revenue.</div>
+          <div class="metric-name">Magic Number</div>
+          <div class="metric-def">Net New ARR / Prior Quarter S&M Spend. Measures sales efficiency. Above 1.0 = efficient growth (each $1 spent generates $1+ new ARR). Below 0.5 = burning cash inefficiently and will require massive upfront spend before seeing returns.</div>
         </div>
+
         <div class="metric-item">
-          <div class="metric-name">Take Rate</div>
-          <div class="metric-def">Marketplace revenue as a percentage of GMV. Higher take rates = better unit economics.</div>
-        </div>
-        <div class="metric-item">
-          <div class="metric-name">ARPU / ARPPU</div>
-          <div class="metric-def">Average Revenue Per User / Per Paying User. Monetization intensity across cohorts.</div>
-        </div>
-        <div class="metric-item">
-          <div class="metric-name">Churn Rate</div>
-          <div class="metric-def">Percentage of customers lost per period. Lower is better. In SaaS, watch both dollar churn and logo churn.</div>
+          <div class="metric-name">Burn Multiple</div>
+          <div class="metric-def">Net Burn / Net New ARR. For unprofitable SaaS, measures how much cash is being consumed per $1 of new revenue. Below 1.5x is efficient. 1.5x-2.5x is acceptable. Above 2x is concerning and suggests engineering or go-to-market inefficiency.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- BEAT 4: B2B SAAS -->
+  <!-- BEAT 4: MARKETPLACE & CONSUMER METRICS -->
   <div class="beat beat-card">
     <div class="beat-inner">
-      <div class="card-label">CORE MODEL</div>
-      <h2 class="card-title">B2B SaaS</h2>
+      <div class="card-label">CONSUMER & PLATFORM</div>
+      <h2 class="card-title">Marketplace & Consumer Metrics</h2>
       <div class="card-body">
-        <p><strong>Revenue Mechanics:</strong> Subscription-based, recurring, monthly or annual contracts. Expansion revenue comes from upsell, cross-sell, and seat growth. The predictability of recurring revenue is the core defensibility.</p>
-        <p><strong>Key Metrics:</strong></p>
-        <ul class="bullet-list">
-          <li><strong>ARR:</strong> The north star. Watch growth rate and cohort expansion.</li>
-          <li><strong>NRR:</strong> Above 100% means existing customer revenue is growing. Gold standard.</li>
-          <li><strong>Rule of 40:</strong> Growth Rate + EBITDA Margin ≥ 40%. Healthy SaaS balances growth and profitability.</li>
-        </ul>
-        <p><strong>Unit Economics:</strong> LTV should be 3–5x CAC. CAC payback period (time to recover acquisition cost) should be under 12 months. Watch for hidden customer success costs that inflate true CAC.</p>
-        <p><strong>Defensibility:</strong> Switching costs (data lock-in, integrations, training), high employee adoption (makes switching painful), and multi-product stickiness.</p>
+        <div class="metric-item">
+          <div class="metric-name">GMV</div>
+          <div class="metric-def">Gross Merchandise Value. Total dollar value of all transactions on the platform. Critical: GMV is NOT revenue. A $1B GMV marketplace with a 2% take rate generates only $20M in revenue. GMV growth can mask revenue stagnation if take rate is compressing.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">Take Rate (Commission)</div>
+          <div class="metric-def">Platform Revenue / GMV × 100%. The percentage the platform keeps. Varies widely: product marketplaces ~5-20%, service marketplaces ~15-30%, financial services ~1-3%. Higher take rates = better unit economics but risk driving users off-platform.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">DAU / MAU Ratio</div>
+          <div class="metric-def">Daily Active Users / Monthly Active Users. Measures engagement stickiness. Above 50% = highly sticky (messaging apps). 20-30% = typical social media. Below 20% = weak engagement or occasional-use platforms. Use as a proxy for viral coefficient and organic growth potential.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">ARPU / ARPPU</div>
+          <div class="metric-def">Average Revenue Per User / Per Paying User. ARPPU is always higher than ARPU (freemium models). Formula: ARPU = Total Revenue / Active Users. Track by cohort, geography, and customer tier. Premium ARPU vs blended ARPU (including free users) tells the story of monetization leverage.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">LTV (Customer Lifetime Value)</div>
+          <div class="metric-def">Cumulative revenue expected from a customer. Simple formula: LTV = ARPU / Churn Rate. With discount rate: LTV = Contribution per period / (churn + discount rate). The higher the LTV relative to CAC, the more defensible the business.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">CAC (Customer Acquisition Cost)</div>
+          <div class="metric-def">Total S&M Spend / New Customers Acquired. Includes: media spend, sales rep salary + commission, marketing tools, referral incentives, discounts. Many companies understate true CAC by excluding customer onboarding, support, and fraud costs.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">LTV / CAC Ratio</div>
+          <div class="metric-def">Target ≥ 3.0x. Below 1.0x destroys value on each customer. 1.0-2.0x is break-even territory (unhealthy for growth). 3.0-5.0x is healthy and sustainable. Above 5.0x may indicate underinvestment in growth.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">NPS (Net Promoter Score)</div>
+          <div class="metric-def">% Promoters (9-10) − % Detractors (0-6). Range: −100 to +100. Above +50 is excellent. 0-50 is moderate. Below 0 indicates serious satisfaction issues. NPS is a leading indicator of churn and viral coefficient.</div>
+        </div>
+
+        <div class="metric-item">
+          <div class="metric-name">Churn Rate</div>
+          <div class="metric-def">Customers Lost / Customers at Start of Period. Logo churn vs dollar churn — dollar churn is often more relevant because losing small customers matters less. Contractual churn (SaaS) is usually lower than non-contractual churn (consumer, marketplace). 2-3% monthly churn is typical for healthy SaaS.</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- BEAT 5: CLOUD & VERTICAL SAAS -->
+  <!-- BEAT 5: KEY FORMULAS -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">REFERENCE</div>
+      <h2 class="card-title">The Formula Sheet</h2>
+      <div class="card-body">
+        <div class="formula-box">
+          <span class="formula-label">LTV (Simple)</span>
+          LTV = ARPU / c<br>
+          where c = monthly churn rate
+        </div>
+
+        <div class="formula-box">
+          <span class="formula-label">LTV (With Discount Rate)</span>
+          LTV = Contribution per period / (c + d)<br>
+          where c = churn rate, d = discount rate
+        </div>
+
+        <div class="formula-box">
+          <span class="formula-label">CAC Payback Period</span>
+          Payback (months) = CAC / (ARPU × Gross Margin %)
+        </div>
+
+        <div class="formula-box">
+          <span class="formula-label">Rule of 40</span>
+          Revenue Growth% + EBITDA Margin% ≥ 40
+        </div>
+
+        <div class="formula-box">
+          <span class="formula-label">Magic Number</span>
+          Net New ARR / Prior Quarter S&M Spend
+        </div>
+
+        <div class="formula-box">
+          <span class="formula-label">NRR</span>
+          (Beg ARR + Expansion − Churn − Contraction) / Beg ARR
+        </div>
+
+        <div class="formula-box">
+          <span class="formula-label">Take Rate</span>
+          Platform Revenue / GMV × 100%
+        </div>
+
+        <div class="example-box">
+          <span class="example-label">Worked Example: B2B SaaS</span>
+          Company with $100M ARR, 5% monthly churn, $500 ARPU, $1500 CAC, 80% gross margin. LTV = $500 / 0.05 = $10,000. LTV/CAC = 6.7x (excellent). CAC payback = $1500 / ($500 × 0.80) = 3.75 months. Rule of 40: if growing 30%, need 10%+ EBITDA margin to qualify.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 6: B2B SaaS Revenue Mechanics -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="part-label">PART II — CORE MODELS</div>
+      <div class="card-label">SAAS ARCHITECTURE</div>
+      <h2 class="card-title">B2B SaaS: Revenue Mechanics</h2>
+      <div class="card-body">
+        <p><strong>Subscription Types:</strong> Monthly vs annual vs multi-year contracts. Annual upfront payments improve cash flow (deferred revenue increases) but signal customer confidence. Multi-year deals reduce visibility into churn (can't observe it for 24+ months).</p>
+
+        <p><strong>Revenue Components:</strong></p>
+        <ul class="bullet-list">
+          <li><strong>New ARR:</strong> Revenue from newly acquired customers</li>
+          <li><strong>Expansion ARR:</strong> Additional revenue from existing customers (seat expansion, tier upgrades, cross-sells)</li>
+          <li><strong>Churned ARR:</strong> Revenue lost from customers canceling (counts as negative)</li>
+          <li><strong>Contraction ARR:</strong> Downgrades from existing customers (also negative)</li>
+          <li><strong>Net New ARR:</strong> The sum: New + Expansion − Churn − Contraction</li>
+        </ul>
+
+        <p><strong>Billing vs. Recognition (ASC 606):</strong> GAAP revenue is recognized ratably over the contract period even if payment is annual. Deferred revenue (liability) is a leading indicator — growing deferred revenue suggests a healthy pipeline ahead.</p>
+
+        <p><strong>Cohort Analysis:</strong> Track each customer cohort's (e.g., those acquired in Q1 2024) revenue contribution over time. Healthy SaaS shows expanding cohorts — each vintage contributes more over time due to expansion revenue overcoming churn.</p>
+
+        <div class="formula-box">
+          <span class="formula-label">Net New ARR Formula</span>
+          New + Expansion − Churn − Contraction = Net New ARR
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 7: B2B SaaS Unit Economics -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">UNIT ECONOMICS</div>
+      <h2 class="card-title">B2B SaaS: Unit Economics</h2>
+      <div class="card-body">
+        <p><strong>CAC Deep Dive:</strong> Fully-loaded CAC includes: sales rep salary + commission, marketing spend, tools, onboarding support, customer success allocated cost. Many companies understate CAC by 2-3x by excluding indirect costs.</p>
+
+        <p><strong>CAC Payback Period:</strong> Months to recover the acquisition cost from gross margin. Enterprise SaaS: 12-18 months acceptable (longer contracts justify longer payback). SMB SaaS: under 6 months preferred (short contract terms mean rapid return required).</p>
+
+        <p><strong>LTV / CAC Ratio:</strong> 3-5x target. Worked example: $5000 CAC, 80% gross margin, $500 ARPU means payback in 12-15 months. LTV = $500 / 0.05 (5% monthly churn) = $10,000. LTV/CAC = 2.0x. To achieve 3.0x, need to either reduce CAC, increase ARPU, or improve churn.</p>
+
+        <p><strong>Gross Margin:</strong> Software gross margin should be 70-85%. Below 70% signals heavy professional services costs, infrastructure costs, or commodity hosting. As SaaS scales, gross margin typically expands due to fixed platform costs being spread across more customers.</p>
+
+        <p><strong>Net Dollar Retention:</strong> The single best predictor of SaaS health. >130% is elite. 100-120% is very strong. 100-110% concerning for a growth-stage company. Below 100% = leakage, a fundamental problem even if new customer acquisition is strong.</p>
+
+        <p><strong>Customer Concentration Risk:</strong> Top 10 customers as % of revenue. Above 20% is high concentration risk. Above 30% is dangerous. A single customer departure could crater revenue or force conservative guidance.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 8: B2B SaaS Valuation -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">VALUATION FRAMEWORK</div>
+      <h2 class="card-title">B2B SaaS: Valuation & Forecasting</h2>
+      <div class="card-body">
+        <p><strong>EV/ARR Multiples:</strong> Range from 5x (slow-growth, mature, low-margin) to 40x+ (hypergrowth, >100% NRR, high-margin). Rule of 40 is a key determinant — companies above the line trade at premium multiples.</p>
+
+        <p><strong>Public Comps Methodology:</strong> Select SaaS companies with similar growth/margin profile. Adjust multiples for NRR (higher NRR = higher multiple), gross margin (70%+ commands premium), and TAM (large TAM = higher multiple). Build a regression model if you have 10+ comps.</p>
+
+        <p><strong>DCF for SaaS:</strong> Project revenue using cohort-based model: (# New Customers × ACV) + Expansion − Churn. Assume NRR converges to steady state. Terminal value using perpetuity growth (assume 3-5% steady state growth) or exit multiple.</p>
+
+        <p><strong>Key Valuation Drivers:</strong> Growth rate (most important), NRR (expansion story), gross margin (profitability path), LTV/CAC (sustainability), TAM (ceiling), competitive moat (durability).</p>
+
+        <div class="warning-box">
+          <span class="warning-label">Warning</span>
+          <p>SaaS multiples are highly sensitive to interest rates. In rising rate environments, high-growth but unprofitable SaaS compresses dramatically (growth 80% + −20% margin valued at ~10-15x ARR instead of 40x). Conversely, in low-rate environments, growth is privileged and margin compression is tolerated.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 9: Cloud Infrastructure -->
   <div class="beat beat-card">
     <div class="beat-inner">
       <div class="card-label">INFRASTRUCTURE</div>
-      <h2 class="card-title">Cloud & Vertical SaaS</h2>
+      <h2 class="card-title">Cloud Infrastructure: IaaS & PaaS</h2>
       <div class="card-body">
-        <p><strong>Cloud Infrastructure (IaaS/PaaS):</strong> Consumption-based pricing model — customers pay for compute, storage, or API calls. High capital requirements to build and maintain data centers. Tends toward winner-take-most (AWS, Azure, Google Cloud) because of switching costs and network effects in the ecosystem.</p>
-        <p><strong>Key Dynamics:</strong></p>
-        <ul class="bullet-list">
-          <li>Capex-heavy; difficult to reverse.</li>
-          <li>Margin expansion through scale and efficiency gains.</li>
-          <li>Vendor lock-in: customers' entire infrastructure depends on the platform.</li>
-          <li>Pricing power increases as the platform becomes indispensable.</li>
-        </ul>
-        <p><strong>Vertical SaaS:</strong> Deep focus on a single industry or use case (e.g., SaaS for dental practices, legal firms, construction). Higher NRR than horizontal SaaS because products are more tightly integrated with niche workflows. Narrower TAM but higher penetration and switching costs.</p>
-        <p><strong>Embedded Payments:</strong> Many vertical SaaS companies embed payment processing — adding another revenue lever (take rate on transactions) and stickiness.</p>
+        <p><strong>Consumption-Based Pricing:</strong> Pay for compute, storage, bandwidth, API calls. Revenue scales with customer usage, not seats. High variance — a few large customers can drive disproportionate revenue.</p>
+
+        <p><strong>Capital Dynamics:</strong> Massive capex for data centers, networking, hardware. AWS, Azure, Google Cloud dominate. Barriers to entry are enormous (capex, regulatory compliance, talent). Margins improve dramatically at scale.</p>
+
+        <p><strong>Margin Structure:</strong> Gross margins 60-65% (lower than pure SaaS due to infrastructure costs). Operating leverage improves at scale — fixed capex spread across growing revenue base. AWS estimated at 30%+ operating margins at scale.</p>
+
+        <p><strong>Vendor Lock-In:</strong> Proprietary APIs, data gravity (exporting data is expensive and slow), trained engineering teams. Switching costs are extremely high. A $10M/year AWS customer faces $2M+ switching costs in engineering time and downtime.</p>
+
+        <p><strong>Key Metrics:</strong> Consumption growth (sequentially), NRR often >130% (heavy expansion), customer count by spend tier (concentration risk), remaining performance obligations (RPO) as leading revenue indicator.</p>
+
+        <p><strong>Winner-Take-Most Dynamics:</strong> Network effects through developer ecosystem, marketplace of integrations, community knowledge. The three major providers (AWS, Azure, GCP) collectively hold 70%+ market share. New entrants face impossible uphill battle.</p>
       </div>
     </div>
   </div>
 
-  <!-- BEAT 6: EMBEDDED FINANCE & ADTECH -->
+  <!-- BEAT 10: Embedded Finance & BaaS -->
   <div class="beat beat-card">
     <div class="beat-inner">
       <div class="card-label">HYBRID MODELS</div>
-      <h2 class="card-title">Embedded Finance & AdTech</h2>
+      <h2 class="card-title">Embedded Finance & Banking-as-a-Service</h2>
       <div class="card-body">
-        <p><strong>Embedded Finance:</strong> Financial services rails embedded inside non-financial products. Examples: Shopify Payments, Buy Now Pay Later, marketplace lending. Revenue comes from transaction fees, interchange, or spread.</p>
-        <p><strong>BaaS (Banking-as-a-Service):</strong> White-label banking infrastructure. Companies license banking licenses and regulatory compliance, allowing fintech startups to offer deposit, payment, and lending services without becoming a bank.</p>
-        <p><strong>Key Risks:</strong> Regulatory scrutiny, fraud exposure, capital requirements for lending products, and the challenge of compliance at scale.</p>
-        <p><strong>AdTech & MarTech:</strong> Programmatic advertising, demand-side platforms (DSPs), supply-side platforms (SSPs), data brokers. Revenue model: CPM (cost per mille/thousand impressions), CPC (cost per click), CPA (cost per action).</p>
-        <p><strong>Diligence Focus:</strong> Attribution accuracy, viewability rates, brand safety, regulatory pressure on cookies and data, and margin compression from competition.</p>
+        <p><strong>Definition:</strong> Financial services (payments, lending, insurance, banking) embedded directly into non-financial platforms. Examples: Shopify Payments, Uber's driver payouts, DoorDash Dasher Card.</p>
+
+        <p><strong>BaaS Model:</strong> Regulated bank provides the license and compliance infrastructure. Fintech/platform provides the user interface and product. Revenue split: bank takes interest margin/fees, platform takes transaction fee (0.5-2%) or monthly subscription.</p>
+
+        <p><strong>Revenue Streams:</strong> Interchange fees (~1-3% on card transactions), lending spread (borrow at 3%, lend at 8%), subscription fees for premium financial features, float income (holding customer deposits).</p>
+
+        <p><strong>Key Risks:</strong> Regulatory scrutiny intensifying (OCC, FDIC, state regulators), partner bank concentration (losing partner bank = losing business), fraud and credit losses on lending products, compliance costs scaling faster than revenue.</p>
+
+        <p><strong>Valuation Consideration:</strong> Embedded finance often valued as a revenue multiplier on the core business rather than standalone. Example: if core SaaS is worth 15x ARR, embedded finance revenue (5-10% of total) might get only 5x multiple due to different risk profile.</p>
+
+        <p><strong>Diligence Focus:</strong> Partner bank relationships (permanence), regulatory environment trends, credit loss rates on lending, and whether the embedded financial product increases core product stickiness or is easily commoditized.</p>
       </div>
     </div>
   </div>
 
-  <!-- BEAT 7: THREE PILLARS COMPARISON -->
+  <!-- BEAT 11: Consumer Subscriptions -->
   <div class="beat beat-card">
     <div class="beat-inner">
+      <div class="card-label">CONSUMER MODELS</div>
+      <h2 class="card-title">Consumer Subscriptions & Streaming</h2>
+      <div class="card-body">
+        <p><strong>Revenue Mechanics:</strong> Monthly/annual subscription. Freemium conversion rates typically 2-5% (Spotify ~3-4%). Premium ARPU vs blended ARPU (including free tier). Annual customers churn at 1/5th the rate of monthly (stickier due to sunk cost).</p>
+
+        <p><strong>Content Costs:</strong> Streaming services face massive content acquisition/licensing costs. Netflix spends $17B/year on content. Content amortization schedules (spreading costs across years) critically affect reported margins and GAAP accounting.</p>
+
+        <p><strong>Churn Dynamics:</strong> Voluntary churn (user cancels) vs involuntary churn (card fails). Involuntary churn can be 30-50% of total churn — retention efforts should focus here. Monthly plans churn 2-3x faster than annual.</p>
+
+        <p><strong>Key Metrics:</strong> Subscriber count, ARPU, churn rate (by cohort), subscriber acquisition cost (often through discounts or free trial), content cost per subscriber (should trend down as subscriber base grows), engagement minutes.</p>
+
+        <p><strong>Competitive Moats:</strong> Exclusive content (Netflix's strategy — costly and hard to replicate), catalog depth, recommendation algorithms (personalization), bundling (Apple One, Amazon Prime ecosystem).</p>
+
+        <div class="warning-box">
+          <span class="warning-label">Caution</span>
+          <p>High subscriber growth can mask deteriorating unit economics if content costs rise faster than ARPU. A company growing 50% but with content costs growing 75% is heading for margin compression. Watch cost per subscriber trend closely.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 12: AdTech & MarTech -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">ADVERTISING & MARKETING</div>
+      <h2 class="card-title">AdTech & MarTech</h2>
+      <div class="card-body">
+        <p><strong>Programmatic Ecosystem:</strong> DSPs (demand-side, buyers: The Trade Desk), SSPs (supply-side, publishers: Magnite), ad exchanges (connect buyers/sellers), data management platforms (DMPs, manage audience data).</p>
+
+        <p><strong>Pricing Models:</strong> CPM (cost per 1000 impressions, standard for brand), CPC (cost per click, performance-focused), CPA (cost per action/conversion, most efficient but hardest to scale). Average CPM ranges $2-15 depending on vertical and audience quality.</p>
+
+        <p><strong>Revenue Model:</strong> Platforms take percentage of ad spend passing through. DSPs/SSPs typically 10-20% take rate. Higher for niche platforms with valuable audiences. Lower for commodified inventory.</p>
+
+        <p><strong>Attribution Challenge:</strong> Multi-touch attribution (giving credit to all touchpoints), last-click attribution (credits only last touchpoint, often inflates performance), incrementality testing (did the ad actually drive the purchase?). Privacy changes (iOS ATT, cookie deprecation) are disrupting attribution.</p>
+
+        <p><strong>Key Risks:</strong> Dependence on third-party cookies (dying, regulatory pressure), platform concentration (Google/Meta duopoly control 60%+ of US digital ad spend), brand safety concerns (ads next to objectionable content), ad fraud (fake impressions, bot traffic).</p>
+
+        <p><strong>Margin Structure:</strong> MarTech (software-like, 70%+ gross margin) vs AdTech (lower margin due to media pass-through, 40-60% gross margin). AdTech is more leveraged on top-line growth for margin expansion.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 13: Vertical SaaS -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">SPECIALIZED SAAS</div>
+      <h2 class="card-title">Vertical SaaS: Depth Over Breadth</h2>
+      <div class="card-body">
+        <p><strong>Definition:</strong> SaaS purpose-built for a specific industry (healthcare, construction, restaurants, legal, dental). Examples: Toast (restaurants), Procore (construction), Veeva (life sciences), ServiceTitan (home services).</p>
+
+        <p><strong>Advantages Over Horizontal SaaS:</strong> Deeper workflow integration (product is mission-critical), higher NRR (not just retention but expansion through complementary features), lower churn (customer has no alternative), ability to embed payments and financial services.</p>
+
+        <p><strong>Embedded Payments Strategy:</strong> Many vertical SaaS companies process payments within their platform, adding 0.5-2% take rate on transaction volume as incremental revenue. Toast's payment product is 30%+ of revenue despite being "side business." This transforms revenue model from pure subscription to subscription + transaction.</p>
+
+        <p><strong>TAM Considerations:</strong> Individual vertical TAMs are smaller (~$10-50B for niche verticals) but often less competitive. "Big fish, small pond" strategy. Example: Toast's total addressable market is ~$50B (restaurant industry), but they dominate that segment.</p>
+
+        <p><strong>Valuation Premium:</strong> Vertical SaaS with embedded payments trades at premium to horizontal SaaS (15-20x ARR vs 10-15x for horizontal) due to dual revenue streams and higher switching costs. Harder to benchmark against pure SaaS comps.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 14: Primary Models Comparison -->
+  <div class="beat beat-card comparison-wide">
+    <div class="beat-inner">
       <div class="card-label">MODEL COMPARISON</div>
-      <h2 class="card-title">Three Pillars of TMT</h2>
+      <h2 class="card-title">The Model Comparison Matrix</h2>
       <div class="card-body">
         <div class="comparison-row">
           <div class="comparison-col">
             <div class="comparison-header">DIMENSION</div>
-            <div class="comparison-value"><strong>Marketplace</strong></div>
+            <div class="comparison-value"><strong>MARKETPLACE</strong></div>
           </div>
           <div class="comparison-col">
-            <div class="comparison-value"><strong>SaaS</strong></div>
+            <div class="comparison-value"><strong>SAAS</strong></div>
           </div>
           <div class="comparison-col">
-            <div class="comparison-value"><strong>Consumer</strong></div>
+            <div class="comparison-value"><strong>CONSUMER</strong></div>
           </div>
         </div>
         <div class="comparison-row">
           <div class="comparison-col">
-            <div class="comparison-header">Revenue</div>
+            <div class="comparison-header">Revenue Model</div>
             <div class="comparison-value">Take rate on GMV</div>
           </div>
           <div class="comparison-col">
@@ -567,6 +892,18 @@
           </div>
           <div class="comparison-col">
             <div class="comparison-value">Ads, IAP, subs, transactions</div>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <div class="comparison-header">Customer Type</div>
+            <div class="comparison-value">Buyers & sellers (two-sided)</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">Enterprise or SMB</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">Consumer (millions)</div>
           </div>
         </div>
         <div class="comparison-row">
@@ -583,14 +920,26 @@
         </div>
         <div class="comparison-row">
           <div class="comparison-col">
+            <div class="comparison-header">Monetization</div>
+            <div class="comparison-value">Take rate compression risk</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">Price increases possible</div>
+          </div>
+          <div class="comparison-col">
+            <div class="comparison-value">Unpredictable, ad-dependent</div>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col">
             <div class="comparison-header">Key Metric</div>
-            <div class="comparison-value">Take Rate, NPS</div>
+            <div class="comparison-value">GMV, take rate, NPS</div>
           </div>
           <div class="comparison-col">
-            <div class="comparison-value">NRR, LTV/CAC, Churn</div>
+            <div class="comparison-value">NRR, LTV/CAC, churn</div>
           </div>
           <div class="comparison-col">
-            <div class="comparison-value">DAU/MAU, Retention cohorts</div>
+            <div class="comparison-value">DAU/MAU, retention cohorts</div>
           </div>
         </div>
         <div class="comparison-row">
@@ -607,8 +956,8 @@
         </div>
         <div class="comparison-row">
           <div class="comparison-col">
-            <div class="comparison-header">Valuation</div>
-            <div class="comparison-value">GMV multiple (risky)</div>
+            <div class="comparison-header">Valuation Approach</div>
+            <div class="comparison-value">GMV multiple (risky) or revenue multiple</div>
           </div>
           <div class="comparison-col">
             <div class="comparison-value">ARR multiple + Rule of 40</div>
@@ -621,146 +970,497 @@
     </div>
   </div>
 
-  <!-- BEAT 8: GMV-TO-REVENUE -->
+  <!-- BEAT 15: GMV to Revenue Translation -->
   <div class="beat beat-card">
     <div class="beat-inner">
-      <div class="card-label">MARKETPLACE ECONOMICS</div>
-      <h2 class="card-title">GMV Is Not Revenue</h2>
+      <div class="part-label">PART III — ADVANCED DYNAMICS</div>
+      <div class="card-label">MARKETPLACE MATH</div>
+      <h2 class="card-title">GMV → Take Rate → Revenue → Profit</h2>
       <div class="card-body">
-        <p><strong>The Chain:</strong> GMV (total transacted) → × Take Rate = Net Revenue → − Costs = Gross Profit</p>
-        <p>Example: $100B GMV marketplace with 2% take rate generates $2B in revenue. Then subtract costs (platform, customer support, payment processing, hosting) to get actual gross profit.</p>
-        <p><strong>Common Pitfalls:</strong></p>
+        <p><strong>The Full Chain Explained:</strong></p>
         <ul class="bullet-list">
-          <li><strong>GMV-as-revenue:</strong> Using GMV multiples instead of revenue multiples. Dangerous. A $10B GMV marketplace valued at 3x GMV sounds cheap until you realize it's generating only $200M revenue (2% take) and valued at 150x revenue.</li>
-          <li><strong>Overstated cohort performance:</strong> Showing gross bookings instead of net revenue; not accounting for cancellations, refunds, and payment failures.</li>
-          <li><strong>Gross vs. net confusion:</strong> Mixing GMV with revenue in the same breath. Always separate them.</li>
-          <li><strong>Take rate decay:</strong> As marketplaces mature and competition increases, take rates compress.</li>
+          <li><strong>GMV:</strong> Total dollar value of all transactions on platform</li>
+          <li><strong>Take Rate:</strong> % the platform keeps (e.g., 12%)</li>
+          <li><strong>Net Revenue:</strong> GMV × Take Rate = revenue to platform</li>
+          <li><strong>Less: Direct Costs:</strong> Payment processing (~2%), fraud/chargebacks (~0.5%), seller guarantees/insurance (~1%)</li>
+          <li><strong>Gross Profit:</strong> Net Revenue − Direct Costs</li>
+          <li><strong>Gross Margin:</strong> Gross Profit / Net Revenue</li>
         </ul>
-        <p><strong>Diligence:</strong> Always derive revenue from GMV and stated take rate. Verify take rate trends over time.</p>
+
+        <div class="example-box">
+          <span class="example-label">Worked Example: Marketplace Economics</span>
+          $1B GMV marketplace, 12% take rate → $120M revenue. Less $20M payment processing, $5M fraud costs, $3M seller guarantees → $92M gross profit (77% gross margin on net revenue, but only 9.2% of GMV). Typical marketplace gross margins: 60-80% on net revenue, but 5-15% of GMV. This is why GMV multiples are misleading.
+        </div>
+
+        <p><strong>Critical Insight:</strong> GMV is a growth and health indicator (showing transaction volume), but NOT equivalent to revenue. A $10B GMV marketplace is NOT comparable to a $10B revenue SaaS company. Always translate GMV to revenue first via take rate.</p>
       </div>
     </div>
   </div>
 
-  <!-- BEAT 9: NETWORK EFFECTS & RETENTION -->
+  <!-- BEAT 16: Valuation Pitfalls -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">VALUATION TRAPS</div>
+      <h2 class="card-title">Valuation Pitfalls in TMT</h2>
+      <div class="card-body">
+        <div class="warning-box">
+          <span class="warning-label">Trap 1: GMV Multiples</span>
+          <p>Using GMV Multiples Indiscriminately: a $10B GMV marketplace at 0.5x GMV sounds cheap ($5B valuation). But if take rate is 2%, revenue is only $200M. Implied EV/Revenue is 25x—actually expensive. Always convert GMV to revenue first.</p>
+        </div>
+
+        <div class="warning-box">
+          <span class="warning-label">Trap 2: Cohort Inflation</span>
+          <p>Overstating Cohort Performance: early cohorts often include enthusiastic power users (selection bias). Projecting their LTV/CAC onto later cohorts overstates true lifetime value. Demand by-cohort data; don't average them.</p>
+        </div>
+
+        <div class="warning-box">
+          <span class="warning-label">Trap 3: Gross vs Net</span>
+          <p>Gross vs Net Confusion: some companies report gross bookings as "revenue." ASC 606 requires net revenue recognition (excluding pass-through amounts). Verify what the income statement shows; demand a revenue bridge from gross bookings to net revenue.</p>
+        </div>
+
+        <div class="warning-box">
+          <span class="warning-label">Trap 4: Unit Economics</span>
+          <p>Ignoring Unit Economics: chasing revenue growth while LTV/CAC is below 1x is capital destruction masquerading as growth. A company with $500M revenue and 0.5x LTV/CAC is losing $1 on every $2 of revenue. Eventually, this hits the wall.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 17: Network Effects Deep Dive -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">RETENTION MECHANICS</div>
+      <h2 class="card-title">Network Effects: The Full Taxonomy</h2>
+      <div class="card-body">
+        <p><strong>Direct Network Effects:</strong> Each new user increases value for all existing users. Social networks (Slack, WhatsApp, Discord), messaging apps. Measured by DAU/MAU ratio. Example: WhatsApp — each new user makes it more valuable for everyone. First-to-scale has massive advantage.</p>
+
+        <p><strong>Cross-Side Network Effects:</strong> More users on one side attract more on the other. Marketplaces (Uber, Airbnb, DoorDash). More sellers → better selection → more buyers → more sellers (virtuous cycle). Measured by liquidity metrics (time-to-match, availability, selection). Cross-side effects are weaker than direct (buyers don't care how many other buyers exist) but often sufficient for defensibility.</p>
+
+        <p><strong>Data/Tech-Driven Network Effects:</strong> More usage improves product via algorithms or shared data. Navigation apps (Waze — more drivers = better routing), recommendation engines (TikTok — more data = better recommendations), search (Google — more queries = better index). Each user's data makes the product better for everyone, but not directly — through the product's improvement.</p>
+
+        <p><strong>Why Network Effects Matter for Retention:</strong> In non-contractual settings (marketplaces, consumer apps), network effects ARE the retention mechanism. Without them, users can leave freely. The strength of network effects directly correlates to churn rates. Platforms with strong direct network effects (Discord, Slack) have extremely low churn (1-2% monthly). Platforms without network effects (commodity marketplaces) have high churn (5-10% monthly).</p>
+
+        <p><strong>Measuring Network Effects Strength:</strong> Cohort analysis comparing Day 1 retention to Day 365 retention. Strong network effects show steep drop initially (0-30 days) then flattening (30+ days as the user has invested in the network). Weak network effects show consistent decline with no flattening.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 18: Non-Contractual Retention -->
   <div class="beat beat-card">
     <div class="beat-inner">
       <div class="card-label">RETENTION DYNAMICS</div>
-      <h2 class="card-title">Network Effects & Non-Contractual Retention</h2>
+      <h2 class="card-title">Retention Without a Contract</h2>
       <div class="card-body">
-        <p><strong>Types of Network Effects:</strong></p>
+        <p><strong>Contractual vs. Non-Contractual:</strong> SaaS (contract signed, customer must actively cancel) vs. marketplace/consumer (no contract, user can leave instantly). Contractual retention is easier to forecast; non-contractual requires constant engagement.</p>
+
+        <p><strong>Churn Ladder Concept:</strong> Users pass through stages: Active → Inactive → Dormant → Deleted. Churn risk decreases as users pass engagement milestones. Week 1 churn is highest (70-80% of signups churn in week 1 for many consumer apps). Users who survive month 3 are much stickier (20-30% monthly churn vs 70%+ week 1 churn).</p>
+
+        <p><strong>Key Metrics:</strong> 1-day, 7-day, 30-day, 90-day retention (% of Day 0 users still active at each milestone). DAU/MAU ratio (average engagement). Retention curves should show steep initial drop then flattening — not consistent decline.</p>
+
+        <p><strong>Multi-Homing Risk:</strong> Users participate in multiple competing platforms simultaneously (Uber/Lyft drivers, TikTok/Instagram creators). Erodes network effect moat. Increases switching likelihood. CAC is wasted if customer multi-homes because they have reduced stickiness.</p>
+
+        <p><strong>Switching Costs in Non-Contractual Models:</strong> User profiles (takes time to rebuild), social graphs (friends list is valuable), accumulated data (reputation, seller ratings), loyalty rewards (sunk spend). These are weaker than contractual switching costs but still meaningful.</p>
+
+        <div class="formula-box">
+          <span class="formula-label">DAU/MAU Interpretation</span>
+          If DAU/MAU = 50%, average user is active ~15 days/month. If DAU/MAU = 20%, average user is active ~6 days/month. Benchmark: 50%+ = highly sticky, 20-30% = typical social, &lt;20% = weak engagement.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 19: Marketplaces I — Buyer/Seller Dynamics -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">MARKETPLACE DYNAMICS</div>
+      <h2 class="card-title">Marketplaces: The Chicken-and-Egg Problem</h2>
+      <div class="card-body">
+        <p><strong>The Fundamental Challenge:</strong> Attracting sellers without buyers is impossible (why list if no one will see it?). Attracting buyers without sellers is equally impossible (why browse empty inventory?). Solving this is the critical first mile of any marketplace.</p>
+
+        <p><strong>Bootstrapping Strategies:</strong></p>
         <ul class="bullet-list">
-          <li><strong>Direct:</strong> Value increases with each user (e.g., Slack, WhatsApp). Rare and powerful.</li>
-          <li><strong>Cross-side:</strong> Buyers benefit from more sellers, and vice versa (marketplaces). Often weaker than direct.</li>
-          <li><strong>Data-driven:</strong> Platform gets smarter with scale, improving user experience (e.g., search, recommendation engines).</li>
+          <li><strong>Seed Supply:</strong> Airbnb photographed early listings themselves; StockX seeded with their own authentication team's inventory</li>
+          <li><strong>Single-Player Mode:</strong> Provide value even without the other side. Craigslist is useful to browse even if you never post. OpenTable works for reservations even if restaurant supply is thin.</li>
+          <li><strong>Subsidize One Side:</strong> Pay sellers to list (via bounties, subsidized listing fees). Offer buyers huge discounts on first purchase. You're manufacturing liquidity initially.</li>
+          <li><strong>Geographic Focus:</strong> Start hyperlocal (one city) to reach critical mass faster than national approach</li>
         </ul>
-        <p><strong>Contractual vs. Non-Contractual Retention:</strong> SaaS has contractual lock-in (signed agreements). Marketplaces and consumer apps rely on non-contractual retention — users stay because they prefer the platform, not because they're bound.</p>
-        <p><strong>Churn Ladder:</strong> Understanding how users churn in stages: from active → inactive → dormant → deleted. Multi-homing risk: users' willingness to use competitors simultaneously erodes switching costs.</p>
-        <p><strong>Key Metrics:</strong> 30-day retention (% of Day 0 users still active 30 days later), DAU/MAU ratio (engagement stickiness), and cohort retention curves.</p>
+
+        <p><strong>Liquidity Metrics:</strong> Time-to-fill an order (how long from buyer posting request to seller responding), percentage of listings that sell (conversion rate), match rate (% of demand matched with supply), inventory depth (how many options does buyer see).</p>
+
+        <p><strong>Buyer Retention:</strong> Driven by selection, price, convenience. Measured by repeat purchase rate (3-month, 6-month, lifetime repeat). Expected repeat frequency varies: ride-sharing (3-5x/month), food delivery (1-2x/week), e-commerce (quarterly).</p>
+
+        <p><strong>Seller Retention:</strong> Driven by sales volume (am I making money?) and platform costs (take rate). Measured by active listing rate (% of sellers still listing after 6 months), seller churn by GMV tier (small sellers churn more).</p>
+
+        <p><strong>Supply-Demand Balance:</strong> Too much supply → seller churn (no sales, abandon). Too much demand → buyer churn (out of stock, long wait times, poor experience). Healthy marketplace has slight supply constraint (healthy price floor) with high match rates.</p>
       </div>
     </div>
   </div>
 
-  <!-- BEAT 10: MARKETPLACES DEEP DIVE -->
+  <!-- BEAT 20: Marketplaces II — Monetization & Take Rates -->
   <div class="beat beat-card">
     <div class="beat-inner">
-      <div class="card-label">PLATFORM MODELS</div>
-      <h2 class="card-title">Marketplaces</h2>
+      <div class="card-label">MARKETPLACE MONETIZATION</div>
+      <h2 class="card-title">Marketplaces: Monetization & Take Rates</h2>
       <div class="card-body">
-        <p><strong>Core Dynamics:</strong> Two-sided networks with distinct buyer and seller economics. Success requires solving the <strong>chicken-and-egg problem</strong> — bootstrap both sides simultaneously without either subsidizing the other perpetually.</p>
-        <p><strong>Take Rate & Trust:</strong> Higher take rates incentivize the platform but can push sellers to multi-home or transact off-platform. Trust mechanisms (reviews, ratings, fraud protection, insurance) are essential but costly.</p>
-        <p><strong>Horizontal vs. Vertical:</strong> Horizontal marketplaces (Etsy, eBay) are harder to scale but have larger TAM. Vertical marketplaces (industry-specific) have lower TAM but higher attachment and switching costs.</p>
-        <p><strong>Disintermediation Risk:</strong> Sellers and buyers may connect directly, bypassing the platform and its take rate. More acute in B2B or services marketplaces.</p>
-        <p><strong>CAC Payback in Marketplaces:</strong> Unlike SaaS's monthly recurring model, marketplaces' unit economics depend on repeat transaction frequency and take rate. CAC payback can take 12–24 months or longer.</p>
-        <p><strong>Scale Strategy:</strong> Successful marketplaces often use subsidies (discounts, bounties) to bootstrap one side, then rely on network effects to reduce subsidy dependency.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- BEAT 11: CONSUMER PLATFORMS & SUPERAPPS -->
-  <div class="beat beat-card">
-    <div class="beat-inner">
-      <div class="card-label">CONSUMER TECH</div>
-      <h2 class="card-title">Consumer Platforms & Superapps</h2>
-      <div class="card-body">
-        <p><strong>Engagement Loops:</strong> Consumer platforms live or die by habit-forming engagement. Key levers:</p>
+        <p><strong>Take Rate Structures:</strong></p>
         <ul class="bullet-list">
-          <li><strong>Social graph:</strong> Friends' activity drives return visits (Facebook, Instagram).</li>
-          <li><strong>Content discovery:</strong> Algorithmic recommendations keep users scrolling (TikTok, YouTube).</li>
-          <li><strong>Gamification:</strong> Points, streaks, leaderboards, achievement badges.</li>
-          <li><strong>Notifications:</strong> Timely alerts to re-engage lapsed users (often overused and damaging to retention).</li>
+          <li><strong>Seller Commission:</strong> Most common. Platform takes % of transaction value. Range: 5-50% depending on vertical.</li>
+          <li><strong>Buyer Service Fee:</strong> Platforms charge buyer instead (Uber, food delivery). Consumer feels the fee directly, which limits take rate (buyer price sensitivity).</li>
+          <li><strong>Listing Fees:</strong> Fixed cost to list (eBay, Airbnb). Creates consistent revenue but limits seller supply if fees are too high.</li>
+          <li><strong>Promoted Placement:</strong> Sellers pay extra to appear at top of search results. Can be 10-30% of marketplace revenue at mature stage.</li>
+          <li><strong>Subscription for Premium Sellers:</strong> Unlimited listings, better visibility, analytics tools. High-margin revenue stream.</li>
         </ul>
-        <p><strong>Monetization Paths:</strong> Ads (CPM-based), in-app purchases (IAP, virtual goods), subscriptions (premium tier), and transactions (take rate on bookings or payments).</p>
-        <p><strong>Superapps (WeChat, Grab, Alipay model):</strong> One app, multiple services. Ride-hailing + payments + shopping + social. ARPU is higher because of multiple revenue streams and cross-selling opportunities. Requires massive scale to justify the engineering complexity.</p>
-        <p><strong>Key Metrics:</strong> DAU/MAU (daily divided by monthly actives — higher is stickier), retention cohorts at day 1, 7, 30, and 90, and ARPU/ARPPU growth.</p>
+
+        <p><strong>Take Rate Ranges by Vertical:</strong> Product e-commerce 5-15%, service marketplaces 15-30%, financial services 1-3% (high volume, thin margin), luxury goods 10-20%.</p>
+
+        <p><strong>GMV Is NOT Revenue (Critical):</strong> Revenue = GMV × take rate. A $100M GMV marketplace at 5% take rate generates $5M revenue, not $100M. This distinction is load-bearing for valuation — many investors mistake GMV for revenue.</p>
+
+        <p><strong>CAC Dynamics — Two Cohorts:</strong> Separate CAC for buyers and sellers. Supply-side CAC often lower (sellers are eager for new distribution channels). Demand-side CAC can be high (need to acquire many buyers to create demand). Total CAC = blend of both cohorts.</p>
+
+        <div class="example-box">
+          <span class="example-label">CAC Payback in Marketplaces</span>
+          $50 buyer CAC, average buyer makes $200 purchases/month, 12% take rate → $24/month net take → CAC payback = 2.1 months. Much shorter than SaaS (12-18 months) because of transaction frequency. For sellers: $100 CAC, platform fee 15%, average seller does $5000/month volume → $750/month revenue → payback = 1.3 months. Marketplaces have faster payback than SaaS due to transaction frequency.
+        </div>
+
+        <p><strong>Disintermediation Risk:</strong> Users bypass platform after initial connection. High risk in services (freelancer and client connect then transact off-platform). Platforms combat via escrow (hold payment until delivery), insurance, dispute resolution, mandatory use of platform payment system.</p>
       </div>
     </div>
   </div>
 
-  <!-- BEAT 12: CREATOR ECONOMIES -->
+  <!-- BEAT 21: Marketplaces III — Structure & Evaluation -->
   <div class="beat beat-card">
     <div class="beat-inner">
-      <div class="card-label">EDGE MONETISATION</div>
-      <h2 class="card-title">Creator Economies</h2>
+      <div class="card-label">MARKETPLACE EVALUATION</div>
+      <h2 class="card-title">Evaluating Marketplace Health</h2>
       <div class="card-body">
-        <p><strong>Platform Rake:</strong> The platform takes a commission on creator earnings. Examples:</p>
+        <p><strong>Horizontal vs. Vertical:</strong> Horizontal (Craigslist, eBay, Amazon Marketplace) serve many categories, broad TAM, shallow moat. Easy to enter but hard to dominate any segment. Vertical (StockX for sneakers, Airbnb for hospitality, Veepee for flash sales) serve one category, narrow TAM, deep moat, higher take rates. Vertical marketplaces trade at premium multiples due to defensibility.</p>
+
+        <p><strong>Trust Mechanisms — Critical Infrastructure:</strong> Ratings/reviews (visible seller quality), verification (identity, credentials), escrow (hold payment), insurance (refund guarantees), fraud detection (detect bad actors). Trust is a direct driver of retention. Without it, liquidity collapses. Trust-building is expensive but mandatory.</p>
+
+        <p><strong>Diligence Checklist:</strong></p>
         <ul class="bullet-list">
-          <li><strong>YouTube:</strong> 55% to creator, 45% to YouTube (but varies by geography and ad type).</li>
-          <li><strong>App Store:</strong> 70% to developer, 30% to Apple (plus tax).</li>
-          <li><strong>Patreon:</strong> 5–12% platform fee depending on tier.</li>
-          <li><strong>Twitch:</strong> 50/50 split on subscriptions; variable on ads.</li>
+          <li>Liquidity metrics improving? (time-to-match down, match rate up?)</li>
+          <li>Take rate stable or expanding? (compression = red flag)</li>
+          <li>Cohort GMV growing? (each new seller cohort doing more volume?)</li>
+          <li>Organic acquisition rising? (lower dependence on paid, indicating moat)</li>
+          <li>Buyer and seller retention healthy? (both sides sticking, not churning)</li>
+          <li>Unit economics positive at steady state? (enough margin to support growth spend and profitability)</li>
         </ul>
-        <p><strong>Creator Concentration Risk:</strong> A small percentage of creators generate the majority of revenue. Losing top creators can crater platform revenue and reputation. Platform dependence is high; creators are always threatened by rival platforms offering better terms.</p>
-        <p><strong>Monetization Levers:</strong> Ads (CPM-based), subscriptions (recurring access to exclusive content), tips/donations, virtual goods (emotes, badges), and revenue sharing on creator-adjacent services.</p>
-        <p><strong>Diligence:</strong> Track creator churn, average creator tenure, and concentration metrics (e.g., top 1% of creators' share of revenue). Watch for top creators threatening to leave.</p>
+
+        <p><strong>Mature Marketplace Signals:</strong> Rising organic acquisition (users finding platform without ads, true network effect), improving cohort economics (newer cohorts performing better than earlier ones due to platform improvements), take rate stability (established brand can defend pricing), margin expansion (fixed costs spread across growing volume).</p>
       </div>
     </div>
   </div>
 
-  <!-- BEAT 13: NICHE MODELS & WEAKNESSES -->
+  <!-- BEAT 22: Consumer Platforms — Engagement -->
   <div class="beat beat-card">
     <div class="beat-inner">
-      <div class="card-label">STRUCTURAL ANALYSIS</div>
-      <h2 class="card-title">Niche Models & Their Weaknesses</h2>
+      <div class="card-label">CONSUMER ENGAGEMENT</div>
+      <h2 class="card-title">Consumer Platforms: Engagement Architecture</h2>
       <div class="card-body">
-        <p><strong>Social-Graph Platforms (Facebook, Snapchat, TikTok):</strong> Saturation in mature markets (growth slowing), content fatigue (users running out of novel content to consume), and privacy regulation (GDPR, iOS App Tracking Transparency) eroding targeting and attribution.</p>
-        <p><strong>Zero-to-One / Hyperlocal Platforms (local services, delivery):</strong> Multi-homing (users and providers use multiple apps), thin margins (high take rate → low supply incentive), regulatory risk (gig classification, price controls), and difficulty achieving unit economics.</p>
-        <p><strong>Hardware-Backed Software (Apple Watch, VR headsets, gaming consoles):</strong> Lower software margins due to hardware subsidy; product cycles are longer and riskier; ecosystem lock-in is strong but fragile (if hardware fails, the ecosystem collapses). Obsolescence cycles are unforgiving.</p>
-        <p><strong>Creator-Dependent Platforms (OnlyFans, Substack):</strong> Creator churn is devastating. Platform lock-in is weak (creators can email followers directly). Revenue per creator is often insufficient, leading to burnout and migration.</p>
-      </div>
-    </div>
-  </div>
+        <p><strong>DAU/MAU as Core Metric:</strong> Higher ratio = more habitual use. Benchmarks: messaging >60%, social 30-50%, content/media 20-30%, e-commerce <15%. Stickiness is the #1 predictor of ad revenue (more engagement = more ad impressions).</p>
 
-  <!-- BEAT 14: RED FLAGS -->
-  <div class="beat beat-card">
-    <div class="beat-inner">
-      <div class="card-label">DUE DILIGENCE</div>
-      <h2 class="card-title">Red Flags in TMT</h2>
-      <div class="card-body">
-        <p><strong>Inflated Take Rates:</strong> Stated take rate is higher than industry benchmarks. Either the company is unsustainably undercutting competitors or the stated rate is inflated (users are transacting off-platform).</p>
-        <p><strong>Artificial GMV:</strong> GMV includes canceled orders, returned goods, or intercompany transactions. Always separate GMV into completed transactions and actual customer revenue.</p>
-        <p><strong>Gross vs. Net Confusion:</strong> Company mixes GMV with revenue in earnings presentations. Watch for it in guidance and press releases.</p>
-        <p><strong>CAC Delusions:</strong></p>
+        <p><strong>Onboarding Conversion Funnel:</strong> Signups → install → first action → repeat use → daily user. Typical conversion: 100% signups → 50% install → 30% first action → 10% repeat → 3% daily users. Many consumer platforms lose 70-80% of new signups within the first week. Improving onboarding is highest ROI investment.</p>
+
+        <p><strong>Engagement Loops (The Core Engine):</strong></p>
         <ul class="bullet-list">
-          <li>Ignoring true CAC costs (customer success, onboarding, refunds, payment processing).</li>
-          <li>Unrealistic LTV assumptions (assuming customers stay forever at premium pricing).</li>
-          <li>Blended cohorts (mixing high-quality and low-quality cohorts to hide bad retention in some segments).</li>
-          <li>No cohort breakdown by channel (organic vs. paid), geography, or customer segment.</li>
+          <li><strong>Social Interaction Loop:</strong> Create content → receive feedback (likes, comments) → emotional reward → return to create more. Facebook/Instagram primary loop.</li>
+          <li><strong>Content Consumption Loop:</strong> Consume content → algorithm learns preferences → better recommendations → consume more. TikTok, YouTube primary loop.</li>
+          <li><strong>Gamification Loop:</strong> Complete action → earn reward (points, badges) → maintain streak → continue engagement. Duolingo, Snapchat streaks.</li>
+          <li><strong>Cross-Service Loop (Superapps):</strong> Use feature A → discover feature B → use both → deeper lock-in. WeChat: messaging + payments + mini-apps = multi-hour daily engagement.</li>
         </ul>
-        <p><strong>Selective Cohort Reporting:</strong> Company highlights strong cohorts but omits weaker ones. Demand full cohort detail across all acquisition channels.</p>
-        <p><strong>Over-Adjusted EBITDA:</strong> Too many adjustments hide operating reality. Scrutinize every adjustment; reconstruct EBITDA from cash flow.</p>
-        <p><strong>Misaligned Incentives:</strong> Leadership is overcompensated relative to performance; stock grants are excessive; employee turnover is high.</p>
+
+        <p><strong>Retention Curves:</strong> Shape is critical. Healthy curves show steep initial drop (0-7 days, half of signups churn), then flattening after day 30 (retained core is much stickier). The "retained core" size (% of signups still active at day 365) multiplied by ARPU = sustainable revenue base.</p>
+
+        <p><strong>Cohort Decay Metrics:</strong> Measure each signup cohort's retention over time. Track if each new cohort is stickier (retention curve improving) or leakier (retention curve declining). Declining retention = product-market fit is eroding.</p>
       </div>
     </div>
   </div>
 
-  <!-- BEAT 15: FINALE -->
+  <!-- BEAT 23: Consumer Platforms — Monetization -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">CONSUMER MONETIZATION</div>
+      <h2 class="card-title">Consumer Monetization Paths</h2>
+      <div class="card-body">
+        <p><strong>Advertising (CPM-Based):</strong> Revenue = Impressions × CPM / 1000. Key metrics: ad ARPU (monthly ad revenue per user), fill rate (% of available inventory that's sold), ad load (% of feed that's ads). Higher ad load = more revenue but worse user experience and potential churn.</p>
+
+        <p><strong>In-App Purchases (IAP):</strong> Virtual goods (cosmetics, skins), power-ups, battle passes, currency. Conversion rate typically 2-5% (free → paying). Revenue heavily skewed: top 10% of payers generate 50%+ of IAP revenue ("whales"). ARPPU is the key metric — wide gap between median paying user (~$20/year) and average paying user (~$100/year indicates whale concentration).</p>
+
+        <p><strong>Subscriptions (Premium Tier):</strong> YouTube Premium, Spotify Premium, LinkedIn Premium. Recurring and predictable but requires compelling differentiation from free tier. Conversion to premium: 1-3% typical. Premium ARPU: $60-120/year typical. More stable than ad revenue (less volatile with ad market conditions).</p>
+
+        <p><strong>Transactions (Take Rate):</strong> Platform takes percentage of commerce transacted within app. Instagram Shopping (10-15% from checkout), WeChat Pay (1-2%), mobile games (30% of IAP from Apple/Google). Can add up — even low take rates are valuable at scale.</p>
+
+        <p><strong>Blended LTV Calculation:</strong> A single user may generate ad revenue (free tier) + have probability of converting to subscriber + probability of making IAP. Total LTV = (months active × monthly ad ARPU) + (P(subscriber) × subscriber LTV) + (P(IAP converter) × IAP LTV). This is why engagement metrics (DAU/MAU) are so critical — they determine ad inventory, which drives ad revenue.</p>
+
+        <p><strong>Monetization Curve Over Time:</strong> Many platforms launch free only, then layer monetization. Mature platforms: 80-90% free users, 8-12% premium subscribers, 2-5% whale IAP users. The mix shifts based on user base composition and platform focus.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 24: Superapps -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">COMPLEX PLATFORMS</div>
+      <h2 class="card-title">Superapps: The Multi-Service Model</h2>
+      <div class="card-body">
+        <p><strong>Definition:</strong> Single app aggregating many services — messaging, payments, ride-hailing, food delivery, e-commerce, financial services. Examples: WeChat (China, 1+ trillion message volume/day), Grab (Southeast Asia, ride + food + payments), Gojek (Indonesia, 5+ services).</p>
+
+        <p><strong>Economics of Cross-Sell:</strong> Each user's ARPU increases as they use more services. Ride-hailing user base → cross-sell payments → cross-sell food delivery → cross-sell fintech. Each additional service increases switching cost (data lock-in across services) and daily engagement (more reasons to open app). WeChat average user is active 4+ hours/day vs. single-service apps at 30-60 minutes/day.</p>
+
+        <p><strong>Operational Complexity:</strong> Each service has its own unit economics, competitive dynamics, regulatory environment. Segment reporting is crucial to understand which services are profitable. Example: ride-hailing may be unprofitable (thin margins, regulatory costs), but payments + fintech are highly profitable and subsidize growth of ride-hailing.</p>
+
+        <p><strong>Regional Differences:</strong> Superapps flourished in Asia (less friction from platform rules, mobile-first economies, regulatory support). Western attempts (Uber: rides + delivery + freight, Meta: social + messaging + commerce) struggled due to iOS/Android app store restrictions and consumer habits favoring specialized apps. The superapp model is fundamentally incompatible with iOS app store economics (30% take rate, app focus).</p>
+
+        <p><strong>Diligence Focus:</strong> Track revenue by service, contribution margin by segment (not all services are equally profitable), user overlap across services (are users actually cross-using or just siloed?), and whether cross-sell is actually happening or just theoretical benefit claimed by management.</p>
+
+        <p><strong>Valuation Complexity:</strong> Superapps are valued as sum-of-parts: profitable payments segment (high multiple) + growth ride-hailing segment (low or negative multiple) + emerging fintech segment (speculative). Don't apply single multiple to total revenue — break down by segment first.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 25: Creator Economies — Revenue Sharing -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">CREATOR ECONOMICS</div>
+      <h2 class="card-title">Creator Economies: Who Gets Paid</h2>
+      <div class="card-body">
+        <p><strong>Revenue Sharing Models with Specific Splits:</strong></p>
+        <ul class="bullet-list">
+          <li><strong>YouTube:</strong> 55% to creator, 45% to YouTube on ads. Super Chat (live donations): ~70/30.</li>
+          <li><strong>Apple App Store:</strong> 70% to developer, 30% to Apple. Small developer program: 85/15. Subscription renewals after year 1: 85/15 (incentivizes retention).</li>
+          <li><strong>Twitch:</strong> 50/50 on subscriptions (top streamers negotiate better terms, often 70/30). Bits (platform currency): ~70% to creator.</li>
+          <li><strong>Patreon:</strong> 5-12% platform fee depending on tier. Creator keeps 88-95%. Most creator-friendly major platform.</li>
+          <li><strong>OnlyFans:</strong> 80/20 split — creators keep 80%, platform keeps 20%. Attractive to creators, hence growth despite reputation issues.</li>
+          <li><strong>Substack:</strong> 10% of subscription revenue. Creators own subscriber list and can export anytime (low lock-in).</li>
+          <li><strong>Roblox:</strong> ~25% to creators after platform and infrastructure fees. Lowest take for creators, but massive user base compensates.</li>
+        </ul>
+
+        <p><strong>Edge Monetization Concept:</strong> Revenue generated at the "edges" (between users/creators and consumers) rather than by the platform centrally. Platform takes a slice. Digital goods have near-zero marginal cost, so revenue-split decisions are about ecosystem incentives, not cost coverage. Platforms want to maximize creator earnings to attract supply, but also need to be profitable.</p>
+
+        <p><strong>Creator Incentive Alignment:</strong> Better creator splits attract higher-quality creators (Patreon's 5% fee attracts serious creators over YouTube's 45% split). But platform needs profit to fund features. Tension: creative economy platforms are usually cash-negative because they prioritize creator economics over platform profitability.</p>
+
+        <p><strong>Platform Stickiness Through Creator Dependence:</strong> Creator earnings dependence on platform (e.g., Twitch streamers earning majority of income from subs + ads) creates moat. Streamers' audience and earnings are tied to the platform. Switching costs: lose all subscribers if you leave.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 26: Creator Economies — Dynamics & Risks -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">CREATOR RISKS</div>
+      <h2 class="card-title">Creator Concentration & Platform Risk</h2>
+      <div class="card-body">
+        <p><strong>Creator Concentration — Pareto Distribution:</strong> Top 1% of creators generate disproportionate revenue (often 30-50% of total). Top 10% generate 80%+ of total. Losing a top creator can crater the platform. YouTube's top 100 creators drive significant traffic; losing PewDiePie would be catastrophic.</p>
+
+        <p><strong>Rake Compression — Competitive Pressure:</strong> Platforms forced to offer better terms to creators. Apple's 30% cut faces legal challenges (Epic Games lawsuit) and developer backlash. Patreon keeps rates low (5-12%) to attract creators. OnlyFans' 20% take is higher but still competitive in creator space. As competition intensifies, platforms race-to-the-bottom on creator split.</p>
+
+        <p><strong>Multi-Platform Presence — Diversification:</strong> Smart creators spread across YouTube + TikTok + Twitch + newsletter (Substack) + Patreon. Reduces platform lock-in. If YouTube changes payout structure, creators have alternatives. Platforms know this and it limits pricing power.</p>
+
+        <p><strong>Virtual Economies and Edge Transactions:</strong> Skins, tips, donations, badges. These edge transactions align creator and platform incentives (both benefit from high spend). Creates engagement loop: creators incentivized to engage audience (more tips), users incentivized to support creators (cultural status from tips), platform takes a cut. More stable revenue stream than ads (less dependent on ad market).</p>
+
+        <p><strong>Diligence Checklist:</strong></p>
+        <ul class="bullet-list">
+          <li>Creator growth rate: is creator supply growing? (sign of platform traction)</li>
+          <li>Average creator tenure: how long do creators stay? (low tenure = high churn, risky)</li>
+          <li>Revenue concentration: top 10 creators as % of total revenue? (high = risky)</li>
+          <li>Creator churn by cohort: are newer creators sticking? (declining retention = problem)</li>
+          <li>Average creator earnings trend: are earnings improving or declining? (declining = churn risk)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 27: Social-Graph Models — Weaknesses -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="part-label">PART IV — STRUCTURAL WEAKNESSES</div>
+      <div class="card-label">MODEL VULNERABILITIES</div>
+      <h2 class="card-title">Social-Graph Platforms: Built-In Weakness</h2>
+      <div class="card-body">
+        <p><strong>Definition:</strong> Platforms built on real-world connections (Facebook, LinkedIn, Snapchat). Strength: strong initial lock-in (your network is there). Weakness: ceiling on growth once addressable population is saturated and connected.</p>
+
+        <p><strong>Saturation & Demographic Shifts:</strong> Once everyone is on the platform, growth stalls (Facebook — 3 billion users, 90% of addressable market in developed countries). Younger demographics actively avoid platforms their parents use (teens leaving Facebook, older demographics driving Discord usage decline). Network that was value becomes burden.</p>
+
+        <p><strong>Content Fatigue:</strong> Social-graph content depends on friends posting novel updates. Over time, posting declines (people sharing less personal information due to privacy concerns, "performance" burden, competition for attention from other platforms). Feed becomes stale, engagement declines, users churn.</p>
+
+        <p><strong>Monetization Ceiling:</strong> Ads in a personal social feed feel intrusive. There's a limit to ad load before experience degrades and users leave. You can't monetize a dead network. Facebook hit monetization ceiling when engagement plateaued.</p>
+
+        <p><strong>Privacy & Regulation Pressure:</strong> GDPR, Cambridge Analytica scandal, iOS App Tracking Transparency (kills third-party cookies/identifiers). Targeted advertising (the main revenue source) faces structural headwinds. Can't target as precisely → lower CPM → lower ad revenue.</p>
+
+        <p><strong>Competition from Interest-Graph Platforms:</strong> TikTok proved algorithmic content discovery can compete with social-graph lock-in. Algorithm-selected videos are often more engaging than friends' real-world updates. Legacy platforms had to add Reels/Shorts to compete, cannibalizing their own ad inventory and engagement.</p>
+
+        <div class="warning-box">
+          <span class="warning-label">Weakness</span>
+          <p>Social-graph platforms face structural decline as they mature. Demographic churn, content fatigue, privacy regulations, and algorithmic competition create a long-term headwind. Growth comes only from geographic/demographic expansion (emerging markets) or acquisition of younger platforms (Instagram acquisition by Facebook, TikTok's growth despite competitive threats).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 28: Zero-to-One / Hyperlocal Platforms -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">STRUCTURAL WEAKNESS</div>
+      <h2 class="card-title">Zero-to-One & Hyperlocal Platforms</h2>
+      <div class="card-body">
+        <p><strong>Definition:</strong> Platforms that created entirely new behaviors/categories (Uber created ride-hailing, Airbnb created home-sharing, DoorDash created food delivery). Initial growth is explosive as they educate market.</p>
+
+        <p><strong>Hyperlocal Network Effects:</strong> Network effect is city-by-city, not global. Dominance in London doesn't help in Paris. Expansion = series of mini-launches, each requiring critical mass in that city. Scaling is operationally complex (managing 100+ city P&Ls). Cost to acquire market leadership in a new city is high (subsidies, marketing).</p>
+
+        <p><strong>Multi-Homing — Core Problem:</strong> Drivers/couriers work for multiple platforms simultaneously (driver list is not exclusive). Riders switch based on price/ETA (low switching cost). This destroys pricing power. Platforms can't raise prices because users immediately switch. Lyft's existence creates price ceiling for Uber (can't go too much above Lyft pricing or riders churn).</p>
+
+        <p><strong>Thin Margins & Unit Economics:</strong> High variable costs per transaction (driver pay = 75-80% of fare). Take rate ~20-25% minus incentives often = near-zero or negative unit margin. Can only scale profitably at enormous scale with brand maturity (Uber eats losses in nascent cities to eventually become profitable in mature cities).</p>
+
+        <p><strong>Regulatory Risk — Structural & Ongoing:</strong> Gig worker classification (are drivers employees or contractors?), price controls, licensing requirements, safety regulations. These are not one-time risks — they're permanent regulatory threats. Classification as "employees" would fundamentally break unit economics (add 20-30% to driver costs).</p>
+
+        <p><strong>Need for Constant Stimulation:</strong> Usage is occasion-based (call a ride occasionally), not habitual. Without daily use, DAU/MAU is low. Marketing spend must be perpetual to maintain demand. High customer acquisition cost. Every customer acquired costs heavily in subsidies/discounts.</p>
+
+        <p><strong>Valuation Reality:</strong> Focus on unit economics at steady state in mature markets. Is a single ride transaction profitable net of all costs? Example: $15 ride, 20% take = $3 gross revenue, minus $2.50 driver subsidy, $0.30 payment processing, $0.05 support cost = −$0.85 per ride. At this unit economics, scaling just digs the hole deeper. Profitability comes only from scale (spreading fixed costs) and moat (reduced subsidy dependency).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 29: Hardware-Backed Software -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">HYBRID COMPLEXITY</div>
+      <h2 class="card-title">Hardware + Software Hybrids</h2>
+      <div class="card-body">
+        <p><strong>Examples:</strong> Apple (iPhone + iOS + services), Peloton (bike + content subscription), gaming consoles (hardware + game sales/subscriptions + digital services), IoT devices (thermostats + cloud services).</p>
+
+        <p><strong>Lower Blended Margins:</strong> Hardware gross margin 30-50% vs software 70-85%. Blended margins are dragged down. Example: Apple: iPhone hardware ~40% margin, services ~70% margin, blended ~50%. Over-reliance on hardware sales = margin compression.</p>
+
+        <p><strong>Capital Intensity & Supply Chain Risk:</strong> Manufacturing, supply chain, inventory risk. Very different from pure software. Peloton's supply chain disaster during COVID disrupted hardware production while demand was high (and they couldn't capitalize). Hardware cycles are measured in years (iPhone refresh every 12-24 months); software can iterate continuously.</p>
+
+        <p><strong>Product Cycles & Obsolescence:</strong> Hardware becomes obsolete quickly (Nokia missing smartphones). R&D must span both hardware and software generations simultaneously. Example: Apple invests in iPhone hardware, iOS software, iCloud backend, and watch ecosystem — all concurrently. Risk of hardware misstep is existential.</p>
+
+        <p><strong>Ecosystem Lock-In Strategy (Apple Model):</strong> iPhone → AirPods → Apple Watch → MacBook → iCloud → Apple TV. Each additional product increases switching cost. Ecosystem is extremely powerful but expensive to build. Requires excellence in hardware AND software, simultaneously, across categories.</p>
+
+        <p><strong>Attach Rates & Subscription Layers:</strong> What % of hardware buyers also subscribe to services? Peloton's crisis: hardware sales slowed AND subscriber churn rose simultaneously (people stopped using the bike, canceled subscription). This revealed the subscription layer was dependent on hardware usage, not lock-in. At maturity, Peloton needed ~60% of bike owners as active subscribers to achieve profitability; they achieved only 20%.</p>
+
+        <p><strong>Valuation Methodology:</strong> Hardware companies valued at 1-3x revenue. Add a subscription layer and the software portion may get a higher multiple (5-10x). Key focus: mix of hardware vs services revenue and trend over time. If hardware is shrinking and services growing = improving business. If hardware stalling and services not growing fast enough = compression.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 30: Red Flags I — Take Rate & GMV -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="part-label">PART V — DUE DILIGENCE</div>
+      <div class="card-label">RED FLAG #1</div>
+      <h2 class="card-title">Red Flag: Take Rate & GMV Manipulation</h2>
+      <div class="card-body">
+        <p><strong>Inflated Take Rates:</strong> Stated take rate includes one-time fees, pass-through revenues (seller pays marketing costs and platform calls it revenue), or promotional credits. Always calculate: effective take rate = actual platform revenue / actual completed GMV (excluding canceled/refunded orders).</p>
+
+        <p><strong>Artificial GMV Boosting:</strong> GMV includes canceled/refunded orders (should only count completed transactions), intercompany transactions (platform buying from itself), or double-counting (counting full payment amount when only a percentage goes to platform). Red flag: GMV growing much faster than revenue. If GMV up 50% but revenue up 10%, take rate is compressing due to either (a) incentive programs or (b) high refund rates.</p>
+
+        <p><strong>Gross vs Net Revenue Confusion:</strong> Some companies report gross bookings as revenue. Ticketing platform counting full ticket price as revenue when 70% goes to event organizer. Only revenue that stays with the platform (and isn't passed through) should be counted. GAAP requires net revenue reporting, but companies sometimes bury this in footnotes.</p>
+
+        <p><strong>Diligence Steps:</strong></p>
+        <ul class="bullet-list">
+          <li>Calculate effective take rate from public filings: revenue / GMV</li>
+          <li>Compare stated take rate in earnings calls to calculated take rate</li>
+          <li>Trend take rate over time (is it stable, expanding, or compressing?)</li>
+          <li>Reconcile revenue to GMV via take rate; investigate gaps</li>
+          <li>Ask management directly: "What % of GMV consists of gross bookings vs. net revenue?"</li>
+        </ul>
+
+        <div class="warning-box">
+          <span class="warning-label">Warning</span>
+          <p>If GMV is growing much faster than revenue, the take rate is compressing. This is usually hidden or downplayed in earnings calls. Compressing take rate is a red flag because it indicates deteriorating unit economics (platform is giving away more to sellers to compete or incentivize volume).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 31: Red Flags II — CAC Delusions -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">RED FLAG #2</div>
+      <h2 class="card-title">Red Flag: CAC Delusions</h2>
+      <div class="card-body">
+        <p><strong>Ignoring True Costs:</strong> Only counting direct ad spend as CAC while excluding referral incentives ($50 signup bonus), first-purchase discounts (40% off), sales team costs, onboarding support, customer success allocated. Real CAC is often 2-3x the stated figure. Example: stated CAC $100 = direct ad spend only. Real CAC $300 = includes $80 signup bonus, $60 discount, $40 support costs, $20 in payment processing.</p>
+
+        <p><strong>Unrealistic LTV Assumptions:</strong> Projecting 5+ year customer lifetimes with zero churn. Or assuming customers stay at premium pricing forever (no competitive pressure leading to discounts). If the payback calculation requires zero churn beyond the observed period, that's a red flag — unobserved future churn is speculation.</p>
+
+        <p><strong>Blending Cohorts to Mask Issues:</strong> Averaging early cohorts (loyal power users with 30% month-1 retention) with newer cohorts (weaker retention, 5% month-1 retention) to show healthy-looking LTV/CAC. Always demand cohort-level data by signup period. A blended 20% month-1 retention could hide one cohort at 40% and another at 5%.</p>
+
+        <p><strong>One-Time Viral Bumps Misattributed:</strong> A period of low CAC from organic/viral growth (a viral moment, press coverage, celebrity mention) gets extrapolated as the permanent cost structure. Once the viral moment passes, CAC normalizes upward. Management acts surprised when CAC rises 3x post-viral bump.</p>
+
+        <p><strong>Channel-Blind Reporting:</strong> Blending CAC across organic, referral, paid search, paid social, partnerships. Organic CAC is near-zero; paid is $200. Blended average looks good ($80) but hides that paid channels are money-losing at current pricing. Demand CAC by channel.</p>
+
+        <div class="formula-box">
+          <span class="formula-label">True CAC Calculation</span>
+          (All S&M Spend + Referral Credits + First-Purchase Discounts + Onboarding Costs + Support Allocation) / New Customers Acquired
+        </div>
+
+        <p><strong>Verification:</strong> Compare stated LTV/CAC to observed payback. If LTV/CAC is 3.0x, payback should be 3-4 months. If payback is 12 months, LTV/CAC is misstated. Do the math independently; don't trust management's unit economics.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 32: Red Flags III — Reporting & EBITDA -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">RED FLAG #3</div>
+      <h2 class="card-title">Red Flag: Reporting & Adjusted EBITDA</h2>
+      <div class="card-body">
+        <p><strong>Selective Cohort Reporting:</strong> Company highlights best-performing cohorts (early adopter segments, high-LTV geographies) but omits weaker ones (newer geographies, younger segments with lower ARPU). Demand full cohort detail across all acquisition channels, geographies, and customer segments before accepting unit economics claims.</p>
+
+        <p><strong>Over-Adjusted EBITDA:</strong> Adding back stock-based compensation, "one-time" restructuring charges (that recur every year), litigation settlements, impairments, and reclassifying operating expenses as non-recurring. A sound business should not need to obscure its core metrics. Example red flag: company reports -$50M GAAP operating loss but +$20M "adjusted EBITDA" by adding back $70M in adjustments. What are these adjustments hiding?</p>
+
+        <p><strong>Gross Margin Gimmicks:</strong> Classifying customer support or cloud hosting costs as R&D or S&M instead of cost of revenue to inflate gross margin. True gross margin should reflect the actual cost of delivering the product. If support costs 15% of revenue, they belong in COGS, not buried in OpEx.</p>
+
+        <p><strong>Revenue Recognition Games:</strong> Recognizing revenue early (upfront for multi-year deals instead of ratably over time), including non-recurring revenue in recurring revenue metrics, or counting potential future transactions as booked revenue. ASC 606 requires conservative recognition, but companies push boundaries.</p>
+
+        <p><strong>Customer Concentration Disclosure:</strong> Burying concentration risk in footnotes. If top 3 customers are 25% of revenue, that's material risk. Demand customer concentration metrics (top 10 as % of revenue) and customer churn rates by size tier.</p>
+
+        <div class="warning-box">
+          <span class="warning-label">Principle</span>
+          <p>A sound business should not need to obscure its core metrics. Reasonable take rates, genuine transaction volume, transparent revenue accounting, and realistic customer acquisition math — these form the foundation of a credible growth story. If management is heavily adjusted metrics, digging deeper often uncovers deteriorating fundamentals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 33: Marketplace Taxonomy & LTV Formulas -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <div class="card-label">APPENDIX A</div>
+      <h2 class="card-title">Reference: Taxonomy & LTV Derivations</h2>
+      <div class="card-body">
+        <p><strong>Marketplace Types:</strong> P2P (eBay, Airbnb — individual-to-individual), B2C (Amazon Marketplace — business-to-consumer), B2B (Alibaba, Faire — business-to-business). Services vs Goods. Horizontal (multiple categories) vs Vertical (single category).</p>
+
+        <p><strong>LTV Formula Derivations:</strong></p>
+        <ul class="bullet-list">
+          <li><strong>Simple Perpetuity:</strong> LTV = Contribution / c (where c = churn rate per period). Assumes perpetual survival.</li>
+          <li><strong>With Discount Rate:</strong> LTV = Contribution / (c + d) where d = discount rate (accounts for time value of money). More realistic for finance.</li>
+          <li><strong>Cohort-Based (Empirical):</strong> Sum observed retention × spend per period over time (e.g., month-by-month observation). More empirical, captures behavior changes (churn acceleration over time).</li>
+        </ul>
+
+        <p><strong>Payback Period Inversion:</strong> If LTV = $5000 and CAC = $1000, LTV/CAC = 5.0x. Payback = CAC / (monthly contribution) = $1000 / ($200/month margin) = 5 months. Payback inversely relates to LTV/CAC: higher LTV/CAC = faster payback.</p>
+
+        <p><strong>Strategic Exit Patterns:</strong></p>
+        <ul class="bullet-list">
+          <li><strong>IPO:</strong> Category leaders with network effects and defensible moats (Uber, Airbnb). Path to profitability visible. Market cap $5B+.</li>
+          <li><strong>Consolidation by Incumbents:</strong> Walmart acquired Jet.com ($3B), Facebook acquired Instagram ($1B, best deal ever). Incumbent buys disruptive model to integrate or kill it.</li>
+          <li><strong>Strategic Mergers:</strong> Rideshare consolidation (Uber + Lyft seriously explored merger, regulators blocked). Healthcare startups acquired by industry players for distribution/data.</li>
+          <li><strong>PE Buyouts:</strong> Cash-generative but slow-growth businesses. Thoma Bravo's acquisition of Backblaze (B2B backup), Silver Lake's investments in AI platforms.</li>
+          <li><strong>Acqui-Hire:</strong> Talent/tech acquisition. Company shut down, team absorbed. Common in crowded spaces (mobile, AI).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 34: FINALE -->
   <div class="beat beat-scene">
     <div class="beat-inner">
       <div class="scene-location">TMT SPECIAL COMPLETE</div>
       <div class="scene-text">
-        <p>You've now traversed the full TMT landscape: from subscription SaaS and cloud infrastructure, through marketplaces and embedded finance, to consumer platforms and creator economies. You understand the metrics that matter, the models that work, the weaknesses embedded in each, and the red flags that separate opportunity from value destruction.</p>
-        <p>The TMT space moves fast. Regulations shift, user preferences evolve, and competitive dynamics can flip. But the fundamentals—network effects, unit economics, retention mechanics, and the tension between growth and profitability—remain constant.</p>
-        <p><strong>Trust the metrics. Question the narrative. Always verify the math.</strong></p>
+        <p>You've now traversed the full TMT landscape: from subscription SaaS fundamentals and cloud infrastructure, through marketplace network dynamics and embedded finance, to consumer platforms and creator economies. You understand the metrics that matter, the models that work, the weaknesses embedded in each, and the red flags that separate genuine opportunity from value destruction.</p>
+        <p>The TMT space moves fast. Regulations shift, user preferences evolve, competitive dynamics flip. But the fundamentals remain constant: network effects, unit economics, retention mechanics, and the eternal tension between growth and profitability. These principles apply whether evaluating Stripe, Shopify, or the next generation of platforms.</p>
+        <p><strong>Remember:</strong> Understand the model deeply. Stress-test the metrics rigorously. Question every narrative. Verify the math independently. The best TMT investments are built on defensible economics and honest reporting — not narrative momentum or founder charisma.</p>
         <p style="margin-top: 32px; font-size: 14px; color: var(--text-dim);"><a href="../index.html" style="color: var(--accent); text-decoration: none;">← Return to G2G</a></p>
       </div>
     </div>
