@@ -1024,7 +1024,7 @@ document.addEventListener('DOMContentLoaded', () => {
   (function() {
     try {
       const saved = parseInt(localStorage.getItem('g2g-progress-ch' + CHAPTER_NUM));
-      if (saved && saved > 0 && saved < totalBeats) {
+      if (saved && saved > 0 && saved < beats.length) {
         const toast = document.createElement('div');
         toast.className = 'resume-toast';
         toast.innerHTML = 'Resume from beat ' + (saved + 1) + '/' + beats.length + '? ' +

@@ -939,17 +939,17 @@ window.addEventListener('keydown', (e) => {
 // Progress tracking
 const CHAPTER_NUM = 4;
 function saveProgress() {
-  try { localStorage.setItem('g2g-progress-ch' + CHAPTER_NUM, currentBeam); } catch(e) {}
+  try { localStorage.setItem('g2g-progress-ch' + CHAPTER_NUM, currentBeat); } catch(e) {}
 }
 
 // Resume prompt on load
 (function() {
   try {
     const saved = parseInt(localStorage.getItem('g2g-progress-ch' + CHAPTER_NUM));
-    if (saved && saved > 0 && saved < totalBeams) {
+    if (saved && saved > 0 && saved < beats.length) {
       const toast = document.createElement('div');
       toast.className = 'resume-toast';
-      toast.innerHTML = 'Resume from beat ' + (saved + 1) + '/' + totalBeams + '? ' +
+      toast.innerHTML = 'Resume from beat ' + (saved + 1) + '/' + beats.length + '? ' +
         '<button class="resume-btn" onclick="goToBeam(' + saved + '); this.parentElement.remove();">Resume</button>' +
         '<button class="skip-btn" onclick="this.parentElement.remove();">Start Over</button>';
       document.body.appendChild(toast);
