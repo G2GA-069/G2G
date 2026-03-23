@@ -434,14 +434,17 @@
     }
 
     .cast-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 28px;
       max-width: 1300px;
       margin: 0 auto;
     }
 
     .cast-card {
+      flex: 0 1 calc(33.333% - 20px);
+      min-width: 220px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -1066,8 +1069,8 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .cast-grid {
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      .cast-card {
+        flex: 0 1 100%;
       }
 
       .companies-grid {

@@ -202,10 +202,16 @@ body.party-mode .beat-title h1 {
   margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--accent-dim);
   font-family: var(--font-serif); font-size: 14px; color: var(--text-muted);
   font-style: italic;
-  opacity: 0; transition: opacity 0.4s ease;
 }
-.character-card:hover .character-secret {
-  opacity: 1;
+.character-backstory {
+  margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--accent-dim);
+  font-family: var(--font-serif); font-size: 14px; color: var(--text-muted);
+  font-style: italic;
+}
+.character-backstory .scene-location {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent-dim); margin-bottom: 8px;
+  font-style: normal;
 }
 .beat-takeaway .beat-inner { max-width: 600px; text-align: center; padding: 20px 40px; }
 .takeaway-text {
@@ -416,7 +422,7 @@ body.party-mode .beat-title h1 {
   .chapter-map { grid-template-columns: 1fr; }
   .progress-bar { height: 3px; }
   /* Character secrets visible on mobile (no hover) */
-  .character-secret { opacity: 1; }
+  /* character-secret always visible now */
   /* Footer beat centering */
   .brand-footer { align-items: center; padding-top: 40px; }
 }
@@ -571,15 +577,7 @@ body.party-mode .beat-title h1 {
 </div>
 </section>
 
-<!-- BEAT 7: LE PITCH SCENE & CARD -->
-<section class="beat beat-scene" data-section="2">
-<div class="beat-inner">
-<div class="scene-location">Paris, France — Lapérouse Restaurant</div>
-<div class="scene-text">
-<p>Cold January night. Le Pitch steps out of the restaurant into the Parisian dark, collar up, cigarette curling smoke. Behind him: caviar, venison, a Burgundy so deep it seemed to hum. Tomorrow belongs to the bank. Tonight belongs to Puccini. He climbs the stairs of a flat between Place Vendôme and the Opéra and opens his notebook. A German manufacturer, family-owned. Interesting margin structure. He circles the EBITDA line and writes two words: "Projet Forge."</p>
-</div>
-</section>
-
+<!-- BEAT 7: LE PITCH CARD (MERGED WITH SCENE) -->
 <section class="beat beat-card" data-section="2">
 <div class="beat-inner">
 <div class="character-card">
@@ -598,19 +596,15 @@ body.party-mode .beat-title h1 {
 <span class="label">Style</span>
 <span class="value">Hermès ties, South Kensington</span>
 </div>
+<div class="character-backstory">
+<div class="scene-location">Paris, France — Lapérouse Restaurant</div>
+<p>Cold January night. Le Pitch steps out of the restaurant into the Parisian dark, collar up, cigarette curling smoke. Behind him: caviar, venison, a Burgundy so deep it seemed to hum. Tomorrow belongs to the bank. Tonight belongs to Puccini. He climbs the stairs of a flat between Place Vendôme and the Opéra and opens his notebook. A German manufacturer, family-owned. Interesting margin structure. He circles the EBITDA line and writes two words: "Projet Forge."</p>
+</div>
 <div class="character-secret">He no longer does the heavy numbers himself. He focuses on "value-add" while the analyst bench delivers. Last week, a teaser landed on his desk. German manufacturer, family-owned. He circled the EBITDA line and wrote: "Projet Forge."</div>
 </div>
 </section>
 
-<!-- BEAT 8: TRACE SCENE & CARD -->
-<section class="beat beat-scene" data-section="2">
-<div class="beat-inner">
-<div class="scene-location">Lanarkshire, Scotland — University Years</div>
-<div class="scene-text">
-<p>First in her family to university. Glasgow, economics degree, quiet, top marks. She taught herself corporate finance using online courses and AI prompts. She found she had a head for business problems. Banking pays the rent more than policy. So she applied. SBCI offered her a spot as an analyst. First deal—pharmaceutical acquisition—she stayed late, learned the models, asked better questions. First-year bonus was the highest ever at the firm. Le Pitch noticed.</p>
-</div>
-</section>
-
+<!-- BEAT 8: TRACE CARD (MERGED WITH SCENE) -->
 <section class="beat beat-card" data-section="2">
 <div class="beat-inner">
 <div class="character-card">
@@ -629,19 +623,15 @@ body.party-mode .beat-title h1 {
 <span class="label">Known for</span>
 <span class="value">Files so clean other juniors copy them</span>
 </div>
+<div class="character-backstory">
+<div class="scene-location">Lanarkshire, Scotland — University Years</div>
+<p>First in her family to university. Glasgow, economics degree, quiet, top marks. She taught herself corporate finance using online courses and AI prompts. She found she had a head for business problems. Banking pays the rent more than policy. So she applied. SBCI offered her a spot as an analyst. First deal—pharmaceutical acquisition—she stayed late, learned the models, asked better questions. First-year bonus was the highest ever at the firm. Le Pitch noticed.</p>
+</div>
 <div class="character-secret">She tells herself she'll leave after the next bonus. But her brother just started college. Her parents' boiler still needs replacing. Tomorrow, Le Pitch will call her. "There is a German manufacturer," he will say. "I need an analyst on the ground. Würzburg. One month." She will say yes.</div>
 </div>
 </section>
 
-<!-- BEAT 9: HAIRCUT SCENE & CARD -->
-<section class="beat beat-scene" data-section="2">
-<div class="beat-inner">
-<div class="scene-location">The City, London — Skarn Capital</div>
-<div class="scene-text">
-<p>One lamp, one desk, one stack of papers. Haircut sits alone and flips through Königshof's financials like a surgeon examining X-rays. Strong year: 375 harvesters, double-digit EBITDA margins. Surface: stability. He digs deeper. Steel, parts, direct labour—gone the moment each machine rolls out. What's left is gross margin, then the costs that refuse to move. He scribbles. Königshof would need to lose nearly a third of sales before it actually bleeds. More solid than expected. But the numbers smell off. "This isn't engineering," he murmurs. "This is a slot machine... in green paint."</p>
-</div>
-</section>
-
+<!-- BEAT 9: HAIRCUT CARD (MERGED WITH SCENE) -->
 <section class="beat beat-card" data-section="2">
 <div class="beat-inner">
 <div class="character-card">
@@ -660,19 +650,15 @@ body.party-mode .beat-title h1 {
 <span class="label">Known for</span>
 <span class="value">Trimming optimism</span>
 </div>
+<div class="character-backstory">
+<div class="scene-location">The City, London — Skarn Capital</div>
+<p>One lamp, one desk, one stack of papers. Haircut sits alone and flips through Königshof's financials like a surgeon examining X-rays. Strong year: 375 harvesters, double-digit EBITDA margins. Surface: stability. He digs deeper. Steel, parts, direct labour—gone the moment each machine rolls out. What's left is gross margin, then the costs that refuse to move. He scribbles. Königshof would need to lose nearly a third of sales before it actually bleeds. More solid than expected. But the numbers smell off. "This isn't engineering," he murmurs. "This is a slot machine... in green paint."</p>
+</div>
 <div class="character-secret">His emails run three words: "numbers don't reconcile walk me through." He loves industrial businesses that print cash. He updates his pipeline: "KM — Asset-heavy, owner conservative. Watch/Wait."</div>
 </div>
 </section>
 
-<!-- BEAT 10: WILHELM SCENE & CARD -->
-<section class="beat beat-scene" data-section="2">
-<div class="beat-inner">
-<div class="scene-location">Würzburg, Germany — Königshof Headquarters</div>
-<div class="scene-text">
-<p>Oak desk, fountain pen—the same one his grandfather held. Wilhelm composes a letter to his son in Frankfurt about the new grain harvester, the apprentices, the honour of fulfilling another order for a cooperative he'd known for forty years. A postscript invites his son and daughter home next month. He seals it with red wax. In the corner: Königshof's first ESG Audit. He opens a page, frowns, shuts it. He doesn't need modern platitudes. In the cast-iron stove, he sets the binder on the flames. The pages turn to ash.</p>
-</div>
-</section>
-
+<!-- BEAT 10: WILHELM CARD (MERGED WITH SCENE) -->
 <section class="beat beat-card" data-section="2">
 <div class="beat-inner">
 <div class="character-card">
@@ -695,19 +681,15 @@ body.party-mode .beat-title h1 {
 <span class="label">Cash reserve</span>
 <span class="value">€40m (liquidity = freedom)</span>
 </div>
+<div class="character-backstory">
+<div class="scene-location">Würzburg, Germany — Königshof Headquarters</div>
+<p>Oak desk, fountain pen—the same one his grandfather held. Wilhelm composes a letter to his son in Frankfurt about the new grain harvester, the apprentices, the honour of fulfilling another order for a cooperative he'd known for forty years. A postscript invites his son and daughter home next month. He seals it with red wax. In the corner: Königshof's first ESG Audit. He opens a page, frowns, shuts it. He doesn't need modern platitudes. In the cast-iron stove, he sets the binder on the flames. The pages turn to ash.</p>
+</div>
 <div class="character-secret">He is proud about keeping the company independent. Last week, an eager banker emailed about "value creation opportunities." Wilhelm mailed it back by post, scrawling "Kein Interesse" in fountain pen. He does not know the banker listens to Puccini in Paris.</div>
 </div>
 </section>
 
-<!-- BEAT 11: MAGDA SCENE & CARD -->
-<section class="beat beat-scene" data-section="2">
-<div class="beat-inner">
-<div class="scene-location">Hackney, London — Subtrax</div>
-<div class="scene-text">
-<p>Two monitors glowing in the dark. Code window on the left—rewriting a billing function, optimising the query that converts invoice data to payment records. Dashboard on the right: customers added, invoices processed, revenue ticking up by the minute. Seats per customer rising, churn falling, revenue climbing past £10m run-rate. She closes the spreadsheet. The bankers say profitability could be a long way. She shrugs. That was never why she built it.</p>
-</div>
-</section>
-
+<!-- BEAT 11: MAGDA CARD (MERGED WITH SCENE) -->
 <section class="beat beat-card" data-section="2">
 <div class="beat-inner">
 <div class="character-card">
@@ -730,6 +712,10 @@ body.party-mode .beat-title h1 {
 <span class="label">Ownership</span>
 <span class="value">73% (rest split among early employees)</span>
 </div>
+<div class="character-backstory">
+<div class="scene-location">Hackney, London — Subtrax</div>
+<p>Two monitors glowing in the dark. Code window on the left—rewriting a billing function, optimising the query that converts invoice data to payment records. Dashboard on the right: customers added, invoices processed, revenue ticking up by the minute. Seats per customer rising, churn falling, revenue climbing past £10m run-rate. She closes the spreadsheet. The bankers say profitability could be a long way. She shrugs. That was never why she built it.</p>
+</div>
 <div class="character-secret">She has declined all acquisition talks. Oracle, Salesforce, Stripe have sniffed around. But something needs to happen. She doesn't know yet that the something is already circling.</div>
 </div>
 </section>
@@ -745,7 +731,7 @@ body.party-mode .beat-title h1 {
 <!-- BEAT 13: CHAPTER MAP -->
 <section class="beat beat-card" data-section="3">
 <div class="beat-inner">
-<div class="card-label">Eleven Chapters. Five Characters. Two Companies.</div>
+<div class="card-label">Thirteen Chapters. Five Characters. Two Companies.</div>
 <div class="card-title">The Journey</div>
 <div class="chapter-map">
 <div class="chapter-item">
@@ -914,7 +900,7 @@ body.party-mode .beat-title h1 {
 <div class="finale-pre">From Greenhorn to Gold(wo)man</div>
 <h2 class="finale-title">Welcome to G2G.</h2>
 <div class="finale-line"></div>
-<div class="finale-sub">Eleven chapters. Five characters. Two companies.<br>One story. No shortcuts.</div>
+<div class="finale-sub">Thirteen chapters. Five characters. Two companies.<br>One story. No shortcuts.</div>
 </div>
 </section>
 
@@ -941,7 +927,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner" style="text-align:center;">
 <div class="footer-logo">G2G Advisory Limited</div>
 <div class="footer-text">
-<strong>From Greenhorn to Gold(wo)man</strong> is a series on corporate finance for everyone. Eleven chapters, five characters, two companies. No formulas to memorise. Just stories that stick.
+<strong>From Greenhorn to Gold(wo)man</strong> is a series on corporate finance for everyone. Thirteen chapters, five characters, two companies. No formulas to memorise. Just stories that stick.
 <br><br>
 Each chapter takes 15–20 minutes to read. Built for people who want to understand how deals work, how companies are valued, and why money matters.
 <br><br>
