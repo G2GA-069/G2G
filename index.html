@@ -1070,6 +1070,14 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
+      /* Disable reveal animation on mobile — IntersectionObserver misses sections
+         on iOS Safari during fast scroll, async font load, and viewport shifts,
+         leaving entire sections invisible (black screen) */
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
       .cast-card {
         flex: 0 1 100%;
       }
@@ -2022,13 +2030,19 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
+          observer.unobserve(entry.target); // Once revealed, stop watching
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.05, rootMargin: '0px 0px 100px 0px' });
 
     revealElements.forEach(el => {
       observer.observe(el);
     });
+
+    // Fallback: reveal any sections still hidden after 3 seconds
+    setTimeout(() => {
+      revealElements.forEach(el => el.classList.add('active'));
+    }, 3000);
 
     // ===== KONAMI CODE EASTER EGG =====
     const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
