@@ -316,7 +316,7 @@ body {
   border-bottom: 1px solid var(--accent-dim);
   color: var(--accent);
   font-weight: 500;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
 }
@@ -792,7 +792,7 @@ body {
 
 @media (max-width: 480px) {
   .card-table {
-    font-size: 10px;
+    font-size: 12px;
   }
   .card-table th,
   .card-table td {
@@ -1514,7 +1514,7 @@ window.addEventListener('scroll', () => {
   saveProgress();
 });
 
-beatCounter.textContent = `1 / ${beats.length}`;
+if (beatCounter) beatCounter.textContent = `1 / ${beats.length}`;
 
 // Chapter nav dots
 const sections = document.querySelectorAll('[data-section]');

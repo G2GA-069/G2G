@@ -437,9 +437,19 @@
   .nav-dots .dot.active { width: 8px; height: 8px; }
 
 }
+
+.back-link {
+  position: fixed; top: max(16px, env(safe-area-inset-top)); left: 16px; z-index: 200;
+  font-family: var(--font-sans, 'Inter', sans-serif); font-size: 13px;
+  color: var(--text-muted, var(--text-dim, #a8a4b0)); text-decoration: none;
+  letter-spacing: 0.5px; transition: color 0.3s;
+}
+.back-link:hover { color: var(--accent, #b07ce8); }
 </style>
 </head>
 <body>
+  <a href="../index.html" class="back-link">← G2G</a>
+
     <canvas id="particleCanvas"></canvas>
 
     <div class="chapter-container">

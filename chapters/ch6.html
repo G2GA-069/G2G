@@ -159,7 +159,7 @@ body.party-mode .beat-title h1 {
 }
 .card-table th {
   text-align: left; padding: 10px 14px; border-bottom: 1px solid #8b1a1a;
-  color: #c45c4a; font-weight: 500; font-size: 10px;
+  color: #c45c4a; font-weight: 500; font-size: 12px;
   letter-spacing: 1.5px; text-transform: uppercase;
 }
 .card-table td {
@@ -974,10 +974,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const progress = ((currentBeat + 1) / beats.length) * 100;
-    beatCounter.textContent = `${currentBeat + 1} / ${beats.length}`;
+    if (beatCounter) beatCounter.textContent = `${currentBeat + 1} / ${beats.length}`;
     document.querySelectorAll('.nav-dots .dot').forEach(function(d, i) { d.classList.toggle('active', i === currentBeat); });
 
-    if (currentBeat === 0) swipeHint.style.opacity = '0';
+    if (currentBeat === 0 && swipeHint) swipeHint.style.opacity = '0';
     saveProgress();
   }
 

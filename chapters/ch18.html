@@ -1353,11 +1353,11 @@ Fair value: €14.25. Stock at €15 = slight premium.
 
         // Save/resume progress
         function saveProgress() {
-            localStorage.setItem(`ch${CHAPTER_NUM}_progress`, currentBeat);
+            localStorage.setItem(`ch${CHAPTER_NUM}_beat`, currentBeat);
         }
 
         function loadProgress() {
-            const saved = localStorage.getItem(`ch${CHAPTER_NUM}_progress`);
+            const saved = localStorage.getItem(`ch${CHAPTER_NUM}_beat`);
             if (saved !== null) {
                 currentBeat = parseInt(saved);
             }
