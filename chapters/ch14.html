@@ -484,7 +484,7 @@
     /* Responsive */
     @media (max-width: 768px) {
       .beat-title h1 {
-        font-size: 40px;
+        font-size: clamp(2.5rem, 8vw, 4rem);
       }
 
       .beat-title .subtitle {
@@ -492,7 +492,7 @@
       }
 
       .card-title {
-        font-size: 26px;
+        font-size: clamp(1.8rem, 6vw, 3rem);
       }
 
       .chapter-nav {
@@ -500,7 +500,7 @@
       }
 
       .beat-counter {
-        bottom: 16px;
+        bottom: max(16px, env(safe-area-inset-bottom, 16px));
         right: 16px;
         font-size: 11px;
       }
@@ -1464,6 +1464,12 @@
         <p>You've now traversed the full TMT landscape: from subscription SaaS fundamentals and cloud infrastructure, through marketplace network dynamics and embedded finance, to consumer platforms and creator economies. You understand the metrics that matter, the models that work, the weaknesses embedded in each, and the red flags that separate genuine opportunity from value destruction.</p>
         <p>The TMT space moves fast. Regulations shift, user preferences evolve, competitive dynamics flip. But the fundamentals remain constant: network effects, unit economics, retention mechanics, and the eternal tension between growth and profitability. These principles apply whether evaluating Stripe, Shopify, or the next generation of platforms.</p>
         <p><strong>Remember:</strong> Understand the model deeply. Stress-test the metrics rigorously. Question every narrative. Verify the math independently. The best TMT investments are built on defensible economics and honest reporting — not narrative momentum or founder charisma.</p>
+        <div style="margin-top: 24px; text-align: center;">
+          <a href="G2G_TMT_Reference.pdf" download target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #6b2fa0, #d946ef); color: #fff; padding: 14px 32px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 15px; box-shadow: 0 4px 15px rgba(107,47,160,0.4);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download TMT Cram Sheet
+          </a>
+        </div>
         <p style="margin-top: 32px; font-size: 14px; color: var(--text-dim);"><a href="../index.html" style="color: var(--accent); text-decoration: none;">← Return to G2G</a></p>
       </div>
     </div>
