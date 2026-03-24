@@ -51,24 +51,7 @@ body.party-mode .beat-title h1 {
   animation: rainbow-shift 3s infinite;
 }
 @keyframes rainbow-shift { 0%, 100% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(360deg); } }
-.progress-bar {
-  position: fixed; top: 0; left: 0; height: 2px;
-  background: linear-gradient(90deg, #0077be, #00d4ff);
-  z-index: 1000; transition: width 0.1s linear;
-}
-.chapter-nav {
-  position: fixed; top: 50%; right: 20px; transform: translateY(-50%);
-  z-index: 100; display: flex; flex-direction: column; gap: 8px;
-}
-.chapter-nav .dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--border); cursor: pointer; transition: all 0.3s;
-}
-.chapter-nav .dot.active {
-  background: #00d4ff; box-shadow: 0 0 8px rgba(0,212,255,0.4);
-}
-.chapter-nav .dot:hover { background: #0077be; }
-@media (max-width: 768px) { .chapter-nav { display: none; } }
+@media (max-width: 768px) { }
 .beat {
   position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100dvh; z-index: 1;
   display: flex; align-items: center; justify-content: center;
@@ -257,8 +240,7 @@ body.party-mode .beat-title h1 {
   .takeaway-text { font-size: 20px; }
   .beat-narrator .beat-inner { max-width: 100%; }
   .narrator-text { font-size: 18px; }
-  .progress-bar { height: 3px; }
-}
+  }
 @media (max-width: 480px) {
   .card-table { font-size: 12px; }
   .card-table th, .card-table td { padding: 6px 4px; }
@@ -325,11 +307,33 @@ body.party-mode .beat-title h1 {
 .resume-toast .skip-btn { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
 @keyframes toast-in { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
+
+/* Nav dots */
+.nav-dots {
+  position: fixed; top: 50%; right: 12px; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 6px;
+}
+.nav-dots .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); cursor: pointer; transition: all 0.3s;
+}
+.nav-dots .dot.active {
+  background: var(--accent, #b07ce8); box-shadow: 0 0 6px rgba(176,124,232,0.4);
+  width: 10px; height: 10px;
+}
+.nav-dots .dot:hover { background: var(--accent-dim, rgba(176,124,232,0.5)); }
+
+@media (max-width: 768px) {
+
+  .nav-dots { right: 8px; gap: 4px; }
+  .nav-dots .dot { width: 6px; height: 6px; }
+  .nav-dots .dot.active { width: 8px; height: 8px; }
+
+}
 </style>
 </head>
 <body>
 
-<div class="progress-bar" id="progressBar"></div>
 <a href="../index.html" class="back-button">← Back</a>
 <div class="beat-counter" id="beatCounter"></div>
 <div class="swipe-hint" id="swipeHint">
@@ -585,7 +589,7 @@ From Greenhorn to Gold(wo)man is an interactive finance education series. Chapte
 </div>
 </section>
 
-<div class="chapter-nav" id="chapterNav"></div>
+<div class="nav-dots" id="navDots"></div>
 
 <script>
 const beats = document.querySelectorAll('.beat');
@@ -594,7 +598,6 @@ const totalBeats = beats.length;
 
 function updateProgress() {
   const progress = (currentBeat / (totalBeats - 1)) * 100;
-  document.getElementById('progressBar').style.width = progress + '%';
   document.getElementById('beatCounter').textContent = (currentBeat + 1) + ' / ' + totalBeats;
 }
 
@@ -622,7 +625,7 @@ function initDots() {
 }
 
 function updateDots() {
-  const dots = document.querySelectorAll('.chapter-nav .dot');
+  const dots = document.querySelectorAll('.nav-dots .dot');
   dots.forEach((dot, i) => {
     dot.classList.toggle('active', i === currentBeat);
   });

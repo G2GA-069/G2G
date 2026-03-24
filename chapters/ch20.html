@@ -285,15 +285,6 @@
             color: var(--accent);
         }
 
-        .progress-bar {
-            height: 3px;
-            background: var(--border);
-            flex: 1;
-            margin: 0 20px;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--brand-purple) 0%, var(--brand-magenta) 100%);
@@ -326,14 +317,6 @@
             gap: 20px;
             padding: 20px;
             z-index: 1000;
-        }
-
-        .nav-dots {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 500px;
         }
 
         .dot {
@@ -446,6 +429,14 @@
   color: var(--text-dim, var(--text-muted, #7a7680)); letter-spacing: 0.5px;
 }
 
+
+@media (max-width: 768px) {
+
+  .nav-dots { right: 8px; gap: 4px; }
+  .nav-dots .dot { width: 6px; height: 6px; }
+  .nav-dots .dot.active { width: 8px; height: 8px; }
+
+}
 </style>
 </head>
 <body>
@@ -454,8 +445,7 @@
     <div class="chapter-container">
         <div class="controls-header">
             <button class="back-button" onclick="goBack()">← Back</button>
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
+            </div>
             </div>
             <div class="beat-counter"><span id="currentBeat">1</span> / <span id="totalBeats">28</span></div>
         </div>
@@ -1342,6 +1332,30 @@ REIT Tax Advantage = Avoided corporation tax on rental income (20% statutory rat
         if (savedBeat) {
             const targetBeat = parseInt(savedBeat);
             positionBeats();
+
+  // Create nav dots
+  (function() {
+    var navEl = document.querySelector('.nav-dots');
+    if (!navEl) {
+      navEl = document.createElement('div');
+      navEl.className = 'nav-dots';
+      navEl.id = 'navDots';
+      document.body.appendChild(navEl);
+    }
+    var beats = document.querySelectorAll('.beat');
+    navEl.innerHTML = '';
+    for (var i = 0; i < beats.length; i++) {
+      var dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.dataset.index = i;
+      dot.addEventListener('click', function() {
+        var idx = parseInt(this.dataset.index);
+        if (typeof goTo === 'function') goTo(idx);
+      });
+      navEl.appendChild(dot);
+    }
+  })();
+
             currentBeat = 0;
             goTo(targetBeat);
         } else {

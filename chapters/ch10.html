@@ -66,45 +66,8 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
-.progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--brand-purple), var(--brand-magenta));
-  z-index: 1000;
-  transition: width 0.1s linear;
-}
-.chapter-nav {
-  position: fixed;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.chapter-nav .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--border);
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.chapter-nav .dot.active {
-  background: var(--accent);
-  box-shadow: 0 0 8px rgba(157,138,118,0.4);
-}
-.chapter-nav .dot:hover {
-  background: var(--accent-dim);
-}
 @media (max-width: 768px) {
-  .chapter-nav {
-    display: none;
   }
-}
 .beat {
   position: fixed;
   top: 0;
@@ -822,9 +785,6 @@ body {
   .narrator-text {
     font-size: 16px;
   }
-  .progress-bar {
-    height: 3px;
-  }
   .beat-interactive .beat-inner {
     padding: 20px 14px;
   }
@@ -864,11 +824,33 @@ body {
 .resume-toast .skip-btn { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
 @keyframes toast-in { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
+
+/* Nav dots */
+.nav-dots {
+  position: fixed; top: 50%; right: 12px; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 6px;
+}
+.nav-dots .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); cursor: pointer; transition: all 0.3s;
+}
+.nav-dots .dot.active {
+  background: var(--accent, #b07ce8); box-shadow: 0 0 6px rgba(176,124,232,0.4);
+  width: 10px; height: 10px;
+}
+.nav-dots .dot:hover { background: var(--accent-dim, rgba(176,124,232,0.5)); }
+
+@media (max-width: 768px) {
+
+  .nav-dots { right: 8px; gap: 4px; }
+  .nav-dots .dot { width: 6px; height: 6px; }
+  .nav-dots .dot.active { width: 8px; height: 8px; }
+
+}
 </style>
 </head>
 <body>
 
-<div class="progress-bar" id="progressBar"></div>
 <a href="../index.html" class="back-button">← Back</a>
 <div class="beat-counter" id="beatCounter"></div>
 <div class="swipe-hint" id="swipeHint">
@@ -1507,14 +1489,13 @@ Chapter 9 is the algebra of deals. Chapter 10 is where you use that algebra to m
 </div>
 </section>
 
+<div class="nav-dots" id="navDots"></div>
 <script>
 // Progress bar
-const progressBar = document.getElementById('progressBar');
 
 window.addEventListener('scroll', () => {
   const h = document.documentElement;
   const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-  progressBar.style.width = pct + '%';
 });
 
 // Beat counter
@@ -1532,6 +1513,7 @@ window.addEventListener('scroll', () => {
   });
   currentBeat = beatNum;
   beatCounter.textContent = `${beatNum} / ${beats.length}`;
+    document.querySelectorAll('.nav-dots .dot').forEach(function(d, i) { d.classList.toggle('active', i === currentBeat); });
   saveProgress();
 });
 
@@ -1547,7 +1529,7 @@ sections.forEach(s => {
   }
 });
 
-const nav = document.querySelector('.chapter-nav');
+const nav = document.querySelector('.nav-dots');
 if (!nav.hasChildNodes()) {
   uniqueSections.forEach((sec, idx) => {
     const dot = document.createElement('div');
@@ -1574,7 +1556,7 @@ window.addEventListener('scroll', () => {
     }
   });
 
-  document.querySelectorAll('.chapter-nav .dot').forEach(d => {
+  document.querySelectorAll('.nav-dots .dot').forEach(d => {
     d.classList.toggle('active', d.dataset.section === activeSection);
   });
 });

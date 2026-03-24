@@ -51,11 +51,6 @@ body.party-mode .beat-title h1 {
   animation: rainbow-shift 3s infinite;
 }
 @keyframes rainbow-shift { 0%, 100% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(360deg); } }
-.progress-bar {
-  position: fixed; top: 0; left: 0; height: 2px;
-  background: linear-gradient(90deg, #d4a574, #f0d9b5);
-  z-index: 1000; transition: width 0.1s linear;
-}
 .back-button {
   position: fixed; top: 20px; left: 20px; z-index: 200;
   background: rgba(19,19,24,0.85); backdrop-filter: blur(10px);
@@ -65,19 +60,7 @@ body.party-mode .beat-title h1 {
   transition: all 0.3s;
 }
 .back-button:hover { border-color: rgba(212,165,116,0.4); background: rgba(19,19,24,0.9); }
-.chapter-nav {
-  position: fixed; top: 50%; right: 20px; transform: translateY(-50%);
-  z-index: 100; display: flex; flex-direction: column; gap: 8px;
-}
-.chapter-nav .dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--border); cursor: pointer; transition: all 0.3s;
-}
-.chapter-nav .dot.active {
-  background: var(--gold); box-shadow: 0 0 8px rgba(212,165,116,0.4);
-}
-.chapter-nav .dot:hover { background: var(--gold); }
-@media (max-width: 768px) { .chapter-nav { display: none; } }
+@media (max-width: 768px) { }
 .beat {
   position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100dvh; z-index: 1;
   display: flex; align-items: center; justify-content: center;
@@ -331,14 +314,36 @@ body.party-mode .beat-title h1 {
 .resume-toast .skip-btn { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
 @keyframes toast-in { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
+
+/* Nav dots */
+.nav-dots {
+  position: fixed; top: 50%; right: 12px; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 6px;
+}
+.nav-dots .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); cursor: pointer; transition: all 0.3s;
+}
+.nav-dots .dot.active {
+  background: var(--accent, #b07ce8); box-shadow: 0 0 6px rgba(176,124,232,0.4);
+  width: 10px; height: 10px;
+}
+.nav-dots .dot:hover { background: var(--accent-dim, rgba(176,124,232,0.5)); }
+
+@media (max-width: 768px) {
+
+  .nav-dots { right: 8px; gap: 4px; }
+  .nav-dots .dot { width: 6px; height: 6px; }
+  .nav-dots .dot.active { width: 8px; height: 8px; }
+
+}
 </style>
 </head>
 <body>
 
-<div class="progress-bar" id="progressBar"></div>
 <a href="../index.html" class="back-button">← Back</a>
 <div class="beat-counter" id="beatCounter"></div>
-<div class="chapter-nav" id="chapterNav"></div>
+<div class="nav-dots" id="navDots"></div>
 <div class="swipe-hint" id="swipeHint">
 <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 <span>Swipe up</span>
@@ -925,7 +930,6 @@ function updateCounter() {
 }
 
 function updateProgress() {
-  const bar = document.getElementById('progressBar');
   if (bar) bar.style.width = ((currentBeat + 1) / totalBeats * 100) + '%';
 }
 
@@ -958,7 +962,7 @@ function goTo(index) {
   saveProgress();
   updateCounter();
   updateProgress();
-  document.querySelectorAll('.chapter-nav .dot').forEach((d, di) => d.classList.toggle('active', di === currentBeat));
+  document.querySelectorAll('.nav-dots .dot').forEach((d, di) => d.classList.toggle('active', di === currentBeat));
   setTimeout(() => { isAnimating = false; }, 350);
 }
 
@@ -1013,6 +1017,30 @@ if (swipeHint) {
   try { if (localStorage.getItem('g2g-swipe-seen')) swipeHint.remove(); } catch(e) {}
 }
 positionBeats();
+
+  // Create nav dots
+  (function() {
+    var navEl = document.querySelector('.nav-dots');
+    if (!navEl) {
+      navEl = document.createElement('div');
+      navEl.className = 'nav-dots';
+      navEl.id = 'navDots';
+      document.body.appendChild(navEl);
+    }
+    var beats = document.querySelectorAll('.beat');
+    navEl.innerHTML = '';
+    for (var i = 0; i < beats.length; i++) {
+      var dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.dataset.index = i;
+      dot.addEventListener('click', function() {
+        var idx = parseInt(this.dataset.index);
+        if (typeof goTo === 'function') goTo(idx);
+      });
+      navEl.appendChild(dot);
+    }
+  })();
+
 updateCounter();
 updateProgress();
 buildNav();

@@ -110,16 +110,6 @@
         }
 
         /* Progress Bar */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: linear-gradient(to right, var(--brand-magenta), var(--brand-purple));
-            transition: width 0.3s ease;
-            z-index: 100;
-        }
-
         /* Beat Counter & Nav Dots */
         .beat-counter {
             position: fixed;
@@ -128,17 +118,6 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 12px;
             color: var(--text-secondary);
-            z-index: 50;
-        }
-
-        .nav-dots {
-            position: fixed;
-            right: 40px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
             z-index: 50;
         }
 
@@ -456,11 +435,6 @@
                 font-size: 16px;
             }
 
-            .nav-dots {
-                right: 24px;
-                gap: 8px;
-            }
-
             .beat-counter {
                 right: 24px;
                 bottom: 24px;
@@ -504,6 +478,29 @@
   color: var(--text-dim, var(--text-muted, #7a7680)); letter-spacing: 0.5px;
 }
 
+
+/* Nav dots */
+.nav-dots {
+  position: fixed; top: 50%; right: 12px; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 6px;
+}
+.nav-dots .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); cursor: pointer; transition: all 0.3s;
+}
+.nav-dots .dot.active {
+  background: var(--accent, #b07ce8); box-shadow: 0 0 6px rgba(176,124,232,0.4);
+  width: 10px; height: 10px;
+}
+.nav-dots .dot:hover { background: var(--accent-dim, rgba(176,124,232,0.5)); }
+
+@media (max-width: 768px) {
+
+  .nav-dots { right: 8px; gap: 4px; }
+  .nav-dots .dot { width: 6px; height: 6px; }
+  .nav-dots .dot.active { width: 8px; height: 8px; }
+
+}
 </style>
 </head>
 <body>
@@ -1602,8 +1599,6 @@ Base Valuation (DCF or trading multiples)
     </div>
 
     <!-- Progress Bar -->
-    <div class="progress-bar" id="progressBar"></div>
-
     <!-- Beat Counter -->
     <div class="beat-counter">
         <span id="beatNumber">1</span> / <span id="totalBeats">28</span>
@@ -1629,7 +1624,6 @@ Base Valuation (DCF or trading multiples)
         const scrollThrottle = 500;
 
         const beats = document.querySelectorAll('.beat');
-        const progressBar = document.getElementById('progressBar');
         const beatNumberEl = document.getElementById('beatNumber');
         const navDotsContainer = document.getElementById('navDots');
         const swipeHint = document.getElementById('swipeHint');
@@ -1663,7 +1657,6 @@ Base Valuation (DCF or trading multiples)
 
             // Update progress bar
             const progress = (currentBeat / TOTAL_BEATS) * 100;
-            progressBar.style.width = progress + '%';
 
             // Update beat counter
             beatNumberEl.textContent = currentBeat;
@@ -1684,6 +1677,30 @@ Base Valuation (DCF or trading multiples)
             if (beatNum < 1 || beatNum > TOTAL_BEATS) return;
             currentBeat = beatNum;
             positionBeats();
+
+  // Create nav dots
+  (function() {
+    var navEl = document.querySelector('.nav-dots');
+    if (!navEl) {
+      navEl = document.createElement('div');
+      navEl.className = 'nav-dots';
+      navEl.id = 'navDots';
+      document.body.appendChild(navEl);
+    }
+    var beats = document.querySelectorAll('.beat');
+    navEl.innerHTML = '';
+    for (var i = 0; i < beats.length; i++) {
+      var dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.dataset.index = i;
+      dot.addEventListener('click', function() {
+        var idx = parseInt(this.dataset.index);
+        if (typeof goTo === 'function') goTo(idx);
+      });
+      navEl.appendChild(dot);
+    }
+  })();
+
             swipeHint.style.opacity = currentBeat === TOTAL_BEATS ? '0.3' : '0.6';
 
             if (currentBeat > 1) {
