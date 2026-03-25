@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G2G Chapter 28 — The Leveraged Finance Special</title>
+
+  <!-- Open Graph / WhatsApp Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://g2ga-069.github.io/G2G/chapters/ch28.html">
+  <meta property="og:title" content="Chapter 28: The Leveraged Finance Special — G2G Advisory">
+  <meta property="og:description" content="Leveraged Buyouts, High Yield, Leveraged Loans & Credit Analysis">
+  <meta property="og:image" content="https://g2ga-069.github.io/G2G/images/og-preview.png">
+  <meta property="og:site_name" content="G2G Advisory">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Chapter 28: The Leveraged Finance Special — G2G Advisory">
+  <meta name="twitter:description" content="Leveraged Buyouts, High Yield, Leveraged Loans & Credit Analysis">
+  <meta name="twitter:image" content="https://g2ga-069.github.io/G2G/images/og-preview.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon-180.png">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --surface: #131318;
+      --surface-2: #1a1a22;
+      --border: #2a2a35;
+      --text: #e8e4df;
+      --text-muted: #a8a4b0;
+      --text-dim: #7a7680;
+      --accent: #b07ce8;
+      --accent-dim: #7a55b0;
+      --accent-bright: #d4a0ff;
+      --green: #4a9e6e;
+      --red: #c45c4a;
+      --blue: #5a8fc4;
+      --purple: #8a3cc4;
+      --brand-purple: #6b2fa0;
+      --brand-magenta: #d946ef;
+      --font-serif: 'EB Garamond', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { height: 100%; overflow: hidden; overscroll-behavior: none; }
+    body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-serif);
+      line-height: 1.7;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .beat {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 52px 24px 60px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.3s, transform 0.35s ease-in-out;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .beat-inner {
+      max-width: 680px;
+      width: 100%;
+    }
+
+    /* TITLE BEAT */
+    .beat-title {
+      background: radial-gradient(ellipse at 60% 40%, rgba(176, 124, 232, 0.15) 0%, rgba(107, 47, 160, 0.08) 40%, var(--bg) 100%);
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .beat-title .beat-inner {
+      text-align: center;
+    }
+
+    .series-name {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 16px;
+    }
+
+    .chapter-number {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+
+    .beat-title h1 {
+      font-family: var(--font-serif);
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--accent-bright);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .beat-title .subtitle {
+      font-family: var(--font-sans);
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* CARD BEAT */
+    .beat-card {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .beat-card .beat-inner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+    }
+
+    .card-label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .card-body {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    .card-body p {
+      margin-bottom: 16px;
+    }
+
+    .card-body strong {
+      color: var(--accent-bright);
+      font-weight: 600;
+    }
+
+    .metric-item {
+      margin-bottom: 16px;
+      padding-left: 16px;
+      border-left: 2px solid var(--accent-dim);
+    }
+
+    .metric-name {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--accent-bright);
+    }
+
+    .metric-def {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .comparison-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comparison-row:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .comparison-col {
+      flex: 1;
+    }
+
+    .comparison-header {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .comparison-value {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .bullet-list {
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+
+    .bullet-list li {
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .bullet-list li strong {
+      color: var(--accent-bright);
+    }
+
+    .formula-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--accent-bright);
+      line-height: 1.6;
+    }
+
+    .formula-box .formula-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .example-box {
+      background: linear-gradient(135deg, rgba(74,158,110,0.08), rgba(74,158,110,0.03));
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .example-box .example-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .warning-box {
+      background: linear-gradient(135deg, rgba(196,92,74,0.08), rgba(196,92,74,0.03));
+      border-left: 3px solid var(--red);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+
+    .warning-box .warning-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .warning-box p {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .section-divider {
+      background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+      height: 1px;
+      margin: 24px 0;
+    }
+
+    .part-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 4px;
+    }
+
+    /* SCENE BEAT */
+    .beat-scene {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .beat-scene .beat-inner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+    }
+
+    .scene-location {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 16px;
+    }
+
+    .scene-text {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.9;
+    }
+
+    .scene-text strong {
+      color: var(--accent-bright);
+    }
+
+    .scene-text a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .scene-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* UI ELEMENTS */
+    .beat-counter {
+      position: fixed;
+      bottom: max(24px, env(safe-area-inset-bottom, 24px));
+      right: 24px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      z-index: 998;
+    }
+
+    .back-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      z-index: 996;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    .swipe-hint {
+      position: fixed;
+      bottom: 60px;
+      left: 24px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text-dim);
+      z-index: 995;
+      animation: fadeOutAfter 7s forwards;
+    }
+
+    @keyframes fadeOutAfter {
+      0%, 85% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .resume-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--surface);
+      border: 1px solid var(--accent-dim);
+      border-radius: 12px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 1000;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .resume-toast button {
+      background: var(--accent-dim);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+
+    .resume-toast button:first-of-type {
+      background: var(--brand-purple);
+    }
+
+    .resume-toast button:hover {
+      opacity: 0.9;
+    }
+
+    /* Wider beat-inner for comparison tables */
+    .beat-card.comparison-wide .beat-inner {
+      max-width: 760px;
+    }
+
+    /* Download button */
+    .download-hero {
+      margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .download-btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 16px 36px; border-radius: 10px; text-decoration: none;
+      background: linear-gradient(135deg, #6b2fa0, #d946ef);
+      color: #fff; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 15px;
+      font-weight: 700; letter-spacing: 0.5px;
+      transition: all 0.3s; box-shadow: 0 4px 24px rgba(107,47,160,0.4);
+    }
+    .download-btn:hover {
+      transform: translateY(-2px); box-shadow: 0 8px 32px rgba(107,47,160,0.6);
+    }
+    .download-btn svg { width: 20px; height: 20px; }
+    .download-note {
+      font-family: var(--font-mono, 'JetBrains Mono', monospace); font-size: 11px;
+      color: var(--text-dim, var(--text-muted, #7a7680)); letter-spacing: 0.5px;
+    }
+
+    /* Nav dots */
+    .nav-dots {
+      position: fixed; top: 50%; right: 12px; transform: translateY(-50%);
+      z-index: 100; display: flex; flex-direction: column; gap: 6px;
+    }
+    .nav-dots .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); cursor: pointer; transition: all 0.3s;
+    }
+    .nav-dots .dot.active {
+      background: var(--accent, #b07ce8); box-shadow: 0 0 6px rgba(176,124,232,0.4);
+      width: 10px; height: 10px;
+    }
+    .nav-dots .dot:hover { background: var(--accent-dim, rgba(176,124,232,0.5)); }
+
+    @media (max-width: 768px) {
+      .nav-dots { right: 8px; gap: 4px; }
+      .beat-inner { padding-right: 28px; }
+      .nav-dots .dot { width: 6px; height: 6px; }
+      .nav-dots .dot.active { width: 8px; height: 8px; }
+    }
+
+    /* Resume toast — mobile-safe */
+    @media (max-width: 768px) {
+      .resume-toast {
+        max-width: calc(100vw - 32px); width: auto;
+        padding: 12px 16px; gap: 10px;
+        bottom: max(70px, calc(60px + env(safe-area-inset-bottom)));
+        font-size: 12px; flex-wrap: wrap; justify-content: center;
+      }
+      .resume-toast button { padding: 8px 16px; font-size: 12px; }
+    }
+
+    .prev-chapter-btn, .next-chapter-btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 16px 28px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(107,47,160,0.15), rgba(176,124,232,0.10));
+      border: 1px solid rgba(176,124,232,0.25);
+      color: var(--accent, #b07ce8); text-decoration: none;
+      font-family: var(--font-sans, 'Inter', sans-serif);
+      transition: all 0.3s ease; margin-top: 32px; cursor: pointer;
+    }
+    .prev-chapter-btn:hover, .next-chapter-btn:hover {
+      background: linear-gradient(135deg, rgba(107,47,160,0.25), rgba(176,124,232,0.20));
+      border-color: rgba(176,124,232,0.5); transform: translateY(-1px);
+    }
+    .prev-chapter-btn svg, .next-chapter-btn svg { width: 20px; height: 20px; flex-shrink: 0; transition: transform 0.2s; }
+    .next-chapter-btn:hover svg { transform: translateX(4px); }
+    .prev-chapter-btn:hover svg { transform: translateX(-4px); }
+    .prev-chapter-btn .btn-label, .next-chapter-btn .btn-label { display: flex; flex-direction: column; align-items: flex-start; }
+    .prev-chapter-btn .btn-next, .next-chapter-btn .btn-next { font-size: 11px; opacity: 0.7; letter-spacing: 1.5px; text-transform: uppercase; }
+    .prev-chapter-btn .btn-title, .next-chapter-btn .btn-title { font-size: 16px; }
+    .chapter-nav-row { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 32px; }
+
+    @media (max-width: 768px) {
+      .beat-title h1 {
+        font-size: clamp(2.5rem, 8vw, 4rem);
+      }
+
+      .beat-title .subtitle {
+        font-size: 16px;
+      }
+
+      .card-title {
+        font-size: clamp(1.8rem, 6vw, 3rem);
+      }
+
+      .beat-counter {
+        bottom: max(16px, env(safe-area-inset-bottom, 16px));
+        right: 16px;
+        font-size: 11px;
+      }
+
+      .back-link {
+        top: 16px;
+        left: 16px;
+        font-size: 12px;
+      }
+
+      .prev-chapter-btn, .next-chapter-btn { padding: 14px 24px; font-size: 14px; }
+      .prev-chapter-btn .btn-title, .next-chapter-btn .btn-title { font-size: 14px; }
+      .chapter-nav-row { flex-direction: column; align-items: stretch; }
+      .prev-chapter-btn, .next-chapter-btn { margin-top: 8px; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="beat-counter" id="beatCounter"></div>
+  <a href="../index.html" class="back-link">← G2G</a>
+  <div class="nav-dots"></div>
+  <div class="swipe-hint" id="swipeHint">Swipe up to navigate</div>
+
+  <!-- BEAT 1: TITLE -->
+  <div class="beat beat-title">
+    <div class="beat-inner">
+      <p class="series-name">Sector Specials</p>
+      <p class="chapter-number">Chapter 28</p>
+      <h1>The Leveraged Finance Special</h1>
+      <p class="subtitle">Leveraged Buyouts, High Yield, Leveraged Loans & Credit Analysis</p>
+    </div>
+  </div>
+
+  <!-- BEAT 2: Chapter Roadmap -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Overview</p>
+      <h2 class="card-title">Chapter Roadmap</h2>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li><strong>Part 1: Foundations</strong> — What is LevFin, LBO mechanics, entry/exit, debt structuring</li>
+          <li><strong>Part 2: Instruments</strong> — Term loans, second lien, high yield bonds, covenant analysis</li>
+          <li><strong>Part 3: Credit Metrics & Returns</strong> — Leverage ratios, interest coverage, IRR/MOIC waterfall</li>
+          <li><strong>Part 4: Market Dynamics</strong> — CLOs, unitranche, direct lending, rating frameworks</li>
+          <li><strong>Part 5: Practicals</strong> — Interview traps, red flags, fee economics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 3: What Is Leveraged Finance -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Definition</p>
+      <h2 class="card-title">What Is Leveraged Finance?</h2>
+      <div class="card-body">
+        <p><strong>Leveraged Finance (LevFin)</strong> is the provision of debt to private equity sponsors or corporates to fund acquisitions, dividends, and capital structures. It sits at the intersection of M&A and capital markets.</p>
+        <div class="metric-item">
+          <p class="metric-name">LBO Definition</p>
+          <p class="metric-def">Acquisition financed primarily with debt, where sponsors contribute equity but leverage drives returns.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Typical Leverage Profile</p>
+          <p class="metric-def">4–6x net leverage at entry, 2–3x at exit. Entry multiples: 8–12x EBITDA for traditional sectors.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">LevFin Team Role</p>
+          <p class="metric-def">Arranges senior debt (TLA, TLB), subordinated debt (second lien, mezz), coordinates with sponsors on structure, manages bank syndication.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 4: The LBO Model Foundation -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Core Mechanics</p>
+      <h2 class="card-title">The LBO Model Foundation</h2>
+      <div class="card-body">
+        <p>An LBO is modeled via a simple Sources & Uses table and a returns waterfall.</p>
+        <div class="formula-box">
+          <span class="formula-label">Sources & Uses (Simple)</span>
+          Sources: Equity (30–50%) + Debt (50–70%) = Purchase Price<br>
+          Uses: Purchase price + Transaction fees + Working capital
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Entry Mechanics</p>
+          <p class="metric-def">Sponsor identifies target, sources debt, closes with negotiated debt-to-equity ratio, typically 60% debt / 40% equity for mid-market, 70–80% debt for large</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Returns Waterfall</p>
+          <p class="metric-def">Debt is paid down over hold (deleveraging). EBITDA may grow. Exit multiple and leverage multiple combine to create equity returns (IRR/MOIC).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 5: LBO Entry Mechanics -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Entry Strategy</p>
+      <h2 class="card-title">LBO Entry Mechanics</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">Entry Multiples</p>
+          <p class="metric-def">By sector: Tech 10–12x, Industrials 9–11x, B2B Services 8–10x, Retail 6–8x. Premium assets command higher multiples.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Equity Cheque</p>
+          <p class="metric-def">Mid-market: 30–40% of EV. Upper-mid/large: 20–30%. Co-investment from management: 5–15% of equity.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Management Rollover</p>
+          <p class="metric-def">Sponsor typically requires founder/CEO to roll significant proceeds into new equity for alignment. Vesting cliffs (4 years) are standard.</p>
+        </div>
+        <div class="example-box">
+          <span class="example-label">Entry Example</span>
+          Target: £200M EBITDA, 10x entry = £2B EV. 30% equity = £600M sponsor contribution + £1.4B debt. Management rolls £100M of pre-transaction wealth.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 6: Debt Structuring -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Capital Stack</p>
+      <h2 class="card-title">Debt Structuring Tranches</h2>
+      <div class="card-body">
+        <p>LBO debt is layered: senior secured first, subordinated last.</p>
+        <ul class="bullet-list">
+          <li><strong>Revolving Credit Facility (RCF):</strong> Undrawn liquidity (~10–15% of deal size). Rate: SOFR + 200–300 bps. Used for working capital swings.</li>
+          <li><strong>Term Loan A (TLA):</strong> 5–7 year amortizing. Rate: SOFR + 300–400 bps. Institutional lenders (banks, CLOs). Senior secured.</li>
+          <li><strong>Term Loan B (TLB):</strong> 7–8 year, minimal amortization. Rate: SOFR + 400–550 bps. Syndicated to CLOs, hedge funds. Senior secured.</li>
+          <li><strong>Second Lien:</strong> 7–8 year, junior to TLA/TLB. Rate: SOFR + 700–1000 bps. Mezz lenders. Lower recovery in distress.</li>
+          <li><strong>Mezzanine / HoldCo PIK:</strong> 8–10 year. Quasi-equity with PIK (payment-in-kind) toggle. Sponsor equity-like risk/return.</li>
+          <li><strong>Vendor Notes:</strong> Seller financing, deferred consideration. Often 3–5 year balloon.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 7: Term Loan Comparison -->
+  <div class="beat beat-card comparison-wide">
+    <div class="beat-inner">
+      <p class="card-label">Comparison</p>
+      <h2 class="card-title">Term Loan A vs B vs Second Lien</h2>
+      <div class="comparison-row">
+        <div class="comparison-col">
+          <p class="comparison-header">Term Loan A</p>
+          <p class="comparison-value">Rate: SOFR+300bps | Tenor: 5–7yr | Amortization: 1–2% annual | Lenders: Banks, strong institutional | Covenants: Maintenance (tight) | Call: Par+2yr</p>
+        </div>
+        <div class="comparison-col">
+          <p class="comparison-header">Term Loan B</p>
+          <p class="comparison-value">Rate: SOFR+400–550bps | Tenor: 7–8yr | Amortization: Minimal (0.25–1%) | Lenders: CLOs, HFs, banks | Covenants: Incurrence (looser) | Call: Par+3–4yr</p>
+        </div>
+        <div class="comparison-col">
+          <p class="comparison-header">Second Lien</p>
+          <p class="comparison-value">Rate: SOFR+700–1000bps | Tenor: 7–8yr | Amortization: None | Lenders: Specialized mezz | Covenants: Incurrence | Call: Par+4yr</p>
+        </div>
+      </div>
+      <p class="card-body" style="margin-top: 16px;"><strong>Key Distinction:</strong> TLA is amortizing and institutional; TLB is loose and syndicated; Second Lien is high-yield and junior, pricing depends on first-lien coverage.</p>
+    </div>
+  </div>
+
+  <!-- BEAT 8: Leveraged Loan Market -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Primary Market</p>
+      <h2 class="card-title">Leveraged Loan Syndication & Pricing</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">Syndication Process</p>
+          <p class="metric-def">Arranger commits funds, then distributes to banks/CLOs via roadshow. Large deals oversubscribed; smaller deals rely on arranger hold.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Flex Provisions</p>
+          <p class="metric-def">Arranger ability to adjust pricing/terms in market dislocation. Common: +50–100 bps rate flex, covenant loosening in strong demand.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Original Issue Discount (OID)</p>
+          <p class="metric-def">Syndicated loan sold at 98–99 cents on dollar; OID (2–3 points) is paid to lenders upfront, equivalent to ~150–200 bps annualized fee.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">SOFR Floors</p>
+          <p class="metric-def">Floor typically 0.50–1.00% to protect lenders in low-rate environment. TLB has floors; TLA may have lower/no floor depending on market.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 9: High Yield Bonds -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Fixed Income</p>
+      <h2 class="card-title">High Yield Bonds in LevFin</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">144A vs Reg S</p>
+          <p class="metric-def">144A: US institutional (accredited investors only). Reg S: International. Both can be cross-marketed. 144A is larger, more liquid.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Call Schedules</p>
+          <p class="metric-def">NC-2 (non-callable 2 years): Cannot call bonds for 2yr. NC-1: 1yr. Par: Callable at par after call period. Yield step-downs typical (104→102→par).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Make-Whole Provisions</p>
+          <p class="metric-def">Issuer can call early by paying accrued interest + present value of lost coupon. Useful when refinancing early at lower rates.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Change of Control Put</p>
+          <p class="metric-def">Bondholder can require issuer to repurchase at par if sponsor ownership drops below threshold (typically 50%). Protects vs. sponsor exit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 10: Loans vs Bonds Comparison -->
+  <div class="beat beat-card comparison-wide">
+    <div class="beat-inner">
+      <p class="card-label">Comparison</p>
+      <h2 class="card-title">Leveraged Loans vs High Yield Bonds</h2>
+      <div class="comparison-row">
+        <div class="comparison-col">
+          <p class="comparison-header">Leveraged Loans</p>
+          <p class="comparison-value"><strong>Security:</strong> First lien, asset-backed | <strong>Covenants:</strong> Tight maintenance ratios | <strong>Prepayment:</strong> No penalty, refinance-friendly | <strong>Lenders:</strong> Institutions, CLOs | <strong>Liquidity:</strong> Secondary mkt active</p>
+        </div>
+        <div class="comparison-col">
+          <p class="comparison-header">High Yield Bonds</p>
+          <p class="comparison-value"><strong>Security:</strong> Unsecured or second lien | <strong>Covenants:</strong> Incurrence (loose) | <strong>Prepayment:</strong> Call protection, makeup premium | <strong>Investors:</strong> Retail, mutual funds, HNI | <strong>Liquidity:</strong> Trading market, credit spreads</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 11: Credit Agreement Anatomy -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Documentation</p>
+      <h2 class="card-title">Credit Agreement Anatomy</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">Conditions Precedent</p>
+          <p class="metric-def">Regulatory approvals, board resolutions, officer certificates. Must be satisfied for funding. Provides lender outs if material adverse change occurs pre-close.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Representations & Warranties (Reps & Warranties)</p>
+          <p class="metric-def">Issuer certifies organization, capitalization, financials, litigation. Breaches allow lender to withhold funds or declare default.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Covenants</p>
+          <p class="metric-def">Affirmative (pay interest, file financials), negative (no asset sales without consent), financial (leverage, interest coverage).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Events of Default</p>
+          <p class="metric-def">Payment defaults, covenant breaches, material misrepresentation, insolvency, cross-default (default on other debt triggers default here).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Waterfall</p>
+          <p class="metric-def">Post-default or exit: repay debt in order of seniority (RCF → TLA → TLB → Second Lien → Equity).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 12: Covenant Analysis -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Credit Monitoring</p>
+      <h2 class="card-title">Covenant Analysis & Baskets</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">Maintenance vs Incurrence</p>
+          <p class="metric-def">Maintenance: Must be satisfied every quarter (tight). Incurrence: Triggered only by specific actions (asset sales, new debt, dividends).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Leverage Ratio Test</p>
+          <p class="metric-def">Net Debt / Adjusted EBITDA ≤ 4.5x (typical). Stepped down 4.25x → 4.0x annually. Breach triggers acceleration or loss of financial covenant relief.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Fixed Charge Coverage Ratio (FCCR)</p>
+          <p class="metric-def">EBITDA / (Interest + Principal + Leases) ≥ 1.15x. Tests ability to service debt. Tighter for overleveraged deals.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Restricted Payments Basket</p>
+          <p class="metric-def">Permits sponsor dividends if leverage stays below threshold (e.g., 3.0x). Common exit planning tool.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Permitted Debt Baskets</p>
+          <p class="metric-def">Allows incremental debt for acquisitions, working capital up to specified threshold without fresh covenant testing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 13: Credit Metrics Deep Dive -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Leverage Calculations</p>
+      <h2 class="card-title">Credit Metrics Deep Dive</h2>
+      <div class="card-body">
+        <div class="formula-box">
+          <span class="formula-label">Total Leverage</span>
+          (TLA + TLB + Second Lien + Mezz) / Adj. EBITDA<br>
+          Includes all debt layers.
+        </div>
+        <div class="formula-box">
+          <span class="formula-label">Senior Leverage</span>
+          (RCF drawn + TLA + TLB) / Adj. EBITDA<br>
+          Excludes subordinated debt; lenders focus on this for covenant.
+        </div>
+        <div class="formula-box">
+          <span class="formula-label">Net Leverage</span>
+          (Total Debt – Cash) / Adj. EBITDA<br>
+          Conservative measure; cash (esp. unencumbered) reduces leverage headroom.
+        </div>
+        <div class="formula-box">
+          <span class="formula-label">Interest Coverage</span>
+          EBITDA / Total Interest Expense<br>
+          Measures ability to cover interest from operations. >3.0x is healthy.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 14: LBO Returns Analysis -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Equity Value</p>
+      <h2 class="card-title">LBO Returns: IRR & MOIC</h2>
+      <div class="card-body">
+        <div class="formula-box">
+          <span class="formula-label">Internal Rate of Return (IRR)</span>
+          Discount rate that equates initial equity investment to exit proceeds.<br>
+          Target: 20–25% IRR for PE sponsors.
+        </div>
+        <div class="formula-box">
+          <span class="formula-label">Multiple on Invested Capital (MOIC)</span>
+          Exit Equity Value / Entry Equity Investment<br>
+          E.g., £600M in → £1.8B out = 3.0x MOIC.
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Value Creation Levers</p>
+          <p class="metric-def">EBITDA growth (operational), multiple expansion (market), leverage reduction (deleveraging). Debt paydown is mechanical return driver.</p>
+        </div>
+        <div class="example-box">
+          <span class="example-label">Return Bridge Example</span>
+          Entry: £600M equity at 10x. Exit: 10x again, +50% EBITDA growth. Debt paid down £400M → net leverage 2.0x. Equity value = Exit EV – Debt. With EBITDA growth and deleveraging, equity can 3–4x despite flat multiple.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 15: Worked LBO Returns Example -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Full Model</p>
+      <h2 class="card-title">Worked LBO Example: 5-Year Hold</h2>
+      <div class="card-body">
+        <div class="example-box">
+          <span class="example-label">Scenario</span>
+          <strong>Entry:</strong> £100M EBITDA, 10x entry = £1B EV. 40% equity (£400M) + 60% debt (£600M). | <strong>Assumptions:</strong> 15% EBITDA CAGR, exit multiple 10x, 5-year hold. | <strong>Exit:</strong> EBITDA grows to £201M, EV = £2.01B. Debt paid down to £300M (50% TLA repayment). Equity = £2.01B – £300M = £1.71B. | <strong>Returns:</strong> MOIC = £1.71B / £400M = 4.3x. IRR ≈ 33%.
+        </div>
+        <p style="margin-top: 16px;"><strong>Sensitivity:</strong> If EBITDA grows only 10% CAGR and exit multiple is 9x (not 10x), exit equity ≈ £1.1B, MOIC ≈ 2.8x, IRR ≈ 22%. Deleveraging and EBITDA growth drive returns more than multiple expansion.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 16: Dividend Recaps & Add-Ons -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Mid-Cycle Activity</p>
+      <h2 class="card-title">Dividend Recaps & Add-On Acquisitions</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">Dividend Recapitalization</p>
+          <p class="metric-def">Sponsor refinances debt or issues new debt to fund distribution to themselves mid-hold. Increases leverage but unlocks sponsor returns early.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Mechanics</p>
+          <p class="metric-def">Business now worth more (EBITDA growth), so sponsor borrows incrementally against improved cash flow. Can distribute 20–50% of equity stake while maintaining leverage covenant headroom.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Add-On Acquisitions</p>
+          <p class="metric-def">PE uses debt + equity to buy bolt-on targets. Improves EBITDA, spreads costs, creates synergies. Tests debt capacity; must fit within leverage covenant.</p>
+        </div>
+        <div class="warning-box">
+          <span class="warning-label">Credit Risk</span>
+          <p>Recaps increase leverage; if business stumbles, leverage rises when it shouldn't. Interviewers often ask: "Why would a sponsor do a recap?" Answer: Harvest value early, optimize return profile, test sponsor confidence in business.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 17: Debt Capacity Analysis -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Stress Testing</p>
+      <h2 class="card-title">Debt Capacity & Downside Scenarios</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">Debt Capacity Ceiling</p>
+          <p class="metric-def">Maximum leverage sponsor can support = base case EBITDA / Debt, adjusted for downside stress. Usually modeled at 5–6x on entry.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">EBITDA Stress Scenarios</p>
+          <p class="metric-def">Downside case: –20% EBITDA. At 5x leverage, debt doesn't decline; leverage jumps to 6.25x. Lenders scrutinize downside EBITDA multiple.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Minimum DSCR (Debt Service Coverage Ratio)</p>
+          <p class="metric-def">In downside, must maintain EBITDA / (Interest + Debt Repayment) ≥ 1.1x. Ensures no missed interest even in stress.</p>
+        </div>
+        <div class="example-box">
+          <span class="example-label">Capacity Example</span>
+          Base EBITDA £100M, can support £500M debt (5x). Downside: £80M. At £500M debt, leverage = 6.25x. DSCR = £80M / (£25M interest + £10M amort) = 2.3x. Still solid. But if interest higher, DSCR breaks.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 18: Credit Rating Framework -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Rating Agencies</p>
+      <h2 class="card-title">Credit Rating Framework: S&P, Moody's, Fitch</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">Methodology</p>
+          <p class="metric-def">Agencies assess leverage (Total/Senior), interest coverage, industry, management, covenant tightness. LBO typically rates 1–2 notches below corporate (because of leverage).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Notching</p>
+          <p class="metric-def">Secured debt (TLA) rates higher than unsecured (high yield bonds). Recovery assumptions drive notching: TLA 70% recovery = higher rating; unsecured 30% = lower.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Recovery Ratings</p>
+          <p class="metric-def">RR1 (90–100% recovery in distress) for senior secured. RR4 (10–30%) for junior unsecured. Affects bond pricing and spreads.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Rating Transitions</p>
+          <p class="metric-def">If leverage rises above 5.5x or EBITDA declines, agency may downgrade. Downgrades trigger price declines, covenant violations, higher refinancing costs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 19: Distressed Debt & Restructuring Triggers -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Covenant Breach</p>
+      <h2 class="card-title">Distressed Debt & Restructuring Triggers</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">Coverage Ratios Fail</p>
+          <p class="metric-def">If EBITDA declines sharply or interest spikes, EBITDA / Interest < 1.5x signals distress. Covenant wiggle room erodes.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Leverage Tests Breach</p>
+          <p class="metric-def">Covenant max: 4.5x. If EBITDA drops and debt stays flat, leverage can spike to 6x+, breaching covenant. Lender can demand cure or amend deal.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Liquidity Crisis</p>
+          <p class="metric-def">RCF drawn, cash depleted, refinancing window closes. Classic trigger: maturity wall (multiple tranches due same year with no extension).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Amend & Extend (A&E)</p>
+          <p class="metric-def">Sponsors negotiate with lenders to loosen covenants, extend maturities, raise rates. Common in downturns. Avoids bankruptcy but dilutes creditors.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 20: Unitranche & Direct Lending -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Alternative Structures</p>
+      <h2 class="card-title">Unitranche & Direct Lending</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">Unitranche Definition</p>
+          <p class="metric-def">Single tranche of debt that combines features of TLA & TLB: amortizing but loosely covenanted, priced at blended rate (e.g., SOFR + 450 bps).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Advantages</p>
+          <p class="metric-def">Simpler documentation, faster close, sponsor-friendly (fewer lenders to manage). Popular for mid-market, smaller PE deals.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Direct Lending</p>
+          <p class="metric-def">Non-bank lenders (Ares, HPS, Owl Rock, Golub, Lexington Partners credit funds) provide whole loans. Longer-term, customized structures. Rates: 8–12% all-in.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Key Players</p>
+          <p class="metric-def"><strong>Ares Direct Lending Fund:</strong> $100B+ AUM. <strong>HPS Investment Partners:</strong> ~$70B in credit. <strong>Owl Rock Capital:</strong> $50B+. <strong>Golub Capital:</strong> ~$60B.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 21: Sponsor-Backed vs Corporate LevFin -->
+  <div class="beat beat-card comparison-wide">
+    <div class="beat-inner">
+      <p class="card-label">Comparison</p>
+      <h2 class="card-title">Sponsor-Backed vs Corporate Leveraged Finance</h2>
+      <div class="comparison-row">
+        <div class="comparison-col">
+          <p class="comparison-header">Sponsor-Backed (PE LBO)</p>
+          <p class="comparison-value"><strong>Equity:</strong> Financial sponsor / investor | <strong>Leverage:</strong> 5–6x, aggressive | <strong>Covenants:</strong> Maintenance + incurrence | <strong>Exit:</strong> 5–7 year hold, sale or IPO | <strong>Returns:</strong> 20–30% IRR target</p>
+        </div>
+        <div class="comparison-col">
+          <p class="comparison-header">Corporate LevFin</p>
+          <p class="comparison-value"><strong>Equity:</strong> Public / strategic buyer | <strong>Leverage:</strong> 3–4x, conservative | <strong>Covenants:</strong> Looser, incurrence-based | <strong>Exit:</strong> Perpetual, organic growth | <strong>Returns:</strong> Not IRR-driven; focus on cash flow, credit metrics</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 22: European vs US LevFin -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Geography</p>
+      <h2 class="card-title">European vs US Leveraged Finance</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">Documentation</p>
+          <p class="metric-def"><strong>LMA Standard:</strong> Europe, typically covenant-lite. <strong>LSTA Standard:</strong> US, maintenance covenants. European deals looser on compliance.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Covenant-Lite Prevalence</p>
+          <p class="metric-def">Europe: ~70% covenant-lite in 2021–2023. US: ~50%. Covenant-lite = no maintenance financial covenants, only incurrence-based.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Leveraging Ratios</p>
+          <p class="metric-def">US mid-market: 4.5–5.5x TLA+TLB entry. Europe: 5.5–6.5x entry (higher leverage tolerance, looser docs).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Currency & Investor Base</p>
+          <p class="metric-def">EUR deals large, but USD dominates (larger pool of CLO investors). Single-currency deals easier to syndicate.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 23: CLO Mechanics -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Securitization</p>
+      <h2 class="card-title">CLO Mechanics & Arbitrage</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">CLO Definition</p>
+          <p class="metric-def">Collateralized Loan Obligation: SPV pools 100+ leveraged loans, issues tranched securities (AAA, A, BBB, BB, equity). Manager selects loans, monitors portfolio.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Waterfall Structure</p>
+          <p class="metric-def">Cash from loans flows to AAA tranche first (highest priority), then A, BBB, BB, equity (lowest). Equity last in priority but captures upside.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Overcollateralization Tests</p>
+          <p class="metric-def">OC test: Par value of loans ÷ Par value of bonds must stay ≥ 120%. If breached, cash diverted away from lower tranches until OC restored.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">CLO Arbitrage</p>
+          <p class="metric-def">CLO AAA pays ~SOFR + 150 bps; buys loans at SOFR + 450 bps. ~300 bps spread to cover management fees (5–25 bps) and debt funding cost. Equity captures remainder.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 24: LevFin Fees & Economics -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Arranger Revenue</p>
+      <h2 class="card-title">LevFin Fees & Economics</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">Arrangement Fee</p>
+          <p class="metric-def">1–1.5% of facility size. Paid at close by sponsor. Covers arranger's design & structuring work.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Underwriting Fee</p>
+          <p class="metric-def">0.5–1.0% upfront for arranger commitment. Compensates for risk of holding loans pre-syndication if market dislocates.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Commitment Fee</p>
+          <p class="metric-def">0.25–0.75% annually on undrawn RCF. Paid throughout facility tenor until drawn or expired.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">OID as De Facto Fee</p>
+          <p class="metric-def">2–3% OID on syndicated TLB = ~150–200 bps annualized. Shared among arranger, bookrunners, and syndicate.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">League Table Credit</p>
+          <p class="metric-def">Deal success generates franchise credit for banks. Market share in LevFin translates to advisory mandates, M&A advisory on follow-on deals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 25: Leveraged Finance in Practice -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Timeline</p>
+      <h2 class="card-title">LevFin Practicals: Deal Timeline</h2>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li><strong>Weeks 1–2:</strong> Mandate. LevFin team builds financing model, structures TLA/TLB/mezz stack, prepares term sheet.</li>
+          <li><strong>Weeks 3–4:</strong> Term sheet signed by sponsor. Public via investor update or confidential market sounding.</li>
+          <li><strong>Weeks 5–8:</strong> Syndication roadshow. Arranger, sponsor meet CLO managers, hedge funds, banks. Lead arrangers build demand.</li>
+          <li><strong>Week 9:</strong> Flex period (if oversubscribed). Arranger can tighten pricing, loosen covenants. Signs commitment letters.</li>
+          <li><strong>Weeks 10–12:</strong> Documentation. Legal negotiates credit agreement, security docs, reps & warranties insurance.</li>
+          <li><strong>Closing:</strong> Funds flow, debt drawn, acquisition closes simultaneously. Agent takes ongoing administrative role.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 26: Key Players & Market Dynamics -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Banks & Lenders</p>
+      <h2 class="card-title">Key Players in LevFin</h2>
+      <div class="card-body">
+        <div class="metric-item">
+          <p class="metric-name">Bulge Bracket Arrangers</p>
+          <p class="metric-def"><strong>JP Morgan:</strong> #1 LevFin arranger globally. <strong>Goldman Sachs:</strong> Strong in M&A-linked LevFin, sponsor relationships. <strong>Barclays:</strong> Top 5, especially Europe & mezz.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Regional / Middle Market</p>
+          <p class="metric-def"><strong>Deutsche Bank, BNY Mellon, Bank of America:</strong> Strong syndication capabilities. <strong>Credit Suisse (restructured 2023):</strong> Exited large LevFin platform.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Private Credit Competition</p>
+          <p class="metric-def">Direct lenders (Ares, HPS, Owl Rock) now originate 30–40% of leverage financing. Banks compete on speed, flexibility vs. syndication complexity.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">League Table Importance</p>
+          <p class="metric-def">Top arranger for year captures prestige, talent, sponsor mandates. Typically top 3: JPM, GS, Barclays (with regional variation).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 27: Red Flags & Interview Traps -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Common Mistakes</p>
+      <h2 class="card-title">Red Flags & Interview Traps in LevFin</h2>
+      <div class="card-body">
+        <div class="warning-box">
+          <span class="warning-label">Trap 1</span>
+          <p><strong>"Why would leverage destroy value?"</strong> Don't say "it always does." Correct: Leverage amplifies returns if underlying business grows. Destroys value only if EBITDA falls below debt service capacity.</p>
+        </div>
+        <div class="warning-box">
+          <span class="warning-label">Trap 2</span>
+          <p><strong>"What's more important: EBITDA growth or multiple expansion?"</strong> Don't pick one. Say: "EBITDA growth derisk the deal; multiple drives exit value. Both matter, but growth is more controllable."</p>
+        </div>
+        <div class="warning-box">
+          <span class="warning-label">Trap 3</span>
+          <p><strong>"What if EBITDA drops 20%?"</strong> Explain downside: leverage spikes, covenant headroom erodes, refinancing harder, restructuring risk. Shows understanding of leverage dynamics.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Avoid These Mistakes</p>
+          <p class="metric-def">Confusing debt tranches (don't mix TLA/TLB seniority). Ignoring covenant tightness. Oversimplifying MOIC (EBITDA growth + deleveraging matter). Not knowing CLO impact on loan pricing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 28: Scene - Trading Floor Pitch -->
+  <div class="beat beat-scene">
+    <div class="beat-inner">
+      <p class="scene-location">London Trading Floor — 4 PM</p>
+      <div class="scene-text">
+        <p>A <strong>LevFin analyst</strong> stands at the whiteboard facing a sponsor's CFO and two debt investors. Market just closed; the analyst has 15 minutes to pitch the structure before sponsor needs to update board.</p>
+        <p>"Okay, so the purchase price is £2B at 10x EBITDA. We're proposing: <strong>£600M TLA at SOFR + 325 bps</strong>, <strong>£700M TLB at SOFR + 450 bps</strong>, and <strong>£200M second lien at SOFR + 850 bps</strong>. That gets you to 4.8x entry, down to 3.5x by year three if you hit plan."</p>
+        <p>One investor leans forward: <strong>"What's your downside leverage?"</strong></p>
+        <p>"Downside EBITDA is £150M—that's a 25% decline. Even there, you're at 5.6x total leverage. Senior leverage stays 4.2x, so TLA banks are comfortable. Second lien takes the first loss, which is why we priced it at 850 over. CLOs will buy the TLB all day at 450."</p>
+        <p>Another investor: <strong>"When do you expect this to get refinanced?"</strong></p>
+        <p>"Year 3, if business performs. TLA matures year 7, but TLB is 8 years, so sponsor has flexibility. If covenant headroom widens and EBITDA grows, they can do a dividend recap in year 4—harvest some equity, maybe a dividend to themselves."</p>
+        <p>The CFO nods. The analyst flips the whiteboard to show the covenant schedule. <strong>"Leverage steps down every year if you hit EBITDA targets. Restricted payments basket opens at 3.0x, so sponsor can dividend then."</strong> The room goes quiet—that's the exit planning detail they came for.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 29: Finale -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Summary</p>
+      <h2 class="card-title">The Leveraged Finance Special: Key Takeaways</h2>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li><strong>LBO Fundamentals:</strong> Leverage amplifies equity returns. Debt must be sized to survive downside EBITDA scenarios.</li>
+          <li><strong>Debt Stack:</strong> TLA (amortizing, institutional), TLB (syndicated, minimal amort), Second Lien (subordinated, high coupon). Each tier serves different lender appetite.</li>
+          <li><strong>Covenants Are Guardrails:</strong> Leverage, interest coverage, and restricted payments baskets align sponsor incentives with lender protection.</li>
+          <li><strong>Returns Waterfall:</strong> EBITDA growth, leverage reduction, and multiple expansion combine to drive IRR/MOIC. No single factor dominates.</li>
+          <li><strong>CLOs Drive Syndication:</strong> Half of TLB syndicated to CLOs. Understand CLO structure and arbitrage to grasp TLB demand and pricing.</li>
+          <li><strong>Credit Rating & Distress:</strong> Downgrades trigger repricing; breaches lead to renegotiation. Amend & Extend is common in downturns.</li>
+          <li><strong>Interview Edge:</strong> Know the leverage waterfall, explain downside scenarios confidently, distinguish TLA vs TLB vs second lien, and articulate value creation drivers. Avoid jargon salad; show critical thinking.</li>
+        </ul>
+        <div class="download-hero">
+          <a href="G2G_Leveraged_Finance_Reference.pdf" download class="download-btn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Reference PDF
+          </a>
+          <p class="download-note">Leverage models, debt structures, SOFR floors, CLO mechanics, worked examples</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="chapter-nav-row">
+    <a href="ch27.html" class="prev-chapter-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      <span class="btn-label"><span class="btn-next">Previous Chapter</span><span class="btn-title">The Private Capital Advisory Special</span></span>
+    </a>
+    <a href="../index.html" class="next-chapter-btn">
+      <span class="btn-label"><span class="btn-next">Back to Home</span><span class="btn-title">G2G Advisory</span></span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+<script>
+  let currentBeat = 0;
+  let startY = 0;
+  let isAnimating = false;
+  const beats = document.querySelectorAll('.beat');
+  const totalBeats = beats.length;
+
+  function positionBeats() {
+    beats.forEach((beat, i) => {
+      if (i < currentBeat) {
+        beat.style.transform = 'translateY(-100vh)';
+        beat.style.opacity = '0';
+        beat.style.pointerEvents = 'none';
+        beat.style.visibility = 'hidden';
+      } else if (i === currentBeat) {
+        beat.style.transform = 'translateY(0)';
+        beat.style.opacity = '1';
+        beat.style.pointerEvents = 'auto';
+        beat.style.visibility = 'visible';
+      } else {
+        beat.style.transform = 'translateY(100vh)';
+        beat.style.opacity = '0';
+        beat.style.pointerEvents = 'none';
+        beat.style.visibility = 'hidden';
+      }
+    });
+  }
+
+  function updateCounter() {
+    const counter = document.getElementById('beatCounter');
+    if (counter) counter.textContent = `${currentBeat + 1} / ${totalBeats}`;
+  }
+
+  function updateProgress() {
+    // Progress bar removed (nav dots replaced it)
+  }
+
+  function goTo(index) {
+    if (isAnimating || index < 0 || index >= totalBeats) return;
+    isAnimating = true;
+    const direction = index > currentBeat ? -1 : 1;
+    beats[currentBeat].style.transform = `translateY(${direction * 100}vh)`;
+    beats[currentBeat].style.opacity = '0';
+    beats[currentBeat].style.pointerEvents = 'none';
+    beats[currentBeat].style.visibility = 'hidden';
+    beats[index].style.transform = 'translateY(0)';
+    beats[index].style.opacity = '1';
+    beats[index].style.pointerEvents = 'auto';
+    beats[index].style.visibility = 'visible';
+    currentBeat = index;
+    updateCounter();
+    updateProgress();
+    saveProgress();
+    document.querySelectorAll('.nav-dots .dot').forEach((d, di) => d.classList.toggle('active', di === currentBeat));
+    const hint = document.getElementById('swipeHint');
+    if (hint) {
+      hint.style.opacity = '0';
+      setTimeout(() => hint.remove(), 500);
+      try { localStorage.setItem('g2g-swipe-seen', '1'); } catch(e) {}
+    }
+    setTimeout(() => { isAnimating = false; }, 350);
+  }
+
+  document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const beat = beats[currentBeat];
+    const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+    const atTop = beat.scrollTop <= 5;
+    const diff = startY - e.changedTouches[0].clientY;
+    if (diff > 50 && atBottom) goTo(currentBeat + 1);
+    if (diff < -50 && atTop) goTo(currentBeat - 1);
+  }, { passive: true });
+
+  let wheelAccum = 0;
+  let wheelTimer = null;
+  document.addEventListener('wheel', e => {
+    const beat = beats[currentBeat];
+    const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+    const atTop = beat.scrollTop <= 5;
+    wheelAccum += e.deltaY;
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => { wheelAccum = 0; }, 200);
+    if (wheelAccum > 50 && atBottom) { wheelAccum = 0; goTo(currentBeat + 1); }
+    if (wheelAccum < -50 && atTop) { wheelAccum = 0; goTo(currentBeat - 1); }
+  }, { passive: true });
+
+  document.addEventListener('keydown', e => {
+    const beat = beats[currentBeat];
+    const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+    const atTop = beat.scrollTop <= 5;
+    if (['ArrowDown', 'ArrowRight', 'PageDown'].includes(e.key)) {
+      if (atBottom) { e.preventDefault(); goTo(currentBeat + 1); }
+    } else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) {
+      if (atTop) { e.preventDefault(); goTo(currentBeat - 1); }
+    } else if (e.key === ' ') {
+      e.preventDefault();
+      if (atBottom) goTo(currentBeat + 1);
+      else beat.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+    } else if (e.key === 'Home') {
+      e.preventDefault(); goTo(0);
+    } else if (e.key === 'End') {
+      e.preventDefault(); goTo(totalBeats - 1);
+    }
+  });
+
+  const swipeHint = document.getElementById('swipeHint');
+  if (swipeHint) {
+    try { if (localStorage.getItem('g2g-swipe-seen')) swipeHint.remove(); } catch(e) {}
+  }
+
+  const navContainer = document.querySelector('.nav-dots');
+  for (let i = 0; i < totalBeats; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goTo(i);
+    navContainer.appendChild(dot);
+  }
+
+  positionBeats();
+
+  // Create nav dots
+  (function() {
+    var navEl = document.querySelector('.nav-dots');
+    if (!navEl) {
+      navEl = document.createElement('div');
+      navEl.className = 'nav-dots';
+      navEl.id = 'navDots';
+      document.body.appendChild(navEl);
+    }
+    var beats = document.querySelectorAll('.beat');
+    navEl.innerHTML = '';
+    for (var i = 0; i < beats.length; i++) {
+      var dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.dataset.index = i;
+      dot.addEventListener('click', function() {
+        var idx = parseInt(this.dataset.index);
+        if (typeof goTo === 'function') goTo(idx);
+      });
+      navEl.appendChild(dot);
+    }
+  })();
+
+  updateCounter();
+  updateProgress();
+
+  const CHAPTER_NUM = 28;
+  function saveProgress() {
+    try { localStorage.setItem('g2g-progress-ch' + CHAPTER_NUM, currentBeat); } catch(e) {}
+  }
+
+  (function() {
+    try {
+      const saved = parseInt(localStorage.getItem('g2g-progress-ch' + CHAPTER_NUM));
+      if (saved && saved > 0 && saved < totalBeats) {
+        const toast = document.createElement('div');
+        toast.className = 'resume-toast';
+        toast.innerHTML = `<span>Resume from beat ${saved + 1}?</span><button onclick="goTo(${saved}); this.parentNode.remove();">Resume</button><button onclick="this.parentNode.remove();">Start Over</button>`;
+        document.body.appendChild(toast);
+        setTimeout(() => { if (toast.parentNode) toast.remove(); }, 8000);
+      }
+    } catch(e) {}
+  })();
+</script>
+</body>
+</html>

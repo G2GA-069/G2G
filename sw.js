@@ -1,4 +1,4 @@
-const CACHE_NAME = 'g2g-v8';
+const CACHE_NAME = 'g2g-v9';
 const ASSETS = [
   './',
   './index.html',
@@ -32,6 +32,7 @@ const ASSETS = [
   './chapters/ch25.html',
   './chapters/ch26.html',
   './chapters/ch27.html',
+  './chapters/ch28.html',
   // Images
   './images/le-pitch.jpg',
   './images/trace.jpg',
