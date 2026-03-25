@@ -1783,13 +1783,13 @@ Base Valuation (DCF or trading multiples)
         let touchEndY = 0;
 
         document.addEventListener('touchstart', (e) => {
-            touchStartY = e.changedTouches[0].screenY;
-        }, false);
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
 
         document.addEventListener('touchend', (e) => {
-            touchEndY = e.changedTouches[0].screenY;
+            touchEndY = e.changedTouches[0].clientY;
             handleSwipe();
-        }, false);
+        }, { passive: true });
 
         function handleSwipe() {
             const now = Date.now();

@@ -1082,13 +1082,13 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(document.body, { childList: true, subtree: true });
   }
 
-  updateUI();
-
   // Progress tracking
   const CHAPTER_NUM = 6;
   window.saveProgress = function() {
     try { localStorage.setItem('g2g-progress-ch' + CHAPTER_NUM, currentBeat); } catch(e) {}
   }
+
+  updateUI();
 
   // Resume prompt on load
   (function() {
