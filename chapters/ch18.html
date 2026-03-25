@@ -478,6 +478,33 @@
   .next-chapter-btn { padding: 14px 24px; font-size: 14px; }
   .next-chapter-btn .btn-title { font-size: 14px; }
 }
+
+.prev-chapter-btn, .next-chapter-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 28px; border-radius: 12px;
+  background: linear-gradient(135deg, rgba(107,47,160,0.15), rgba(176,124,232,0.10));
+  border: 1px solid rgba(176,124,232,0.25);
+  color: var(--accent, #b07ce8); text-decoration: none;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  transition: all 0.3s ease; margin-top: 32px; cursor: pointer;
+}
+.prev-chapter-btn:hover, .next-chapter-btn:hover {
+  background: linear-gradient(135deg, rgba(107,47,160,0.25), rgba(176,124,232,0.20));
+  border-color: rgba(176,124,232,0.5); transform: translateY(-1px);
+}
+.prev-chapter-btn svg, .next-chapter-btn svg { width: 20px; height: 20px; flex-shrink: 0; transition: transform 0.2s; }
+.next-chapter-btn:hover svg { transform: translateX(4px); }
+.prev-chapter-btn:hover svg { transform: translateX(-4px); }
+.prev-chapter-btn .btn-label, .next-chapter-btn .btn-label { display: flex; flex-direction: column; align-items: flex-start; }
+.prev-chapter-btn .btn-next, .next-chapter-btn .btn-next { font-size: 11px; opacity: 0.7; letter-spacing: 1.5px; text-transform: uppercase; }
+.prev-chapter-btn .btn-title, .next-chapter-btn .btn-title { font-size: 16px; }
+.chapter-nav-row { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 32px; }
+@media (max-width: 768px) {
+  .prev-chapter-btn, .next-chapter-btn { padding: 14px 24px; font-size: 14px; }
+  .prev-chapter-btn .btn-title, .next-chapter-btn .btn-title { font-size: 14px; }
+  .chapter-nav-row { flex-direction: column; align-items: stretch; }
+  .prev-chapter-btn, .next-chapter-btn { margin-top: 8px; justify-content: center; }
+}
 </style>
 </head>
 <body>
@@ -1266,18 +1293,17 @@ Fair value: €14.25. Stock at €15 = slight premium.
         <div class="swipe-hint" id="swipeHint">Swipe or use arrow keys →</div>
 
         <div class="nav-bottom">
-            <div class="nav-dots" id="navDots"></div>
+            
+<div class="chapter-nav-row">
+  <a href="ch17.html" class="prev-chapter-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg><span class="btn-label"><span class="btn-next">Previous Chapter</span><span class="btn-title">The Industrials Special</span></span></a>
+  <a href="ch19.html" class="next-chapter-btn"><span class="btn-label"><span class="btn-next">Next Chapter</span><span class="btn-title">Natural Resources &amp; Energy</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+</div>
+
+<div class="nav-dots" id="navDots"></div>
             <div class="beat-counter" id="beatCounter">1 / 28</div>
         </div>
     
 <div style="text-align:center; margin-top: 32px;">
-  <a href="ch19.html" class="next-chapter-btn">
-    <span class="btn-label">
-      <span class="btn-next">Next Chapter</span>
-      <span class="btn-title">The NRE Special</span>
-    </span>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-  </a>
 </div>
 </div>
 
