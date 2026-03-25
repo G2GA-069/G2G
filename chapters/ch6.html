@@ -449,7 +449,9 @@ body.party-mode .beat-title h1 {
 
 @media (max-width: 768px) {
 
-  .nav-dots { right: 8px; gap: 4px; }
+  .nav-dots { right: 8px; gap: 4px; 
+  .beat-inner { padding-right: 28px; }
+}
   .nav-dots .dot { width: 6px; height: 6px; }
   .nav-dots .dot.active { width: 8px; height: 8px; }
 
@@ -1001,14 +1003,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   let touchStartY = 0;
-  document.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; }, false);
+  document.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; }, { passive: true });
   document.addEventListener('touchend', (e) => {
     const diff = touchStartY - e.changedTouches[0].clientY;
     if (Math.abs(diff) > 50) {
       if (diff > 0) nextBeat();
       else prevBeat();
     }
-  }, false);
+  }, { passive: true });
 
   // Update chapter nav dots
   const navContainer = document.querySelector('.nav-dots');

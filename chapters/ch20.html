@@ -90,7 +90,7 @@
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transform: translateY(100px);
+            transform: translateY(100vh);
         }
 
         .beat-title {
@@ -432,7 +432,9 @@
 
 @media (max-width: 768px) {
 
-  .nav-dots { right: 8px; gap: 4px; }
+  .nav-dots { right: 8px; gap: 4px; 
+  .beat-inner { padding-right: 28px; }
+}
   .nav-dots .dot { width: 6px; height: 6px; }
   .nav-dots .dot.active { width: 8px; height: 8px; }
 
@@ -1235,7 +1237,6 @@ REIT Tax Advantage = Avoided corporation tax on rental income (20% statutory rat
         const beats = document.querySelectorAll('.beat');
         const totalBeats = beats.length;
         let currentBeat = 1;
-        let touchStartX = 0;
         let wheelAccumulator = 0;
 
         function positionBeats() {
@@ -1261,7 +1262,7 @@ REIT Tax Advantage = Avoided corporation tax on rental income (20% statutory rat
                 } else {
                     beat.classList.add('hidden');
                     beat.style.opacity = '0';
-                    beat.style.transform = 'translateY(100px)';
+                    beat.style.transform = 'translateY(100vh)';
                     beat.style.visibility = 'hidden';
                     beat.style.pointerEvents = 'none';
                 }
@@ -1312,16 +1313,16 @@ REIT Tax Advantage = Avoided corporation tax on rental income (20% statutory rat
             }
         }, { passive: false });
 
+        let touchStartY = 0;
         document.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-        });
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
 
         document.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].clientX;
-            const diff = touchStartX - touchEndX;
+            const diff = touchStartY - e.changedTouches[0].clientY;
             if (diff > 50) nextBeat();
             if (diff < -50) prevBeat();
-        });
+        }, { passive: true });
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') nextBeat();

@@ -436,7 +436,9 @@
 
 @media (max-width: 768px) {
 
-  .nav-dots { right: 8px; gap: 4px; }
+  .nav-dots { right: 8px; gap: 4px; 
+  .beat-inner { padding-right: 28px; }
+}
   .nav-dots .dot { width: 6px; height: 6px; }
   .nav-dots .dot.active { width: 8px; height: 8px; }
 
@@ -1238,7 +1240,6 @@ Fair value: €14.25. Stock at €15 = slight premium.
         const CHAPTER_NUM = 18;
         const TOTAL_BEATS = 28;
         let currentBeat = 0;
-        let touchStartX = 0;
         let scrollAccumulator = 0;
 
         const beatsViewport = document.getElementById('beatsViewport');
@@ -1320,17 +1321,17 @@ Fair value: €14.25. Stock at €15 = slight premium.
             }
         }
 
-        // Touch swipe
+        // Touch swipe (vertical — swipe up = next, swipe down = prev)
+        let touchStartY = 0;
         document.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-        });
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
 
         document.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].clientX;
-            const diff = touchStartX - touchEndX;
+            const diff = touchStartY - e.changedTouches[0].clientY;
             if (diff > 50) goTo(currentBeat + 1);
             if (diff < -50) goTo(currentBeat - 1);
-        });
+        }, { passive: true });
 
         // Mouse wheel
         document.addEventListener('wheel', (e) => {

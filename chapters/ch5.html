@@ -268,7 +268,9 @@ footer {
 
 @media (max-width: 768px) {
 
-  .nav-dots { right: 8px; gap: 4px; }
+  .nav-dots { right: 8px; gap: 4px; 
+  .beat-inner { padding-right: 28px; }
+}
   .nav-dots .dot { width: 6px; height: 6px; }
   .nav-dots .dot.active { width: 8px; height: 8px; }
 
@@ -745,12 +747,12 @@ document.addEventListener('keydown', (e) => {
 let touchStartY = 0;
 document.addEventListener('touchstart', (e) => {
   touchStartY = e.touches[0].clientY;
-});
+}, { passive: true });
 document.addEventListener('touchend', (e) => {
   const touchEndY = e.changedTouches[0].clientY;
   if (touchStartY - touchEndY > 50) showBeat(currentBeatIndex + 1);
   if (touchEndY - touchStartY > 50) showBeat(currentBeatIndex - 1);
-});
+}, { passive: true });
 
 // Mouse wheel navigation
 document.addEventListener('wheel', (e) => {
