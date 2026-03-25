@@ -944,6 +944,107 @@
       transform: translateX(6px);
     }
 
+    /* ===== CHAPTER GROUP DIVIDERS ===== */
+    .chapter-group {
+      margin-bottom: 80px;
+    }
+
+    .chapter-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .chapter-group-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+
+    .chapter-group-header::before,
+    .chapter-group-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .chapter-group-label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .chapter-group-label .group-accent {
+      color: var(--accent);
+    }
+
+    /* Featured intro card — full-width */
+    .chapter-group--intro .chapters-grid {
+      grid-template-columns: 1fr;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .chapter-group--intro .chapter-card {
+      border-color: var(--accent-dim);
+      background: linear-gradient(135deg, var(--surface), rgba(107, 47, 160, 0.08));
+    }
+
+    .chapter-group--intro .chapter-card::after {
+      content: 'Start Here';
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(107, 47, 160, 0.15);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    /* Summary card — full-width, distinct styling */
+    .chapter-group--summary .chapters-grid {
+      grid-template-columns: 1fr;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .chapter-group--summary .chapter-card {
+      border-color: rgba(74, 158, 110, 0.4);
+      background: linear-gradient(135deg, var(--surface), rgba(74, 158, 110, 0.06));
+    }
+
+    .chapter-group--summary .chapter-card::after {
+      content: 'Core Summary';
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      background: rgba(74, 158, 110, 0.12);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    /* Specials group — subtle accent border on header */
+    .chapter-group--specials .chapter-group-label {
+      color: var(--accent);
+    }
+
     /* ===== MISSION SECTION ===== */
     .mission {
       min-height: 60vh;
@@ -1393,9 +1494,14 @@
   <section class="chapters reveal" id="chapters">
     <div class="chapters-container">
       <p class="section-label">The Curriculum</p>
-      <h2 class="section-heading">Twenty Chapters. One Master Class.</h2>
+      <h2 class="section-heading">Twenty-Seven Chapters. One Master Class.</h2>
 
-      <div class="chapters-grid">
+      <!-- GROUP 1: INTRODUCTION -->
+      <div class="chapter-group chapter-group--intro">
+        <div class="chapter-group-header">
+          <span class="chapter-group-label"><span class="group-accent">Prologue</span></span>
+        </div>
+        <div class="chapters-grid">
         <!-- Chapter 1 -->
         <a href="chapters/ch1.html" class="chapter-card">
           <div class="chapter-inner">
@@ -1423,6 +1529,15 @@
             </div>
           </div>
         </a>
+        </div>
+      </div>
+
+      <!-- GROUP 2: CORE CURRICULUM (Ch 2-12) -->
+      <div class="chapter-group chapter-group--core">
+        <div class="chapter-group-header">
+          <span class="chapter-group-label">The Core &mdash; <span class="group-accent">Chapters 2&ndash;12</span></span>
+        </div>
+        <div class="chapters-grid">
 
         <!-- Chapter 2 -->
         <a href="chapters/ch2.html" class="chapter-card">
@@ -1731,7 +1846,15 @@
             </div>
           </div>
         </a>
+        </div>
+      </div>
 
+      <!-- GROUP 3: COMPLETE REFERENCE (Ch 13) -->
+      <div class="chapter-group chapter-group--summary">
+        <div class="chapter-group-header">
+          <span class="chapter-group-label">The Reference &mdash; <span class="group-accent">Complete Summary</span></span>
+        </div>
+        <div class="chapters-grid">
         <!-- Chapter 13 -->
         <a href="chapters/ch13.html" class="chapter-card">
           <div class="chapter-inner">
@@ -1760,12 +1883,21 @@
             </div>
           </div>
         </a>
+        </div>
+      </div>
+
+      <!-- GROUP 4: SECTOR & PRODUCT SPECIALS (Ch 14-27) -->
+      <div class="chapter-group chapter-group--specials">
+        <div class="chapter-group-header">
+          <span class="chapter-group-label">The Specials &mdash; <span class="group-accent">Sector &amp; Product Deep Dives</span></span>
+        </div>
+        <div class="chapters-grid">
 
         <a href="chapters/ch14.html" class="chapter-card">
           <div class="chapter-inner">
             <div class="chapter-label">Chapter 14</div>
             <div class="chapter-title">The TMT Special</div>
-            <div class="chapter-subtitle">Technology, Media & Telecom</div>
+            <div class="chapter-subtitle">Technology, Media &amp; Telecom</div>
             <div class="chapter-desc">From SaaS to Superapps — business models, metrics, and diligence red flags across the TMT landscape</div>
             <div class="chapter-tags">
               <span class="chapter-tag">SaaS</span>
@@ -2152,8 +2284,9 @@
             </div>
           </div>
         </a>
-
+        </div>
       </div>
+
     </div>
   </section>
 
