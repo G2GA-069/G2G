@@ -155,24 +155,50 @@ body.party-mode .beat-title h1 {
 .card-body p { margin-bottom: 16px; }
 .card-body p:last-child { margin-bottom: 0; }
 .card-body strong { color: var(--text); font-weight: 600; }
+.card-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px 0;
+  border-radius: 8px;
+}
 .card-table {
-  width: 100%; border-collapse: collapse; margin: 20px 0;
-  font-family: var(--font-mono); font-size: 13px;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  min-width: 420px;
 }
 .card-table th {
-  text-align: left; padding: 10px 14px; border-bottom: 1px solid #0077be;
-  color: #00d4ff; font-weight: 500; font-size: 12px;
-  letter-spacing: 1.5px; text-transform: uppercase;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--accent-dim, #7a55b0);
+  color: var(--accent, #b07ce8);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 .card-table td {
-  padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted);
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border, #2a2a35);
+  color: var(--text-muted, #a8a4b0);
+  line-height: 1.55;
+  vertical-align: top;
+}
+.card-table tbody tr {
+  transition: background 0.15s ease;
+}
+.card-table tbody tr:hover {
+  background: rgba(176, 124, 232, 0.06);
 }
 .card-table tr:last-child td { border-bottom: none; }
-.card-table .row-highlight td { color: var(--text); font-weight: 600; }
-.card-table .row-accent td { color: #00d4ff; font-weight: 600; }
-.card-table .num { text-align: right; }
-.card-table .negative { color: var(--red); }
-.card-table .positive { color: var(--green); }
+.card-table .row-highlight td { color: var(--text, #e8e4df); font-weight: 600; }
+.card-table .row-accent td { color: var(--accent, #b07ce8); font-weight: 600; }
+.card-table .num { text-align: right; font-family: var(--font-mono, 'JetBrains Mono', monospace); }
+.card-table .negative { color: var(--red, #ff3b30); }
+.card-table .positive { color: var(--green, #34c759); }
 .lingo-grid { display: grid; gap: 16px; margin: 20px 0; }
 .lingo-item {
   background: var(--surface-2); border-left: 3px solid #00d4ff;
@@ -233,8 +259,9 @@ body.party-mode .beat-title h1 {
   .beat-card { align-items: flex-start; padding-top: 52px; }
   .beat-inner { max-width: 100%; }
   .beat-card .beat-inner { padding: 20px 14px; }
-  .card-table { font-size: 13px; }
-  .card-table th, .card-table td { padding: 8px 6px; }
+  .card-table { font-size: 13px; min-width: 360px; }
+  .card-table th, .card-table td { padding: 10px 12px; }
+  .card-table th { font-size: 10px; letter-spacing: 0.6px; }
   .scene-text, .card-body { font-size: 17px; line-height: 1.75; }
   .beat-title h1 { font-size: 28px; }
   .lingo-def { font-size: 15px; }
@@ -245,8 +272,8 @@ body.party-mode .beat-title h1 {
   .narrator-text { font-size: 18px; }
   }
 @media (max-width: 480px) {
-  .card-table { font-size: 12px; }
-  .card-table th, .card-table td { padding: 6px 4px; }
+  .card-table { font-size: 12px; min-width: 320px; }
+  .card-table th, .card-table td { padding: 8px 10px; }
   .beat-title h1 { font-size: 24px; }
   .beat { padding-left: 16px; padding-right: 16px; }
 }
@@ -504,7 +531,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Reference</div>
 <div class="card-title">Acronyms to Remember</div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <tr>
 <th>Acronym</th>
 <th>Stands For</th>
@@ -550,7 +577,7 @@ body.party-mode .beat-title h1 {
 <td>International Financial Reporting Standards</td>
 <td>The accounting standards used in most of the world (except the US, which uses GAAP). IFRS and US GAAP have small differences, but both are accrual-based. Königshof reports under IFRS (being a German company).</td>
 </tr>
-</table>
+</table></div>
 </section>
 
 <!-- BEAT 9: NARRATOR - ACCRUAL VS CASH -->

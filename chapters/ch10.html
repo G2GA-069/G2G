@@ -305,31 +305,50 @@ body {
   color: var(--text);
   font-weight: 600;
 }
+.card-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px 0;
+  border-radius: 8px;
+}
 .card-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
-  font-family: var(--font-mono);
-  font-size: 13px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  min-width: 420px;
 }
 .card-table th {
   text-align: left;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--accent-dim);
-  color: var(--accent);
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 1.5px;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--accent-dim, #7a55b0);
+  color: var(--accent, #b07ce8);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .card-table td {
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text-muted);
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border, #2a2a35);
+  color: var(--text-muted, #a8a4b0);
+  line-height: 1.55;
+  vertical-align: top;
 }
-.card-table tr:last-child td {
-  border-bottom: none;
+.card-table tbody tr {
+  transition: background 0.15s ease;
 }
+.card-table tbody tr:hover {
+  background: rgba(176, 124, 232, 0.06);
+}
+.card-table tr:last-child td { border-bottom: none; }
+.card-table .row-highlight td { color: var(--text, #e8e4df); font-weight: 600; }
+.card-table .row-accent td { color: var(--accent, #b07ce8); font-weight: 600; }
+.card-table .num { text-align: right; font-family: var(--font-mono, 'JetBrains Mono', monospace); }
+.card-table .negative { color: var(--red, #ff3b30); }
+.card-table .positive { color: var(--green, #34c759); }
 .card-table .row-highlight td {
   color: var(--text);
   font-weight: 600;
@@ -999,7 +1018,7 @@ By the end of Chapter 9, you will know why the adjustments matter more than the 
 <div class="beat-inner">
 <div class="card-label">Königshof FY24</div>
 <div class="card-title">From Reported to Adjusted EBITDA</div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Item</th><th class="num">€m</th><th>Type</th></tr>
 </thead>
@@ -1012,7 +1031,7 @@ By the end of Chapter 9, you will know why the adjustments matter more than the 
 <tr><td>COO will cut €1.5m admin costs (FY25+)</td><td class="num positive">+1.5</td><td>Run-rate</td></tr>
 <tr class="row-accent"><td><strong>Pro Forma Adjusted EBITDA</strong></td><td class="num">20.0</td><td>Buyer's case</td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-body" style="margin-top: 24px;">
 <p><strong>The story:</strong> Reported €15.9m looks modest. But strip one-offs and add achievable cost saves, and the "real" earning power is €20m. That is the number SBCI puts on page 31. That is the number buyers focus on. That is the number the valuation is built from.</p>
 </div>
@@ -1129,7 +1148,7 @@ Equity = what shareholders get
 <div class="beat-inner">
 <div class="card-label">The Bridge That Breaks Intuition</div>
 <div class="card-title">Königshof €100m EV → ? Equity</div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th></th><th class="num">€m</th></tr>
 </thead>
@@ -1139,7 +1158,7 @@ Equity = what shareholders get
 <tr><td>− Debt</td><td class="num negative">(0.0)</td></tr>
 <tr class="row-accent"><td><strong>Equity Value</strong></td><td class="num">140.0</td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-body" style="margin-top: 24px;">
 <p>The EV is €100m. But the shareholders (Wilhelm's family) get €140m. Why? Because the company is a cash machine. It generates cash. That cash is worth something. After paying off zero debt (there is none), the whole pie is Equity.</p>
 <p>This is the <em>cash-rich paradox</em>: a business worth less than its equity value.</p>
@@ -1185,7 +1204,7 @@ Equity = what shareholders get
 <div class="beat-inner">
 <div class="card-label">Closing Adjustment</div>
 <div class="card-title">The €18m Inventory Trap</div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th></th><th class="num">€m</th><th>Days</th></tr>
 </thead>
@@ -1194,7 +1213,7 @@ Equity = what shareholders get
 <tr><td>Normal inventory for run-rate</td><td class="num">(35.0)</td><td>(400 DIO)</td></tr>
 <tr class="row-highlight"><td><strong>Excess inventory</strong></td><td class="num">18.0</td><td>—</td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-body" style="margin-top: 24px;">
 <p><strong>The story:</strong> Königshof's factory is slow. Sales fell. Inventory piled up: €53m of harvesters in the yard. Normal operating inventory should be €35m. The excess €18m is cash tied up in product that will eventually sell.</p>
 <p>At closing, Skarn negotiates a €18m price <em>credit</em>. They don't pay Wilhelm for the excess inventory. They will own it and sell it, eventually, into cash. That €18m was paid for, but not purchased by Skarn.</p>
@@ -1240,7 +1259,7 @@ Equity = what shareholders get
 <div class="beat-inner">
 <div class="card-label">Accounting Treatment</div>
 <div class="card-title">Subtrax Shoreditch Office Lease</div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Item</th><th class="num">£</th></tr>
 </thead>
@@ -1251,7 +1270,7 @@ Equity = what shareholders get
 <tr class="row-highlight"><td><strong>Right-of-use asset</strong></td><td class="num">1,300,000</td></tr>
 <tr class="row-accent"><td><strong>Lease liability (debt)</strong></td><td class="num">1,300,000</td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-body" style="margin-top: 24px;">
 <p>Before IFRS 16, Subtrax's £320k annual lease was just an opex line item. Now it lives as a £1.3m liability. Result: when you calculate Net Debt, Subtrax looks more leveraged than before. EV/EBITDA looks worse. The valuation math changes without the economics changing.</p>
 <p>Adjusting for this is standard: many adjustors eliminate the lease liability when calculating Enterprise Value.</p>
@@ -1292,7 +1311,7 @@ Equity = what shareholders get
 <div class="beat-inner">
 <div class="card-label">Debt Framework</div>
 <div class="card-title">Two Companies, Two Debt Stories</div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Metric</th><th class="num">Königshof</th><th class="num">Subtrax</th></tr>
 </thead>
@@ -1302,7 +1321,7 @@ Equity = what shareholders get
 <tr><td>Less: Cash on hand</td><td class="num negative">(40.0)</td><td class="num negative">(0.5)</td></tr>
 <tr class="row-accent"><td><strong>Net Debt</strong></td><td class="num negative">(40.0)</td><td class="num negative">(0.5)</td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-body" style="margin-top: 24px;">
 <p><strong>Königshof: negative net debt of €40m.</strong> The balance sheet is so strong that debt is negative. Zero borrowing + €40m cash = net cash position. This is the envy of private equity: a cash machine with fortress balance sheet.</p>
 <p><strong>Subtrax: negative net debt of £0.5m.</strong> After the processor freeze crisis, cash is thin. But still positive. The startup is not in danger, yet.</p>
@@ -1452,7 +1471,7 @@ Total Debt (€m)
 <div class="beat-inner">
 <div class="card-label">Page 31 of 47</div>
 <div class="card-title">Königshof Adjustment Checklist</div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Adjustment</th><th class="num">€m</th><th>Color</th><th>Status</th></tr>
 </thead>
@@ -1464,7 +1483,7 @@ Total Debt (€m)
 <tr><td>COO cost saves</td><td class="num positive">+1.5</td><td>🟡 Amber</td><td>Conditional</td></tr>
 <tr class="row-accent"><td><strong>Pro Forma Adjusted</strong></td><td class="num">20.0</td><td>—</td><td>Submitted</td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-body" style="margin-top: 24px;">
 <p><strong>Reality check:</strong> SBCI sent the full €20m to buyers. QofE marked the COO saves as Amber. Buyers used €18.5m as the valuation base (excluding COO). That is the number that matters when negotiating the price. Everything above is comfort.</p>
 </div>

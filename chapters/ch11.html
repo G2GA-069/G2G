@@ -155,24 +155,50 @@ body.party-mode .beat-title h1 {
 .card-body p { margin-bottom: 16px; }
 .card-body p:last-child { margin-bottom: 0; }
 .card-body strong { color: var(--text); font-weight: 600; }
+.card-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px 0;
+  border-radius: 8px;
+}
 .card-table {
-  width: 100%; border-collapse: collapse; margin: 20px 0;
-  font-family: var(--font-mono); font-size: 13px;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  min-width: 420px;
 }
 .card-table th {
-  text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--accent-dim);
-  color: var(--accent); font-weight: 500; font-size: 12px;
-  letter-spacing: 1.5px; text-transform: uppercase;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--accent-dim, #7a55b0);
+  color: var(--accent, #b07ce8);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 .card-table td {
-  padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted);
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border, #2a2a35);
+  color: var(--text-muted, #a8a4b0);
+  line-height: 1.55;
+  vertical-align: top;
+}
+.card-table tbody tr {
+  transition: background 0.15s ease;
+}
+.card-table tbody tr:hover {
+  background: rgba(176, 124, 232, 0.06);
 }
 .card-table tr:last-child td { border-bottom: none; }
-.card-table .row-highlight td { color: var(--text); font-weight: 600; }
-.card-table .row-accent td { color: var(--accent); font-weight: 600; }
-.card-table .num { text-align: right; }
-.card-table .negative { color: var(--red); }
-.card-table .positive { color: var(--green); }
+.card-table .row-highlight td { color: var(--text, #e8e4df); font-weight: 600; }
+.card-table .row-accent td { color: var(--accent, #b07ce8); font-weight: 600; }
+.card-table .num { text-align: right; font-family: var(--font-mono, 'JetBrains Mono', monospace); }
+.card-table .negative { color: var(--red, #ff3b30); }
+.card-table .positive { color: var(--green, #34c759); }
 .margin-stack { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; }
 .margin-bar { display: flex; align-items: center; gap: 14px; }
 .margin-bar .label {
@@ -378,8 +404,9 @@ body.party-mode .beat-title h1 {
   .beat-card { align-items: flex-start; padding-top: 52px; }
   .beat-inner { max-width: 100%; }
   .beat-card .beat-inner { padding: 20px 14px; }
-  .card-table { font-size: 13px; }
-  .card-table th, .card-table td { padding: 8px 6px; }
+  .card-table { font-size: 13px; min-width: 360px; }
+  .card-table th, .card-table td { padding: 10px 12px; }
+  .card-table th { font-size: 10px; letter-spacing: 0.6px; }
   .scene-text, .card-body { font-size: 17px; line-height: 1.75; }
   .beat-title h1 { font-size: 28px; }
   .comparison { grid-template-columns: 1fr; }
@@ -397,8 +424,8 @@ body.party-mode .beat-title h1 {
   .brand-footer { align-items: center; padding-top: 40px; }
 }
 @media (max-width: 480px) {
-  .card-table { font-size: 12px; }
-  .card-table th, .card-table td { padding: 6px 4px; }
+  .card-table { font-size: 12px; min-width: 320px; }
+  .card-table th, .card-table td { padding: 8px 10px; }
   .beat-title h1 { font-size: 24px; }
   .beat { padding-left: 16px; padding-right: 16px; }
 }
@@ -614,7 +641,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Process</div>
 <div class="card-title">The M&A Process: From Marketing to Close (Typical 6-9 Month Timeline)</div>
-<div class="table-scroll"><table class="card-table">
+<div class="table-scroll"><div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Phase</th><th>Duration</th><th>Key Activities</th><th>Seller Risk</th></tr>
 </thead>
@@ -626,7 +653,7 @@ body.party-mode .beat-title h1 {
 <tr><td><strong>Negotiation</strong></td><td>2-4 weeks</td><td>Buyer issues detailed findings. Seller negotiates reps & warranties, escrow, indemnity.</td><td>Price can fall based on due diligence discoveries. Seller liable for breaches.</td></tr>
 <tr><td><strong>Closing</strong></td><td>1-2 weeks</td><td>Contracts signed. Money wired. Legal formalities. Seller steps down or transitions.</td><td>Post-close indemnity. Seller may remain liable for pre-close issues for 12-24 months.</td></tr>
 </tbody>
-</table></div>
+</table></div></div>
 <div class="card-body">
 <p style="margin-top: 20px;"><strong>Key insight:</strong> The deal process is a game of information and risk. In early stages (marketing, bidding), the seller has control—many buyers, multiple options. In middle stages (exclusivity, DD), power shifts to the buyer—they know most. Smart advisors protect the seller by building competitive tension and limiting buyer discovery.</p>
 </div>

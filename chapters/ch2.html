@@ -155,24 +155,50 @@ body.party-mode .beat-title h1 {
 .card-body p { margin-bottom: 16px; }
 .card-body p:last-child { margin-bottom: 0; }
 .card-body strong { color: var(--text); font-weight: 600; }
+.card-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px 0;
+  border-radius: 8px;
+}
 .card-table {
-  width: 100%; border-collapse: collapse; margin: 20px 0;
-  font-family: var(--font-mono); font-size: 13px;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  min-width: 420px;
 }
 .card-table th {
-  text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--accent-dim);
-  color: var(--accent); font-weight: 500; font-size: 12px;
-  letter-spacing: 1.5px; text-transform: uppercase;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--accent-dim, #7a55b0);
+  color: var(--accent, #b07ce8);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 .card-table td {
-  padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted);
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border, #2a2a35);
+  color: var(--text-muted, #a8a4b0);
+  line-height: 1.55;
+  vertical-align: top;
+}
+.card-table tbody tr {
+  transition: background 0.15s ease;
+}
+.card-table tbody tr:hover {
+  background: rgba(176, 124, 232, 0.06);
 }
 .card-table tr:last-child td { border-bottom: none; }
-.card-table .row-highlight td { color: var(--text); font-weight: 600; }
-.card-table .row-accent td { color: var(--accent); font-weight: 600; }
-.card-table .num { text-align: right; }
-.card-table .negative { color: var(--red); }
-.card-table .positive { color: var(--green); }
+.card-table .row-highlight td { color: var(--text, #e8e4df); font-weight: 600; }
+.card-table .row-accent td { color: var(--accent, #b07ce8); font-weight: 600; }
+.card-table .num { text-align: right; font-family: var(--font-mono, 'JetBrains Mono', monospace); }
+.card-table .negative { color: var(--red, #ff3b30); }
+.card-table .positive { color: var(--green, #34c759); }
 .margin-stack { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; }
 .margin-bar { display: flex; align-items: center; gap: 14px; }
 .margin-bar .label {
@@ -378,8 +404,9 @@ body.party-mode .beat-title h1 {
   .beat-card { align-items: flex-start; padding-top: 52px; }
   .beat-inner { max-width: 100%; }
   .beat-card .beat-inner { padding: 20px 14px; }
-  .card-table { font-size: 13px; }
-  .card-table th, .card-table td { padding: 8px 6px; }
+  .card-table { font-size: 13px; min-width: 360px; }
+  .card-table th, .card-table td { padding: 10px 12px; }
+  .card-table th { font-size: 10px; letter-spacing: 0.6px; }
   .scene-text, .card-body { font-size: 17px; line-height: 1.75; }
   .beat-title h1 { font-size: 28px; }
   .comparison { grid-template-columns: 1fr; }
@@ -398,8 +425,8 @@ body.party-mode .beat-title h1 {
 }
 
 @media (max-width: 480px) {
-  .card-table { font-size: 12px; }
-  .card-table th, .card-table td { padding: 6px 4px; }
+  .card-table { font-size: 12px; min-width: 320px; }
+  .card-table th, .card-table td { padding: 8px 10px; }
   .beat-title h1 { font-size: 24px; }
   .beat { padding-left: 16px; padding-right: 16px; }
 }
@@ -580,7 +607,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Financial Reality</div>
 <div class="card-title">Eddie's Clinic vs Subtrax: The Same Template, Two Stories</div>
-<div class="table-scroll"><table class="card-table">
+<div class="table-scroll"><div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Line Item</th><th>Eddie's Clinic</th><th>Subtrax</th></tr>
 </thead>
@@ -600,7 +627,7 @@ body.party-mode .beat-title h1 {
 <tr class="row-highlight"><td><strong>Net Profit</strong></td><td class="num">£48,000</td><td class="num">(£910,000)</td></tr>
 <tr><td><strong>Net Margin %</strong></td><td class="num">19%</td><td class="num">(17%)</td></tr>
 </tbody>
-</table></div>
+</table></div></div>
 <div class="card-body">
 <p style="margin-top: 20px;"><strong>Why this matters:</strong> Same template. Opposite stories. Eddie is at steady state—fixed operating costs, high utilisation, low growth investment. Magda is at high growth—discretionary S&M spend, paying to build capacity ahead of demand. Both are correct. Both require understanding.</p>
 </div>
@@ -768,7 +795,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Analysis</div>
 <div class="card-title">Where Growth Comes From: Königshof & Subtrax Decomposition</div>
-<div class="table-scroll"><table class="card-table">
+<div class="table-scroll"><div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Company</th><th>Revenue</th><th>Volume</th><th>ASP</th><th>Growth %</th><th>Price vs Volume</th></tr>
 </thead>
@@ -782,7 +809,7 @@ body.party-mode .beat-title h1 {
 <tr><td>FY24</td><td class="num">£5.30m</td><td class="num">272 cust</td><td class="num">£19.5k</td><td colspan="2"></td></tr>
 <tr class="row-highlight"><td>Change</td><td class="num">+£1.42m</td><td class="num">+54 cust</td><td class="num">+£1.7k</td><td class="num">+36.6%</td><td>Volume +24.8% | Price +9.6%</td></tr>
 </tbody>
-</table></div>
+</table></div></div>
 <div class="card-body">
 <p style="margin-top: 20px;"><strong>Insight:</strong> Königshof growth is price-driven (2.2pp of 7.1%). This suggests pricing power. Subtrax is volume-driven (24.8pp of 36.6%). Classic SaaS: more customers + upsell = acceleration. Different engines. Different risk profiles.</p>
 </div>
@@ -842,7 +869,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Case Study</div>
 <div class="card-title">Subtrax FY24 Full Income Statement: The P&L Breakdown</div>
-<div class="table-scroll"><table class="card-table">
+<div class="table-scroll"><div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Line Item</th><th>Amount (£m)</th><th>% Revenue</th><th>Commentary</th></tr>
 </thead>
@@ -867,7 +894,7 @@ body.party-mode .beat-title h1 {
 <tr><td>Tax</td><td class="num">0.00</td><td class="num">0%</td><td>No tax on operating loss</td></tr>
 <tr class="row-highlight"><td><strong>Net Income</strong></td><td class="num"><strong>(0.91)</strong></td><td class="num"><strong>(17%)</strong></td><td>The 71% gross margin flows to growth, not profit—yet</td></tr>
 </tbody>
-</table></div>
+</table></div></div>
 <div class="card-body">
 <p style="margin-top: 20px;"><strong>Key insight:</strong> Subtrax's 71% gross margin is eaten by discretionary growth spend. The operating loss is a choice — cut S&M and the company is profitable tomorrow. The unit economics are sound; scale will fix the P&L.</p>
 </div>
@@ -878,7 +905,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Unit Economics</div>
 <div class="card-title">Subtrax: What It Costs to Serve One Customer Per Year</div>
-<div class="table-scroll"><table class="card-table">
+<div class="table-scroll"><div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Component</th><th>Cost (£)</th><th>Notes</th></tr>
 </thead>
@@ -898,7 +925,7 @@ body.party-mode .beat-title h1 {
 <tr><td><strong>LTV (3-year avg)</strong></td><td class="num"><strong>£41,610</strong></td><td>Contribution × 3</td></tr>
 <tr><td><strong>LTV:CAC</strong></td><td class="num"><strong>2.2x</strong></td><td>Rule: >3x is better</td></tr>
 </tbody>
-</table></div>
+</table></div></div>
 <div class="card-body">
 <p style="margin-top: 20px;"><strong>Key insight:</strong> Each customer generates £13,870/year contribution. At 272 customers, that's £3.77m total. But Subtrax spends £1.8m on acquiring new customers (fixed at that growth rate). So the company loses £0.9m. But at 500 customers (contribution £6.9m) with similar operating expense, profit = £4.3m. The model is correct. Scale fixes it.</p>
 </div>
@@ -916,7 +943,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Architecture</div>
 <div class="card-title">Fixed Costs: Bets on the Future</div>
-<div class="table-scroll"><table class="card-table">
+<div class="table-scroll"><div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th colspan="2">KÖNIGSHOF FY24 (€26.0m total)</th><th>% Revenue</th></tr>
 </thead>
@@ -938,7 +965,7 @@ body.party-mode .beat-title h1 {
 <tr><td><strong>Plus: Sales & Marketing (Variable)</strong></td><td class="num">£1.8m</td><td class="num">34%</td></tr>
 <tr class="row-highlight"><td><strong>Total Operating Expenses</strong></td><td class="num"><strong>£3.45m</strong></td><td class="num"><strong>65%</strong></td></tr>
 </tbody>
-</table></div>
+</table></div></div>
 <div class="card-body">
 <p style="margin-top: 20px;"><strong>The difference:</strong> Königshof's fixed costs are permanent. The factory doesn't close at 50% utilisation; it still costs €15.4m. Subtrax's true fixed costs (£1.65m) could support £2.32m in revenue at 71% margin. The operating loss comes from voluntary growth investment in S&M. In a recession, Magda can cut S&M and be profitable. Wilhelm cannot escape his factory. This is the fundamental difference between asset-heavy and asset-light businesses.</p>
 </div>
@@ -980,7 +1007,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Case Study</div>
 <div class="card-title">Königshof FY24 Full Income Statement: Line by Line</div>
-<div class="table-scroll"><table class="card-table">
+<div class="table-scroll"><div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Line Item</th><th>Amount (€m)</th><th>% Revenue</th><th>Commentary</th></tr>
 </thead>
@@ -1001,7 +1028,7 @@ body.party-mode .beat-title h1 {
 <tr><td>Tax</td><td class="num">(1.5)</td><td class="num">2%</td><td>German corporate tax</td></tr>
 <tr class="row-highlight"><td><strong>Net Income</strong></td><td class="num"><strong>3.5</strong></td><td class="num"><strong>(1%)</strong></td><td>From €99.6m at the top, €83.7m runs the business</td></tr>
 </tbody>
-</table></div>
+</table></div></div>
 <div class="card-body">
 <p style="margin-top: 20px;"><strong>Note on adjusted vs reported:</strong> The figures above are the <em>adjusted</em> P&amp;L, stripping out one-off items (FY23 legal settlement, FY24 CEO replacement costs). The <em>reported</em> EBIT was lower &mdash; €4.8m in FY23 and €5.8m in FY24 &mdash; because those one-offs hit the accounts. The Adjustments section below explains the difference and why PE investors care about it.</p>
 </div>
@@ -1012,7 +1039,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Case Study</div>
 <div class="card-title">Subtrax FY24 Full Income Statement: The Loss-Maker</div>
-<div class="table-scroll"><table class="card-table">
+<div class="table-scroll"><div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Line Item</th><th>Amount (£m)</th><th>% Revenue</th><th>Commentary</th></tr>
 </thead>
@@ -1042,7 +1069,7 @@ body.party-mode .beat-title h1 {
 <tr><td>Tax</td><td class="num">0.00</td><td class="num">0%</td><td>No tax on zero profit</td></tr>
 <tr class="row-highlight"><td><strong>Net Income</strong></td><td class="num"><strong>(0.91)</strong></td><td class="num"><strong>(17%)</strong></td><td>The 71% gross margin flows to growth, not profit—yet</td></tr>
 </tbody>
-</table></div>
+</table></div></div>
 <div class="card-body">
 <p style="margin-top: 20px;"><strong>Key insight:</strong> Subtrax's 71% gross margin is eaten by discretionary growth spend. The operating loss is a choice — cut S&M and the company is profitable tomorrow. The unit economics are sound; scale will fix the P&L.</p>
 </div>
@@ -1186,7 +1213,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Case Study</div>
 <div class="card-title">Königshof: Reported vs Adjusted EBIT (FY22-FY24)</div>
-<div class="table-scroll"><table class="card-table">
+<div class="table-scroll"><div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>FY</th><th>Reported EBIT</th><th>Adjustments</th><th>Type</th><th>Adjusted EBIT</th></tr>
 </thead>
@@ -1198,7 +1225,7 @@ body.party-mode .beat-title h1 {
 <tr><td>FY24</td><td class="num">€5.8m</td><td class="num">+€2.5m</td><td>Amber</td><td class="num">€8.3m</td></tr>
 <tr><td colspan="5" style="background: var(--surface-2); padding: 8px; font-size: 12px;">FY24: €6.0m from FY23 legal (continuing into FY24 due to appeal, reconsider if it's "one-time"). €1.2m severance from management restructuring. €1.1m write-off of obsolete parts inventory (result of FY23 demand shock). €0.5m CEO retirement bonus (documented).</td></tr>
 </tbody>
-</table></div>
+</table></div></div>
 <div class="card-body">
 <p><strong>The danger:</strong> Königshof's adjusted EBIT looks stable (€13.8m → €10.8m → €15.9m). But the underlying business is more fragile. The legal costs (€6m+ across two years) suggest operational risks (patent exposure). The severance (€1.5m + €1.2m) suggests ongoing restructuring, not a one-time event. The inventory write-off (€1.1m) is a consequence of poor demand forecasting in FY23, which is operational, not one-time.</p>
 

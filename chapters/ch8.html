@@ -155,24 +155,50 @@ body.party-mode .beat-title h1 {
 .card-body p { margin-bottom: 16px; }
 .card-body p:last-child { margin-bottom: 0; }
 .card-body strong { color: var(--text); font-weight: 600; }
+.card-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px 0;
+  border-radius: 8px;
+}
 .card-table {
-  width: 100%; border-collapse: collapse; margin: 20px 0;
-  font-family: var(--font-mono); font-size: 13px;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  min-width: 420px;
 }
 .card-table th {
-  text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--accent-dim);
-  color: var(--accent); font-weight: 500; font-size: 12px;
-  letter-spacing: 1.5px; text-transform: uppercase;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--accent-dim, #7a55b0);
+  color: var(--accent, #b07ce8);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 .card-table td {
-  padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-muted);
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border, #2a2a35);
+  color: var(--text-muted, #a8a4b0);
+  line-height: 1.55;
+  vertical-align: top;
+}
+.card-table tbody tr {
+  transition: background 0.15s ease;
+}
+.card-table tbody tr:hover {
+  background: rgba(176, 124, 232, 0.06);
 }
 .card-table tr:last-child td { border-bottom: none; }
-.card-table .row-highlight td { color: var(--text); font-weight: 600; }
-.card-table .row-accent td { color: var(--accent); font-weight: 600; }
-.card-table .num { text-align: right; }
-.card-table .negative { color: var(--red); }
-.card-table .positive { color: var(--green); }
+.card-table .row-highlight td { color: var(--text, #e8e4df); font-weight: 600; }
+.card-table .row-accent td { color: var(--accent, #b07ce8); font-weight: 600; }
+.card-table .num { text-align: right; font-family: var(--font-mono, 'JetBrains Mono', monospace); }
+.card-table .negative { color: var(--red, #ff3b30); }
+.card-table .positive { color: var(--green, #34c759); }
 .margin-stack { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; }
 .margin-bar { display: flex; align-items: center; gap: 14px; }
 .margin-bar .label {
@@ -378,8 +404,9 @@ body.party-mode .beat-title h1 {
   .beat-card { align-items: flex-start; padding-top: 52px; }
   .beat-inner { max-width: 100%; }
   .beat-card .beat-inner { padding: 20px 14px; }
-  .card-table { font-size: 13px; }
-  .card-table th, .card-table td { padding: 8px 6px; }
+  .card-table { font-size: 13px; min-width: 360px; }
+  .card-table th, .card-table td { padding: 10px 12px; }
+  .card-table th { font-size: 10px; letter-spacing: 0.6px; }
   .scene-text, .card-body { font-size: 17px; line-height: 1.75; }
   .beat-title h1 { font-size: 28px; }
   .comparison { grid-template-columns: 1fr; }
@@ -398,8 +425,8 @@ body.party-mode .beat-title h1 {
 }
 
 @media (max-width: 480px) {
-  .card-table { font-size: 12px; }
-  .card-table th, .card-table td { padding: 6px 4px; }
+  .card-table { font-size: 12px; min-width: 320px; }
+  .card-table th, .card-table td { padding: 8px 10px; }
   .beat-title h1 { font-size: 24px; }
   .beat { padding-left: 16px; padding-right: 16px; }
 }
@@ -753,7 +780,7 @@ body.party-mode .beat-title h1 {
 <p>Before the 200-page credit agreement is drafted, the key economics are captured in a <strong>term sheet</strong> — typically 5–10 pages. For the Königshof financing:</p>
 </div>
 <div class="table-scroll">
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead><tr><th>Term</th><th>TLA (€50m)</th><th>TLB (€70m)</th><th>Revolver (€30m)</th></tr></thead>
 <tbody>
 <tr><td><strong>Tenor</strong></td><td>5 years</td><td>7 years</td><td>5 years</td></tr>
@@ -763,7 +790,7 @@ body.party-mode .beat-title h1 {
 <tr><td><strong>Call Protection</strong></td><td>None</td><td>101 in year 1, par after</td><td>None</td></tr>
 <tr><td><strong>Flex</strong></td><td>±25bps pricing</td><td>±50bps pricing, OID floor 99</td><td>—</td></tr>
 </tbody>
-</table>
+</table></div>
 </div>
 <div class="card-body" style="margin-top: 20px;">
 <p><strong>Flex provisions</strong> deserve attention. "Flex" gives the arranging bank the right to adjust pricing or structure if investor demand is weak during syndication. If the TLB does not attract enough institutional buyers at Euribor+400, the arranger can flex pricing up to Euribor+450 or offer an Original Issue Discount (OID) — selling the loan at 99 cents on the euro. For the sponsor, flex means deal certainty at the cost of potentially higher financing costs.</p>
@@ -877,7 +904,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Reference</div>
 <div class="card-title">Rating Sensitivity: How Metrics Drive Credit Ratings</div>
-<div class="table-scroll"><table class="card-table">
+<div class="table-scroll"><div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Rating</th><th>Leverage (ND/EBITDA)</th><th>Interest Coverage (EBITDA/Int)</th><th>Profile</th></tr>
 </thead>
@@ -887,7 +914,7 @@ body.party-mode .beat-title h1 {
 <tr><td><strong>High Yield (B)</strong></td><td class="num">3.5x – 5x</td><td class="num">2x – 3x</td><td>Speculative, elevated risk</td></tr>
 <tr><td><strong>Distressed (CCC)</strong></td><td class="num">&gt; 5x</td><td class="num">&lt; 2x</td><td>Highly risky, default possible</td></tr>
 </tbody>
-</table></div>
+</table></div></div>
 <p style="margin-top: 20px;"><strong>Königshof's Position:</strong> Pre-buyout, Königshof has ~€40m net cash, EBITDA ~€16.9m. Its ND/EBITDA is negative (it's a net cash position)—ultra-conservative. Post-LBO with €120m net debt and (conservatively) €14m EBITDA, leverage would be 8.5x—deep into distressed territory. This is why Haircut must be confident in earnings stability and synergy realization.</p>
 </section>
 
@@ -920,7 +947,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Case Study</div>
 <div class="card-title">Capital Structures: Growth (Subtrax) vs. Stability (Königshof)</div>
-<div class="table-scroll"><table class="card-table">
+<div class="table-scroll"><div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Factor</th><th>Subtrax (SaaS, Early Stage)</th><th>Königshof (Manufacturing, Mature)</th></tr>
 </thead>
@@ -931,7 +958,7 @@ body.party-mode .beat-title h1 {
 <tr><td><strong>Flexibility & Covenants</strong></td><td>Maximum. Magda runs Subtrax with no lender restrictions. Can pivot, reinvest, take on losses.</td><td>Post-LBO: tightly constrained. Debt covenants limit capex, dividends, leverage ratio. Wilhelm loses autonomy.</td></tr>
 <tr><td><strong>Upside vs. Downside</strong></td><td>Founders keep more upside (no debt dilution) but absorb all downside loss (equity goes to zero).</td><td>Post-LBO: PE sponsor captures most upside via equity; Wilhelm might have rollover equity or earn-out. Downside: debt could force asset sales or restructuring.</td></tr>
 </tbody>
-</table></div>
+</table></div></div>
 </section>
 
 <!-- BEAT 34: CARD - CAPITAL STACK MAPS -->

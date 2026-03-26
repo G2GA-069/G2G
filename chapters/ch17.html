@@ -121,6 +121,45 @@ body {
 .card-body p { margin-bottom: 16px; }
 .card-body p:last-child { margin-bottom: 0; }
 .card-body strong { color: var(--text); font-weight: 600; }
+.card-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px 0;
+  border-radius: 8px;
+}
+.card-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  min-width: 420px;
+}
+.card-table th {
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--accent-dim, #7a55b0);
+  color: var(--accent, #b07ce8);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.card-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border, #2a2a35);
+  color: var(--text-muted, #a8a4b0);
+  line-height: 1.55;
+  vertical-align: top;
+}
+.card-table tbody tr {
+  transition: background 0.15s ease;
+}
+.card-table tbody tr:hover {
+  background: rgba(176, 124, 232, 0.06);
+}
+.card-table tr:last-child td { border-bottom: none; }
 
 /* Metrics and Formula Boxes */
 .metric-item {
@@ -1294,85 +1333,29 @@ body {
 <div class="card-title">Sub-Sector Comparison</div>
 <div class="card-body">
 
-<div style="overflow-x: auto; margin: 20px 0;">
-<table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 13px;">
-<tr style="border-bottom: 1px solid var(--border);">
-<td style="padding: 10px; color: var(--accent-dim); font-weight: 700;">Sub-Sector</td>
-<td style="padding: 10px; color: var(--accent-dim); font-weight: 700;">EBITDA %</td>
-<td style="padding: 10px; color: var(--accent-dim); font-weight: 700;">Typical EV/EBITDA</td>
-<td style="padding: 10px; color: var(--accent-dim); font-weight: 700;">Cyclicality</td>
-<td style="padding: 10px; color: var(--accent-dim); font-weight: 700;">Visibility</td>
+<div class="card-table-wrap">
+<table class="card-table">
+<thead>
+<tr>
+<th>Sub-Sector</th>
+<th>EBITDA %</th>
+<th>Typical EV/EBITDA</th>
+<th>Cyclicality</th>
+<th>Visibility</th>
 </tr>
-<tr style="border-bottom: 1px solid var(--border);">
-<td style="padding: 10px;">Aerospace OEM</td>
-<td style="padding: 10px;">8-12%</td>
-<td style="padding: 10px;">8-12x</td>
-<td style="padding: 10px;">High</td>
-<td style="padding: 10px;">3-4 yrs</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--border);">
-<td style="padding: 10px;">Aerospace Aftermarket</td>
-<td style="padding: 10px;">25-35%</td>
-<td style="padding: 10px;">15-22x</td>
-<td style="padding: 10px;">Low</td>
-<td style="padding: 10px;">5+ yrs</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--border);">
-<td style="padding: 10px;">Defence</td>
-<td style="padding: 10px;">10-15%</td>
-<td style="padding: 10px;">12-18x</td>
-<td style="padding: 10px;">Low</td>
-<td style="padding: 10px;">5-10 yrs</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--border);">
-<td style="padding: 10px;">Capital Goods</td>
-<td style="padding: 10px;">10-15%</td>
-<td style="padding: 10px;">10-16x</td>
-<td style="padding: 10px;">High</td>
-<td style="padding: 10px;">1-2 yrs</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--border);">
-<td style="padding: 10px;">Building Materials</td>
-<td style="padding: 10px;">15-25%</td>
-<td style="padding: 10px;">8-14x</td>
-<td style="padding: 10px;">High</td>
-<td style="padding: 10px;">1 yr</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--border);">
-<td style="padding: 10px;">Engineering Services</td>
-<td style="padding: 10px;">12-18%</td>
-<td style="padding: 10px;">10-15x</td>
-<td style="padding: 10px;">Medium</td>
-<td style="padding: 10px;">1-2 yrs</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--border);">
-<td style="padding: 10px;">Transport/Logistics</td>
-<td style="padding: 10px;">10-15%</td>
-<td style="padding: 10px;">8-14x</td>
-<td style="padding: 10px;">High</td>
-<td style="padding: 10px;">0-1 yr</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--border);">
-<td style="padding: 10px;">Packaging</td>
-<td style="padding: 10px;">15-22%</td>
-<td style="padding: 10px;">8-14x</td>
-<td style="padding: 10px;">Low</td>
-<td style="padding: 10px;">1-2 yrs</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--border);">
-<td style="padding: 10px;">Environmental/Waste</td>
-<td style="padding: 10px;">25-35%</td>
-<td style="padding: 10px;">15-20x</td>
-<td style="padding: 10px;">Low</td>
-<td style="padding: 10px;">5+ yrs</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--border);">
-<td style="padding: 10px;">TIC</td>
-<td style="padding: 10px;">16-22%</td>
-<td style="padding: 10px;">18-25x</td>
-<td style="padding: 10px;">Low</td>
-<td style="padding: 10px;">3+ yrs</td>
-</tr>
+</thead>
+<tbody>
+<tr><td>Aerospace OEM</td><td>8-12%</td><td>8-12x</td><td>High</td><td>3-4 yrs</td></tr>
+<tr><td>Aerospace Aftermarket</td><td>25-35%</td><td>15-22x</td><td>Low</td><td>5+ yrs</td></tr>
+<tr><td>Defence</td><td>10-15%</td><td>12-18x</td><td>Low</td><td>5-10 yrs</td></tr>
+<tr><td>Capital Goods</td><td>10-15%</td><td>10-16x</td><td>High</td><td>1-2 yrs</td></tr>
+<tr><td>Building Materials</td><td>15-25%</td><td>8-14x</td><td>High</td><td>1 yr</td></tr>
+<tr><td>Engineering Services</td><td>12-18%</td><td>10-15x</td><td>Medium</td><td>1-2 yrs</td></tr>
+<tr><td>Transport/Logistics</td><td>10-15%</td><td>8-14x</td><td>High</td><td>0-1 yr</td></tr>
+<tr><td>Packaging</td><td>15-22%</td><td>8-14x</td><td>Low</td><td>1-2 yrs</td></tr>
+<tr><td>Environmental/Waste</td><td>25-35%</td><td>15-20x</td><td>Low</td><td>5+ yrs</td></tr>
+<tr><td>TIC</td><td>16-22%</td><td>18-25x</td><td>Low</td><td>3+ yrs</td></tr>
+</tbody>
 </table>
 </div>
 

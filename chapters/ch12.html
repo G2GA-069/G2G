@@ -171,23 +171,27 @@ body.party-mode .beat-title h1 {
   border: 1px solid var(--border);
 }
 .card-table {
-  width: 100%; border-collapse: collapse; font-family: var(--font-mono);
-  font-size: 12px;
+  width: 100%; border-collapse: collapse; font-family: var(--font-sans);
+  font-size: 14px; min-width: 420px;
 }
 .card-table thead {
-  background: var(--surface-2); border-bottom: 1px solid var(--border);
+  background: var(--surface-2); border-bottom: 2px solid var(--accent-dim, #7a55b0);
 }
 .card-table th {
-  padding: 10px 12px; text-align: left; font-weight: 600;
-  color: var(--accent); letter-spacing: 0.5px;
+  padding: 12px 16px; text-align: left; font-weight: 600;
+  color: var(--accent, #b07ce8); font-family: var(--font-sans);
+  font-size: 11px; letter-spacing: 0.8px; text-transform: uppercase;
+  white-space: nowrap;
 }
 .card-table td {
-  padding: 10px 12px; border-bottom: 1px solid var(--border);
-  color: var(--text);
+  padding: 11px 16px; border-bottom: 1px solid var(--border);
+  color: var(--text-muted, #a8a4b0); line-height: 1.55; vertical-align: top;
 }
+.card-table tbody tr { transition: background 0.15s ease; }
+.card-table tbody tr:hover { background: rgba(176, 124, 232, 0.06); }
 .card-table tr:last-child td { border-bottom: none; }
 .row-highlight td { background: var(--surface-2); }
-.num { text-align: right; }
+.num { text-align: right; font-family: var(--font-mono); }
 .beat-takeaway .beat-inner {
   background: transparent; border: none; padding: 0;
   text-align: center;

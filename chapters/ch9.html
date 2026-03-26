@@ -295,8 +295,8 @@ body.party-mode .beat-title h1 {
   .beat-counter { font-size: 11px; padding: 6px 12px; }
 }
 @media (max-width: 480px) {
-  .card-table { font-size: 12px; }
-  .card-table th, .card-table td { padding: 6px 4px; }
+  .card-table { font-size: 12px; min-width: 320px; }
+  .card-table th, .card-table td { padding: 8px 10px; }
   .beat-title h1 { font-size: 24px; }
   .beat { padding-left: 16px; padding-right: 16px; }
 }
@@ -466,7 +466,7 @@ body.party-mode .beat-title h1 {
 <div class="card-body">
 <p>There is no single "correct" valuation. There are three perspectives, each answering the question differently:</p>
 </div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Method</th><th>Question</th><th>Logic</th></tr>
 </thead>
@@ -487,7 +487,7 @@ body.party-mode .beat-title h1 {
 <td>Intrinsic value from fundamentals</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-body" style="margin-top: 20px;">
 <p>None is "right". All three are useful. A professional uses all three and reconciles the results. <strong>"The football field is not an answer. It is a conversation."</strong></p>
 </div>
@@ -526,7 +526,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Trading Comps</div>
 <div class="card-title">European Ag Equipment Peers: Public Market Multiples</div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Company</th><th class="num">Market Cap</th><th class="num">EV/EBITDA</th><th class="num">EV/EBIT</th></tr>
 </thead>
@@ -536,7 +536,7 @@ body.party-mode .beat-title h1 {
 <tr><td>Argo Investments</td><td class="num">€2.1bn</td><td class="num">9.3x</td><td class="num">11.0x</td></tr>
 <tr class="row-accent"><td><strong>Median Multiple</strong></td><td class="num"></td><td class="num"><strong>8.5x</strong></td><td class="num"><strong>10.2x</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-body" style="margin-top: 20px;">
 <p><strong>Apply to Königshof:</strong> Adjusted EBITDA (FY24) = €9.9m. At 8.5x, Enterprise Value = €84m.</p>
 </div>
@@ -548,7 +548,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Bridge</div>
 <div class="card-title">From Enterprise Value to Equity Value</div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th></th><th class="num">€m</th></tr>
 </thead>
@@ -558,7 +558,7 @@ body.party-mode .beat-title h1 {
 <tr><td><strong>Plus: Cash</strong></td><td class="num">€40.0</td></tr>
 <tr class="row-highlight"><td><strong>Equity Value</strong></td><td class="num">€124.0</td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-body" style="margin-top: 20px;">
 <p>Königshof with €40m net cash is worth more to an investor than the EV suggests. That cash is real and available.</p>
 </div>
@@ -609,7 +609,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">Precedent Transactions</div>
 <div class="card-title">European Ag Equipment M&A (Recent Deals)</div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Target</th><th class="num">EBITDA</th><th class="num">Multiple Paid</th><th>Buyer Type</th></tr>
 </thead>
@@ -619,7 +619,7 @@ body.party-mode .beat-title h1 {
 <tr><td>Simba Equipment (Italy)</td><td class="num">€11m</td><td class="num">10.5x</td><td>Strategic</td></tr>
 <tr class="row-accent"><td><strong>Precedent Median</strong></td><td class="num"></td><td class="num"><strong>10.2x</strong></td><td></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-body" style="margin-top: 20px;">
 <p><strong>Premium to trading comps:</strong> Precedents trade at 10x (median) vs. trading comps at 8.5x. That's an 18% premium—standard for acquisition premiums.</p>
 <p><strong>Apply to Königshof:</strong> At 10x EBITDA = €99m EV.</p>
@@ -679,7 +679,7 @@ body.party-mode .beat-title h1 {
 <div class="card-body">
 <p>The discount rate is the blended cost of all capital sources: equity and debt. It's called WACC—Weighted Average Cost of Capital. It answers: "If I invest €1 in this business, what return should I demand?"</p>
 </div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Component</th><th class="num">Rate</th><th class="num">Weight</th></tr>
 </thead>
@@ -691,7 +691,7 @@ body.party-mode .beat-title h1 {
 <tr><td>Cost of Debt (post-tax)</td><td class="num">3.8%</td><td class="num">15%</td></tr>
 <tr class="row-accent"><td><strong>WACC</strong></td><td class="num"><strong>8.9%</strong></td><td class="num">100%</td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-body" style="margin-top: 20px;">
 <p><strong>Interpretation:</strong> Every euro invested in Königshof must earn at least 8.9% annually for you to break even on your cost of capital. Anything above that is value creation.</p>
 </div>
@@ -706,7 +706,7 @@ body.party-mode .beat-title h1 {
 <div class="card-body">
 <p>Project EBITDA forward 5 years using assumptions from the model (capacity, utilisation, price, costs). Convert EBITDA to Free Cash Flow.</p>
 </div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th>Year</th><th class="num">FY24E</th><th class="num">FY25E</th><th class="num">FY26E</th><th class="num">FY27E</th><th class="num">FY28E</th></tr>
 </thead>
@@ -717,7 +717,7 @@ body.party-mode .beat-title h1 {
 <tr><td>Plus/Less: WC</td><td class="num">€0.5m</td><td class="num">€0.3m</td><td class="num">€0.2m</td><td class="num">€0.1m</td><td class="num">€0.0m</td></tr>
 <tr class="row-highlight"><td><strong>Free Cash Flow</strong></td><td class="num">€6.9m</td><td class="num">€7.5m</td><td class="num">€8.2m</td><td class="num">€9.1m</td><td class="num">€10.1m</td></tr>
 </tbody>
-</table>
+</table></div>
 </div>
 </section>
 
@@ -763,7 +763,7 @@ body.party-mode .beat-title h1 {
 <div class="beat-inner">
 <div class="card-label">DCF Valuation</div>
 <div class="card-title">Königshof: From Cash Flows to Enterprise Value</div>
-<table class="card-table">
+<div class="card-table-wrap"><table class="card-table">
 <thead>
 <tr><th></th><th class="num">€m</th></tr>
 </thead>
@@ -772,7 +772,7 @@ body.party-mode .beat-title h1 {
 <tr><td>PV of Terminal Value</td><td class="num">€98.4m</td></tr>
 <tr class="row-highlight"><td><strong>Enterprise Value</strong></td><td class="num"><strong>€129.6m</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="card-body" style="margin-top: 20px;">
 <p>At base case assumptions (2% growth, 8.9% WACC), DCF suggests €130m enterprise value. But sensitivity to terminal value assumptions is extreme.</p>
 </div>

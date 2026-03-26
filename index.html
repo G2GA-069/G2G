@@ -471,8 +471,10 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 32px 24px;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease, box-shadow 0.4s ease;
       cursor: pointer;
+      will-change: transform;
+      transform: translate3d(0,0,0);
       position: relative;
       overflow: hidden;
       text-align: center;
@@ -746,13 +748,15 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 36px;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease, box-shadow 0.4s ease;
       cursor: pointer;
       position: relative;
       overflow: hidden;
       display: block;
       text-decoration: none;
       color: inherit;
+      will-change: transform;
+      transform: translate3d(0,0,0);
     }
 
     .chapter-card::before {
@@ -1179,13 +1183,14 @@
     /* ===== SCROLL REVEAL ===== */
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform: translate3d(0, 30px, 0);
+      transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      will-change: opacity, transform;
     }
 
     .reveal.active {
       opacity: 1;
-      transform: translateY(0);
+      transform: translate3d(0, 0, 0);
     }
 
     /* ===== RESPONSIVE ===== */
@@ -1393,7 +1398,7 @@
 
       <div class="cast-grid">
         <div class="cast-card">
-          <div class="cast-avatar"><img src="images/le-pitch.jpg" alt="Jean-Baptiste Fournier"></div>
+          <div class="cast-avatar"><img src="images/le-pitch.jpg" alt="Jean-Baptiste Fournier" loading="lazy"></div>
           <div class="cast-name">Jean-Baptiste Fournier</div>
           <div class="cast-nickname">"Le Pitch"</div>
           <div class="cast-title">MD, SBCI</div>
@@ -1401,7 +1406,7 @@
         </div>
 
         <div class="cast-card">
-          <div class="cast-avatar"><img src="images/trace.jpg" alt="Tracy Flint"></div>
+          <div class="cast-avatar"><img src="images/trace.jpg" alt="Tracy Flint" loading="lazy"></div>
           <div class="cast-name">Tracy Flint</div>
           <div class="cast-nickname">"Trace"</div>
           <div class="cast-title">Analyst II, SBCI</div>
@@ -1409,7 +1414,7 @@
         </div>
 
         <div class="cast-card">
-          <div class="cast-avatar"><img src="images/haircut.jpg" alt="Kai Eisenberg"></div>
+          <div class="cast-avatar"><img src="images/haircut.jpg" alt="Kai Eisenberg" loading="lazy"></div>
           <div class="cast-name">Kai Eisenberg</div>
           <div class="cast-nickname">"Haircut"</div>
           <div class="cast-title">Principal, Skarn Capital</div>
@@ -1417,7 +1422,7 @@
         </div>
 
         <div class="cast-card">
-          <div class="cast-avatar"><img src="images/wilhelm.jpg" alt="Wilhelm von Raunheim"></div>
+          <div class="cast-avatar"><img src="images/wilhelm.jpg" alt="Wilhelm von Raunheim" loading="lazy"></div>
           <div class="cast-name">Wilhelm von Raunheim</div>
           <div class="cast-nickname">"The Builder"</div>
           <div class="cast-title">CEO, Königshof</div>
@@ -1425,7 +1430,7 @@
         </div>
 
         <div class="cast-card">
-          <div class="cast-avatar"><img src="images/magda.jpg" alt="Magdalena Kowalska"></div>
+          <div class="cast-avatar"><img src="images/magda.jpg" alt="Magdalena Kowalska" loading="lazy"></div>
           <div class="cast-name">Magdalena Kowalska</div>
           <div class="cast-nickname">"Magda"</div>
           <div class="cast-title">Founder, Subtrax</div>

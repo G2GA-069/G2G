@@ -405,8 +405,9 @@ body.party-mode .beat-title h1 {
   }
   .beat-inner { max-width: 100%; }
   .beat-card .beat-inner { padding: 20px 14px; }
-  .card-table { font-size: 13px; }
-  .card-table th, .card-table td { padding: 8px 6px; }
+  .card-table { font-size: 13px; min-width: 360px; }
+  .card-table th, .card-table td { padding: 10px 12px; }
+  .card-table th { font-size: 10px; letter-spacing: 0.6px; }
   .scene-text, .card-body { font-size: 17px; line-height: 1.75; }
   .beat-title h1 { font-size: 28px; }
   .comparison { grid-template-columns: 1fr; }
@@ -436,8 +437,8 @@ body.party-mode .beat-title h1 {
 @keyframes swipe-gesture { 0%,100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-16px); opacity: 1; } }
 
 @media (max-width: 480px) {
-  .card-table { font-size: 12px; }
-  .card-table th, .card-table td { padding: 6px 4px; }
+  .card-table { font-size: 12px; min-width: 320px; }
+  .card-table th, .card-table td { padding: 8px 10px; }
   .beat-title h1 { font-size: 24px; }
   .beat { padding-left: 16px; padding-right: 16px; }
 }
