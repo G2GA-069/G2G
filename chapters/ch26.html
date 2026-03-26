@@ -464,14 +464,12 @@
     .download-btn {
       display: inline-flex; align-items: center; gap: 12px;
       padding: 16px 36px; border-radius: 10px; text-decoration: none;
-      background: linear-gradient(135deg, #6b2fa0, #d946ef);
+      background: linear-gradient(135deg, #2a2a35, #3a3a45); cursor: default; pointer-events: none; opacity: 0.7;
       color: #fff; font-family: var(--font-sans, 'Inter', sans-serif); font-size: 15px;
       font-weight: 700; letter-spacing: 0.5px;
       transition: all 0.3s; box-shadow: 0 4px 24px rgba(107,47,160,0.4);
     }
-    .download-btn:hover {
-      transform: translateY(-2px); box-shadow: 0 8px 32px rgba(107,47,160,0.6);
-    }
+    .download-btn:hover { transform: none; box-shadow: none; }
     .download-btn svg { width: 20px; height: 20px; }
     .download-note {
       font-family: var(--font-mono, 'JetBrains Mono', monospace); font-size: 11px;
@@ -1046,8 +1044,8 @@
         </ul>
         <p>In FSG, your reputation is your franchise. Build it carefully. Guard it fiercely.</p>
         <div class="download-hero">
-          <a href="G2G_FSG_Reference.pdf" download target="_blank" rel="noopener" class="download-btn">Download FSG Cram Sheet</a>
-          <div class="download-note">PDF Reference: G2G_FSG_Reference.pdf</div>
+          <span class="download-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Cram Sheet — Coming Soon</span>
+          <div class="download-note">Available on launch day</div>
         </div>
       </div>
     </div>
