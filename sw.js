@@ -1,4 +1,4 @@
-const CACHE_NAME = 'g2g-v16';
+const CACHE_NAME = 'g2g-v17';
 const ASSETS = [
   './',
   './index.html',

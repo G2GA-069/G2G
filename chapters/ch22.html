@@ -562,7 +562,48 @@
       .chapter-nav-row { flex-direction: column; align-items: stretch; }
       .prev-chapter-btn, .next-chapter-btn { margin-top: 8px; justify-content: center; }
     }
-  </style>
+  
+/* === UX POLISH === */
+
+/* Custom scrollbar for beat content */
+.beat::-webkit-scrollbar { width: 4px; }
+.beat::-webkit-scrollbar-track { background: transparent; }
+.beat::-webkit-scrollbar-thumb { background: rgba(176,124,232,0.25); border-radius: 4px; }
+.beat::-webkit-scrollbar-thumb:hover { background: rgba(176,124,232,0.45); }
+.beat { scrollbar-width: thin; scrollbar-color: rgba(176,124,232,0.25) transparent; }
+
+/* Keyboard focus states */
+.back-button:focus-visible { outline: 2px solid var(--accent, #b07ce8); outline-offset: 2px; }
+.prev-chapter-btn:focus-visible, .next-chapter-btn:focus-visible { outline: 2px solid var(--accent, #b07ce8); outline-offset: 2px; box-shadow: 0 0 0 4px rgba(176,124,232,0.15); }
+.nav-dots .dot:focus-visible { outline: 2px solid var(--accent, #b07ce8); outline-offset: 2px; }
+
+/* Scroll-more fade hint at bottom of long beats */
+.beat-card::after, .beat-scene::after {
+  content: '';
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 48px;
+  background: linear-gradient(to top, var(--bg, #0a0a0c), transparent);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.beat-card.scrollable::after, .beat-scene.scrollable::after { opacity: 1; }
+.beat-card.at-bottom::after, .beat-scene.at-bottom::after { opacity: 0; }
+
+/* Bigger beat counter on small mobile */
+@media (max-width: 480px) {
+  .beat-counter { font-size: 12px; padding: 6px 12px; }
+}
+
+/* Stronger swipe hint pulse */
+@keyframes swipe-pulse {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(-8px); }
+}
+
+</style>
 </head>
 
 <body>
@@ -1357,6 +1398,21 @@ Discount rate: 8–10% WACC (higher for staffing/BPO due to cyclicality)
   }
 
   positionBeats();
+
+// UX: Mark scrollable beats with visual indicator
+function markScrollableBeats() {
+  beats.forEach(beat => {
+    if (beat.scrollHeight > beat.clientHeight + 10) {
+      beat.classList.add('scrollable');
+      beat.addEventListener('scroll', function() {
+        const atBottom = this.scrollTop + this.clientHeight >= this.scrollHeight - 10;
+        this.classList.toggle('at-bottom', atBottom);
+      }, { passive: true });
+    }
+  });
+}
+markScrollableBeats();
+
 
   // Create nav dots
   (function() {
