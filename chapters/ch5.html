@@ -225,10 +225,20 @@ body.party-mode .beat-title h1 {
   font-family: var(--font-mono); font-size: 11px;
   color: var(--bg); font-weight: 600;
 }
-.beat-takeaway .beat-inner { max-width: 600px; text-align: center; padding: 20px 40px; }
+.beat-takeaway .beat-inner {
+  max-width: 640px; text-align: center; padding: 48px 40px;
+  position: relative;
+}
+.beat-takeaway .beat-inner::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 60px; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--brand-magenta));
+  border-radius: 2px;
+}
 .takeaway-text {
-  font-family: var(--font-serif); font-size: clamp(22px, 3vw, 30px);
-  font-weight: 600; line-height: 1.5; color: var(--text); font-style: italic;
+  font-family: var(--font-serif); font-size: clamp(28px, 3.8vw, 40px);
+  font-weight: 700; line-height: 1.35; color: var(--text); font-style: italic;
+  letter-spacing: -0.3px;
 }
 .equation-box {
   background: var(--surface-2); border-left: 3px solid var(--accent);
@@ -780,7 +790,7 @@ footer {
 <!-- BEAT 25: TAKEAWAY -->
 <section class="beat beat-takeaway" data-section="3">
 <div class="beat-inner">
-<div class="takeaway-text">A forecast is only useful if people understand it, trust it, and can tweak it. Complexity kills that. Trace's rebuild of Königshof proved it: simpler, driver-based, transparent forecasts win over black boxes every time.</div>
+<div class="takeaway-text">A forecast is only useful if people understand it, trust it, and can tweak it. Complexity kills that. Trace's rebuild of Königshof proved it: simpler, assumption-driven, transparent forecasts win over impenetrable spreadsheets every time.</div>
 </div>
 </section>
 

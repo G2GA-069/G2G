@@ -168,8 +168,14 @@ body {
 .bullet-list li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
 
 .beat-takeaway .beat-inner {
-  background: transparent; border: none; padding: 0;
-  text-align: center;
+  max-width: 640px; text-align: center; padding: 48px 40px;
+  position: relative;
+}
+.beat-takeaway .beat-inner::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 60px; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--brand-magenta));
+  border-radius: 2px;
 }
 .takeaway-text {
   font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 42px);

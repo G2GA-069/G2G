@@ -195,8 +195,14 @@ body.party-mode .beat-title h1 {
 .row-highlight td { background: var(--surface-2); }
 .num { text-align: right; font-family: var(--font-mono); }
 .beat-takeaway .beat-inner {
-  background: transparent; border: none; padding: 0;
-  text-align: center;
+  max-width: 640px; text-align: center; padding: 48px 40px;
+  position: relative;
+}
+.beat-takeaway .beat-inner::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 60px; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--brand-magenta));
+  border-radius: 2px;
 }
 .takeaway-text {
   font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 42px);
@@ -214,6 +220,7 @@ body.party-mode .beat-title h1 {
   background: var(--surface); border: 2px solid var(--accent-dim);
   border-radius: 12px; padding: 40px; max-width: 760px;
   text-align: center;
+  box-shadow: 0 0 30px rgba(176,124,232,0.06);
 }
 .hottake-icon {
   font-size: 48px; margin-bottom: 20px;

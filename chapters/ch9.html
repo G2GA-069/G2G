@@ -161,13 +161,14 @@ body.party-mode .beat-title h1 {
 .narrator-text p { margin-bottom: 16px; }
 .narrator-text p:last-child { margin-bottom: 0; }
 .beat-hottake .beat-inner {
-  background: linear-gradient(135deg, rgba(212,165,116,0.1) 0%, rgba(212,165,116,0.05) 100%);
+  background: linear-gradient(135deg, rgba(212,165,116,0.1) 0%, rgba(212,165,116,0.03) 100%);
   border: 2px solid rgba(212,165,116,0.3); border-radius: 12px; padding: 60px 40px;
   text-align: center;
+  box-shadow: 0 0 30px rgba(212,165,116,0.06), inset 0 0 30px rgba(212,165,116,0.02);
 }
 .hottake-text {
-  font-family: var(--font-serif); font-size: clamp(24px, 3vw, 36px);
-  font-weight: 700; line-height: 1.4; color: var(--gold);
+  font-family: var(--font-serif); font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 700; line-height: 1.35; color: var(--gold);
 }
 .beat-card .beat-inner {
   background: var(--surface); border: 1px solid var(--border);
@@ -209,28 +210,43 @@ body.party-mode .beat-title h1 {
 .card-table .negative { color: var(--red); }
 .card-table .positive { color: var(--green); }
 .beat-takeaway .beat-inner {
-  background: rgba(212, 165, 116, 0.08); border: 2px solid rgba(212, 165, 116, 0.25);
-  border-radius: 12px; padding: 48px 40px; text-align: center;
+  background: rgba(212, 165, 116, 0.06); border: none;
+  border-radius: 12px; padding: 52px 40px; text-align: center;
+  position: relative;
+}
+.beat-takeaway .beat-inner::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 60px; height: 3px;
+  background: linear-gradient(90deg, var(--gold), #e8a060);
+  border-radius: 2px;
 }
 .takeaway-text {
-  font-family: var(--font-serif); font-size: clamp(20px, 2.8vw, 28px);
-  font-weight: 600; line-height: 1.5; color: var(--text);
+  font-family: var(--font-serif); font-size: clamp(26px, 3.5vw, 38px);
+  font-weight: 700; line-height: 1.35; color: var(--text);
+  letter-spacing: -0.3px;
 }
-.takeaway-text .highlight { color: var(--gold); font-weight: 700; }
+.takeaway-text .highlight {
+  color: transparent;
+  background: linear-gradient(135deg, var(--gold), #e8a060);
+  -webkit-background-clip: text; background-clip: text;
+  font-weight: 700;
+}
 .beat-divider {
-  background: linear-gradient(135deg, rgba(212,165,116,0.05) 0%, transparent 100%);
-  border-bottom: 1px solid rgba(212,165,116,0.2);
+  background: radial-gradient(ellipse at center, rgba(212,165,116,0.08) 0%, transparent 70%);
+  border-bottom: none;
 }
 .beat-divider .beat-inner {
   text-align: center; padding: 0;
 }
 .section-num {
-  font-family: var(--font-mono); font-size: 48px; font-weight: 700;
-  color: rgba(212,165,116,0.3); display: block; margin-bottom: 12px;
+  font-family: var(--font-mono); font-size: 56px; font-weight: 700;
+  color: rgba(212,165,116,0.25); display: block; margin-bottom: 16px;
 }
 .beat-divider .beat-inner {
-  font-family: var(--font-serif); font-size: clamp(32px, 5vw, 48px);
-  font-weight: 700; color: var(--gold); letter-spacing: -1px; line-height: 1.2;
+  font-family: var(--font-serif); font-size: clamp(36px, 6vw, 56px);
+  font-weight: 700; letter-spacing: -1px; line-height: 1.12;
+  background: linear-gradient(135deg, var(--gold) 30%, #e8a060 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .beat-equation .beat-inner {
   text-align: center; padding: 0;
@@ -240,10 +256,12 @@ body.party-mode .beat-title h1 {
   text-transform: uppercase; color: var(--gold); margin-bottom: 24px;
 }
 .equation {
-  font-family: var(--font-mono); font-size: clamp(32px, 5vw, 48px);
-  font-weight: 600; color: var(--text); margin: 24px 0;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 8px; padding: 32px 24px;
+  font-family: var(--font-mono); font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700; margin: 24px 0;
+  background: linear-gradient(135deg, var(--gold), #e8a060);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 24px rgba(212,165,116,0.2));
 }
 .equation-note {
   font-family: var(--font-serif); font-size: 16px; color: var(--text-muted);
@@ -291,8 +309,8 @@ body.party-mode .beat-title h1 {
 @media (max-width: 768px) {
   .beat { padding: 44px 16px 52px; }
   .beat-card .beat-inner { padding: 24px; }
-  .beat-hottake .beat-inner { padding: 40px 24px; }
-  .beat-takeaway .beat-inner { padding: 36px 24px; }
+  .beat-hottake .beat-inner { padding: 48px 24px; }
+  .beat-takeaway .beat-inner { padding: 40px 20px; }
   .back-button { font-size: 11px; padding: 6px 12px; }
   .beat-counter { font-size: 11px; padding: 6px 12px; }
 }
