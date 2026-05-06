@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0a0c">
+<title>G2G Advisory — Your Journey</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0c; --surface: #131318; --surface-2: #1a1a22; --border: #2a2a35;
+  --text: #e8e4df; --text-muted: #a8a4b0; --text-dim: #7a7680;
+  --accent: #b07ce8; --accent-dim: #7a55b0; --accent-bright: #d4a0ff;
+  --green: #4a9e6e; --red: #c45c4a; --blue: #5a8fc4;
+  --brand-purple: #6b2fa0; --brand-magenta: #d946ef;
+  --font-serif: 'EB Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  background-image: radial-gradient(circle, rgba(107,47,160,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--text);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+}
+</style>
+<link rel="stylesheet" href="css/mastery.css">
+<link rel="stylesheet" href="css/glossary.css">
+</head>
+<body>
+
+<div class="mastery-map">
+  <div class="mastery-map__header">
+    <div class="mastery-map__title">Your Journey</div>
+    <div class="mastery-map__subtitle">From Greenhorn to Gold(wo)man — one chapter at a time</div>
+    <div class="mastery-map__progress-summary" id="progressSummary"></div>
+  </div>
+
+  <div class="mastery-grid" id="masteryGrid"></div>
+
+  <div class="mastery-stats" id="masteryStats"></div>
+</div>
+
+<script src="js/mastery-tracker.js"></script>
+<script src="js/glossary-data.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  // Chapter metadata
+  var chapters = [
+    { num: 1, title: "Welcome to G2G", desc: "Five characters, two companies, one story.", beats: 27 },
+    { num: 2, title: "Buy Low, Sell High", desc: "Revenue, costs, and the income statement decoded.", beats: 50 },
+    { num: 3, title: "Follow the Cash", desc: "Cash flow: where profit meets reality.", beats: 17 },
+    { num: 4, title: "Margins and Models", desc: "Gross margin, EBITDA, and business model mechanics.", beats: 26 },
+    { num: 5, title: "Building the Model", desc: "Financial modelling from assumptions to outputs.", beats: 26 },
+    { num: 6, title: "The LBO", desc: "Leveraged buyouts: debt, equity, and amplified returns.", beats: 28 },
+    { num: 7, title: "The Fund", desc: "PE fund economics: GPs, LPs, carry, and waterfalls.", beats: 23 },
+    { num: 8, title: "Capital Structure", desc: "Debt vs equity: the architecture of risk.", beats: 43 },
+    { num: 9, title: "Valuation", desc: "Comps, precedents, DCF — what is it worth?", beats: 32 },
+    { num: 10, title: "The Bridge", desc: "From Enterprise Value to Equity Value.", beats: 42 },
+    { num: 11, title: "Deal Mechanics", desc: "How M&A actually works, from handshake to close.", beats: 26 },
+    { num: 12, title: "Closing the Deal", desc: "Purchase accounting, goodwill, and the aftermath.", beats: 15 },
+    { num: 13, title: "The Reference", desc: "Sixty formulas. One hundred twenty terms. Zero shortcuts.", beats: 20 },
+    { num: 14, title: "Oil & Gas", desc: "Upstream, midstream, downstream — the energy value chain.", beats: 0 },
+    { num: 15, title: "Mining & Metals", desc: "From exploration to extraction.", beats: 0 },
+    { num: 16, title: "Power & Utilities", desc: "Regulated returns and energy transition.", beats: 0 },
+    { num: 17, title: "Shipping & Logistics", desc: "Global trade infrastructure.", beats: 0 },
+    { num: 18, title: "Healthcare", desc: "Pharma, medtech, and the science of returns.", beats: 0 },
+    { num: 19, title: "TMT", desc: "Tech, media, and telecom convergence.", beats: 0 },
+    { num: 20, title: "Real Estate", desc: "Yield, occupancy, and capital appreciation.", beats: 0 },
+    { num: 21, title: "Infrastructure", desc: "Concessions, PPPs, and regulated assets.", beats: 0 },
+    { num: 22, title: "FIG", desc: "Banks, insurers, and financial institutions.", beats: 0 },
+    { num: 23, title: "Restructuring", desc: "Distressed debt and turnaround situations.", beats: 0 },
+    { num: 24, title: "Leveraged Finance", desc: "High-yield bonds and leveraged loans.", beats: 0 },
+    { num: 25, title: "Equity Capital Markets", desc: "IPOs, follow-ons, and equity issuance.", beats: 0 },
+    { num: 26, title: "Debt Capital Markets", desc: "Investment-grade bonds and credit markets.", beats: 0 },
+    { num: 27, title: "Private Credit", desc: "Direct lending and alternative credit.", beats: 0 },
+    { num: 28, title: "M&A Advisory", desc: "The sell-side and buy-side playbook.", beats: 0 },
+  ];
+
+  var grid = document.getElementById('masteryGrid');
+  var mastery = window.G2G_Mastery;
+  var data = mastery ? mastery.getData() : {};
+
+  var completedCount = 0;
+  var totalBeatsCompleted = 0;
+
+  chapters.forEach(function(ch) {
+    var chData = data['ch' + ch.num];
+    var progress = chData ? (chData.totalBeats > 1 ? chData.highestBeat / (chData.totalBeats - 1) : 0) : 0;
+    var isComplete = chData ? chData.completed : false;
+    var isStarted = chData && chData.highestBeat > 0;
+    var isLocked = ch.beats === 0;
+
+    if (isComplete) completedCount++;
+    if (chData) totalBeatsCompleted += chData.highestBeat;
+
+    var state = isComplete ? 'completed' : isLocked ? 'locked' : isStarted ? 'in-progress' : '';
+
+    var card = document.createElement('a');
+    card.className = 'mastery-chapter ' + state;
+    if (!isLocked) {
+      card.href = '../chapters/ch' + ch.num + '.html';
+    }
+
+    card.innerHTML =
+      '<div class="mastery-chapter__check">✓</div>' +
+      '<div class="mastery-chapter__number">Chapter ' + ch.num + '</div>' +
+      '<div class="mastery-chapter__title">' + ch.title + '</div>' +
+      '<div class="mastery-chapter__desc">' + ch.desc + '</div>' +
+      '<div class="mastery-chapter__bar-track">' +
+        '<div class="mastery-chapter__bar-fill" style="width: ' + (progress * 100) + '%"></div>' +
+      '</div>';
+
+    grid.appendChild(card);
+  });
+
+  // Progress summary
+  var summary = document.getElementById('progressSummary');
+  summary.textContent = completedCount + ' of ' + chapters.length + ' chapters completed';
+
+  // Stats
+  var learnedTerms = 0;
+  try {
+    var lt = localStorage.getItem('g2g_learned_terms');
+    if (lt) learnedTerms = Object.keys(JSON.parse(lt)).length;
+  } catch(e) {}
+
+  var totalTerms = window.G2G_GLOSSARY_TERMS ? window.G2G_GLOSSARY_TERMS.length : 0;
+
+  var stats = document.getElementById('masteryStats');
+  stats.innerHTML =
+    '<div class="mastery-stat">' +
+      '<div class="mastery-stat__value">' + completedCount + '</div>' +
+      '<div class="mastery-stat__label">Chapters</div>' +
+    '</div>' +
+    '<div class="mastery-stat">' +
+      '<div class="mastery-stat__value">' + totalBeatsCompleted + '</div>' +
+      '<div class="mastery-stat__label">Beats Seen</div>' +
+    '</div>' +
+    '<div class="mastery-stat">' +
+      '<div class="mastery-stat__value">' + learnedTerms + '/' + totalTerms + '</div>' +
+      '<div class="mastery-stat__label">Terms Learned</div>' +
+    '</div>';
+
+})();
+</script>
+</body>
+</html>

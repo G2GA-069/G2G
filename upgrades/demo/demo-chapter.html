@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-  <script>if(!document.cookie.includes('g2g_auth=1'))window.location.replace('../gate.html');</script>
+  <script>// Auth gate disabled for demo</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -20,12 +20,12 @@
     <meta name="twitter:title" content="Chapter 2: What Does an Investment Bank Actually Do?">
     <meta name="twitter:description" content="Advisory, capital markets, and the fee machine — explained through story.">
     <meta name="twitter:image" content="https://g2ga-069.github.io/G2G/images/og-preview.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon-180.png">
-    <link rel="manifest" href="../manifest.json">
-<title>G2G Chapter 2 — Buy Low, Sell High: Income Statement Mastery</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon-180.png">
+    <link rel="manifest" href="../../manifest.json">
+<title>[DEMO] G2G Chapter 2 — Buy Low, Sell High: Income Statement Mastery</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -636,6 +636,66 @@ body.party-mode .beat-title h1 {
 }
 
 </style>
+<!-- G2G-UPGRADES-CSS-START -->
+<link rel="stylesheet" href="../css/entrance-animations.css">
+<link rel="stylesheet" href="../css/glossary.css">
+<link rel="stylesheet" href="../css/mastery.css">
+<link rel="stylesheet" href="../css/progress-bar.css">
+<!-- G2G-UPGRADES-CSS-END -->
+
+<!-- DEMO EXTRAS -->
+<style>
+/* Keyboard shortcut overlay */
+.g2g-shortcuts-overlay {
+  position: fixed; inset: 0; z-index: 10000;
+  background: rgba(10,10,12,0.92); backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+}
+.g2g-shortcuts-overlay.visible { opacity: 1; pointer-events: auto; }
+.g2g-shortcuts-panel {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 2rem 2.5rem; max-width: 420px; width: 90%;
+  font-family: var(--font-sans);
+}
+.g2g-shortcuts-panel h3 {
+  font-family: var(--font-serif); font-size: 1.4rem; color: var(--accent-bright);
+  margin-bottom: 1.2rem; text-align: center;
+}
+.g2g-shortcut-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.5rem 0; border-bottom: 1px solid var(--border);
+}
+.g2g-shortcut-row:last-child { border-bottom: none; }
+.g2g-shortcut-key {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 32px; height: 28px; padding: 0 8px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 6px; font-family: var(--font-mono); font-size: 0.75rem;
+  color: var(--accent); letter-spacing: 0.02em;
+}
+.g2g-shortcut-desc { color: var(--text-muted); font-size: 0.85rem; }
+
+/* Reading time badge */
+.g2g-reading-time {
+  position: fixed; top: 12px; right: 16px; z-index: 900;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 4px 12px;
+  font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dim);
+  opacity: 0.7; transition: opacity 0.3s;
+}
+.g2g-reading-time:hover { opacity: 1; }
+
+/* Demo banner */
+.g2g-demo-banner {
+  position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+  z-index: 9999; padding: 4px 16px;
+  background: linear-gradient(135deg, var(--brand-purple), var(--brand-magenta));
+  color: #fff; font-family: var(--font-sans); font-size: 0.7rem;
+  font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 0 0 8px 8px;
+}
+</style>
 </head>
 <body>
 <!-- Journey Progress Bar -->
@@ -643,7 +703,7 @@ body.party-mode .beat-title h1 {
 <div class="journey-label" id="journeyLabel"></div>
 
 
-<a href="../index.html" class="back-button">← Back</a>
+<a href="../../index.html" class="back-button">← Back</a>
 <div class="beat-counter" id="beatCounter"></div>
 <div class="swipe-hint" id="swipeHint">
 <svg viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="1.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -1594,11 +1654,11 @@ body.party-mode .beat-title h1 {
 </section>
 
 <div class="chapter-nav-row">
-  <a href="ch1.html" class="prev-chapter-btn">
+  <a href="../../chapters/ch1.html" class="prev-chapter-btn">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
     <span class="btn-label"><span class="btn-next">Previous Chapter</span><span class="btn-title">All Gold(wo)men Were Once Greenhorns</span></span>
   </a>
-  <a href="ch3.html" class="next-chapter-btn">
+  <a href="../../chapters/ch3.html" class="next-chapter-btn">
     <span class="btn-label"><span class="btn-next">Next Chapter</span><span class="btn-title">Broke Is Bad</span></span>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
   </a>
@@ -1982,5 +2042,56 @@ if (_origPositionBeats) {
 updateJourneyBar();
 
 </script>
+<!-- G2G-UPGRADES-JS-START -->
+<script src="../js/entrance-animations.js"></script>
+<script src="../js/glossary-data.js"></script>
+<script src="../js/glossary.js"></script>
+<script src="../js/mastery-tracker.js"></script>
+<script src="../js/progress-bar.js"></script>
+<!-- G2G-UPGRADES-JS-END -->
+
+<!-- DEMO EXTRAS -->
+<div class="g2g-demo-banner">Demo — Upgrades Preview</div>
+<div class="g2g-reading-time" id="readingTime"></div>
+
+<div class="g2g-shortcuts-overlay" id="shortcutsOverlay">
+  <div class="g2g-shortcuts-panel">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="g2g-shortcut-row"><span class="g2g-shortcut-desc">Next beat</span><span class="g2g-shortcut-key">&darr;</span></div>
+    <div class="g2g-shortcut-row"><span class="g2g-shortcut-desc">Previous beat</span><span class="g2g-shortcut-key">&uarr;</span></div>
+    <div class="g2g-shortcut-row"><span class="g2g-shortcut-desc">Next beat</span><span class="g2g-shortcut-key">Space</span></div>
+    <div class="g2g-shortcut-row"><span class="g2g-shortcut-desc">First beat</span><span class="g2g-shortcut-key">Home</span></div>
+    <div class="g2g-shortcut-row"><span class="g2g-shortcut-desc">Last beat</span><span class="g2g-shortcut-key">End</span></div>
+    <div class="g2g-shortcut-row"><span class="g2g-shortcut-desc">Show shortcuts</span><span class="g2g-shortcut-key">?</span></div>
+    <div class="g2g-shortcut-row"><span class="g2g-shortcut-desc">Close this panel</span><span class="g2g-shortcut-key">Esc</span></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // Reading time estimate
+  var textContent = document.body.innerText || '';
+  var words = textContent.split(/\s+/).length;
+  var mins = Math.ceil(words / 200);
+  var badge = document.getElementById('readingTime');
+  if (badge) badge.textContent = '~' + mins + ' min read';
+
+  // Keyboard shortcut overlay
+  var overlay = document.getElementById('shortcutsOverlay');
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '?' && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+      overlay.classList.toggle('visible');
+    }
+    if (e.key === 'Escape' && overlay.classList.contains('visible')) {
+      overlay.classList.remove('visible');
+    }
+  });
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) overlay.classList.remove('visible');
+  });
+})();
+</script>
+
 </body>
 </html>

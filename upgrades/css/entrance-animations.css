@@ -1,0 +1,159 @@
+/* ============================================================
+   G2G ENTRANCE CHOREOGRAPHY
+   Staggered element reveals when a beat becomes active.
+   Each child element fades-and-rises sequentially.
+   ============================================================ */
+
+/* Base: all animatable children start invisible */
+.beat.animate-entrance .beat-inner > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* When beat is active, reveal children with stagger */
+.beat.active.animate-entrance .beat-inner > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.08s; }
+.beat.active.animate-entrance .beat-inner > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.18s; }
+.beat.active.animate-entrance .beat-inner > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.28s; }
+.beat.active.animate-entrance .beat-inner > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.38s; }
+.beat.active.animate-entrance .beat-inner > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.48s; }
+.beat.active.animate-entrance .beat-inner > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.56s; }
+.beat.active.animate-entrance .beat-inner > *:nth-child(7) { opacity: 1; transform: translateY(0); transition-delay: 0.62s; }
+.beat.active.animate-entrance .beat-inner > *:nth-child(8) { opacity: 1; transform: translateY(0); transition-delay: 0.68s; }
+.beat.active.animate-entrance .beat-inner > *:nth-child(9) { opacity: 1; transform: translateY(0); transition-delay: 0.74s; }
+.beat.active.animate-entrance .beat-inner > *:nth-child(10) { opacity: 1; transform: translateY(0); transition-delay: 0.80s; }
+
+/* ---- SPECIAL: Equation beats get a dramatic scale-in ---- */
+.beat-equation.animate-entrance .equation {
+  opacity: 0;
+  transform: scale(0.85) translateY(10px);
+  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.beat-equation.active.animate-entrance .equation {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition-delay: 0.15s;
+}
+
+/* ---- SPECIAL: Takeaway text fades in from center ---- */
+.beat-takeaway.animate-entrance .takeaway-text {
+  opacity: 0;
+  transform: translateY(0) scale(0.92);
+  transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.beat-takeaway.active.animate-entrance .takeaway-text {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.12s;
+}
+
+/* ---- SPECIAL: Takeaway accent bar slides in ---- */
+.beat-takeaway.animate-entrance .beat-inner::before {
+  transform: translateX(-50%) scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.beat-takeaway.active.animate-entrance .beat-inner::before {
+  transform: translateX(-50%) scaleX(1);
+  transition-delay: 0s;
+}
+
+/* ---- SPECIAL: Divider title slides up big ---- */
+.beat-divider.animate-entrance .divider-title,
+.beat-divider.animate-entrance .beat-inner > div:last-child {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.beat-divider.active.animate-entrance .divider-title,
+.beat-divider.active.animate-entrance .beat-inner > div:last-child {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.12s;
+}
+.beat-divider.animate-entrance .divider-num,
+.beat-divider.animate-entrance .section-num {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.beat-divider.active.animate-entrance .divider-num,
+.beat-divider.active.animate-entrance .section-num {
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+/* ---- SPECIAL: Hot-take border pulses on entry ---- */
+@keyframes hottake-border-pulse {
+  0% { box-shadow: 0 0 0px rgba(196,92,74,0), inset 0 0 0px rgba(196,92,74,0); }
+  50% { box-shadow: 0 0 40px rgba(196,92,74,0.15), inset 0 0 20px rgba(196,92,74,0.05); }
+  100% { box-shadow: 0 0 30px rgba(196,92,74,0.08), inset 0 0 30px rgba(196,92,74,0.03); }
+}
+.beat-hottake.active.animate-entrance .beat-inner {
+  animation: hottake-border-pulse 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  animation-delay: 0.1s;
+}
+
+/* ---- SPECIAL: Finale title gets a shimmer ---- */
+@keyframes finale-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.beat-finale.active.animate-entrance .finale-title {
+  background-size: 200% auto;
+  animation: finale-shimmer 3s ease-in-out 0.5s 1;
+}
+
+/* ---- SPECIAL: Card tables slide in from right ---- */
+.beat-card.animate-entrance .card-table-wrap,
+.beat-card.animate-entrance .table-scroll {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.beat-card.active.animate-entrance .card-table-wrap,
+.beat-card.active.animate-entrance .table-scroll {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.3s;
+}
+
+/* ---- SPECIAL: Comparison grids stagger left/right ---- */
+.beat-card.animate-entrance .comparison .company:nth-child(1) {
+  opacity: 0; transform: translateX(-15px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.beat-card.animate-entrance .comparison .company:nth-child(2) {
+  opacity: 0; transform: translateX(15px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.beat-card.active.animate-entrance .comparison .company:nth-child(1) {
+  opacity: 1; transform: translateX(0); transition-delay: 0.25s;
+}
+.beat-card.active.animate-entrance .comparison .company:nth-child(2) {
+  opacity: 1; transform: translateX(0); transition-delay: 0.38s;
+}
+
+/* ---- Title beat (beat 0): title zooms in ---- */
+.beat-title.animate-entrance h1 {
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.beat-title.active.animate-entrance h1 {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0.2s;
+}
+.beat-title.animate-entrance .series-name {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.beat-title.active.animate-entrance .series-name {
+  opacity: 1;
+  transition-delay: 0s;
+}

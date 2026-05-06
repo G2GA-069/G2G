@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G2G Advisory: Chapter 2 — Income Statement Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0c;
+            --surface: #131318;
+            --surface-2: #1a1a22;
+            --border: #2a2a35;
+            --text: #e8e4df;
+            --text-muted: #a8a4b0;
+            --text-dim: #7a7680;
+            --accent: #b07ce8;
+            --accent-dim: #7a55b0;
+            --accent-bright: #d4a0ff;
+            --green: #4a9e6e;
+            --red: #c45c4a;
+            --blue: #5a8fc4;
+            --brand-purple: #6b2fa0;
+            --brand-magenta: #d946ef;
+
+            --transition: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(107, 47, 160, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 160, 255, 0.05) 0%, transparent 50%);
+        }
+
+        .viewport {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .beat {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            transform: translateY(100vh);
+            transition: transform var(--transition);
+            z-index: 10;
+        }
+
+        .beat.active {
+            transform: translateY(0);
+            z-index: 20;
+        }
+
+        .beat.prev {
+            transform: translateY(-100vh);
+            z-index: 15;
+        }
+
+        /* Sera font for headers */
+        h1, h2, h3 {
+            font-family: 'EB Garamond', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+        }
+
+        /* Beat content centering */
+        .beat-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            text-align: center;
+            gap: 1.5rem;
+        }
+
+        .beat-content.left-right {
+            flex-direction: row;
+            text-align: left;
+            align-items: stretch;
+            gap: 2rem;
+        }
+
+        /* Title beat */
+        .beat-title {
+            background: linear-gradient(135deg, rgba(107, 47, 160, 0.15) 0%, rgba(212, 160, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+        }
+
+        .beat-title h1 {
+            background: linear-gradient(135deg, var(--accent-bright), var(--brand-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .beat-title .subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--text-muted);
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+        }
+
+        /* Scene beat */
+        .beat-scene {
+            background: linear-gradient(135deg, rgba(90, 143, 196, 0.08) 0%, rgba(74, 158, 110, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+            line-height: 1.8;
+            font-size: clamp(1rem, 2vw, 1.15rem);
+        }
+
+        .beat-scene p {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .beat-scene p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Waterfall chart beat */
+        .beat-waterfall {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .waterfall-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .waterfall-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .toggle-btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .toggle-btn.active {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+        }
+
+        .toggle-btn:hover {
+            border-color: var(--accent);
+        }
+
+        .waterfall-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 400px;
+            gap: 0.5rem;
+            position: relative;
+            padding: 2rem 1rem;
+            background: rgba(19, 19, 24, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+        }
+
+        .waterfall-bar-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            min-width: 60px;
+        }
+
+        .waterfall-bar {
+            width: 100%;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .waterfall-bar.positive {
+            background: linear-gradient(135deg, var(--green), rgba(74, 158, 110, 0.6));
+            border: 1px solid rgba(74, 158, 110, 0.8);
+        }
+
+        .waterfall-bar.negative {
+            background: linear-gradient(135deg, var(--red), rgba(196, 92, 74, 0.6));
+            border: 1px solid rgba(196, 92, 74, 0.8);
+        }
+
+        .waterfall-bar.subtotal {
+            background: linear-gradient(135deg, var(--accent-bright), var(--brand-magenta));
+            border: 1px solid rgba(212, 160, 255, 0.8);
+        }
+
+        .waterfall-label {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            white-space: nowrap;
+        }
+
+        .waterfall-value {
+            position: absolute;
+            bottom: -35px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .waterfall-bridge {
+            position: absolute;
+            height: 2px;
+            background: rgba(176, 124, 232, 0.4);
+            bottom: 0;
+        }
+
+        /* Quiz beat */
+        .beat-quiz {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .quiz-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-question {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .quiz-streak {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(74, 158, 110, 0.2);
+            border: 1px solid var(--green);
+            border-radius: 20px;
+            color: var(--green);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .quiz-options {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .quiz-option {
+            padding: 1.5rem;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 1rem;
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-option:hover:not(.answered):not(.disabled) {
+            border-color: var(--accent);
+            background: rgba(176, 124, 232, 0.1);
+        }
+
+        .quiz-option.answered {
+            cursor: default;
+        }
+
+        .quiz-option.correct {
+            border-color: var(--green);
+            background: rgba(74, 158, 110, 0.15);
+            animation: pulse-green 0.6s ease;
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--red);
+            background: rgba(196, 92, 74, 0.15);
+            animation: shake 0.4s ease;
+        }
+
+        .quiz-option.disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .quiz-option-letter {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            color: var(--bg);
+            border-radius: 6px;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 700;
+            margin-right: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .quiz-option.correct .quiz-option-letter {
+            background: var(--green);
+        }
+
+        .quiz-option.incorrect .quiz-option-letter {
+            background: var(--red);
+        }
+
+        .quiz-explanation {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(90, 143, 196, 0.1);
+            border-left: 4px solid var(--blue);
+            border-radius: 8px;
+            animation: slide-up 0.4s ease;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .quiz-explanation h4 {
+            color: var(--accent-bright);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .quiz-explanation p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        @keyframes pulse-green {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes slide-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Breakeven beat */
+        .beat-breakeven {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .breakeven-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .breakeven-canvas-wrapper {
+            background: rgba(19, 19, 24, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            aspect-ratio: 16 / 9;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .breakeven-canvas-wrapper canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .breakeven-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .slider-label .value {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-bright);
+            font-weight: 600;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(to right, var(--accent), var(--brand-magenta));
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-bright);
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(212, 160, 255, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:active {
+            transform: scale(1.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-bright);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 12px rgba(212, 160, 255, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        input[type="range"]::-moz-range-thumb:active {
+            transform: scale(1.2);
+        }
+
+        .breakeven-info {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(107, 47, 160, 0.1);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-top: 1rem;
+        }
+
+        .breakeven-units {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent-bright);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .breakeven-warning {
+            color: var(--red);
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Radar chart beat */
+        .beat-radar {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .radar-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .radar-canvas-wrapper {
+            background: rgba(19, 19, 24, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            aspect-ratio: 1;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .radar-canvas-wrapper canvas {
+            width: 100%;
+            height: 100%;
+            max-width: 600px;
+            max-height: 600px;
+        }
+
+        .radar-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .radar-company {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .radar-company.konig {
+            --company-color: var(--brand-purple);
+        }
+
+        .radar-company.subtrax {
+            --company-color: var(--brand-magenta);
+        }
+
+        .radar-company.active {
+            border-color: var(--company-color);
+            background: rgba(var(--company-color-rgb), 0.1);
+            color: var(--accent-bright);
+        }
+
+        /* Sandbox beat */
+        .beat-sandbox {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .sandbox-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .sandbox-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sandbox-panel {
+            background: linear-gradient(135deg, rgba(107, 47, 160, 0.1) 0%, rgba(212, 160, 255, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+
+        .sandbox-panel h3 {
+            margin-bottom: 1.5rem;
+            color: var(--accent-bright);
+        }
+
+        .sandbox-sliders {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sandbox-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .sandbox-metric {
+            padding: 1rem;
+            background: rgba(19, 19, 24, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .sandbox-metric-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .sandbox-metric-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-bright);
+        }
+
+        .sandbox-metric.profit .sandbox-metric-value {
+            color: var(--green);
+        }
+
+        .sandbox-metric.loss .sandbox-metric-value {
+            color: var(--red);
+        }
+
+        .sandbox-waterfall-mini {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px;
+            gap: 0.3rem;
+            margin-bottom: 1rem;
+            background: rgba(19, 19, 24, 0.6);
+            padding: 1rem 0.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .sandbox-bar {
+            flex: 1;
+            border-radius: 4px 4px 0 0;
+            min-width: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .sandbox-bar.positive {
+            background: linear-gradient(to top, var(--green), rgba(74, 158, 110, 0.5));
+        }
+
+        .sandbox-bar.negative {
+            background: linear-gradient(to top, var(--red), rgba(196, 92, 74, 0.5));
+        }
+
+        .sandbox-danger {
+            padding: 1rem;
+            background: rgba(196, 92, 74, 0.1);
+            border: 1px solid var(--red);
+            border-radius: 10px;
+            color: var(--red);
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .sandbox-danger.show {
+            display: block;
+            animation: slide-up 0.3s ease;
+        }
+
+        /* XP Bar */
+        .xp-bar {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            background: linear-gradient(135deg, rgba(107, 47, 160, 0.15) 0%, rgba(212, 160, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            z-index: 30;
+            pointer-events: none;
+        }
+
+        .xp-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .xp-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .xp-level {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .xp-level-name {
+            font-weight: 700;
+            color: var(--accent-bright);
+            font-size: 0.9rem;
+        }
+
+        .xp-progress {
+            width: 100%;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.3rem;
+        }
+
+        .xp-progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--accent), var(--brand-magenta));
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .xp-points {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: var(--accent-bright);
+            font-size: 1.1rem;
+            text-align: right;
+            min-width: 60px;
+        }
+
+        /* Beat counter */
+        .beat-counter {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            z-index: 30;
+            pointer-events: none;
+        }
+
+        .beat-counter .current {
+            color: var(--accent-bright);
+            font-weight: 700;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            animation: confetti-fall linear;
+            z-index: 25;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotateZ(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Takeaway beat */
+        .beat-takeaway {
+            background: linear-gradient(135deg, rgba(212, 160, 255, 0.15) 0%, rgba(107, 47, 160, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 4rem 3rem;
+            max-width: 800px;
+            line-height: 1.8;
+        }
+
+        .beat-takeaway p {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        /* Score summary */
+        .score-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            .score-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .score-card {
+            background: rgba(19, 19, 24, 0.8);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .score-card .label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-bright);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .beat {
+                padding: 1.5rem;
+            }
+
+            .waterfall-chart {
+                height: 300px;
+            }
+
+            .sandbox-container {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .xp-bar {
+                width: 95%;
+            }
+
+            .beat-counter {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Loading state */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: loading 1.4s ease-in-out infinite;
+        }
+
+        .loading-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes loading {
+            0%, 60%, 100% {
+                opacity: 0.3;
+            }
+            30% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="viewport" id="viewport"></div>
+
+    <div class="xp-bar">
+        <div class="xp-content">
+            <div class="xp-info">
+                <div class="xp-level">Level <span class="xp-level-name" id="xpLevel">Greenhorn</span></div>
+                <div class="xp-progress">
+                    <div class="xp-progress-bar" id="xpProgressBar" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="xp-points" id="xpPoints">0 XP</div>
+        </div>
+    </div>
+
+    <div class="beat-counter">
+        <span class="current" id="beatCurrent">1</span> / <span id="beatTotal">12</span>
+    </div>
+
+    <script>
+        const LEVELS = [
+            { name: 'Greenhorn', threshold: 0 },
+            { name: 'Analyst', threshold: 300 },
+            { name: 'Associate', threshold: 700 },
+            { name: 'VP', threshold: 1200 },
+            { name: 'MD', threshold: 2000 }
+        ];
+
+        const COMPANIES = {
+            konig: {
+                name: 'Königshof',
+                revenue: 99.6,
+                cogs: 67.8,
+                opex: 25.9,
+                da: 10.1,
+                currency: '€',
+                symbol: 'm',
+                metrics: {
+                    grossMargin: 32,
+                    growth: 3,
+                    profitMargin: 6,
+                    leverage: 5.5,
+                    cashPosition: 85,
+                    scalePoential: 35
+                }
+            },
+            subtrax: {
+                name: 'Subtrax',
+                revenue: 5.3,
+                cogs: 1.54,
+                opex: 4.63,
+                da: 0.04,
+                currency: '£',
+                symbol: 'm',
+                metrics: {
+                    grossMargin: 71,
+                    growth: 45,
+                    profitMargin: -17,
+                    leverage: 2,
+                    cashPosition: 25,
+                    scalePoential: 90
+                }
+            }
+        };
+
+        class G2GApp {
+            constructor() {
+                this.currentBeat = 0;
+                this.isAnimating = false;
+                this.animationDelay = 350;
+                this.xp = 0;
+                this.streak = 0;
+                this.quizAnswered = {};
+                this.waterfallCompany = 'konig';
+                this.radarActive = null;
+                this.beats = this.createBeats();
+                this.init();
+            }
+
+            createBeats() {
+                return [
+                    this.createTitleBeat(),
+                    this.createSceneBeat('intro'),
+                    this.createWaterfallBeat(),
+                    this.createQuizBeat(1),
+                    this.createSceneBeat('dialogue'),
+                    this.createRadarBeat(),
+                    this.createQuizBeat(2),
+                    this.createBreakevenBeat(),
+                    this.createSandboxBeat(),
+                    this.createQuizBeat(3),
+                    this.createTakeawayBeat(),
+                    this.createScoreBeat()
+                ];
+            }
+
+            createTitleBeat() {
+                return {
+                    id: 'beat-title',
+                    render: () => {
+                        const beat = document.createElement('div');
+                        beat.className = 'beat beat-title';
+                        beat.innerHTML = `
+                            <div class="beat-content">
+                                <h1>Chapter 2</h1>
+                                <p class="subtitle">Income Statement Analysis</p>
+                                <p style="color: var(--text-muted); margin-top: 1rem; font-size: 0.95rem;">G2G Advisory — From Greenhorn to Gold(wo)man</p>
+                            </div>
+                        `;
+                        return beat;
+                    }
+                };
+            }
+
+            createSceneBeat(type) {
+                const scenes = {
+                    intro: `
+                        <p>The Würzburg sky stretches gray and endless over the Main valley. Schilling stands at the window of his second-floor office, watching the rain streak the glass. The numbers from last quarter still sit open on his desk—revenue flat, margins compressed, competition tightening on both ends.</p>
+                        <p>"The income statement tells both stories," he murmurs. "The story we want to tell investors, and the story the numbers actually tell. The trick is knowing which is which."</p>
+                    `,
+                    dialogue: `
+                        <p>Eddie walks through the clinic's supply closet, mentally tallying costs. Magda follows, clipboard in hand. "Fifty-two percent gross margin," Magda says. "Not bad for healthcare." Eddie nods. "But look at the EBIT line. We're profitable. Meanwhile, Subtrax is at seventy-one percent and losing a fortune."</p>
+                        <p>"Why?" Magda asks. Eddie taps her clipboard. "Because gross margin isn't profit. It's just the first chapter. The real story is what you spend on sales, marketing, R&D—everything that doesn't touch the product. That's where the difference lives."</p>
+                    `
+                };
+
+                return {
+                    id: `beat-scene-${type}`,
+                    render: () => {
+                        const beat = document.createElement('div');
+                        beat.className = 'beat beat-scene';
+                        beat.innerHTML = `<div class="beat-content">${scenes[type]}</div>`;
+                        return beat;
+                    }
+                };
+            }
+
+            createWaterfallBeat() {
+                return {
+                    id: 'beat-waterfall',
+                    render: () => {
+                        const beat = document.createElement('div');
+                        beat.className = 'beat beat-waterfall';
+                        beat.innerHTML = `
+                            <div class="waterfall-container">
+                                <div class="waterfall-toggle">
+                                    <button class="toggle-btn active" data-company="konig">Königshof</button>
+                                    <button class="toggle-btn" data-company="subtrax">Subtrax</button>
+                                </div>
+                                <div class="waterfall-chart" id="waterfallChart"></div>
+                            </div>
+                        `;
+
+                        setTimeout(() => {
+                            this.renderWaterfall('konig');
+                            beat.querySelectorAll('.toggle-btn').forEach(btn => {
+                                btn.addEventListener('click', (e) => {
+                                    beat.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                                    e.target.classList.add('active');
+                                    this.waterfallCompany = e.target.dataset.company;
+                                    this.renderWaterfall(this.waterfallCompany);
+                                });
+                            });
+                        }, 100);
+
+                        return beat;
+                    }
+                };
+            }
+
+            renderWaterfall(company) {
+                const data = COMPANIES[company];
+                const chart = document.getElementById('waterfallChart');
+                if (!chart) return;
+
+                chart.innerHTML = '';
+
+                const items = [
+                    { label: 'Revenue', value: data.revenue, type: 'subtotal' },
+                    { label: 'COGS', value: -data.cogs, type: 'negative' },
+                    { label: 'Gross Profit', value: data.revenue - data.cogs, type: 'subtotal' },
+                    { label: 'OpEx', value: -data.opex, type: 'negative' },
+                    { label: 'EBITDA', value: data.revenue - data.cogs - data.opex, type: 'subtotal' },
+                    { label: 'D&A', value: -data.da, type: 'negative' },
+                    { label: 'EBIT', value: data.revenue - data.cogs - data.opex - data.da, type: 'subtotal' }
+                ];
+
+                const maxValue = Math.max(...items.map(i => Math.abs(i.value)));
+
+                items.forEach((item, idx) => {
+                    const group = document.createElement('div');
+                    group.className = 'waterfall-bar-group';
+
+                    const height = (Math.abs(item.value) / maxValue) * 100;
+                    const bar = document.createElement('div');
+                    bar.className = `waterfall-bar ${item.type}`;
+                    bar.style.height = `${height}%`;
+                    bar.style.animation = `slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${idx * 0.2}s both`;
+
+                    const label = document.createElement('div');
+                    label.className = 'waterfall-label';
+                    label.textContent = item.label;
+
+                    const value = document.createElement('div');
+                    value.className = 'waterfall-value';
+                    value.textContent = `${item.value > 0 ? '+' : ''}${item.value.toFixed(1)}${data.currency}${data.symbol}`;
+
+                    group.appendChild(label);
+                    group.appendChild(bar);
+                    group.appendChild(value);
+                    chart.appendChild(group);
+                });
+
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes slideUp {
+                        from { height: 0; opacity: 0; }
+                        to { height: ${(Math.max(...items.map(i => Math.abs(i.value))) / maxValue) * 100}%; opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            createQuizBeat(number) {
+                const quizzes = {
+                    1: {
+                        question: "Schilling proposes a 5% price cut expecting 15% more volume. What happens to Königshof's EBIT?",
+                        options: [
+                            { text: "EBIT increases by ~€2m", correct: false, explanation: "The math doesn't work here. While volume goes up 15%, the 5% price cut hits revenue harder than the additional margin can absorb." },
+                            { text: "EBIT stays roughly flat", correct: false, explanation: "Close, but due to Königshof's 5.5x degree of operating leverage, the impact is larger than you'd expect." },
+                            { text: "EBIT decreases by ~€0.5m", correct: false, explanation: "The actual decline is deeper. Remember the DOL: a 15% volume gain on a 5% price cut leaves a net ~12% revenue increase, but fixed costs don't drop." },
+                            { text: "EBIT decreases by ~€0.8–1m", correct: true, explanation: "At a 5.5x DOL, a modest revenue change translates to a significant EBIT swing. The 5% price cut more than offsets the 15% volume gain when you factor in the fixed cost burden." }
+                        ]
+                    },
+                    2: {
+                        question: "Subtrax has 71% gross margin but loses money. Eddie's clinic has 52% margin and profits. Why?",
+                        options: [
+                            { text: "Subtrax has higher COGS", correct: false, explanation: "Actually the opposite. Subtrax's 71% gross margin means COGS is only 29% of revenue—very low. The problem isn't the product cost." },
+                            { text: "Subtrax invests heavily in sales & marketing for growth", correct: true, explanation: "Exactly. Subtrax is spending massive amounts on OpEx (87% of revenue!) to fuel 45% growth. Gross margin is just step one; it's what you do with it that matters." },
+                            { text: "Subtrax charges too little per customer", correct: false, explanation: "At £19.5k ASP on 272 customers with 71% margin, Subtrax is actually quite healthy on product economics. The problem is operational spending." },
+                            { text: "Eddie's clinic has more customers", correct: false, explanation: "Customer count matters, but the real difference is cost structure. Eddie's clinic spends less on growth initiatives, so profit comes earlier." }
+                        ]
+                    },
+                    3: {
+                        question: "Königshof's DOL is 5.5x. If revenue drops 10%, roughly how much does EBIT change?",
+                        options: [
+                            { text: "-10%", correct: false, explanation: "That would be no leverage at all. DOL means leverage—changes in revenue get amplified at the EBIT line." },
+                            { text: "-30%", correct: false, explanation: "Getting closer, but the formula is: EBIT % change = DOL × Revenue % change. So 5.5 × (-10%) = -55%." },
+                            { text: "-55%", correct: false, explanation: "That's the rough answer, but due to how DOL is measured (EBITDA-based), the true impact is slightly deeper: around -62% when you include the fixed D&A." },
+                            { text: "-62%", correct: true, explanation: "With a 5.5x operating leverage, a 10% revenue drop cascades into a ~55% EBIT drop (5.5 × 10%). The actual observed decline on Königshof's numbers is closer to 62% when D&A stays fixed." }
+                        ]
+                    }
+                };
+
+                const quiz = quizzes[number];
+
+                return {
+                    id: `beat-quiz-${number}`,
+                    render: () => {
+                        const beat = document.createElement('div');
+                        beat.className = 'beat beat-quiz';
+                        beat.innerHTML = `
+                            <div class="quiz-container">
+                                <div class="quiz-header">
+                                    <h2 style="margin-bottom: 1rem;">Question ${number}</h2>
+                                    <p class="quiz-question">${quiz.question}</p>
+                                    <div class="quiz-streak" id="streak-${number}">Streak: 0</div>
+                                </div>
+                                <div class="quiz-options" id="options-${number}"></div>
+                                <div id="explanation-${number}"></div>
+                            </div>
+                        `;
+
+                        setTimeout(() => {
+                            const optionsContainer = document.getElementById(`options-${number}`);
+                            quiz.options.forEach((option, idx) => {
+                                const optionEl = document.createElement('button');
+                                optionEl.className = 'quiz-option';
+                                optionEl.innerHTML = `
+                                    <span class="quiz-option-letter">${String.fromCharCode(65 + idx)}</span>
+                                    <span>${option.text}</span>
+                                `;
+
+                                optionEl.addEventListener('click', () => {
+                                    if (this.quizAnswered[number]) return;
+                                    this.quizAnswered[number] = true;
+
+                                    optionsContainer.querySelectorAll('.quiz-option').forEach(o => {
+                                        o.classList.add('disabled');
+                                    });
+
+                                    if (option.correct) {
+                                        optionEl.classList.add('correct');
+                                        this.awardXP(100);
+                                        this.streak++;
+                                        this.burst([optionEl.getBoundingClientRect().left + 50, optionEl.getBoundingClientRect().top + 25]);
+                                    } else {
+                                        optionEl.classList.add('incorrect');
+                                        this.streak = 0;
+                                    }
+
+                                    document.getElementById(`streak-${number}`).textContent = `Streak: ${this.streak}`;
+
+                                    const explanation = document.getElementById(`explanation-${number}`);
+                                    explanation.innerHTML = `
+                                        <div class="quiz-explanation">
+                                            <h4>${option.correct ? '✓ Correct!' : '✗ Not quite'}</h4>
+                                            <p>${option.explanation}</p>
+                                        </div>
+                                    `;
+                                });
+
+                                optionsContainer.appendChild(optionEl);
+                            });
+                        }, 100);
+
+                        return beat;
+                    }
+                };
+            }
+
+            createBreakevenBeat() {
+                return {
+                    id: 'beat-breakeven',
+                    render: () => {
+                        const beat = document.createElement('div');
+                        beat.className = 'beat beat-breakeven';
+                        beat.innerHTML = `
+                            <div class="breakeven-container">
+                                <h2 style="margin-bottom: 1.5rem; text-align: center;">Breakeven Analysis</h2>
+                                <div class="breakeven-canvas-wrapper">
+                                    <canvas id="breakeven-canvas" width="800" height="450"></canvas>
+                                </div>
+                                <div class="breakeven-controls">
+                                    <div class="slider-group">
+                                        <div class="slider-label">
+                                            <span>Price per Unit (€)</span>
+                                            <span class="value" id="priceValue">€332,000</span>
+                                        </div>
+                                        <input type="range" id="breakeven-price" min="250" max="450" value="332" step="1">
+                                    </div>
+                                    <div class="breakeven-info">
+                                        <div class="breakeven-units" id="breakeven-units">Breakeven: 220 units</div>
+                                        <div class="breakeven-warning" id="breakeven-warning"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        setTimeout(() => {
+                            const canvas = document.getElementById('breakeven-canvas');
+                            const priceSlider = document.getElementById('breakeven-price');
+                            const priceValue = document.getElementById('priceValue');
+                            const breakEvenLabel = document.getElementById('breakeven-units');
+                            const warningLabel = document.getElementById('breakeven-warning');
+
+                            const drawBreakeven = (price) => {
+                                const ctx = canvas.getContext('2d');
+                                const width = canvas.width;
+                                const height = canvas.height;
+                                const padding = 60;
+                                const plotWidth = width - padding * 2;
+                                const plotHeight = height - padding * 2;
+
+                                ctx.fillStyle = 'rgba(10, 10, 12, 0.8)';
+                                ctx.fillRect(0, 0, width, height);
+
+                                // Grid
+                                ctx.strokeStyle = 'rgba(42, 42, 53, 0.5)';
+                                ctx.lineWidth = 1;
+                                for (let i = 0; i <= 5; i++) {
+                                    const x = padding + (i / 5) * plotWidth;
+                                    const y = padding + (i / 5) * plotHeight;
+                                    ctx.beginPath();
+                                    ctx.moveTo(x, padding);
+                                    ctx.lineTo(x, height - padding);
+                                    ctx.stroke();
+                                    ctx.beginPath();
+                                    ctx.moveTo(padding, y);
+                                    ctx.lineTo(width - padding, y);
+                                    ctx.stroke();
+                                }
+
+                                // Axes
+                                ctx.strokeStyle = '#a8a4b0';
+                                ctx.lineWidth = 2;
+                                ctx.beginPath();
+                                ctx.moveTo(padding, height - padding);
+                                ctx.lineTo(width - padding, height - padding);
+                                ctx.stroke();
+
+                                ctx.beginPath();
+                                ctx.moveTo(padding, padding);
+                                ctx.lineTo(padding, height - padding);
+                                ctx.stroke();
+
+                                // Labels
+                                ctx.fillStyle = '#a8a4b0';
+                                ctx.font = '12px Inter';
+                                ctx.textAlign = 'center';
+                                for (let i = 0; i <= 5; i++) {
+                                    const x = padding + (i / 5) * plotWidth;
+                                    ctx.fillText(Math.round((i / 5) * 500), x, height - padding + 20);
+                                }
+
+                                ctx.textAlign = 'right';
+                                for (let i = 0; i <= 5; i++) {
+                                    const y = height - padding - (i / 5) * plotHeight;
+                                    ctx.fillText(`€${Math.round((i / 5) * 180)}m`, padding - 10, y + 5);
+                                }
+
+                                ctx.fillStyle = '#7a7680';
+                                ctx.font = 'bold 13px Inter';
+                                ctx.textAlign = 'center';
+                                ctx.fillText('Units', width / 2, height - 10);
+                                ctx.save();
+                                ctx.translate(15, height / 2);
+                                ctx.rotate(-Math.PI / 2);
+                                ctx.fillText('Revenue/Cost (€m)', 0, 0);
+                                ctx.restore();
+
+                                // Fixed costs line
+                                const fixedCost = 29.5;
+                                const fixedCostY = height - padding - (fixedCost / 180) * plotHeight;
+                                ctx.strokeStyle = 'rgba(196, 92, 74, 0.4)';
+                                ctx.lineWidth = 2;
+                                ctx.setLineDash([5, 5]);
+                                ctx.beginPath();
+                                ctx.moveTo(padding, fixedCostY);
+                                ctx.lineTo(width - padding, fixedCostY);
+                                ctx.stroke();
+                                ctx.setLineDash([]);
+
+                                // Revenue line
+                                const unitMax = 500;
+                                const revenueMax = (price / 1000) * unitMax;
+                                ctx.strokeStyle = '#d4a0ff';
+                                ctx.lineWidth = 3;
+                                ctx.beginPath();
+                                ctx.moveTo(padding, height - padding);
+                                const endX = width - padding;
+                                const endY = height - padding - (revenueMax / 180) * plotHeight;
+                                ctx.lineTo(endX, endY);
+                                ctx.stroke();
+
+                                // Total cost line
+                                const varCostPerUnit = 214;
+                                const totalCostAtMax = fixedCost + (varCostPerUnit / 1000) * unitMax;
+                                ctx.strokeStyle = '#c45c4a';
+                                ctx.lineWidth = 3;
+                                ctx.beginPath();
+                                ctx.moveTo(padding, height - padding - (fixedCost / 180) * plotHeight);
+                                const costEndY = height - padding - (totalCostAtMax / 180) * plotHeight;
+                                ctx.lineTo(width - padding, costEndY);
+                                ctx.stroke();
+
+                                // Calculate breakeven
+                                const breakEvenUnits = fixedCost / ((price - varCostPerUnit) / 1000);
+
+                                // Breakeven point
+                                const beX = padding + (breakEvenUnits / unitMax) * plotWidth;
+                                const beY = height - padding - (fixedCost / 180) * plotHeight;
+
+                                ctx.fillStyle = '#4a9e6e';
+                                ctx.beginPath();
+                                ctx.arc(beX, beY, 8, 0, Math.PI * 2);
+                                ctx.fill();
+
+                                ctx.fillStyle = 'rgba(74, 158, 110, 0.3)';
+                                ctx.beginPath();
+                                ctx.arc(beX, beY, 12, 0, Math.PI * 2);
+                                ctx.fill();
+
+                                // Breakeven label
+                                ctx.fillStyle = '#4a9e6e';
+                                ctx.font = 'bold 13px JetBrains Mono';
+                                ctx.textAlign = 'center';
+                                ctx.fillText(`BE: ${Math.round(breakEvenUnits)} units`, beX, beY - 20);
+
+                                // Update text
+                                const beSafe = price > 320;
+                                breakEvenLabel.textContent = `Breakeven: ${Math.round(breakEvenUnits)} units`;
+                                breakEvenLabel.style.color = beSafe ? '#4a9e6e' : '#c45c4a';
+
+                                if (price < 320) {
+                                    warningLabel.textContent = '⚠️ Risky: lower margin means higher breakeven point';
+                                } else {
+                                    warningLabel.textContent = '';
+                                }
+                            };
+
+                            priceSlider.addEventListener('input', (e) => {
+                                const price = parseInt(e.target.value);
+                                priceValue.textContent = `€${price.toLocaleString()},000`;
+                                drawBreakeven(price);
+                            });
+
+                            drawBreakeven(332);
+                        }, 100);
+
+                        return beat;
+                    }
+                };
+            }
+
+            createRadarBeat() {
+                return {
+                    id: 'beat-radar',
+                    render: () => {
+                        const beat = document.createElement('div');
+                        beat.className = 'beat beat-radar';
+                        beat.innerHTML = `
+                            <div class="radar-container">
+                                <h2 style="margin-bottom: 2rem; text-align: center;">Company Profile</h2>
+                                <div class="radar-canvas-wrapper">
+                                    <canvas id="radar-canvas" width="600" height="600"></canvas>
+                                </div>
+                                <div class="radar-toggle">
+                                    <button class="radar-company konig" data-company="konig">Königshof</button>
+                                    <button class="radar-company subtrax" data-company="subtrax">Subtrax</button>
+                                </div>
+                            </div>
+                        `;
+
+                        setTimeout(() => {
+                            const canvas = document.getElementById('radar-canvas');
+                            const toggles = beat.querySelectorAll('.radar-company');
+
+                            const drawRadar = (highlight = null) => {
+                                const ctx = canvas.getContext('2d');
+                                const size = canvas.width;
+                                const center = size / 2;
+                                const maxRadius = (size / 2) * 0.7;
+
+                                ctx.fillStyle = 'rgba(10, 10, 12, 0.8)';
+                                ctx.fillRect(0, 0, size, size);
+
+                                const dimensions = [
+                                    { label: 'Gross\nMargin', konig: 32, subtrax: 71 },
+                                    { label: 'Growth\nRate', konig: 3, subtrax: 45 },
+                                    { label: 'Profit\nMargin', konig: 6, subtrax: -17 + 100 }, // Normalize
+                                    { label: 'Operating\nLeverage', konig: (5.5 / 10) * 100, subtrax: (2 / 10) * 100 },
+                                    { label: 'Cash\nPosition', konig: 85, subtrax: 25 },
+                                    { label: 'Scale\nPotential', konig: 35, subtrax: 90 }
+                                ];
+
+                                const sides = dimensions.length;
+                                const angle = (Math.PI * 2) / sides;
+
+                                // Draw grid
+                                ctx.strokeStyle = 'rgba(42, 42, 53, 0.4)';
+                                ctx.lineWidth = 1;
+                                for (let r = 20; r <= 100; r += 20) {
+                                    const rad = (maxRadius / 100) * r;
+                                    ctx.beginPath();
+                                    ctx.arc(center, center, rad, 0, Math.PI * 2);
+                                    ctx.stroke();
+                                }
+
+                                // Draw axes
+                                ctx.strokeStyle = 'rgba(42, 42, 53, 0.6)';
+                                for (let i = 0; i < sides; i++) {
+                                    const a = angle * i - Math.PI / 2;
+                                    const x = center + Math.cos(a) * maxRadius;
+                                    const y = center + Math.sin(a) * maxRadius;
+                                    ctx.beginPath();
+                                    ctx.moveTo(center, center);
+                                    ctx.lineTo(x, y);
+                                    ctx.stroke();
+                                }
+
+                                // Draw data
+                                const drawPolygon = (company, color, opacity = 0.6) => {
+                                    ctx.strokeStyle = color;
+                                    ctx.lineWidth = 2;
+                                    ctx.fillStyle = color.replace(')', `, ${opacity})`).replace('rgb', 'rgba');
+                                    ctx.beginPath();
+
+                                    dimensions.forEach((dim, i) => {
+                                        const value = dim[company];
+                                        const rad = (maxRadius / 100) * value;
+                                        const a = angle * i - Math.PI / 2;
+                                        const x = center + Math.cos(a) * rad;
+                                        const y = center + Math.sin(a) * rad;
+                                        if (i === 0) ctx.moveTo(x, y);
+                                        else ctx.lineTo(x, y);
+                                    });
+
+                                    ctx.closePath();
+                                    ctx.fill();
+                                    ctx.stroke();
+                                };
+
+                                if (!highlight || highlight === 'konig') {
+                                    drawPolygon('konig', 'rgb(107, 47, 160)', 0.4);
+                                }
+                                if (!highlight || highlight === 'subtrax') {
+                                    drawPolygon('subtrax', 'rgb(217, 70, 239)', 0.4);
+                                }
+
+                                // Labels
+                                ctx.fillStyle = '#a8a4b0';
+                                ctx.font = '13px Inter';
+                                ctx.textAlign = 'center';
+                                dimensions.forEach((dim, i) => {
+                                    const a = angle * i - Math.PI / 2;
+                                    const labelDist = maxRadius * 1.2;
+                                    const x = center + Math.cos(a) * labelDist;
+                                    const y = center + Math.sin(a) * labelDist;
+                                    const lines = dim.label.split('\n');
+                                    lines.forEach((line, idx) => {
+                                        ctx.fillText(line, x, y + idx * 16);
+                                    });
+                                });
+
+                                // Legend
+                                ctx.font = '12px Inter';
+                                ctx.fillStyle = '#6b2fa0';
+                                ctx.fillRect(20, 20, 12, 12);
+                                ctx.fillStyle = '#a8a4b0';
+                                ctx.textAlign = 'left';
+                                ctx.fillText('Königshof', 38, 28);
+
+                                ctx.fillStyle = '#d946ef';
+                                ctx.fillRect(200, 20, 12, 12);
+                                ctx.fillStyle = '#a8a4b0';
+                                ctx.fillText('Subtrax', 218, 28);
+                            };
+
+                            toggles.forEach(btn => {
+                                btn.addEventListener('click', (e) => {
+                                    toggles.forEach(b => b.classList.remove('active'));
+                                    e.target.classList.add('active');
+                                    drawRadar(e.target.dataset.company);
+                                });
+                            });
+
+                            drawRadar();
+                        }, 100);
+
+                        return beat;
+                    }
+                };
+            }
+
+            createSandboxBeat() {
+                return {
+                    id: 'beat-sandbox',
+                    render: () => {
+                        const beat = document.createElement('div');
+                        beat.className = 'beat beat-sandbox';
+                        beat.innerHTML = `
+                            <div class="sandbox-container">
+                                <div class="sandbox-panel">
+                                    <h3>Controls</h3>
+                                    <div class="sandbox-sliders">
+                                        <div class="slider-group">
+                                            <div class="slider-label">
+                                                <span>Price per Unit (€)</span>
+                                                <span class="value" id="sb-price-val">€332,000</span>
+                                            </div>
+                                            <input type="range" id="sb-price" min="250" max="450" value="332" step="5">
+                                        </div>
+                                        <div class="slider-group">
+                                            <div class="slider-label">
+                                                <span>Units Sold</span>
+                                                <span class="value" id="sb-units-val">300</span>
+                                            </div>
+                                            <input type="range" id="sb-units" min="100" max="500" value="300" step="10">
+                                        </div>
+                                        <div class="slider-group">
+                                            <div class="slider-label">
+                                                <span>Variable Cost (€)</span>
+                                                <span class="value" id="sb-var-val">€214,000</span>
+                                            </div>
+                                            <input type="range" id="sb-var" min="150" max="300" value="214" step="5">
+                                        </div>
+                                        <div class="slider-group">
+                                            <div class="slider-label">
+                                                <span>Fixed Costs (€m)</span>
+                                                <span class="value" id="sb-fixed-val">€19.4m</span>
+                                            </div>
+                                            <input type="range" id="sb-fixed" min="10" max="40" value="19.4" step="0.5">
+                                        </div>
+                                        <div class="slider-group">
+                                            <div class="slider-label">
+                                                <span>D&A (€m)</span>
+                                                <span class="value" id="sb-da-val">€10.1m</span>
+                                            </div>
+                                            <input type="range" id="sb-da" min="5" max="15" value="10.1" step="0.5">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sandbox-panel">
+                                    <h3>Live Results</h3>
+                                    <div class="sandbox-waterfall-mini" id="sb-waterfall"></div>
+                                    <div class="sandbox-results">
+                                        <div class="sandbox-metric">
+                                            <div class="sandbox-metric-label">Revenue</div>
+                                            <div class="sandbox-metric-value" id="sb-revenue">€99.6m</div>
+                                        </div>
+                                        <div class="sandbox-metric">
+                                            <div class="sandbox-metric-label">Gross Profit</div>
+                                            <div class="sandbox-metric-value" id="sb-gp">€31.8m</div>
+                                        </div>
+                                        <div class="sandbox-metric">
+                                            <div class="sandbox-metric-label">Gross Margin %</div>
+                                            <div class="sandbox-metric-value" id="sb-gm">32%</div>
+                                        </div>
+                                        <div class="sandbox-metric">
+                                            <div class="sandbox-metric-label">EBITDA</div>
+                                            <div class="sandbox-metric-value" id="sb-ebitda">€5.9m</div>
+                                        </div>
+                                        <div class="sandbox-metric">
+                                            <div class="sandbox-metric-label">EBIT</div>
+                                            <div class="sandbox-metric-value" id="sb-ebit">-€4.2m</div>
+                                        </div>
+                                        <div class="sandbox-metric">
+                                            <div class="sandbox-metric-label">EBIT Margin %</div>
+                                            <div class="sandbox-metric-value" id="sb-ebit-margin">-4%</div>
+                                        </div>
+                                    </div>
+                                    <div class="sandbox-danger" id="sb-danger">⚠️ Loss: EBIT is negative</div>
+                                </div>
+                            </div>
+                        `;
+
+                        setTimeout(() => {
+                            const sliders = {
+                                price: document.getElementById('sb-price'),
+                                units: document.getElementById('sb-units'),
+                                varCost: document.getElementById('sb-var'),
+                                fixedCosts: document.getElementById('sb-fixed'),
+                                da: document.getElementById('sb-da')
+                            };
+
+                            const updateSandbox = () => {
+                                const price = parseInt(sliders.price.value);
+                                const units = parseInt(sliders.units.value);
+                                const varCost = parseInt(sliders.varCost.value);
+                                const fixedCosts = parseFloat(sliders.fixedCosts.value);
+                                const da = parseFloat(sliders.da.value);
+
+                                // Update labels
+                                document.getElementById('sb-price-val').textContent = `€${price.toLocaleString()},000`;
+                                document.getElementById('sb-units-val').textContent = units;
+                                document.getElementById('sb-var-val').textContent = `€${varCost.toLocaleString()},000`;
+                                document.getElementById('sb-fixed-val').textContent = `€${fixedCosts.toFixed(1)}m`;
+                                document.getElementById('sb-da-val').textContent = `€${da.toFixed(1)}m`;
+
+                                // Calculations
+                                const revenue = (price * units) / 1000;
+                                const cogs = (varCost * units) / 1000;
+                                const gp = revenue - cogs;
+                                const gm = (gp / revenue) * 100;
+                                const ebitda = gp - fixedCosts;
+                                const ebit = ebitda - da;
+                                const ebitMargin = (ebit / revenue) * 100;
+
+                                // Update results
+                                this.animateNumber('sb-revenue', revenue, 1);
+                                this.animateNumber('sb-gp', gp, 1);
+                                document.getElementById('sb-gm').textContent = `${gm.toFixed(0)}%`;
+                                this.animateNumber('sb-ebitda', ebitda, 1);
+                                this.animateNumber('sb-ebit', ebit, 1);
+                                document.getElementById('sb-ebit-margin').textContent = `${ebitMargin.toFixed(0)}%`;
+
+                                // Update colors
+                                const ebitEl = document.getElementById('sb-ebit').parentElement;
+                                if (ebit < 0) {
+                                    ebitEl.classList.add('loss');
+                                    ebitEl.classList.remove('profit');
+                                } else {
+                                    ebitEl.classList.add('profit');
+                                    ebitEl.classList.remove('loss');
+                                }
+
+                                // Danger zone
+                                const dangerZone = document.getElementById('sb-danger');
+                                if (ebit < 0) {
+                                    dangerZone.classList.add('show');
+                                } else {
+                                    dangerZone.classList.remove('show');
+                                }
+
+                                // Waterfall mini
+                                const waterfall = document.getElementById('sb-waterfall');
+                                waterfall.innerHTML = '';
+                                const items = [
+                                    { value: revenue, type: 'positive' },
+                                    { value: -cogs, type: 'negative' },
+                                    { value: gp, type: 'positive' },
+                                    { value: -fixedCosts, type: 'negative' },
+                                    { value: ebitda, type: ebitda > 0 ? 'positive' : 'negative' },
+                                    { value: -da, type: 'negative' },
+                                    { value: ebit, type: ebit > 0 ? 'positive' : 'negative' }
+                                ];
+
+                                const maxVal = Math.max(...items.map(i => Math.abs(i.value)));
+                                items.forEach((item) => {
+                                    const bar = document.createElement('div');
+                                    bar.className = `sandbox-bar ${item.type}`;
+                                    bar.style.height = `${(Math.abs(item.value) / maxVal) * 100}%`;
+                                    waterfall.appendChild(bar);
+                                });
+                            };
+
+                            Object.values(sliders).forEach(slider => {
+                                slider.addEventListener('input', () => updateSandbox());
+                            });
+
+                            updateSandbox();
+                        }, 100);
+
+                        return beat;
+                    }
+                };
+            }
+
+            createTakeawayBeat() {
+                return {
+                    id: 'beat-takeaway',
+                    render: () => {
+                        const beat = document.createElement('div');
+                        beat.className = 'beat beat-takeaway';
+                        beat.innerHTML = `
+                            <div class="beat-content">
+                                <p style="font-style: italic; color: var(--accent-bright);">The income statement tells both stories.</p>
+                                <p>The story you want to tell. And the story the numbers actually tell.</p>
+                                <p style="margin-top: 2rem; color: var(--text-muted); font-size: 1rem;">You just have to know how to read it.</p>
+                            </div>
+                        `;
+                        return beat;
+                    }
+                };
+            }
+
+            createScoreBeat() {
+                return {
+                    id: 'beat-score',
+                    render: () => {
+                        const beat = document.createElement('div');
+                        beat.className = 'beat beat-takeaway';
+
+                        const correctCount = Object.keys(this.quizAnswered).length;
+
+                        beat.innerHTML = `
+                            <div class="beat-content">
+                                <h2 style="margin-bottom: 2rem;">Chapter Complete</h2>
+                                <div class="score-summary">
+                                    <div class="score-card">
+                                        <div class="label">Total XP Earned</div>
+                                        <div class="value">${this.xp}</div>
+                                    </div>
+                                    <div class="score-card">
+                                        <div class="label">Level Reached</div>
+                                        <div class="value">${this.getCurrentLevel()}</div>
+                                    </div>
+                                </div>
+                                <p style="margin-top: 2rem; color: var(--text-muted); font-size: 1rem;">Ready for the next chapter?</p>
+                            </div>
+                        `;
+                        return beat;
+                    }
+                };
+            }
+
+            getCurrentLevel() {
+                for (let i = LEVELS.length - 1; i >= 0; i--) {
+                    if (this.xp >= LEVELS[i].threshold) {
+                        return LEVELS[i].name;
+                    }
+                }
+                return 'Greenhorn';
+            }
+
+            awardXP(amount) {
+                const oldLevel = this.getCurrentLevel();
+                this.xp += amount;
+                const newLevel = this.getCurrentLevel();
+
+                this.updateXPBar();
+
+                if (oldLevel !== newLevel) {
+                    this.levelUp(newLevel);
+                }
+            }
+
+            updateXPBar() {
+                const level = this.getCurrentLevel();
+                const nextThreshold = LEVELS.find(l => l.name === level)?.threshold || 0;
+                const prevThreshold = LEVELS[Math.max(0, LEVELS.findIndex(l => l.name === level) - 1)]?.threshold || 0;
+
+                const progress = ((this.xp - prevThreshold) / (nextThreshold - prevThreshold)) * 100;
+
+                document.getElementById('xpLevel').textContent = level;
+                document.getElementById('xpProgressBar').style.width = `${Math.min(progress, 100)}%`;
+                document.getElementById('xpPoints').textContent = `${this.xp} XP`;
+            }
+
+            levelUp(newLevel) {
+                const bar = document.querySelector('.xp-bar');
+                bar.style.animation = 'none';
+                setTimeout(() => {
+                    bar.style.animation = 'pulse 0.6s ease';
+                }, 10);
+
+                setTimeout(() => {
+                    bar.style.animation = 'none';
+                }, 610);
+            }
+
+            animateNumber(elementId, target, decimals = 0) {
+                const el = document.getElementById(elementId);
+                if (!el) return;
+
+                const current = parseFloat(el.textContent.replace(/[^0-9.-]/g, '')) || 0;
+                const step = (target - current) / 20;
+                let count = 0;
+
+                const animate = () => {
+                    count++;
+                    const value = current + step * count;
+                    if (count === 20) {
+                        el.textContent = `€${target.toFixed(decimals)}m`;
+                    } else {
+                        el.textContent = `€${value.toFixed(decimals)}m`;
+                        requestAnimationFrame(animate);
+                    }
+                };
+
+                animate();
+            }
+
+            burst(coords) {
+                for (let i = 0; i < 20; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = coords[0] + 'px';
+                    confetti.style.top = coords[1] + 'px';
+                    confetti.style.backgroundColor = [
+                        '#d4a0ff',
+                        '#b07ce8',
+                        '#d946ef',
+                        '#4a9e6e',
+                        '#5a8fc4'
+                    ][Math.floor(Math.random() * 5)];
+                    confetti.style.width = Math.random() * 8 + 4 + 'px';
+                    confetti.style.height = confetti.style.width;
+                    confetti.style.borderRadius = '50%';
+                    confetti.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+                    confetti.style.setProperty('--ty', Math.random() * 200 + 100 + 'px');
+                    confetti.style.animationDuration = (Math.random() * 1 + 1) + 's';
+                    confetti.style.animationDelay = Math.random() * 0.2 + 's';
+
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 2500);
+                }
+            }
+
+            navigate(direction) {
+                if (this.isAnimating) return;
+
+                let newBeat = this.currentBeat + direction;
+                if (newBeat < 0 || newBeat >= this.beats.length) return;
+
+                this.isAnimating = true;
+                this.currentBeat = newBeat;
+
+                this.updateBeats();
+                document.getElementById('beatCurrent').textContent = this.currentBeat + 1;
+
+                setTimeout(() => {
+                    this.isAnimating = false;
+                }, this.animationDelay);
+            }
+
+            updateBeats() {
+                const viewport = document.getElementById('viewport');
+                viewport.innerHTML = '';
+
+                const prevBeat = this.currentBeat - 1;
+                const currBeat = this.currentBeat;
+                const nextBeat = this.currentBeat + 1;
+
+                [prevBeat, currBeat, nextBeat].forEach(idx => {
+                    if (idx >= 0 && idx < this.beats.length) {
+                        const beatEl = this.beats[idx].render();
+                        if (idx === prevBeat) beatEl.classList.add('prev');
+                        if (idx === currBeat) beatEl.classList.add('active');
+                        viewport.appendChild(beatEl);
+                    }
+                });
+            }
+
+            init() {
+                document.getElementById('beatTotal').textContent = this.beats.length;
+                this.updateBeats();
+
+                // Keyboard
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                        this.navigate(1);
+                        e.preventDefault();
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        this.navigate(-1);
+                        e.preventDefault();
+                    } else if (e.key === 'End') {
+                        this.currentBeat = this.beats.length - 1;
+                        this.updateBeats();
+                        document.getElementById('beatCurrent').textContent = this.currentBeat + 1;
+                        e.preventDefault();
+                    } else if (e.key === 'Home') {
+                        this.currentBeat = 0;
+                        this.updateBeats();
+                        document.getElementById('beatCurrent').textContent = 1;
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+
+                // Touch swipe
+                let touchStart = 0;
+                document.addEventListener('touchstart', (e) => {
+                    touchStart = e.touches[0].clientY;
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    const touchEnd = e.changedTouches[0].clientY;
+                    const diff = touchStart - touchEnd;
+                    if (Math.abs(diff) > 50) {
+                        this.navigate(diff > 0 ? 1 : -1);
+                    }
+                }, { passive: true });
+
+                // Wheel
+                let wheelAccum = 0;
+                document.addEventListener('wheel', (e) => {
+                    wheelAccum += e.deltaY;
+                    if (wheelAccum > 50) {
+                        this.navigate(1);
+                        wheelAccum = 0;
+                    } else if (wheelAccum < -50) {
+                        this.navigate(-1);
+                        wheelAccum = 0;
+                    }
+                }, { passive: true });
+
+                this.updateXPBar();
+            }
+        }
+
+        window.addEventListener('load', () => {
+            new G2GApp();
+        });
+    </script>
+</body>
+</html>

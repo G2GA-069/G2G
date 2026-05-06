@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2: Buy Low, Sell High — From Greenhorn to Gold(wo)man</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0c;
+            --surface: #131318;
+            --surface-2: #1a1a22;
+            --border: #2a2a35;
+            --text: #e8e4df;
+            --text-muted: #a8a4b0;
+            --text-dim: #7a7680;
+            --accent: #b07ce8;
+            --accent-dim: #7a55b0;
+            --accent-bright: #d4a0ff;
+            --green: #4a9e6e;
+            --red: #c45c4a;
+            --blue: #5a8fc4;
+            --brand-purple: #6b2fa0;
+            --brand-magenta: #d946ef;
+            --transition: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(107, 47, 160, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 160, 255, 0.05) 0%, transparent 50%);
+        }
+
+        .viewport {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .beat {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            transform: translateY(100vh);
+            transition: transform var(--transition);
+            z-index: 10;
+        }
+
+        .beat.active {
+            transform: translateY(0);
+            z-index: 20;
+        }
+
+        .beat.prev {
+            transform: translateY(-100vh);
+            z-index: 15;
+        }
+
+        h1, h2, h3 {
+            font-family: 'EB Garamond', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+        }
+
+        .beat-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            text-align: center;
+            gap: 1.5rem;
+        }
+
+        .beat-content.left-right {
+            flex-direction: row;
+            text-align: left;
+            align-items: stretch;
+            gap: 2rem;
+        }
+
+        /* Title beat */
+        .beat-title {
+            background: linear-gradient(135deg, rgba(107, 47, 160, 0.15) 0%, rgba(212, 160, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+        }
+
+        .beat-title h1 {
+            background: linear-gradient(135deg, var(--accent-bright), var(--brand-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .beat-title .subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--text-muted);
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+        }
+
+        /* Scene beat */
+        .beat-scene {
+            background: linear-gradient(135deg, rgba(90, 143, 196, 0.08) 0%, rgba(74, 158, 110, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: left;
+            max-width: 900px;
+            line-height: 1.8;
+        }
+
+        .beat-scene p {
+            margin-bottom: 1.5rem;
+        }
+
+        .beat-scene .scene-location {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Narrator beat */
+        .beat-narrator {
+            background: linear-gradient(135deg, rgba(107, 47, 160, 0.08) 0%, rgba(212, 160, 255, 0.04) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            max-width: 850px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Card beat */
+        .beat-card {
+            background: linear-gradient(135deg, rgba(107, 47, 160, 0.1) 0%, rgba(212, 160, 255, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 1000px;
+            text-align: left;
+        }
+
+        .beat-card-label {
+            font-size: 0.75rem;
+            color: var(--accent-bright);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .beat-card h2 {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        /* Divider beat */
+        .beat-divider {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .beat-divider-number {
+            font-size: clamp(3rem, 12vw, 6rem);
+            font-weight: 700;
+            color: var(--accent-dim);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Equation beat */
+        .beat-equation {
+            background: linear-gradient(135deg, rgba(107, 47, 160, 0.08) 0%, rgba(212, 160, 255, 0.04) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+        }
+
+        .beat-equation-label {
+            font-size: 0.75rem;
+            color: var(--accent-bright);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .beat-equation-content {
+            font-size: 1.8rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-bright);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .beat-equation-note {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Takeaway beat */
+        .beat-takeaway {
+            background: linear-gradient(135deg, rgba(74, 158, 110, 0.15) 0%, rgba(74, 158, 110, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--green);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 850px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+
+        /* Hot Take beat */
+        .beat-hottake {
+            background: linear-gradient(135deg, rgba(196, 92, 74, 0.15) 0%, rgba(196, 92, 74, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--red);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 850px;
+        }
+
+        .beat-hottake h2 {
+            color: var(--red);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .beat-hottake p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+
+        /* Finale beat */
+        .beat-finale {
+            background: linear-gradient(135deg, rgba(107, 47, 160, 0.2) 0%, rgba(212, 160, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .beat-finale-logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Quiz beat */
+        .beat-quiz {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .quiz-container {
+            background: linear-gradient(135deg, rgba(90, 143, 196, 0.1) 0%, rgba(107, 47, 160, 0.08) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-label {
+            font-size: 0.75rem;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .quiz-container h2 {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .quiz-question {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-option {
+            background: rgba(19, 19, 24, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-align: left;
+        }
+
+        .quiz-option:hover:not(.answered) {
+            border-color: var(--accent);
+            background: rgba(176, 124, 232, 0.08);
+        }
+
+        .quiz-option-letter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--accent-dim);
+            border-radius: 50%;
+            color: var(--text);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .quiz-option.correct {
+            border-color: var(--green);
+            background: rgba(74, 158, 110, 0.15);
+        }
+
+        .quiz-option.correct .quiz-option-letter {
+            background: var(--green);
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--red);
+            background: rgba(196, 92, 74, 0.15);
+        }
+
+        .quiz-option.incorrect .quiz-option-letter {
+            background: var(--red);
+        }
+
+        .quiz-option.answered {
+            cursor: default;
+        }
+
+        .quiz-explanation {
+            background: rgba(107, 47, 160, 0.1);
+            border-left: 3px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .quiz-explanation h4 {
+            color: var(--accent-bright);
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge-explanation, .adjustment-explanation {
+            background: rgba(107, 47, 160, 0.1);
+            border-left: 3px solid var(--accent);
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .challenge-explanation strong, .adjustment-explanation strong {
+            color: var(--accent-bright);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Toggle buttons */
+        .toggle-btn {
+            background: rgba(19, 19, 24, 0.8);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .toggle-btn:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .toggle-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg);
+        }
+
+        /* Waterfall Styles */
+        .beat-waterfall {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .waterfall-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .waterfall-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .waterfall-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 1.5rem;
+            height: 400px;
+            padding: 2rem;
+            background: rgba(19, 19, 24, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow-x: auto;
+        }
+
+        .waterfall-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 80px;
+        }
+
+        .waterfall-bar-segment {
+            width: 60px;
+            background: linear-gradient(135deg, #b07ce8, #d4a0ff);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(212, 160, 255, 0.3);
+        }
+
+        .waterfall-bar-negative {
+            background: linear-gradient(135deg, #c45c4a, #e08577);
+            box-shadow: 0 4px 12px rgba(196, 92, 74, 0.3);
+        }
+
+        .waterfall-bar-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            width: 100%;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .waterfall-bar-value {
+            font-size: 0.8rem;
+            color: var(--accent-bright);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Challenge Styles */
+        .beat-challenge {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .challenge-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .challenge-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .challenge-item {
+            background: rgba(19, 19, 24, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .challenge-item-text {
+            flex: 1;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .challenge-item-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .challenge-item-btn {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--border);
+            background: rgba(19, 19, 24, 0.6);
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .challenge-item-btn:hover:not(.answered) {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .challenge-item-btn.correct {
+            background: rgba(74, 158, 110, 0.2);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .challenge-item-btn.incorrect {
+            background: rgba(196, 92, 74, 0.2);
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .challenge-score {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(107, 47, 160, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .challenge-score-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge-score-value {
+            font-size: 1.8rem;
+            color: var(--accent-bright);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Adjustment Classifier Styles */
+        .beat-adjustment-classifier {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .adjustment-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .adjustment-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .adjustment-item {
+            background: rgba(19, 19, 24, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .adjustment-item-text {
+            flex: 1;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .adjustment-item-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .adjustment-item-btn {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--border);
+            background: rgba(19, 19, 24, 0.6);
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .adjustment-item-btn:hover:not(.answered) {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .adjustment-item-btn.green {
+            background: rgba(74, 158, 110, 0.2);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .adjustment-item-btn.amber {
+            background: rgba(212, 160, 255, 0.2);
+            border-color: var(--accent);
+            color: var(--accent-bright);
+        }
+
+        .adjustment-item-btn.red {
+            background: rgba(196, 92, 74, 0.2);
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .adjustment-score {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(107, 47, 160, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        /* Breakeven Styles */
+        .beat-breakeven {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .breakeven-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .breakeven-canvas-wrapper {
+            background: rgba(19, 19, 24, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .breakeven-canvas-wrapper canvas {
+            width: 100%;
+            height: 100%;
+            max-width: 800px;
+            max-height: 400px;
+        }
+
+        .breakeven-sliders {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .slider-label .value {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-bright);
+            font-weight: 600;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(to right, #b07ce8, #d946ef);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #d4a0ff;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(212, 160, 255, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:active {
+            transform: scale(1.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #d4a0ff;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 12px rgba(212, 160, 255, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        input[type="range"]::-moz-range-thumb:active {
+            transform: scale(1.2);
+        }
+
+        /* Radar Chart Styles */
+        .beat-radar {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .radar-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .radar-canvas-wrapper {
+            background: rgba(19, 19, 24, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            aspect-ratio: 1;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .radar-canvas-wrapper canvas {
+            width: 100%;
+            height: 100%;
+            max-width: 600px;
+            max-height: 600px;
+        }
+
+        .radar-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Sandbox Styles */
+        .beat-sandbox {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .sandbox-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .sandbox-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sandbox-panel {
+            background: linear-gradient(135deg, rgba(107, 47, 160, 0.1) 0%, rgba(212, 160, 255, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+
+        .sandbox-panel h3 {
+            margin-bottom: 1.5rem;
+            color: var(--accent-bright);
+        }
+
+        .sandbox-sliders {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sandbox-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .sandbox-metric {
+            padding: 1rem;
+            background: rgba(19, 19, 24, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .sandbox-metric-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .sandbox-metric-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-bright);
+        }
+
+        .sandbox-metric.profit .sandbox-metric-value {
+            color: #4a9e6e;
+        }
+
+        .sandbox-metric.loss .sandbox-metric-value {
+            color: #c45c4a;
+        }
+
+        /* Cost Scaling */
+        .beat-cost-scaling {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .cost-scaling-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Margin Stack */
+        .beat-margin-stack {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .margin-stack-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Timeline */
+        .beat-timeline {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .timeline-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* XP Bar */
+        .xp-bar {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            background: linear-gradient(135deg, rgba(107, 47, 160, 0.15) 0%, rgba(212, 160, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            z-index: 30;
+            pointer-events: none;
+        }
+
+        .xp-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .xp-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .xp-level {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .xp-level-name {
+            font-weight: 700;
+            color: var(--accent-bright);
+            font-size: 0.9rem;
+        }
+
+        .xp-progress {
+            width: 100%;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.3rem;
+        }
+
+        .xp-progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #b07ce8, #d946ef);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .xp-points {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-bright);
+            font-weight: 600;
+        }
+
+        /* Controls */
+        .controls {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 25;
+            align-items: center;
+        }
+
+        .control-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            border-color: var(--accent);
+            background: rgba(176, 124, 232, 0.1);
+        }
+
+        .beat-counter {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+        }
+
+        .beat-counter .current {
+            color: var(--accent-bright);
+            font-weight: 700;
+        }
+
+        /* Canvas */
+        canvas {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        table th, table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        table th {
+            background: rgba(107, 47, 160, 0.1);
+            color: var(--accent-bright);
+            font-weight: 600;
+        }
+
+        table tr:hover {
+            background: rgba(107, 47, 160, 0.05);
+        }
+
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            animation: confetti-fall linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translate(var(--tx), var(--ty)) rotateZ(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="viewport" id="viewport"></div>
+
+    <div class="xp-bar">
+        <div class="xp-content">
+            <div class="xp-info">
+                <div class="xp-level">LEVEL</div>
+                <div class="xp-level-name" id="xpLevel">Greenhorn</div>
+                <div class="xp-progress">
+                    <div class="xp-progress-bar" id="xpProgressBar" style="width: 0%;"></div>
+                </div>
+            </div>
+            <div class="xp-points" id="xpPoints">0 XP</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="control-btn" id="prevBtn">↑</button>
+        <div class="beat-counter"><span class="current" id="beatCurrent">1</span> / <span id="beatTotal">58</span></div>
+        <button class="control-btn" id="nextBtn">↓</button>
+    </div>
+
+    <script>
+        const LEVELS = [
+            { name: 'Greenhorn', threshold: 0 },
+            { name: 'Analyst', threshold: 50 },
+            { name: 'Associate', threshold: 150 },
+            { name: 'Manager', threshold: 300 },
+            { name: 'Director', threshold: 500 },
+            { name: 'MD', threshold: 750 },
+            { name: 'Banker', threshold: 1000 }
+        ];
+
+        const beatsData = [
+            { type: 'beat-title', chapter: 2, title: 'Buy Low, Sell High', subtitle: 'Understanding Profitability Through the Income Statement', totalChapters: 28, hasParticles: true },
+            { type: 'beat-scene', location: 'Würzburg, Bavaria — Königshof Headquarters', content: 'The factory floor hums with productivity. Row after row of green harvesters, partially assembled, waiting for hydraulics and cabs. The smell of welding flux and machine oil. In the conference room above, Wilhelm Ludwig von Raunheim—CEO, third-generation owner, fountain pen on desk—faces Schilling, his Head of Sales.\n\nSchilling is lean, 38, hungry. He believes in volume.\n\n"Our factories are at 75% capacity," Schilling says. "We\'re leaving €30 million of revenue on the table. A 5% price cut drops us from €332k to €315k per harvester. Market studies show a 15% volume response. We\'d sell 345 units instead of 300. Revenue jumps from €99.6m to €108.7m. Factory hums harder. Overhead gets allocated over more units. Profit increases."\n\nWilhelm sets down his pen. "My grandfather," he says quietly, "cut prices during the Depression. Once. He sold harvesters at a loss to keep the factory running. The customers—struggling farmers—remembered the discount, not the quality. When the economy recovered, they expected that price to remain. It took fifteen years to restore the margin. He told my father: Never discount to fill capacity. You destroy the brand."\n\nSchilling frowns. "That was 1931. Markets are efficient. Customers are rational."\n\n"Are they?" Wilhelm looks at the spreadsheet. "You assume 15% elasticity. Where does that come from?"\n\n"Industry data."\n\n"Industry data assumes customers treat our harvesters as commodities. They don\'t. Our customers are cooperatives. They talk. If they learn we just cut prices, two things happen: the smart ones wait for the next cut, and the loyal ones feel cheated. That relationship dies. Your spreadsheet doesn\'t capture that cost."\n\nIn the corner, Trace Flint—A2 analyst on secondment from SBCI—takes notes. She writes one word: Leverage. She circles it twice.' },
+            { type: 'beat-narrator', content: 'Neither man is entirely right. But only one is thinking like an investor. To understand profitability, we begin with the simplest question: What is profit? Not accounting profit. The gap between what customers pay and what you spend to serve them. That gap determines everything: whether you survive, whether you grow, whether an investor values you at €80 million or €150 million.' },
+            { type: 'beat-scene', location: 'Dorking, Surrey — The Dental Practice', content: 'Eddie Brown sits in his surgery at 4:47 PM, thirty seconds before his last appointment. He is 68, retired, looking at spreadsheets as a hobby. His angel investor hat is newer than his dentist hat.\n\n"Tell me about Subtrax," Eddie says to Magda Kowalska, who sits across from him, 34, founder, exhausted from three hours of pitch meetings.\n\n"SaaS platform for dental practices," Magda says. "Scheduling, billing, patient records, integrations with major vendors. We\'re in 180 practices today. Targeting 500 by end of next year."\n\n"Revenue?" Eddie asks.\n\n"£5.3 million ARR. Seventy percent gross margins."\n\nEddie nods. He knows how to read SaaS. "And you\'re raising?"\n\n"£2 million for growth." She pauses. "We\'re currently losing £900k a year."\n\nEddie leans back. He thinks for a moment. A very long moment. "So let me understand this. A dental practice—let\'s say the practice does three checkups a day, 250 days a year. That\'s 750 checkups. At £120 per checkup, that\'s £90,000 a year in revenue. Gross profit, after the dentist and the hygienist, is maybe £50,000 a year. After rent, insurance, marketing, supplies, probably £25,000 in EBITDA. On which they pay tax. Let\'s call it £15,000 net profit a year from that single practice."\n\n"That\'s about right," Magda says.\n\n"And you charge them £5,000 a month?" Eddie pauses. "That\'s £60,000 a year. You\'re taking 27% of their EBITDA just for software."\n\n"No," Magda says quickly. "£5,000 is on top of their revenue. It comes out of their gross profit, not EBITDA. We save them time, which they can use for patient growth."\n\n"How much growth?" Eddie\'s eyes narrow. "Because on your current math, a practice makes £90k revenue, £50k gross profit. You take £60k for software. That leaves them -£10k. They\'re negative. Unless you\'re saving them £70k a year in time and overhead."\n\n"We save them about £40k a year in staff time and administrative overhead," Magda says, quietly.\n\n"So they\'re at £10k EBITDA. Negative now, but positive with Subtrax. That\'s the pitch." Eddie leans forward. "The problem is, you\'re not a cost saver. You\'re a revenue machine. Your software only works if they use it to grow. And 8% of them are churning because they\'re not getting that growth. That\'s not a SaaS business. That\'s a broken dependency."\n\nMagda is quiet. This is not how she expected this meeting to go.' },
+            { type: 'beat-narrator', content: 'Now you see the hidden story. Eddie\'s clinic is steady state. Subtrax is growth mode. Both have income statements. Both have costs. But only one is betting on the future. That bet—on whether growth justifies the burn—is what defines the chapter.' },
+            { type: 'beat-narrator', content: 'Before we dive into the numbers, let\'s understand what a waterfall chart shows you. Imagine pouring €5,300 of revenue into a funnel. First, £1,540 drains away—that\'s what it costs to actually deliver the software (servers, support staff, integrations). What\'s left—£3,760—is your gross profit. Then operating expenses drain another £3,050 (engineers, salespeople, office rent). What trickles out the bottom is EBITDA: the cash the business actually generates from operations.\n\nA waterfall chart visualizes this drainage. Tall purple bars are good (money you keep). Red bars are costs (money that leaks away). The final bar tells you: is there anything left?' },
+            { type: 'beat-waterfall', title: "Eddie's Clinic vs Subtrax: The Same Template, Two Stories", data: { eddie: { name: "Eddie's Clinic", revenue: 250, cogs: 120, gp: 130, opex: 55, ebitda: 75, da: 10, ebit: 65, currency: '£k' }, subtrax: { name: 'Subtrax', revenue: 5300, cogs: 1540, gp: 3760, opex: 3050, ebitda: 710, da: 40, ebit: 670, currency: '£k' } } },
+            { type: 'beat-narrator', content: 'Let me explain what you\'re seeing. The waterfall chart shows revenue flowing down to profit, step by step—like water cascading through locks. Each bar represents a cost that subtracts from revenue. Eddie\'s clinic keeps more than half of every pound. Subtrax keeps only 14%. But watch what happens next year if Subtrax holds margin and grows to £10m revenue. Suddenly the same 71% margin becomes £7.1m gross profit. OpEx stays roughly flat (it doesn\'t scale linearly with revenue in software). EBITDA swings from negative to highly positive.\n\nThat\'s operating leverage. That\'s why investors fund losses.' },
+            { type: 'beat-narrator', content: 'Now let\'s zoom out. The income statement is the financial story of any business. It starts at the top with revenue—what customers pay. It ends at the bottom with net profit—what\'s left for the owner.\n\nIn between are all the costs: product costs, operating expenses, financing costs, taxes.\n\nAnd between each step is a story. That story is strategy.' },
+            { type: 'beat-narrator', content: 'Consider: Eddie\'s clinic is cash-generative. £48,000 a year EBIT on £90,000 revenue. He doesn\'t need investor money. He could run this forever.\n\nSubtrax is cash-burning. -£0.91m a year EBIT on £5.3m revenue. They need outside capital. But that capital is betting on a future state where growth and margin combine to create profit.\n\nBoth are right. Both are wrong. It depends on where you sit in the business cycle.' },
+            { type: 'beat-radar', title: 'Königshof vs Subtrax: Two Companies, Two Profiles', company1: { name: 'Königshof', color: '#b07ce8', axes: { 'Gross Margin': 32, 'Growth Rate': 15, 'Profitability': 55, 'Operating Leverage': 80, 'Cash Position': 90, 'Scale Potential': 25 } }, company2: { name: 'Subtrax', color: '#d946ef', axes: { 'Gross Margin': 71, 'Growth Rate': 85, 'Profitability': 10, 'Operating Leverage': 30, 'Cash Position': 35, 'Scale Potential': 85 } } },
+            { type: 'beat-narrator', content: 'Two companies. Two profiles. Königshof is a mature, cash-generative manufacturing business. High profitability, high operating leverage, fortress cash position. But low growth and low scale potential—they\'re at 75% capacity, pushing toward saturation.\n\nSubtrax is a high-growth SaaS business. Terrible profitability today, low operating leverage, weak cash position. But 85% growth and massive scale potential—they\'re just getting started.\n\nNeither is "better". They\'re different stories. And the income statement is the map that tells you which story is unfolding.' },
+            { type: 'beat-card', label: 'REFERENCE', title: 'Essential Lingo: Revenue to Net', content: '<table><tr><th>Term</th><th>Definition</th></tr><tr><td>Revenue</td><td>Money from customers. Top line. For Königshof, €99.6m. For Subtrax, £5.3m.</td></tr><tr><td>COGS</td><td>Cost of Goods Sold. Direct costs to create/deliver product. Königshof: €64.2m. Subtrax: £1.2m.</td></tr><tr><td>Gross Profit</td><td>Revenue - COGS. The cushion to cover S&M, admin, R&D. Königshof: €35.4m (36%). Subtrax: £4.1m (77%).</td></tr><tr><td>OpEx</td><td>Operating Expenses. S&M, R&D, G&A, rent. Königshof: €20.6m. Subtrax: £5.1m (87% of revenue!).</td></tr><tr><td>EBITDA</td><td>Gross Profit - OpEx. Operating profit before financing/D&A. PE obsesses over this. Königshof: €14.9m. Subtrax: (£0.9m).</td></tr><tr><td>D&A</td><td>Depreciation and Amortization. Non-cash charges for asset wear-down.</td></tr><tr><td>EBIT</td><td>EBITDA - D&A. Operating profit. Königshof: €10.1m. Subtrax: (£0.95m).</td></tr><tr><td>Net Profit</td><td>EBIT - Interest - Taxes. Bottom line. Königshof: €5.6m. Subtrax: (£0.91m).</td></tr></table>' },
+            { type: 'beat-divider', number: '01', title: 'REVENUE' },
+            { type: 'beat-equation', label: 'FORMULA', equation: 'Revenue = Price × Volume', note: 'Revenue is the value you recognized from customers. It\'s driven by two independent variables: price (how much) and volume (how many). Increase either one and revenue increases. Decrease either one and revenue falls. But the sensitivity differs radically by business.' },
+            { type: 'beat-narrator', content: 'Here\'s the simplest idea in business: Revenue = Price × Volume. But simplicity is deceptive.\n\nImagine you sell lemonade. €2 per cup, 100 cups = €200. If you raise price to €2.50, you might sell only 80 cups = €200. Same revenue, fewer customers. If you drop price to €1.50, you might sell 150 cups = €225. More revenue, but more work.\n\nThat trade-off—between price and volume—is what Schilling and Wilhelm are arguing about. Schilling says: cut price, gain volume, revenue goes up. Wilhelm says: cut price, and you can never raise it again.\n\nPlay with the sliders below to see how sensitive revenue is to each lever.' },
+            { type: 'beat-revenue-calc', title: 'The Revenue Machine', defaultPrice: 332, defaultVolume: 300, actual: { price: 332, volume: 300, revenue: 99.6 } },
+            { type: 'beat-narrator', content: 'Drag the sliders. Play with price and volume. See how sensitive revenue is to each one.\n\nFor Königshof, a 10% price increase adds €10m to revenue.\n\nA 10% volume increase adds €10m to revenue.\n\nBut a 10% price cut might trigger a 15% volume drop. Net: €99.6m - €5m (price) + €15m (volume) = €109.6m. You win.\n\nUnless customers remember the price cut and demand it permanently. Then you lose brand value worth far more than €4m.\n\nThat\'s why Wilhelm thinks in stories, not spreadsheets.' },
+            { type: 'beat-card', label: 'INSIGHT', title: 'Price vs Volume: Three Zones', content: '<table><tr><th>Zone</th><th>Pricing Power</th><th>Strategy</th></tr><tr><td>Zone 1: Low Price Power</td><td>High elasticity (volume drops with price)</td><td>Compete on volume, efficiency, distribution</td></tr><tr><td>Zone 2: Medium Price Power</td><td>Mixed elasticity</td><td>Balanced: improve product, grow share</td></tr><tr><td>Zone 3: High Price Power</td><td>Low elasticity (customers loyal to brand)</td><td>Premium positioning, brand moat, focus on value creation</td></tr></table>' },
+            { type: 'beat-quiz', label: 'QUIZ', title: 'Revenue Sensitivity', question: 'Königshof sells 300 harvesters at €332k each = €99.6m revenue. If they lower price to €315k (-5%) and volume responds to 330 units (+10%), what\'s the new revenue?', options: [
+                { text: '€103.95m (higher)', correct: true, explanation: 'Exactly: 330 × €315k = €103.95m. Revenue goes UP because the volume gain (+10%) outweighs the price cut (-5%). But here\'s what Wilhelm worries about: revenue is higher, but is profit higher? Remember, variable costs also scale with volume. And once you signal a price cut, customers expect it to stay. The revenue math works. The strategic math might not.' },
+                { text: '€94.5m (lower)', correct: false, explanation: 'That would be if volume fell. But the scenario says volume rises to 330 units. 330 × €315k = €103.95m.' },
+                { text: '€99.6m (same)', correct: false, explanation: 'No. Price cut × higher volume = higher revenue. €315k × 330 = €103.95m, not flat.' },
+                { text: '€110m (much higher)', correct: false, explanation: 'Close, but the exact math is: 330 units × €315k = €103.95m, not €110m.' }
+            ], xpReward: 25 },
+            { type: 'beat-divider', number: '02', title: 'COST STRUCTURE' },
+            { type: 'beat-narrator', content: 'Revenue is step one. Cost structure is step two. And this is where most founders fail. Because costs come in two types: variable and fixed. And they behave completely differently as you scale.' },
+            { type: 'beat-narrator', content: 'Now we need to understand costs. And the single most important distinction in all of business finance is this: some costs move with volume, and some don\'t.\n\nVariable costs are like ingredients. Make more product, spend more on materials. Hire more welders per unit, pay more in labor. Variable costs scale.\n\nFixed costs are like rent. Whether you make 1 unit or 1,000, the factory lease stays the same. The CEO\'s salary stays the same. Insurance stays the same.\n\nWhy does this matter? Because the gap between price and variable cost—called contribution margin—is what pays for your fixed costs. Every unit you sell chips away at that fixed cost mountain. Once you\'ve covered it, every additional unit is almost pure profit.\n\nThat\'s the magic of scale. And that\'s what the next exercise teaches you.' },
+            { type: 'beat-challenge', title: 'Classify the Costs: Variable or Fixed?', items: [
+                { text: 'Steel for harvester frames', answer: 'variable', explanation: 'Each additional harvester needs more steel. If you make 0 harvesters, you buy 0 steel. That\'s the definition of a variable cost—it scales directly with production volume.' },
+                { text: 'Factory lease', answer: 'fixed', explanation: 'Whether Königshof makes 1 harvester or 500, the lease is the same. It\'s a fixed cost that doesn\'t scale with production volume—you pay whether the factory runs or sits idle.' },
+                { text: 'Welder wages (hourly, per unit)', answer: 'variable', explanation: 'Welders paid per unit produced mean labor cost scales directly with output. More harvesters = more welder hours = more cost. It\'s wages tied to volume, not fixed salary.' },
+                { text: 'CEO salary', answer: 'fixed', explanation: 'Wilhelm gets paid the same whether they sell 100 or 400 harvesters. CEO compensation is a classic fixed cost—it doesn\'t change with production or sales volume.' },
+                { text: 'Cloud hosting per customer (Subtrax)', answer: 'variable', explanation: 'Each new dental practice on the platform consumes server resources. More customers = proportionally more hosting cost. It\'s a per-customer variable cost.' },
+                { text: 'Sales commission per deal', answer: 'variable', explanation: 'Commission is earned per sale. Zero sales = zero commission. It scales directly with volume—each deal triggers a cost.' },
+                { text: 'Office insurance', answer: 'fixed', explanation: 'Insurance premiums are set annually regardless of production volume. The factory could sit idle and you\'d still pay insurance. It\'s a fixed overhead cost.' },
+                { text: 'D&A on factory equipment', answer: 'fixed', explanation: 'Depreciation is a time-based charge, not volume-based. The machines depreciate whether they run 8 hours or 24. It doesn\'t change with output volume.' }
+            ] },
+            { type: 'beat-narrator', content: 'Variable costs scale with volume. Fixed costs don\'t (or change in steps). This distinction is the key to everything that follows: gross margin, EBITDA, operating leverage, breakeven, and profitability at scale.\n\nFor Königshof, variable cost is €214k per unit (materials, labor, per-unit overhead). Fixed costs are €45m (factory, salaries, depreciation).\n\nFor Subtrax, variable cost is roughly £5.67k per customer per year (hosting, support). Fixed costs are £1.65m (corporate overhead, R&D, base salaries).' },
+            { type: 'beat-card', label: 'DATA', title: 'Königshof Cost Structure', content: '<table><tr><th>Cost Category</th><th>Amount</th><th>Per-Unit</th></tr><tr><td>Variable Costs (Materials, Labor)</td><td>€64.2m</td><td>€214k</td></tr><tr><td>Fixed Costs (Factory, Salaries, Admin)</td><td>€45.0m</td><td>€150k @ 300 units</td></tr><tr><td>Total COGS</td><td>€109.2m</td><td>€364k</td></tr><tr><td>Gross Profit Margin</td><td>€35.4m</td><td>€118k (36%)</td></tr><tr><td>Note</td><td colspan="2">Fixed costs allocated over 300 units. At 400 units, fixed cost per unit drops to €112.5k.</td></tr></table>' },
+            { type: 'beat-card', label: 'DATA', title: 'Subtrax Unit Economics', content: '<table><tr><th>Metric</th><th>Per Customer</th></tr><tr><td>Annual Revenue (ARR)</td><td>£29,300</td></tr><tr><td>Delivery & Support (COGS)</td><td>£6,750</td></tr><tr><td>Gross Profit</td><td>£22,550</td></tr><tr><td>Allocated OpEx Share</td><td>£20,600</td></tr><tr><td>Customer EBITDA</td><td>£1,950</td></tr><tr><td>Note</td><td>At 180 customers, Subtrax EBITDA ≈ £350k. Negative due to growth investment.</td></tr></table>' },
+            { type: 'beat-narrator', content: 'Look at these numbers. Subtrax has positive unit economics. Each customer generates £22.5k gross profit and absorbs £20.6k in allocated overhead. That leaves £1.95k per customer in EBITDA.\n\nBut Subtrax is negative overall because they\'re investing in growth. Customer Acquisition Cost is £8k. They\'re betting that by year 5, they\'ll have 500 customers at £1.95k per customer = £975k EBITDA. And then they can reduce OpEx intensity and reach 30%+ EBITDA margins.\n\nThat\'s the growth story. But it\'s only a story if unit economics work.' },
+            { type: 'beat-narrator', content: 'Now, the magic happens when volume grows faster than fixed costs. This is operating leverage.' },
+            { type: 'beat-narrator', content: 'For Königshof: Fixed costs of €45m. Variable cost of €214k per unit. At 300 units, they sell at €332k, so contribution margin is €118k per unit.\n\nTotal contribution: 300 × €118k = €35.4m.\nFixed costs: €45m.\nEBITDA: -€9.6m.\n\nWait. That doesn\'t match our numbers. Let me recalculate.' },
+            { type: 'beat-card', label: 'DATA', title: 'Königshof Full P&L', content: '<table><tr><th>Line Item</th><th>€m</th><th>%</th></tr><tr><td>Revenue (300 @ €332k)</td><td>99.6</td><td>100%</td></tr><tr><td>Variable COGS (300 @ €214k)</td><td>64.2</td><td>64%</td></tr><tr><td>Contribution Margin</td><td>35.4</td><td>36%</td></tr><tr><td>Fixed Operating Costs</td><td>20.6</td><td>21%</td></tr><tr><td>EBITDA</td><td>14.9</td><td>15%</td></tr><tr><td>D&A</td><td>4.8</td><td>5%</td></tr><tr><td>EBIT</td><td>10.1</td><td>10%</td></tr><tr><td>Interest & Tax</td><td>4.5</td><td>5%</td></tr><tr><td>Net Profit</td><td>5.6</td><td>6%</td></tr></table>' },
+            { type: 'beat-card', label: 'DATA', title: 'Subtrax Full P&L', content: '<table><tr><th>Line Item</th><th>£m</th><th>%</th></tr><tr><td>Revenue (180 customers @ £29.3k)</td><td>5.3</td><td>100%</td></tr><tr><td>COGS (£6.75k per customer)</td><td>1.2</td><td>23%</td></tr><tr><td>Gross Profit</td><td>4.1</td><td>77%</td></tr><tr><td>R&D</td><td>1.5</td><td>28%</td></tr><tr><td>Sales & Marketing</td><td>1.2</td><td>23%</td></tr><tr><td>G&A</td><td>1.1</td><td>21%</td></tr><tr><td>EBITDA</td><td>(0.9)</td><td>-17%</td></tr><tr><td>D&A</td><td>0.05</td><td>1%</td></tr><tr><td>EBIT</td><td>(0.95)</td><td>-18%</td></tr><tr><td>Net Loss</td><td>(0.91)</td><td>-17%</td></tr></table>' },
+            { type: 'beat-narrator', content: 'Now the story is clear. Königshof is solidly profitable. Subtrax is burning cash. But let\'s project Subtrax out three years. Assume growth continues at 40% annually. In FY27, they\'re at £18.6m revenue. OpEx is sticky—it doesn\'t scale at 40%. R&D might grow 20% annually (because they\'re building for scale). S&M stays flat (efficiency with upsell). G&A grows 10%.\n\nResult: EBITDA margin by FY27 is probably 20%. That\'s £3.7m EBITDA on £18.6m revenue. That\'s why investors fund the burn.' },
+            { type: 'beat-narrator', content: 'This is the fundamental question for any growth company: Do the unit economics work? And if they do, can I reach scale before I run out of cash?' },
+            { type: 'beat-takeaway', content: 'Gross profit is revenue minus product costs. EBITDA is gross profit minus operating costs. The path from revenue to EBITDA tells you whether the business model works.' },
+            { type: 'beat-narrator', content: 'But EBITDA is not profit. It\'s operating profit before you pay interest on debt, taxes, and account for the wear-down of assets.\n\nThat wear-down—depreciation and amortization—is the next layer.' },
+            { type: 'beat-divider', number: '03', title: 'ADJUSTMENTS & NORMALIZED EBITDA' },
+            { type: 'beat-narrator', content: 'The reported EBITDA tells the historical story. The normalized EBITDA tells the forward story. Because between actual revenue/costs and normalized revenue/costs sit adjustments.\n\nAdjustments are: One-time items. Recurring items that appear to be one-time. Items that won\'t recur in the future.\n\nThey matter because investors value businesses on normalized multiples, not reported multiples.' },
+            { type: 'beat-narrator', content: 'When investors look at a company\'s EBITDA, they don\'t just accept the reported number. They ask: what\'s the real, recurring earnings power?\n\nImagine a restaurant that reports £200k profit. But £50k of that came from selling a van they no longer needed. Next year, they won\'t have a van to sell. So the true recurring profit is £150k.\n\nThat £50k is an "adjustment"—a one-time item that distorts the picture. Investors add it back (or subtract it) to find "normalized EBITDA."\n\nBut here\'s where it gets tricky: companies LOVE to call recurring costs "one-time." Restructuring charges that appear every year. Write-offs that happen like clockwork. Legal fees that never stop.\n\nYour job as an analyst is to sort the genuine one-time items from the ones that management is trying to sweep under the rug.\n\nGreen = truly one-time, adjust away. Amber = judgment call. Red = recurring, don\'t be fooled.' },
+            { type: 'beat-adjustment-classifier', title: 'Classify These Adjustments: Green / Amber / Red', items: [
+                { text: '€6m legal costs from a one-time patent lawsuit (fully settled)', answer: 'green', explanation: 'This is a textbook one-time item. The lawsuit is settled, won\'t recur. Add it back to EBITDA to show true recurring earnings power. It distorts the picture of normal operations.' },
+                { text: '€1.5m restructuring charges (also appeared last year)', answer: 'red', explanation: 'If restructuring charges show up two years in a row, they\'re not one-time—they\'re structural. The company is either constantly reorganizing or using "restructuring" to hide recurring costs. Don\'t adjust.' },
+                { text: '€0.5m CEO retirement bonus (documented, one-time)', answer: 'green', explanation: 'CEOs don\'t retire every year. This is a genuine one-time payment with clear documentation. Add it back. It won\'t happen again and shouldn\'t affect valuation.' },
+                { text: '€1.1m inventory write-off after demand shock', answer: 'amber', explanation: 'Could be one-time (unusual demand shock) or could signal a recurring inventory management problem. Needs judgment—check if write-offs happened in prior years. If this is a pattern, it\'s red.' },
+                { text: 'Stock option expense in a year with unusually high hiring', answer: 'amber', explanation: 'Stock comp is real and recurring, but a hiring surge inflates it temporarily. Partially adjust, but don\'t remove all stock comp—that\'s a red flag in itself. Find the normalized level.' },
+                { text: 'Bad debt provision that appears every single year', answer: 'red', explanation: 'If it happens every year, it\'s a cost of doing business, not a one-time item. Companies that adjust out recurring bad debt are flattering their earnings. This is structural, not one-time.' }
+            ] },
+            { type: 'beat-narrator', content: 'Green: True one-time items. Adjust up. Add back to EBITDA.\n\nAmber: Questionable. Might be one-time. Might recur. Use judgment.\n\nRed: Recurring. Even if they say "one-time," if they happened last year and the year before, they\'re not one-time. Don\'t adjust.\n\nNormalized EBITDA = Reported EBITDA + Green adjustments ± Amber adjustments.' },
+            { type: 'beat-card', label: 'DATA', title: 'Königshof FY22-FY24 Adjustments', content: '<table><tr><th>Year</th><th>Reported EBITDA</th><th>Adjustments</th><th>Normalized EBITDA</th><th>Norm %</th></tr><tr><td>FY24</td><td>€14.9m</td><td>€1.2m (legal)</td><td>€16.1m</td><td>16%</td></tr><tr><td>FY23</td><td>€12.5m</td><td>€2.1m (restructure) + €0.8m (legal)</td><td>€15.4m</td><td>15%</td></tr><tr><td>FY22</td><td>€10.2m</td><td>€1.9m (sale of asset)</td><td>€12.1m</td><td>12%</td></tr></table>' },
+            { type: 'beat-hottake', title: 'PERSISTENT ONE-OFFS', content: 'If a company has "one-time" charges every year, they\'re not one-time—they\'re structural. This usually means the business is doing constant restructuring or the management team keeps missing targets.\n\nBe suspicious of companies that consistently have large adjustments. They\'re either badly managed or trying to hide declining margins.' },
+            { type: 'beat-quiz', label: 'QUIZ', title: 'Normalizing Königshof', question: 'Königshof reported €14.9m EBITDA in FY24. They had €1.2m in legal costs from a settled lawsuit. What\'s the normalized EBITDA?', options: [
+                { text: '€16.1m (€14.9m + €1.2m)', correct: true, explanation: 'Correct. The legal costs were a genuine one-time event—the lawsuit is settled and won\'t recur. By adding €1.2m back to the reported €14.9m, you get €16.1m normalized EBITDA. This is the number a PE investor would use to value the company, because it reflects the true recurring earnings power. Think of it like this: if you\'re buying a house and the seller had a one-time flood repair cost, you wouldn\'t assume that cost happens every year.' },
+                { text: '€14.9m (no adjustment)', correct: false, explanation: 'The legal costs were a true one-time event. They distort the picture of recurring earnings power. Normalized EBITDA should add them back.' },
+                { text: '€13.7m (€14.9m - €1.2m)', correct: false, explanation: 'That would be if the legal costs were in addition to EBITDA. But they\'re already included in the €14.9m reported number.' },
+                { text: '€18m (rough estimate)', correct: false, explanation: 'The math is precise: €14.9m reported + €1.2m legal adjustment = €16.1m normalized.' }
+            ], xpReward: 25 },
+            { type: 'beat-divider', number: '04', title: 'OPERATING LEVERAGE' },
+            { type: 'beat-narrator', content: 'Wilhelm\'s real concern was operating leverage. Not the price elasticity. The fact that a 15% revenue increase, on his cost structure, would swing EBIT by far more than 15%.\n\nThis is the multiplier effect. It\'s why mature manufacturing businesses trade at high multiples.\n\nDegree of Operating Leverage (DOL) = % Change in EBIT ÷ % Change in Revenue.\n\nFor Königshof, DOL is approximately 5.5x. A 9% revenue increase → 50% EBIT increase.' },
+            { type: 'beat-equation', label: 'FORMULA', equation: 'DOL = Contribution Margin ÷ EBIT', note: 'Contribution margin is the profit on each unit before fixed costs. EBIT is profit after fixed costs. The ratio tells you the leverage. Higher fixed costs = higher leverage.' },
+            { type: 'beat-narrator', content: 'Breakeven is the moment when a business stops losing money and starts making it. It\'s the most important number in any startup\'s life and the safety net in any mature company\'s risk analysis.\n\nThe math is simple: Breakeven Units = Fixed Costs ÷ (Price − Variable Cost).\n\nKönigshof\'s fixed costs are €19.4m. Each harvester sells for €332k and costs €214k in variable costs. So the contribution margin per unit is €118k. Divide €19.4m by €118k = 164 units.\n\nSell 164 harvesters: profit = zero. Sell 165: you\'re in the black. Sell 300 (their current volume): you have a comfortable 136-unit cushion above breakeven.\n\nBut watch what happens when price falls. The contribution margin shrinks. The breakeven point rises. Your safety cushion evaporates.\n\nDrag the price slider below to see this in action.' },
+            { type: 'beat-breakeven', title: 'Breakeven: Where Revenue Meets Cost', baselinePrice: 332, variableCost: 214, fixedCosts: 19.4 },
+            { type: 'beat-narrator', content: 'Watch the chart. The blue line is revenue. The green line is total cost (variable + fixed).\n\nWhere they intersect is breakeven: 173 harvesters at €332k each = €57.4m revenue. At that point, total costs equal €57.4m. Profit = zero.\n\nBelow 173 units: loss.\nAbove 173 units: profit.\n\nKönigshof sells 300 units. They\'re far above breakeven. They have cushion.\n\nBut if price fell to €315k, breakeven would rise to 192 units. They\'d lose cushion. That\'s why Wilhelm is skeptical.' },
+            { type: 'beat-card', label: 'DATA', title: 'Schilling\'s Mistake', content: '<table><tr><th>Scenario</th><th>Price</th><th>Volume</th><th>Revenue</th><th>Variable Cost</th><th>Contribution Margin</th><th>Fixed Costs</th><th>EBITDA</th></tr><tr><td>Current</td><td>€332k</td><td>300</td><td>€99.6m</td><td>€64.2m</td><td>€35.4m</td><td>€20.6m</td><td>€14.9m</td></tr><tr><td>Proposed (Schilling)</td><td>€315k</td><td>345</td><td>€108.7m</td><td>€73.8m</td><td>€34.9m</td><td>€20.6m</td><td>€14.3m</td></tr></table>' },
+            { type: 'beat-narrator', content: 'Look at that. Schilling\'s plan raises revenue from €99.6m to €108.7m. A 9% increase. But EBITDA falls from €14.9m to €14.3m. The high operating leverage works in reverse too.\n\nWhy? Because the 5% price cut hits contribution margin harder than the 15% volume gain can offset.\n\nThis is Wilhelm\'s point. The spreadsheet looks good until you factor in DOL.' },
+            { type: 'beat-narrator', content: 'You\'ve learned the pieces. Revenue. Costs. Margins. Breakeven. Now it\'s time to put it all together.\n\nThe P&L sandbox below gives you five levers: price, volume, variable cost, fixed costs, and depreciation. Every real business operates by pulling these levers.\n\nA CEO who raises prices is betting on brand power.\nA CEO who cuts variable costs is betting on operational efficiency.\nA CEO who increases volume is betting on market expansion.\nA CEO who cuts fixed costs is betting on lean operations.\n\nEach choice has trade-offs. Higher prices might reduce volume. Lower variable costs might reduce quality. More volume might require more fixed costs (new factory, new hires).\n\nPlay with the sliders. Try to find the combination that maximizes EBIT margin. Then try to crash the company. Understanding both paths is what makes an analyst.' },
+            { type: 'beat-sandbox', title: 'Your Turn: Build a P&L', defaultPrice: 332, defaultVolume: 300, defaultVC: 214, defaultFC: 19.4, defaultDA: 10.1 },
+            { type: 'beat-narrator', content: 'You now have control. Drag the sliders.\n\nRaise the price to €350k and watch EBITDA margin expand.\n\nRaise volume to 400 units and watch fixed cost per unit fall.\n\nLower variable cost to €200k and watch gross margin improve.\n\nThis is how investors model businesses. They\'re not looking at historical data. They\'re stress-testing assumptions.\n\nThe key insight: Volume, price, and cost structure interact. Change one, and the others matter twice as much.' },
+            { type: 'beat-quiz', label: 'QUIZ', title: 'Will Schilling\'s Plan Work?', question: 'If Königshof implements Schilling\'s plan (€315k price, 345 units), and then market competition forces another 5% price cut in year 2 (to €299k), what happens to EBITDA?', options: [
+                { text: 'EBITDA increases because volume keeps rising', correct: false, explanation: 'Even if volume rises further, the cumulative price cuts (from €332k to €299k = -€33k or -10%) hit margins hard. The DOL works against you on price.' },
+                { text: 'EBITDA falls significantly below current levels', correct: true, explanation: 'Correct. This is operating leverage working in reverse—the "doom loop." First price cut: €332k → €315k. Contribution margin drops from €118k to €101k per unit. Second price cut: €315k → €299k. Contribution margin crashes to €85k. Even at 345 units, total contribution is just €29.3m vs €20.6m fixed costs = €8.7m EBITDA. That\'s a 42% drop from the original €14.9m. And you\'ve permanently signaled to the market that you\'re a discounter. Wilhelm\'s grandfather was right.' },
+                { text: 'EBITDA stays roughly flat', correct: false, explanation: 'Two price cuts totaling 10% of revenue is not flat. The math deteriorates rapidly.' },
+                { text: 'Fixed costs fall, so profit improves', correct: false, explanation: 'Fixed costs don\'t fall with price cuts. They\'re fixed. Price pressure is pure margin erosion.' }
+            ], xpReward: 25 },
+            { type: 'beat-narrator', content: 'This is why margin defense matters. It\'s not just about profit today. It\'s about the path to scale.\n\nSubtrax, with 71% gross margins, can afford to cut CAC and lower price because there\'s a margin cushion.\n\nKönigshof, with 36% gross margins, cannot. One price war and they\'re broken.' },
+            { type: 'beat-scene', location: 'Trace\'s Hotel Room, 2am', content: 'Trace is building the model. All night. She maps out three scenarios:\n\n1. Wilhelm holds firm at €332k. Sells 300 units. EBITDA stays at €14.9m. Flat business.\n\n2. Schilling wins. Price cut to €315k, volume to 345. EBITDA falls to €14.3m. Worse off.\n\n3. Wilhelm invests in Poland. Expands sales team. Fixed costs rise to €24m. But year 2 volume is 450 units (from both markets). Contribution margin jumps to €53.1m. EBITDA: €29.1m.\n\nScenario 3 is a bet. It requires holding market price, executing on market expansion, and managing cost growth. But if it works, the company doubles in value in two years.\n\nTrace circles it. Then she circles "Leverage" again. Wilhelm was right about the concept. But he was wrong about the conclusion.\n\nThe question is not: "Should we protect margins?"\n\nThe question is: "Should we invest margins to grow faster?"\n\nThese are different.' },
+            { type: 'beat-takeaway', content: 'Wilhelm was right: One price cut signals weakness. Competitors smell it. The brand erodes. But Trace understood something deeper: If you have excess capacity and genuine market demand, investing in growth—while protecting price—compounds faster than defending static margins.' },
+            { type: 'beat-narrator', content: 'Let\'s go back to Subtrax. Eddie invested because he saw unit economics that work. £22.5k gross profit per customer, against £20.6k allocated OpEx, with room to improve.\n\nBut the real bet was: Can they reach scale before the growth engine stalls?\n\nIf they reach 500 customers at the same unit economics, they\'re at £11.25m - £10.3m = £0.95m EBITDA. Profitable.\n\nIf they plateau at 250 customers, they\'re at £5.6m - £5.15m = £0.45m EBITDA. Barely viable.\n\nThat spread—between scale-win and scale-lose—is what keeps investors (and founders) awake at night.' },
+            { type: 'beat-hottake', title: 'THE INCOME STATEMENT TRUTH', content: 'The income statement is not a historical record. It\'s a hypothesis about the future.\n\nWhen you read "EBITDA of €14.9m," you\'re reading: "This company generates €14.9m in annual operating profit under current conditions."\n\nBut those conditions will change. The question is: How?\n\nWill margins improve? Will fixed costs increase? Will scale compound?\n\nThe company that understands its own income statement—and can predict how it changes—is the company that wins.' },
+            { type: 'beat-card', label: 'SUMMARY', title: 'The Income Statement Hierarchy', content: 'Revenue: What you sold. Your market share and pricing power.\n\nGross Profit: What it cost you to make. Your product competitiveness.\n\nEBITDA: What\'s left after operations. Your leverage and efficiency.\n\nEBIT: What\'s left after assets wear down. Your true operating profit.\n\nNet Profit: What\'s left after financing and taxes. The bottom line.\n\nThe journey down from revenue to profit is the journey of the business.' },
+            { type: 'beat-narrator', content: 'You now understand the income statement as a map, not a spreadsheet. You can ask the right questions:\n\n- Is revenue growing?\n- Are margins stable or eroding?\n- Is EBITDA profitable?\n- Are adjustments red flags or true one-time items?\n- Is the company growing faster than its cost structure?\n- Is it heading toward scale profitability or a margin trap?\n\nThese are the questions investors ask. These are the questions that determine value.' },
+            { type: 'beat-scene', location: 'Würzburg, Spring 2025', content: 'Wilhelm made the decision. Invest in Poland. Add sales capacity. Hold the price at €332k.\n\nBut he told Schilling: "Not because you were wrong about elasticity. But because our real opportunity is not to cut prices for the customers we have. It\'s to reach customers we don\'t have yet. Poland, if we do it right, is a new market. We can grow there without cannibalizing our domestic business."\n\nTrace smiles. Wilhelm understood leverage after all. Not financial leverage. Business leverage.\n\nAnd Subtrax? Magda is growing. Churn is down to 6%. Unit economics improved. Eddie is still invested, and now they\'re raising a Series A from institutional VCs.\n\nBoth companies understood: The income statement is not about defending current state. It\'s about predicting future state.' },
+            { type: 'beat-narrator', content: 'You learned the income statement. From revenue at the top to profit at the bottom.\n\nYou saw how two companies with radically different economics—one mature and profitable, one young and burning cash—both made sense within the right time horizon.\n\nYou learned that margins are not just numbers. They\'re bets. Bets on how customers will respond. Bets on whether you can reach scale. Bets on the future.' },
+            { type: 'beat-narrator', content: 'The lesson: Read the income statement like a story, not a spreadsheet. Ask not just "What are the numbers?" but "What do these numbers say about the future?"\n\nThat is the mind of a PE investor. That is how you read financial statements to find value.' },
+            { type: 'beat-scene', location: 'Le Pitch\'s Dream — The Ballroom of Bad Deals', content: 'Le Pitch appears in a vast ballroom. Crystal chandeliers. A string quartet playing Strauss. Around him, spectral figures in morning suits sign contracts with fountain pens that drip red ink.\n\n"Welcome," Le Pitch says, adjusting his cufflinks, "to the Ballroom of Bad Deals. Every figure you see closed a transaction that looked brilliant on paper. Revenue up. Volume up. The champagne flowed."\n\nHe gestures to a ghostly CEO signing a price-reduction agreement. "That gentleman cut prices 20% to win a government contract. Revenue doubled. EBITDA halved. His board fired him eighteen months later."\n\nAnother figure, a woman in a power suit, shakes hands with a smiling customer. "She offered 90-day payment terms to close enterprise deals. Revenue recognition looked magnificent. Cash flow turned negative. The company ran out of runway before the receivables converted."\n\nLe Pitch picks up a glass of champagne that materializes in his hand. "The income statement is a story. But it can be a fiction. Revenue is not cash. Profit is not value. Growth is not survival."\n\nHe raises the glass. "To the deals that killed companies. May you learn from their mistakes before you make your own."' },
+            { type: 'beat-scene', location: 'TGV First Class — Paris to Frankfurt', content: 'Le Pitch sits in a TGV first-class carriage, laptop open, reading Königshof\'s financial statements.\n\n"Interesting," he murmurs. "€14.9m EBITDA on €99.6m revenue. 15% margin. Factory at 75% capacity. Third-generation family business. No debt to speak of."\n\nHe scrolls through the projections. "Schilling wants a price cut. Wilhelm wants to hold. Trace wants to expand into Poland. Three strategies. Three stories. But the income statement only tells you one thing: where they\'ve been. Not where they\'re going."\n\nHe closes the laptop and looks out the window. The French countryside blurs past. Vineyards. Fields. A château in the distance.\n\n"The real question," Le Pitch says to no one in particular, "is not whether Königshof is profitable. It\'s whether their profitability is durable. Can they hold price in a commoditizing market? Can they grow without destroying margins? Can they invest in Poland without breaking the balance sheet?"\n\nHe smiles. "These are the questions that Chapter 3 will answer. The balance sheet tells you what a company owns and owes. The income statement tells you what it earns and spends. Together, they tell you whether the story is real."\n\nThe TGV enters a tunnel. Le Pitch disappears into the darkness.' },
+            { type: 'beat-divider', number: '∴', title: 'Chapter Complete' },
+            { type: 'beat-card', label: 'PROGRESS', title: 'Your Achievement', content: 'You have learned:\n\n1. How revenue is built (Price × Volume)\n2. How costs are structured (Variable vs Fixed)\n3. How profits flow from revenue through EBITDA\n4. How adjustments reveal true earnings power\n5. How operating leverage amplifies growth\n6. How businesses scale through margin + volume\n\nYou can now read an income statement and see not just history, but a map of strategy.' },
+            { type: 'beat-finale', logo: '📈', title: 'Ready for Chapter 3: Balance Sheet Deep Dive', disclaimer: 'Financial education from G2G Advisory.\n© 2024 From Greenhorn to Gold(wo)man Series' }
+        ];
+
+        // ========== G2GApp CLASS ==========
+        class G2GApp {
+            constructor() {
+                this.currentBeat = 0;
+                this.isAnimating = false;
+                this.animationDelay = 350;
+                this.beats = [];
+                this.xp = 0;
+                this.quizAnswered = {};
+                this.interactiveStates = {};
+
+                this.initBeats();
+                this.setupEventListeners();
+                this.init();
+            }
+
+            initBeats() {
+                this.beats = beatsData.map((beatData, idx) => ({
+                    data: beatData,
+                    id: idx,
+                    render: () => {
+                        const beatEl = document.createElement('div');
+                        beatEl.className = 'beat beat-content';
+                        beatEl.innerHTML = this.renderBeatContent(beatData);
+
+                        setTimeout(() => {
+                            this.setupBeatListeners(beatEl, beatData, idx);
+                        }, 100);
+
+                        return beatEl;
+                    }
+                }));
+            }
+
+            renderBeatContent(beat) {
+                switch(beat.type) {
+                    case 'beat-title':
+                        return `
+                            <div class="beat-title">
+                                <h1>${beat.title}</h1>
+                                <p class="subtitle">${beat.subtitle}</p>
+                                <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">Chapter ${beat.chapter} of ${beat.totalChapters}</p>
+                            </div>
+                        `;
+
+                    case 'beat-scene':
+                        const paragraphs = beat.content.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('');
+                        return `
+                            <div class="beat-scene">
+                                <div class="scene-location">${beat.location}</div>
+                                <div>${paragraphs}</div>
+                            </div>
+                        `;
+
+                    case 'beat-narrator':
+                        return `<div class="beat-narrator">${beat.content}</div>`;
+
+                    case 'beat-card':
+                        return `
+                            <div class="beat-card">
+                                <div class="beat-card-label">${beat.label}</div>
+                                <h2>${beat.title}</h2>
+                                <div>${beat.content}</div>
+                            </div>
+                        `;
+
+                    case 'beat-divider':
+                        return `
+                            <div class="beat-divider">
+                                <div class="beat-divider-number">${beat.number}</div>
+                                <h2>${beat.title}</h2>
+                            </div>
+                        `;
+
+                    case 'beat-equation':
+                        return `
+                            <div class="beat-equation">
+                                <div class="beat-equation-label">${beat.label}</div>
+                                <div class="beat-equation-content">${beat.equation}</div>
+                                <div class="beat-equation-note">${beat.note}</div>
+                            </div>
+                        `;
+
+                    case 'beat-takeaway':
+                        return `
+                            <div class="beat-takeaway">
+                                <p>${beat.content}</p>
+                            </div>
+                        `;
+
+                    case 'beat-hottake':
+                        return `
+                            <div class="beat-hottake">
+                                <h2>${beat.title}</h2>
+                                <p>${beat.content}</p>
+                            </div>
+                        `;
+
+                    case 'beat-finale':
+                        return `
+                            <div class="beat-finale">
+                                <div class="beat-finale-logo">${beat.logo}</div>
+                                <h2>${beat.title}</h2>
+                                <p style="margin-top: 3rem; font-size: 0.9rem; color: var(--text-muted);">${beat.disclaimer}</p>
+                            </div>
+                        `;
+
+                    case 'beat-quiz':
+                        const options = beat.options.map((opt, i) => `
+                            <div class="quiz-option" data-option="${i}" data-correct="${opt.correct}">
+                                <span class="quiz-option-letter">${String.fromCharCode(65 + i)}</span>
+                                ${opt.text}
+                            </div>
+                        `).join('');
+                        return `
+                            <div class="beat-quiz">
+                                <div class="quiz-container">
+                                    <div class="quiz-label">${beat.label}</div>
+                                    <h2>${beat.title}</h2>
+                                    <div class="quiz-question">${beat.question}</div>
+                                    <div class="quiz-options">${options}</div>
+                                    <div class="quiz-explanation" style="display: none;"></div>
+                                </div>
+                            </div>
+                        `;
+
+                    case 'beat-waterfall':
+                        return `
+                            <div class="beat-waterfall">
+                                <h2>${beat.title}</h2>
+                                <div class="waterfall-toggle">
+                                    <button class="toggle-btn active" data-wf="eddie">Eddie's Clinic</button>
+                                    <button class="toggle-btn" data-wf="subtrax">Subtrax</button>
+                                </div>
+                                <div class="waterfall-chart" id="waterfall-chart"></div>
+                            </div>
+                        `;
+
+                    case 'beat-radar':
+                        return `
+                            <div class="beat-radar">
+                                <h2>${beat.title}</h2>
+                                <div class="radar-canvas-wrapper">
+                                    <canvas id="radar-canvas" width="600" height="600"></canvas>
+                                </div>
+                                <div class="radar-toggle">
+                                    <button class="toggle-btn active" data-radar="both">Both</button>
+                                    <button class="toggle-btn" data-radar="konig">Königshof</button>
+                                    <button class="toggle-btn" data-radar="subtrax">Subtrax</button>
+                                </div>
+                            </div>
+                        `;
+
+                    case 'beat-revenue-calc':
+                        return `
+                            <div class="beat-card" style="max-width: 1000px;">
+                                <div class="beat-card-label">INTERACTIVE</div>
+                                <h2>${beat.title}</h2>
+                                <div class="slider-group">
+                                    <div class="slider-label">
+                                        <span>Price per Unit (€k)</span>
+                                        <span class="value" id="priceValue">${beat.defaultPrice}</span>
+                                    </div>
+                                    <input type="range" id="priceSlider" min="200" max="400" value="${beat.defaultPrice}" step="1">
+                                </div>
+                                <div class="slider-group">
+                                    <div class="slider-label">
+                                        <span>Units Sold</span>
+                                        <span class="value" id="volumeValue">${beat.defaultVolume}</span>
+                                    </div>
+                                    <input type="range" id="volumeSlider" min="100" max="500" value="${beat.defaultVolume}" step="1">
+                                </div>
+                                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(107, 47, 160, 0.1); border-radius: 12px; border: 1px solid var(--border);">
+                                    <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Revenue (€m)</div>
+                                    <div style="font-size: 2rem; font-weight: 700; color: var(--accent-bright); font-family: 'JetBrains Mono', monospace;" id="revenueDisplay">99.6</div>
+                                </div>
+                            </div>
+                        `;
+
+                    case 'beat-challenge':
+                        const challengeItems = beat.items.map((item, i) => `
+                            <div class="challenge-item">
+                                <div class="challenge-item-text">${item.text}</div>
+                                <div class="challenge-item-buttons">
+                                    <button class="challenge-item-btn" data-idx="${i}" data-answer="variable">Variable</button>
+                                    <button class="challenge-item-btn" data-idx="${i}" data-answer="fixed">Fixed</button>
+                                </div>
+                            </div>
+                        `).join('');
+                        return `
+                            <div class="beat-challenge">
+                                <h2>${beat.title}</h2>
+                                <div class="challenge-container">
+                                    <div class="challenge-items">${challengeItems}</div>
+                                    <div class="challenge-score">
+                                        <div class="challenge-score-label">Score</div>
+                                        <div class="challenge-score-value" id="challengeScore">0 / ${beat.items.length}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                    case 'beat-adjustment-classifier':
+                        const adjustmentItems = beat.items.map((item, i) => `
+                            <div class="adjustment-item">
+                                <div class="adjustment-item-text">${item.text}</div>
+                                <div class="adjustment-item-buttons">
+                                    <button class="adjustment-item-btn" data-idx="${i}" data-answer="green">Green</button>
+                                    <button class="adjustment-item-btn" data-idx="${i}" data-answer="amber">Amber</button>
+                                    <button class="adjustment-item-btn" data-idx="${i}" data-answer="red">Red</button>
+                                </div>
+                            </div>
+                        `).join('');
+                        return `
+                            <div class="beat-adjustment-classifier">
+                                <h2>${beat.title}</h2>
+                                <div class="adjustment-container">
+                                    <div class="adjustment-items">${adjustmentItems}</div>
+                                    <div class="adjustment-score">
+                                        <div class="challenge-score-label">Score</div>
+                                        <div class="challenge-score-value" id="adjustmentScore">0 / ${beat.items.length}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                    case 'beat-breakeven':
+                        return `
+                            <div class="beat-breakeven">
+                                <h2>${beat.title}</h2>
+                                <div class="breakeven-container">
+                                    <div class="breakeven-canvas-wrapper">
+                                        <canvas id="breakeven-canvas" width="800" height="400"></canvas>
+                                    </div>
+                                    <div class="breakeven-sliders">
+                                        <div class="slider-group">
+                                            <div class="slider-label">
+                                                <span>Price per Unit (€k)</span>
+                                                <span class="value" id="bePrice">${beat.baselinePrice}</span>
+                                            </div>
+                                            <input type="range" id="bePriceSlider" min="200" max="400" value="${beat.baselinePrice}" step="1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                    case 'beat-sandbox':
+                        return `
+                            <div class="beat-sandbox">
+                                <h2>${beat.title}</h2>
+                                <div class="sandbox-container">
+                                    <div class="sandbox-panel">
+                                        <h3>Inputs</h3>
+                                        <div class="sandbox-sliders">
+                                            <div class="slider-group">
+                                                <div class="slider-label">
+                                                    <span>Price (€k)</span>
+                                                    <span class="value" id="sbPrice">${beat.defaultPrice}</span>
+                                                </div>
+                                                <input type="range" id="sbPriceSlider" min="200" max="400" value="${beat.defaultPrice}" step="1">
+                                            </div>
+                                            <div class="slider-group">
+                                                <div class="slider-label">
+                                                    <span>Volume (units)</span>
+                                                    <span class="value" id="sbVolume">${beat.defaultVolume}</span>
+                                                </div>
+                                                <input type="range" id="sbVolumeSlider" min="100" max="500" value="${beat.defaultVolume}" step="1">
+                                            </div>
+                                            <div class="slider-group">
+                                                <div class="slider-label">
+                                                    <span>Variable Cost (€k)</span>
+                                                    <span class="value" id="sbVC">${beat.defaultVC}</span>
+                                                </div>
+                                                <input type="range" id="sbVCSlider" min="100" max="250" value="${beat.defaultVC}" step="1">
+                                            </div>
+                                            <div class="slider-group">
+                                                <div class="slider-label">
+                                                    <span>Fixed Costs (€m)</span>
+                                                    <span class="value" id="sbFC">${beat.defaultFC}</span>
+                                                </div>
+                                                <input type="range" id="sbFCSlider" min="5" max="30" value="${beat.defaultFC * 10}" step="0.1" data-scale="10">
+                                            </div>
+                                            <div class="slider-group">
+                                                <div class="slider-label">
+                                                    <span>D&A (€m)</span>
+                                                    <span class="value" id="sbDA">${beat.defaultDA}</span>
+                                                </div>
+                                                <input type="range" id="sbDASlider" min="0" max="20" value="${beat.defaultDA * 10}" step="0.1" data-scale="10">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sandbox-panel">
+                                        <h3>Results</h3>
+                                        <div class="sandbox-results" id="sandboxResults">
+                                            <div class="sandbox-metric">
+                                                <div class="sandbox-metric-label">Revenue</div>
+                                                <div class="sandbox-metric-value" id="sbRevenue">99.6</div>
+                                            </div>
+                                            <div class="sandbox-metric">
+                                                <div class="sandbox-metric-label">COGS</div>
+                                                <div class="sandbox-metric-value" id="sbCOGS">64.2</div>
+                                            </div>
+                                            <div class="sandbox-metric">
+                                                <div class="sandbox-metric-label">Gross Profit</div>
+                                                <div class="sandbox-metric-value" id="sbGP">35.4</div>
+                                            </div>
+                                            <div class="sandbox-metric">
+                                                <div class="sandbox-metric-label">OpEx</div>
+                                                <div class="sandbox-metric-value" id="sbOpEx">20.6</div>
+                                            </div>
+                                            <div class="sandbox-metric">
+                                                <div class="sandbox-metric-label">EBITDA</div>
+                                                <div class="sandbox-metric-value" id="sbEBITDA">14.9</div>
+                                            </div>
+                                            <div class="sandbox-metric">
+                                                <div class="sandbox-metric-label">D&A</div>
+                                                <div class="sandbox-metric-value" id="sbDAValue">10.1</div>
+                                            </div>
+                                            <div class="sandbox-metric">
+                                                <div class="sandbox-metric-label">EBIT</div>
+                                                <div class="sandbox-metric-value" id="sbEBIT">4.8</div>
+                                            </div>
+                                            <div class="sandbox-metric">
+                                                <div class="sandbox-metric-label">Margin %</div>
+                                                <div class="sandbox-metric-value" id="sbMargin">4.8%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                    default:
+                        return `<div style="color: var(--text);">Beat type ${beat.type} not yet implemented</div>`;
+                }
+            }
+
+            setupBeatListeners(beatEl, beatData, idx) {
+                if (beatData.type === 'beat-quiz') {
+                    const options = beatEl.querySelectorAll('.quiz-option');
+                    options.forEach((optEl) => {
+                        optEl.addEventListener('click', () => {
+                            if (beatEl.classList.contains('answered')) return;
+
+                            const optionIdx = optEl.getAttribute('data-option');
+                            const isCorrect = beatData.options[optionIdx].correct;
+
+                            options.forEach(o => o.classList.add('answered'));
+
+                            if (isCorrect) {
+                                optEl.classList.add('correct');
+                                this.awardXP(beatData.xpReward || 25);
+                                this.burst({ x: optEl.offsetLeft + 50, y: optEl.offsetTop + 25 });
+                            } else {
+                                optEl.classList.add('incorrect');
+                            }
+
+                            const explanation = beatEl.querySelector('.quiz-explanation');
+                            explanation.style.display = 'block';
+                            explanation.innerHTML = `
+                                <h4>${isCorrect ? 'Correct!' : 'Not quite'}</h4>
+                                <p>${beatData.options[optionIdx].explanation}</p>
+                            `;
+                        });
+                    });
+                }
+
+                if (beatData.type === 'beat-waterfall') {
+                    const toggles = beatEl.querySelectorAll('[data-wf]');
+                    toggles.forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            toggles.forEach(b => b.classList.remove('active'));
+                            e.target.classList.add('active');
+                            const company = e.target.getAttribute('data-wf');
+                            this.drawWaterfall(beatEl.querySelector('#waterfall-chart'), beatData.data[company], beatData.data[company].currency);
+                        });
+                    });
+                    this.drawWaterfall(beatEl.querySelector('#waterfall-chart'), beatData.data.eddie, '£k');
+                }
+
+                if (beatData.type === 'beat-radar') {
+                    const canvas = beatEl.querySelector('#radar-canvas');
+                    const toggles = beatEl.querySelectorAll('[data-radar]');
+                    toggles.forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            toggles.forEach(b => b.classList.remove('active'));
+                            e.target.classList.add('active');
+                            const highlight = e.target.getAttribute('data-radar');
+                            this.drawRadar(canvas, beatData.company1, beatData.company2, highlight);
+                        });
+                    });
+                    this.drawRadar(canvas, beatData.company1, beatData.company2, 'both');
+                }
+
+                if (beatData.type === 'beat-revenue-calc') {
+                    const priceSlider = beatEl.querySelector('#priceSlider');
+                    const volumeSlider = beatEl.querySelector('#volumeSlider');
+                    const updateCalc = () => {
+                        const price = parseInt(priceSlider.value);
+                        const volume = parseInt(volumeSlider.value);
+                        const revenue = (price * volume / 1000).toFixed(1);
+                        beatEl.querySelector('#priceValue').textContent = price;
+                        beatEl.querySelector('#volumeValue').textContent = volume;
+                        beatEl.querySelector('#revenueDisplay').textContent = revenue;
+                    };
+                    priceSlider.addEventListener('input', updateCalc);
+                    volumeSlider.addEventListener('input', updateCalc);
+                }
+
+                if (beatData.type === 'beat-challenge') {
+                    let score = 0;
+                    const buttons = beatEl.querySelectorAll('.challenge-item-btn');
+                    buttons.forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const idx = btn.getAttribute('data-idx');
+                            const answer = btn.getAttribute('data-answer');
+                            const correct = beatData.items[idx].answer === answer;
+
+                            if (!btn.classList.contains('answered')) {
+                                const itemBtns = beatEl.querySelectorAll(`[data-idx="${idx}"]`);
+                                const challengeItem = btn.closest('.challenge-item');
+                                itemBtns.forEach(b => {
+                                    b.classList.add('answered');
+                                    if (b.getAttribute('data-answer') === beatData.items[idx].answer) {
+                                        b.classList.add('correct');
+                                    }
+                                });
+
+                                if (correct) {
+                                    score++;
+                                    this.awardXP(10);
+                                    this.burst({ x: btn.offsetLeft, y: btn.offsetTop });
+                                }
+
+                                // Show explanation
+                                if (beatData.items[idx].explanation) {
+                                    const explanationDiv = document.createElement('div');
+                                    explanationDiv.className = 'challenge-explanation';
+                                    explanationDiv.innerHTML = `<strong>${correct ? 'Correct!' : 'Not quite.'}</strong> ${beatData.items[idx].explanation}`;
+                                    challengeItem.appendChild(explanationDiv);
+                                }
+
+                                beatEl.querySelector('#challengeScore').textContent = `${score} / ${beatData.items.length}`;
+                            }
+                        });
+                    });
+                }
+
+                if (beatData.type === 'beat-adjustment-classifier') {
+                    let score = 0;
+                    const buttons = beatEl.querySelectorAll('.adjustment-item-btn');
+                    buttons.forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const idx = btn.getAttribute('data-idx');
+                            const answer = btn.getAttribute('data-answer');
+                            const correct = beatData.items[idx].answer === answer;
+
+                            if (!btn.classList.contains('answered')) {
+                                const itemBtns = beatEl.querySelectorAll(`[data-idx="${idx}"]`);
+                                const adjustmentItem = btn.closest('.adjustment-item');
+                                itemBtns.forEach(b => {
+                                    b.classList.add('answered');
+                                    if (b.getAttribute('data-answer') === beatData.items[idx].answer) {
+                                        b.classList.add(beatData.items[idx].answer);
+                                    }
+                                });
+
+                                if (correct) {
+                                    score++;
+                                    this.awardXP(10);
+                                    this.burst({ x: btn.offsetLeft, y: btn.offsetTop });
+                                }
+
+                                // Show explanation
+                                if (beatData.items[idx].explanation) {
+                                    const explanationDiv = document.createElement('div');
+                                    explanationDiv.className = 'adjustment-explanation';
+                                    explanationDiv.innerHTML = `<strong>${correct ? 'Correct!' : 'Not quite.'}</strong> ${beatData.items[idx].explanation}`;
+                                    adjustmentItem.appendChild(explanationDiv);
+                                }
+
+                                beatEl.querySelector('#adjustmentScore').textContent = `${score} / ${beatData.items.length}`;
+                            }
+                        });
+                    });
+                }
+
+                if (beatData.type === 'beat-breakeven') {
+                    const priceSlider = beatEl.querySelector('#bePriceSlider');
+                    const canvas = beatEl.querySelector('#breakeven-canvas');
+                    const updateBE = () => {
+                        const price = parseInt(priceSlider.value);
+                        beatEl.querySelector('#bePrice').textContent = price;
+                        this.drawBreakeven(canvas, price, beatData.variableCost, beatData.fixedCosts);
+                    };
+                    priceSlider.addEventListener('input', updateBE);
+                    this.drawBreakeven(canvas, beatData.baselinePrice, beatData.variableCost, beatData.fixedCosts);
+                }
+
+                if (beatData.type === 'beat-sandbox') {
+                    const sliders = {
+                        price: beatEl.querySelector('#sbPriceSlider'),
+                        volume: beatEl.querySelector('#sbVolumeSlider'),
+                        vc: beatEl.querySelector('#sbVCSlider'),
+                        fc: beatEl.querySelector('#sbFCSlider'),
+                        da: beatEl.querySelector('#sbDASlider')
+                    };
+                    const updateSandbox = () => {
+                        const price = parseInt(sliders.price.value);
+                        const volume = parseInt(sliders.volume.value);
+                        const vc = parseInt(sliders.vc.value);
+                        const fc = sliders.fc.value / 10;
+                        const da = sliders.da.value / 10;
+
+                        beatEl.querySelector('#sbPrice').textContent = price;
+                        beatEl.querySelector('#sbVolume').textContent = volume;
+                        beatEl.querySelector('#sbVC').textContent = vc;
+                        beatEl.querySelector('#sbFC').textContent = fc;
+                        beatEl.querySelector('#sbDA').textContent = da;
+
+                        const revenue = (price * volume / 1000).toFixed(1);
+                        const cogs = (vc * volume / 1000).toFixed(1);
+                        const gp = (revenue - cogs).toFixed(1);
+                        const opex = 20.6;
+                        const ebitda = (gp - opex).toFixed(1);
+                        const ebit = (ebitda - da).toFixed(1);
+                        const margin = (ebit / revenue * 100).toFixed(1);
+
+                        beatEl.querySelector('#sbRevenue').textContent = revenue;
+                        beatEl.querySelector('#sbCOGS').textContent = cogs;
+                        beatEl.querySelector('#sbGP').textContent = gp;
+                        beatEl.querySelector('#sbOpEx').textContent = opex;
+                        beatEl.querySelector('#sbEBITDA').textContent = ebitda;
+                        beatEl.querySelector('#sbDAValue').textContent = da;
+                        beatEl.querySelector('#sbEBIT').textContent = ebit;
+                        beatEl.querySelector('#sbMargin').textContent = margin + '%';
+                    };
+
+                    Object.values(sliders).forEach(slider => {
+                        slider.addEventListener('input', updateSandbox);
+                    });
+                    updateSandbox();
+                }
+            }
+
+            drawWaterfall(container, data, currency) {
+                container.innerHTML = '';
+                const bars = [
+                    { label: 'Revenue', value: data.revenue, color: '#d4a0ff' },
+                    { label: 'COGS', value: -data.cogs, color: '#e08577' },
+                    { label: 'Gross Profit', value: data.gp, color: '#b07ce8' },
+                    { label: 'OpEx', value: -data.opex, color: '#e08577' },
+                    { label: 'EBITDA', value: data.ebitda, color: '#4a9e6e' },
+                    { label: 'D&A', value: -data.da, color: '#e08577' },
+                    { label: 'EBIT', value: data.ebit, color: '#d4a0ff' }
+                ];
+
+                const maxVal = Math.max(...bars.map(b => Math.abs(b.value)));
+                const barHeight = 300;
+
+                bars.forEach(bar => {
+                    const height = Math.abs(bar.value) / maxVal * barHeight;
+                    const barEl = document.createElement('div');
+                    barEl.className = 'waterfall-bar';
+                    barEl.innerHTML = `
+                        <div class="waterfall-bar-segment ${bar.value < 0 ? 'waterfall-bar-negative' : ''}" style="height: ${height}px; background: ${bar.value < 0 ? '#e08577' : bar.color};"></div>
+                        <div class="waterfall-bar-label">${bar.label}</div>
+                        <div class="waterfall-bar-value">${bar.value >= 0 ? '+' : ''}${Math.abs(bar.value)} ${currency}</div>
+                    `;
+                    container.appendChild(barEl);
+                });
+            }
+
+            drawRadar(canvas, company1, company2, highlight) {
+                const ctx = canvas.getContext('2d');
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const radius = 120;
+                const axisLabels = Object.keys(company1.axes);
+                const numAxes = axisLabels.length;
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#0a0a0c';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 1; i <= 5; i++) {
+                    const currentRadius = (radius / 5) * i;
+                    ctx.beginPath();
+                    ctx.strokeStyle = '#2a2a35';
+                    ctx.lineWidth = 1;
+                    for (let j = 0; j < numAxes; j++) {
+                        const angle = (j / numAxes) * Math.PI * 2 - Math.PI / 2;
+                        const x = centerX + currentRadius * Math.cos(angle);
+                        const y = centerY + currentRadius * Math.sin(angle);
+                        if (j === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+
+                for (let i = 0; i < numAxes; i++) {
+                    const angle = (i / numAxes) * Math.PI * 2 - Math.PI / 2;
+                    const x = centerX + radius * Math.cos(angle);
+                    const y = centerY + radius * Math.sin(angle);
+                    ctx.beginPath();
+                    ctx.strokeStyle = '#2a2a35';
+                    ctx.moveTo(centerX, centerY);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+
+                    const labelX = centerX + (radius + 40) * Math.cos(angle);
+                    const labelY = centerY + (radius + 40) * Math.sin(angle);
+                    ctx.fillStyle = '#a8a4b0';
+                    ctx.font = 'bold 12px Inter';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(axisLabels[i], labelX, labelY);
+                }
+
+                const drawPolygon = (data, color, alpha) => {
+                    ctx.globalAlpha = alpha;
+                    ctx.beginPath();
+                    for (let j = 0; j < numAxes; j++) {
+                        const angle = (j / numAxes) * Math.PI * 2 - Math.PI / 2;
+                        const value = data.axes[axisLabels[j]] || 0;
+                        const pointRadius = (value / 100) * radius;
+                        const x = centerX + pointRadius * Math.cos(angle);
+                        const y = centerY + pointRadius * Math.sin(angle);
+                        if (j === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    ctx.fillStyle = color;
+                    ctx.fill();
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    ctx.globalAlpha = 1;
+                };
+
+                if (highlight === 'both' || highlight === 'konig') {
+                    drawPolygon(company1, company1.color, 0.3);
+                }
+                if (highlight === 'both' || highlight === 'subtrax') {
+                    drawPolygon(company2, company2.color, 0.3);
+                }
+            }
+
+            drawBreakeven(canvas, price, variableCost, fixedCosts) {
+                const ctx = canvas.getContext('2d');
+                const width = canvas.width;
+                const height = canvas.height;
+                const padding = 60;
+                const graphWidth = width - padding * 2;
+                const graphHeight = height - padding * 2;
+                const maxUnits = 500;
+                const breakeven = fixedCosts / (price - variableCost);
+
+                ctx.clearRect(0, 0, width, height);
+                ctx.fillStyle = '#0a0a0c';
+                ctx.fillRect(0, 0, width, height);
+
+                // Axes
+                ctx.strokeStyle = '#2a2a35';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(padding, height - padding);
+                ctx.lineTo(width - padding, height - padding);
+                ctx.moveTo(padding, height - padding);
+                ctx.lineTo(padding, padding);
+                ctx.stroke();
+
+                // Grid and labels
+                ctx.strokeStyle = '#2a2a35';
+                ctx.fillStyle = '#7a7680';
+                ctx.font = '12px JetBrains Mono';
+                for (let i = 0; i <= 5; i++) {
+                    const x = padding + (graphWidth / 5) * i;
+                    const units = (maxUnits / 5) * i;
+                    ctx.beginPath();
+                    ctx.moveTo(x, height - padding);
+                    ctx.lineTo(x, height - padding + 5);
+                    ctx.stroke();
+                    ctx.textAlign = 'center';
+                    ctx.fillText(Math.round(units), x, height - padding + 20);
+
+                    const y = height - padding - (graphHeight / 5) * i;
+                    ctx.beginPath();
+                    ctx.moveTo(padding - 5, y);
+                    ctx.lineTo(padding, y);
+                    ctx.stroke();
+                    ctx.textAlign = 'right';
+                    ctx.fillText('€' + (Math.round(units * price) / 100) + 'm', padding - 10, y + 4);
+                }
+
+                // Revenue line (blue)
+                ctx.strokeStyle = '#5a8fc4';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                for (let units = 0; units <= maxUnits; units += 50) {
+                    const revenue = units * price / 100;
+                    const x = padding + (units / maxUnits) * graphWidth;
+                    const y = height - padding - (revenue / (maxUnits * price / 100)) * graphHeight;
+                    if (units === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+
+                // Cost line (red)
+                ctx.strokeStyle = '#c45c4a';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                for (let units = 0; units <= maxUnits; units += 50) {
+                    const totalCost = fixedCosts + units * variableCost / 100;
+                    const x = padding + (units / maxUnits) * graphWidth;
+                    const y = height - padding - (totalCost / (maxUnits * price / 100)) * graphHeight;
+                    if (units === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+
+                // Breakeven point marker
+                const beX = padding + (breakeven / maxUnits) * graphWidth;
+                const beY = height - padding - (breakeven * price / 100 / (maxUnits * price / 100)) * graphHeight;
+                ctx.fillStyle = '#d4a0ff';
+                ctx.beginPath();
+                ctx.arc(beX, beY, 8, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#d4a0ff';
+                ctx.font = 'bold 14px JetBrains Mono';
+                ctx.textAlign = 'center';
+                ctx.fillText('BE: ' + Math.round(breakeven) + ' units', beX, beY - 20);
+
+                // Legend
+                ctx.font = '12px Inter';
+                ctx.fillStyle = '#5a8fc4';
+                ctx.fillText('Revenue', padding + 80, padding + 20);
+                ctx.fillStyle = '#c45c4a';
+                ctx.fillText('Total Cost', padding + 180, padding + 20);
+            }
+
+            burst(coords) {
+                for (let i = 0; i < 30; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    const angle = (Math.random() * Math.PI * 2);
+                    const velocity = 5 + Math.random() * 10;
+                    const tx = Math.cos(angle) * velocity * 30;
+                    const ty = Math.sin(angle) * velocity * 30 - 50;
+                    confetti.style.setProperty('--tx', tx + 'px');
+                    confetti.style.setProperty('--ty', ty + 'px');
+                    confetti.style.left = coords.x + 'px';
+                    confetti.style.top = coords.y + 'px';
+                    confetti.style.backgroundColor = ['#d4a0ff', '#b07ce8', '#d946ef', '#4a9e6e'][Math.floor(Math.random() * 4)];
+                    confetti.style.width = (2 + Math.random() * 4) + 'px';
+                    confetti.style.height = (2 + Math.random() * 4) + 'px';
+                    confetti.style.borderRadius = '50%';
+                    confetti.style.animationDuration = (1.5 + Math.random() * 1) + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 2500);
+                }
+            }
+
+            setupEventListeners() {
+                document.getElementById('prevBtn').addEventListener('click', () => this.navigate(-1));
+                document.getElementById('nextBtn').addEventListener('click', () => this.navigate(1));
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                        this.navigate(1);
+                        e.preventDefault();
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        this.navigate(-1);
+                        e.preventDefault();
+                    } else if (e.key === 'End') {
+                        this.currentBeat = this.beats.length - 1;
+                        this.updateBeats();
+                        document.getElementById('beatCurrent').textContent = this.currentBeat + 1;
+                        e.preventDefault();
+                    } else if (e.key === 'Home') {
+                        this.currentBeat = 0;
+                        this.updateBeats();
+                        document.getElementById('beatCurrent').textContent = 1;
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+
+                let touchStart = 0;
+                document.addEventListener('touchstart', (e) => {
+                    touchStart = e.touches[0].clientY;
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    const touchEnd = e.changedTouches[0].clientY;
+                    const diff = touchStart - touchEnd;
+                    if (Math.abs(diff) > 50) {
+                        this.navigate(diff > 0 ? 1 : -1);
+                    }
+                }, { passive: true });
+
+                let wheelAccum = 0;
+                document.addEventListener('wheel', (e) => {
+                    wheelAccum += e.deltaY;
+                    if (wheelAccum > 50) {
+                        this.navigate(1);
+                        wheelAccum = 0;
+                    } else if (wheelAccum < -50) {
+                        this.navigate(-1);
+                        wheelAccum = 0;
+                    }
+                }, { passive: true });
+            }
+
+            navigate(direction) {
+                if (this.isAnimating) return;
+
+                let newBeat = this.currentBeat + direction;
+                if (newBeat < 0 || newBeat >= this.beats.length) return;
+
+                this.isAnimating = true;
+                this.currentBeat = newBeat;
+
+                this.updateBeats();
+                document.getElementById('beatCurrent').textContent = this.currentBeat + 1;
+
+                setTimeout(() => {
+                    this.isAnimating = false;
+                }, this.animationDelay);
+            }
+
+            updateBeats() {
+                const viewport = document.getElementById('viewport');
+                viewport.innerHTML = '';
+
+                const prevBeat = this.currentBeat - 1;
+                const currBeat = this.currentBeat;
+                const nextBeat = this.currentBeat + 1;
+
+                [prevBeat, currBeat, nextBeat].forEach(idx => {
+                    if (idx >= 0 && idx < this.beats.length) {
+                        const beatEl = this.beats[idx].render();
+                        if (idx === prevBeat) beatEl.classList.add('prev');
+                        if (idx === currBeat) beatEl.classList.add('active');
+                        viewport.appendChild(beatEl);
+                    }
+                });
+            }
+
+            awardXP(amount) {
+                this.xp += amount;
+                this.updateXPBar();
+            }
+
+            updateXPBar() {
+                const level = this.getCurrentLevel();
+                const currentLevelObj = LEVELS.find(l => l.name === level);
+                const nextLevelObj = LEVELS[LEVELS.findIndex(l => l.name === level) + 1];
+                const currentThreshold = currentLevelObj?.threshold || 0;
+                const nextThreshold = nextLevelObj?.threshold || 1000;
+
+                const progress = ((this.xp - currentThreshold) / (nextThreshold - currentThreshold)) * 100;
+
+                document.getElementById('xpLevel').textContent = level;
+                document.getElementById('xpProgressBar').style.width = `${Math.min(progress, 100)}%`;
+                document.getElementById('xpPoints').textContent = `${this.xp} XP`;
+            }
+
+            getCurrentLevel() {
+                for (let i = LEVELS.length - 1; i >= 0; i--) {
+                    if (this.xp >= LEVELS[i].threshold) {
+                        return LEVELS[i].name;
+                    }
+                }
+                return 'Greenhorn';
+            }
+
+            init() {
+                document.getElementById('beatTotal').textContent = this.beats.length;
+                this.updateBeats();
+                this.updateXPBar();
+            }
+        }
+
+        window.addEventListener('load', () => {
+            new G2GApp();
+        });
+    </script>
+</body>
+</html>

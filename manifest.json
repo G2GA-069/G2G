@@ -2,7 +2,7 @@
   "name": "G2G Advisory — Corporate Finance Through Story",
   "short_name": "G2G",
   "description": "Learn investment banking through five characters, two companies, and twenty-eight chapters.",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0a0a0c",
   "theme_color": "#6b2fa0",

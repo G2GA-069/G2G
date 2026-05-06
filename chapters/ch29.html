@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>if(!document.cookie.includes('g2g_auth=1'))window.location.replace('../gate.html');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G2G Chapter 29 — The LBO Mechanics Special</title>
+
+  <!-- Open Graph / WhatsApp Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://g2ga-069.github.io/G2G/chapters/ch29.html">
+  <meta property="og:title" content="Chapter 29: The LBO Mechanics Special — G2G Advisory">
+  <meta property="og:description" content="EV-Equity Bridge, Completion Mechanisms, W&I, Advisor Fees, Funds Flow & Playbook Tricks">
+  <meta name="description" content="EV-Equity Bridge, Completion Mechanisms, W&I, Advisor Fees, Funds Flow & Playbook Tricks">
+  <meta property="og:image" content="https://g2ga-069.github.io/G2G/images/og-preview.png">
+  <meta property="og:site_name" content="G2G Advisory">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Chapter 29: The LBO Mechanics Special — G2G Advisory">
+  <meta name="twitter:description" content="EV-Equity Bridge, Completion Mechanisms, W&I, Advisor Fees, Funds Flow & Playbook Tricks">
+  <meta name="twitter:image" content="https://g2ga-069.github.io/G2G/images/og-preview.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon-180.png">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --surface: #131318;
+      --surface-2: #1a1a22;
+      --border: #2a2a35;
+      --text: #e8e4df;
+      --text-muted: #a8a4b0;
+      --text-dim: #7a7680;
+      --accent: #b07ce8;
+      --accent-dim: #7a55b0;
+      --accent-bright: #d4a0ff;
+      --green: #4a9e6e;
+      --red: #c45c4a;
+      --blue: #5a8fc4;
+      --purple: #8a3cc4;
+      --brand-purple: #6b2fa0;
+      --brand-magenta: #d946ef;
+      --font-serif: 'EB Garamond', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { height: 100%; overflow: hidden; overscroll-behavior: none; }
+    body { height: 100%; width: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: var(--font-serif); line-height: 1.7; word-break: break-word; overflow-wrap: break-word; }
+    .beat { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100dvh; z-index: 1; display: flex; align-items: center; justify-content: center; padding: 52px 24px 60px; opacity: 1; transform: translateY(0); transition: opacity 0.3s, transform 0.35s ease-in-out; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .beat-inner { max-width: 680px; width: 100%; }
+    .beat-title { background: radial-gradient(ellipse at 60% 40%, rgba(176, 124, 232, 0.15) 0%, rgba(107, 47, 160, 0.08) 40%, var(--bg) 100%); flex-direction: column; gap: 24px; }
+    .beat-title .beat-inner { text-align: center; }
+    .series-name { font-family: var(--font-sans); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 16px; }
+    .chapter-number { font-family: var(--font-sans); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 24px; }
+    .beat-title h1 { font-family: var(--font-serif); font-size: 56px; font-weight: 700; color: var(--accent-bright); margin-bottom: 16px; line-height: 1.2; }
+    .beat-title .subtitle { font-family: var(--font-sans); font-size: 18px; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+    .beat-card { flex-direction: column; gap: 16px; }
+    .beat-card .beat-inner { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; }
+    .card-label { font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+    .card-title { font-family: var(--font-serif); font-size: 32px; font-weight: 700; color: var(--text); margin-bottom: 24px; line-height: 1.3; }
+    .card-body { font-family: var(--font-serif); font-size: 15px; color: var(--text); line-height: 1.8; }
+    .card-body p { margin-bottom: 16px; }
+    .card-body strong { color: var(--accent-bright); font-weight: 600; }
+    .metric-item { margin-bottom: 16px; padding-left: 16px; border-left: 2px solid var(--accent-dim); }
+    .metric-name { font-family: var(--font-sans); font-weight: 600; font-size: 14px; color: var(--accent-bright); }
+    .metric-def { font-family: var(--font-serif); font-size: 15px; color: var(--text-muted); margin-top: 4px; }
+    .comparison-row { display: flex; gap: 16px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .comparison-row:last-child { border-bottom: none; margin-bottom: 0; }
+    .comparison-col { flex: 1; }
+    .comparison-header { font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .comparison-value { font-family: var(--font-serif); font-size: 15px; color: var(--text); line-height: 1.6; }
+    .bullet-list { margin: 16px 0; padding-left: 24px; }
+    .bullet-list li { margin-bottom: 12px; color: var(--text); }
+    .bullet-list li strong { color: var(--accent-bright); }
+    .formula-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-family: var(--font-mono); font-size: 13px; color: var(--accent-bright); line-height: 1.7; }
+    .formula-box .formula-label { font-family: var(--font-sans); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; display: block; }
+    .example-box { background: linear-gradient(135deg, rgba(74,158,110,0.08), rgba(74,158,110,0.03)); border-left: 3px solid var(--green); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; font-family: var(--font-serif); font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+    .example-box .example-label { font-family: var(--font-sans); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 8px; display: block; }
+    .warning-box { background: linear-gradient(135deg, rgba(196,92,74,0.08), rgba(196,92,74,0.03)); border-left: 3px solid var(--red); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; }
+    .warning-box .warning-label { font-family: var(--font-sans); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; display: block; }
+    .warning-box p { font-family: var(--font-serif); font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+    .section-divider { background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); height: 1px; margin: 24px 0; }
+    .part-label { font-family: var(--font-sans); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 4px; }
+    .beat-scene { flex-direction: column; gap: 16px; }
+    .beat-scene .beat-inner { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; }
+    .scene-location { font-family: var(--font-sans); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 16px; }
+    .scene-text { font-family: var(--font-serif); font-size: 16px; color: var(--text); line-height: 1.9; }
+    .scene-text strong { color: var(--accent-bright); }
+    .scene-text a { color: var(--accent); text-decoration: none; }
+    .scene-text a:hover { text-decoration: underline; }
+    .beat-counter { position: fixed; bottom: max(24px, env(safe-area-inset-bottom, 24px)); right: 24px; font-family: var(--font-sans); font-size: 12px; letter-spacing: 1px; color: var(--text-dim); z-index: 998; }
+    .back-link { position: fixed; top: 24px; left: 24px; font-family: var(--font-sans); font-size: 13px; color: var(--text-muted); text-decoration: none; z-index: 996; transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); }
+    .swipe-hint { position: fixed; bottom: 60px; left: 24px; font-family: var(--font-sans); font-size: 13px; color: var(--text-dim); z-index: 995; animation: fadeOutAfter 7s forwards; }
+    @keyframes fadeOutAfter { 0%, 85% { opacity: 1; } 100% { opacity: 0; } }
+    .resume-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--surface); border: 1px solid var(--accent-dim); border-radius: 12px; padding: 16px 24px; display: flex; align-items: center; gap: 16px; z-index: 1000; font-family: var(--font-sans); font-size: 14px; color: var(--text); }
+    .resume-toast button { background: var(--accent-dim); color: white; border: none; border-radius: 8px; padding: 8px 16px; cursor: pointer; font-family: var(--font-sans); font-size: 13px; transition: background 0.2s; }
+    .resume-toast button:first-of-type { background: var(--brand-purple); }
+    .resume-toast button:hover { opacity: 0.9; }
+    .beat-card.comparison-wide .beat-inner { max-width: 760px; }
+    .download-hero { margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .download-btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 36px; border-radius: 10px; text-decoration: none; background: linear-gradient(135deg, var(--brand-purple), var(--accent-dim)); color: #fff; font-family: var(--font-sans); font-size: 15px; font-weight: 700; letter-spacing: 0.5px; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 24px rgba(107,47,160,0.4); }
+    .download-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(107,47,160,0.6); }
+    .download-btn svg { width: 20px; height: 20px; }
+    .download-note { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.5px; }
+    .nav-dots { position: fixed; top: 50%; right: 12px; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 6px; }
+    .nav-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.15); cursor: pointer; transition: all 0.3s; }
+    .nav-dots .dot.active { background: var(--accent); box-shadow: 0 0 6px rgba(176,124,232,0.4); width: 10px; height: 10px; }
+    .nav-dots .dot:hover { background: var(--accent-dim); }
+    @media (max-width: 768px) { .nav-dots { right: 8px; gap: 4px; } .beat-inner { padding-right: 28px; } .nav-dots .dot { width: 6px; height: 6px; } .nav-dots .dot.active { width: 8px; height: 8px; } }
+    @media (max-width: 768px) { .resume-toast { max-width: calc(100vw - 32px); width: auto; padding: 12px 16px; gap: 10px; bottom: max(70px, calc(60px + env(safe-area-inset-bottom))); font-size: 12px; flex-wrap: wrap; justify-content: center; } .resume-toast button { padding: 8px 16px; font-size: 12px; } }
+    .prev-chapter-btn, .next-chapter-btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 28px; border-radius: 12px; background: linear-gradient(135deg, rgba(107,47,160,0.15), rgba(176,124,232,0.10)); border: 1px solid rgba(176,124,232,0.25); color: var(--accent); text-decoration: none; font-family: var(--font-sans); transition: all 0.3s ease; margin-top: 32px; cursor: pointer; }
+    .prev-chapter-btn:hover, .next-chapter-btn:hover { background: linear-gradient(135deg, rgba(107,47,160,0.25), rgba(176,124,232,0.20)); border-color: rgba(176,124,232,0.5); transform: translateY(-1px); }
+    .prev-chapter-btn svg, .next-chapter-btn svg { width: 20px; height: 20px; flex-shrink: 0; transition: transform 0.2s; }
+    .next-chapter-btn:hover svg { transform: translateX(4px); }
+    .prev-chapter-btn:hover svg { transform: translateX(-4px); }
+    .prev-chapter-btn .btn-label, .next-chapter-btn .btn-label { display: flex; flex-direction: column; align-items: flex-start; }
+    .prev-chapter-btn .btn-next, .next-chapter-btn .btn-next { font-size: 11px; opacity: 0.7; letter-spacing: 1.5px; text-transform: uppercase; }
+    .prev-chapter-btn .btn-title, .next-chapter-btn .btn-title { font-size: 16px; }
+    .chapter-nav-row { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 32px; }
+    @media (max-width: 768px) {
+      .beat-title h1 { font-size: clamp(2.5rem, 8vw, 4rem); }
+      .beat-title .subtitle { font-size: 16px; }
+      .card-title { font-size: clamp(1.8rem, 6vw, 3rem); }
+      .beat-counter { bottom: max(16px, env(safe-area-inset-bottom, 16px)); right: 16px; font-size: 11px; }
+      .back-link { top: 16px; left: 16px; font-size: 12px; }
+      .prev-chapter-btn, .next-chapter-btn { padding: 14px 24px; font-size: 14px; }
+      .prev-chapter-btn .btn-title, .next-chapter-btn .btn-title { font-size: 14px; }
+      .chapter-nav-row { flex-direction: column; align-items: stretch; }
+      .prev-chapter-btn, .next-chapter-btn { margin-top: 8px; justify-content: center; }
+    }
+    .beat::-webkit-scrollbar { width: 4px; }
+    .beat::-webkit-scrollbar-track { background: transparent; }
+    .beat::-webkit-scrollbar-thumb { background: rgba(176,124,232,0.25); border-radius: 4px; }
+    .beat::-webkit-scrollbar-thumb:hover { background: rgba(176,124,232,0.45); }
+    .beat { scrollbar-width: thin; scrollbar-color: rgba(176,124,232,0.25) transparent; }
+    .prev-chapter-btn:focus-visible, .next-chapter-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; box-shadow: 0 0 0 4px rgba(176,124,232,0.15); }
+    .nav-dots .dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .beat-card::after, .beat-scene::after { content: ''; position: fixed; bottom: 0; left: 0; right: 0; height: 48px; background: linear-gradient(to top, var(--bg), transparent); pointer-events: none; z-index: 2; opacity: 0; transition: opacity 0.3s ease; }
+    .beat-card.scrollable::after, .beat-scene.scrollable::after { opacity: 1; }
+    .beat-card.at-bottom::after, .beat-scene.at-bottom::after { opacity: 0; }
+    @media (max-width: 480px) { .beat-counter { font-size: 12px; padding: 6px 12px; } }
+  </style>
+</head>
+<body>
+  <div class="beat-counter" id="beatCounter"></div>
+  <a href="../index.html" class="back-link">← G2G</a>
+  <div class="nav-dots"></div>
+  <div class="swipe-hint" id="swipeHint">Swipe up to navigate</div>
+
+  <!-- BEAT 1: TITLE -->
+  <div class="beat beat-title">
+    <div class="beat-inner">
+      <p class="series-name">Product Specials</p>
+      <p class="chapter-number">Chapter 29</p>
+      <h1>The LBO Mechanics Special</h1>
+      <p class="subtitle">EV-Equity Bridge, Completion Mechanisms, W&amp;I, Advisor Fees, Funds Flow &amp; The Playbook Tricks That Make or Break a Deal</p>
+    </div>
+  </div>
+
+  <!-- BEAT 2: Chapter Roadmap -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Overview</p>
+      <h2 class="card-title">Chapter Roadmap</h2>
+      <div class="card-body">
+        <p>This chapter is the hardcore technical core of deal execution — the nitty-gritty mechanics that separate the associates who bluff from the ones who actually run the deal. Every topic here is one that you will be asked about in the boardroom, in an interview, or at 2am on closing night.</p>
+        <ul class="bullet-list">
+          <li><strong>Part 1: The EV-Equity Bridge</strong> — The single most important construct in M&amp;A. Debt, cash, debt-like items, pension, working capital peg, tax, minorities, ticker, leakage. Twenty beats of deep drilling.</li>
+          <li><strong>Part 2: Completion Mechanisms</strong> — Locked box vs. completion accounts, reference date, permitted leakage, interest on equity, dispute resolution, expert determination.</li>
+          <li><strong>Part 3: W&amp;I Insurance</strong> — How the policy is priced, what is excluded, retention, de minimis, stapled vs. seller-buyer flips, synthetic W&amp;I, title insurance.</li>
+          <li><strong>Part 4: Advisor Fees</strong> — Success fees, retainers, incentive mechanisms, lehman formulas, abort fees, tail periods, expense caps, and the fee economics of each workstream.</li>
+          <li><strong>Part 5: Funds Flow</strong> — The plumbing. Flow of funds memos, paying agent mechanics, wire coordination, escrow agents, PTO (payment to order), and what goes wrong at closing.</li>
+          <li><strong>Part 6: Classic Playbook Tricks</strong> — The tactical moves that shift a few hundred million between buyer and seller without anyone noticing at first glance.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- PART 1: THE EV-EQUITY BRIDGE — THE CENTERPIECE                    -->
+  <!-- ================================================================= -->
+
+  <!-- BEAT 3: The Central Identity -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">The Central Identity of Every Deal</h2>
+      <div class="card-body">
+        <p>Every M&amp;A deal — every single one — collapses into one identity. Memorise it. Tattoo it. This is the equation that governs every number on the SPA signature page:</p>
+        <div class="formula-box">
+          <span class="formula-label">The Master Equation</span>
+          Enterprise Value (EV)<br>
+          &nbsp;&nbsp;&minus;&nbsp;Financial Debt<br>
+          &nbsp;&nbsp;+&nbsp;Cash &amp; Cash Equivalents<br>
+          &nbsp;&nbsp;&minus;&nbsp;Debt-Like Items<br>
+          &nbsp;&nbsp;+&nbsp;Cash-Like Items<br>
+          &nbsp;&nbsp;&plusmn;&nbsp;Working Capital vs. Target (the "peg")<br>
+          &nbsp;&nbsp;&minus;&nbsp;Minority Interests<br>
+          &nbsp;&nbsp;+&nbsp;Investments in Associates (at FV)<br>
+          &nbsp;&nbsp;&minus;&nbsp;Dividends declared but not paid<br>
+          &nbsp;&nbsp;+&nbsp;Ticker / Interest on Equity<br>
+          &nbsp;&nbsp;&minus;&nbsp;Permitted / Non-permitted Leakage<br>
+          &nbsp;&nbsp;&minus;&nbsp;Transaction costs borne by seller<br>
+          &nbsp;&nbsp;=&nbsp;<strong>EQUITY PURCHASE PRICE</strong>
+        </div>
+        <p>EV is the economic value of the business operations. Equity value is what the <em>seller</em> actually receives in their bank account. The bridge is the set of <strong>adjustments</strong> that walks you from one to the other. Every single line is negotiated. Every single line is worth millions. The buyer wants a low equity price; the seller wants a high one; the bridge is the battleground.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 4: Why EV At All -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Why Do We Bid on EV at All?</h2>
+      <div class="card-body">
+        <p>Sponsors and strategic buyers almost always bid an <strong>Enterprise Value</strong>, not an equity value. Why? Because EV is the <em>one</em> number that is capital-structure agnostic. It prices the operating business itself — the cash-generating engine — independent of how the current owner happens to have financed it.</p>
+        <p>If a seller has run the business with £500m of net debt, that is the seller's historical financing choice, not a feature of the asset. The buyer is going to refinance on day one, stuffing in their own leverage. So the buyer values <strong>the engine</strong>, not the prior capital structure.</p>
+        <div class="metric-item">
+          <p class="metric-name">Multiple Discipline</p>
+          <p class="metric-def">Comparables are always quoted as EV/EBITDA or EV/Revenue. You cannot benchmark equity multiples across companies because each carries different leverage. EV normalises for that.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">The Silent Trap</p>
+          <p class="metric-def">Associates who bid "£1bn" without specifying "EV basis, cash-free debt-free, normalised WC" will discover at SPA drafting that the seller interpreted that as an equity number. This is how deals blow up.</p>
+        </div>
+        <div class="warning-box">
+          <span class="warning-label">Language Rule</span>
+          <p>Every offer letter, NBO, binding bid and SPA heading must say the magic phrase: <strong>"cash-free, debt-free, assuming a normalised level of working capital"</strong>. Without those words, you have no bridge, and the seller can keep the cash, leave the debt, and drain the WC. Welcome to litigation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 5: Financial Debt -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Financial Debt — The Obvious Line That Isn't</h2>
+      <div class="card-body">
+        <p>Financial debt is the first deduction from EV. It sounds easy: add up the loans. In reality, every sub-component is fought over.</p>
+        <div class="metric-item">
+          <p class="metric-name">Bank Debt &amp; Facilities Drawn</p>
+          <p class="metric-def">Term loans, revolving credit facility (RCF) drawn amounts, bilateral loans, overdrafts. Always drawn, never committed but undrawn. Include accrued interest to the reference date.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Bonds &amp; Notes</p>
+          <p class="metric-def">Book at <strong>redemption value</strong>, not accounting book value. If a bond trades above par or has a make-whole premium, the call price is what the buyer will actually pay to refinance. IFRS carrying value is irrelevant.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Break Costs &amp; Prepayment Penalties</p>
+          <p class="metric-def">Debt repaid at closing often carries a break fee (typically 1–3% for TLBs within the first two years, make-whole for high yield). Seller may argue it sits below the line; buyer insists it is a debt-like item. Quantum can be £20–100m on a large deal.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Finance Leases (IFRS 16)</p>
+          <p class="metric-def">The post-2019 nightmare. Under IFRS 16, all leases sit on balance sheet as debt, with a matching right-of-use asset. Is a property lease really "financial debt" for bridge purposes, or is it operating? Answer: debt for the bridge if it behaves like borrowing (long-term, fixed, site-critical); operating if it's a short-term flexible lease. Deals now define "Financial Indebtedness" explicitly to sidestep this. Billions of £ hinge on the definition.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Derivatives Mark-to-Market</p>
+          <p class="metric-def">Out-of-the-money swaps, FX forwards, commodity hedges — if closing them out costs cash, they are debt. Some are cash-positive (in-the-money) and become "cash-like". The MTM statement from the counterparty on closing date is the arbiter.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 6: Cash -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Cash &amp; Cash Equivalents — Not All Cash Is Equal</h2>
+      <div class="card-body">
+        <p>Cash is added back to EV to get to equity value, on the theory that the seller either keeps it or leaves it behind as a free top-up. But cash is rarely "free cash" — buyers haircut it aggressively.</p>
+        <div class="metric-item">
+          <p class="metric-name">Trapped Cash</p>
+          <p class="metric-def">Cash sitting in subsidiaries where repatriation triggers withholding tax, capital controls (China, India, Nigeria, Argentina), minority consent requirements, or regulatory minimums (insurance, banks, payment institutions). Buyer argues this is not usable cash → should be excluded or discounted.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Restricted Cash</p>
+          <p class="metric-def">Customer deposits, escrow, letters of credit collateral, cash held for regulatory capital (e.g. FCA capital requirements, solvency margins). Not cash at all — it is someone else's money sitting in your account. Zero credit.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Operational / Float / Cage Cash</p>
+          <p class="metric-def">The cash a business structurally needs to operate: retail tills, casino cages, ATM float, merchant acquirer settlement balances. The buyer says "you need this to run the business, so it is part of working capital, not free cash." Sellers resist fiercely — this can be 0.5–2% of revenue, which at 10x EBITDA is material.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Overdrafts &amp; Net Cash Presentation</p>
+          <p class="metric-def">If a group has £100 cash in one account and £80 overdraft in another, is "cash" £100 or £20? The SPA must define gross vs. net. Most deals use net cash, but the mechanics matter when defining whether the overdraft is "debt".</p>
+        </div>
+        <div class="warning-box">
+          <span class="warning-label">Playbook Move</span>
+          <p>A sophisticated buyer will insist on a <strong>"minimum cash"</strong> requirement at closing — e.g. "the seller shall leave no less than £25m cash in the business" — and then treat anything above that as free cash. This is how the buyer can keep the working-capital-cash inside the bridge without arguing line by line.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 7: Debt-Like Items — The War Zone -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Debt-Like Items — Where Deals Are Won or Lost</h2>
+      <div class="card-body">
+        <p>This is the single most contentious box in the bridge. A "debt-like item" is anything that is not formally labelled debt in the accounts but functions economically like debt — a fixed future cash outflow that the buyer will inherit. The principle: <strong>if the seller could have extinguished it with cash before sale, the buyer is entitled to deduct it.</strong></p>
+        <div class="metric-item">
+          <p class="metric-name">Tax Liabilities</p>
+          <p class="metric-def">Corporation tax payable to the reference date, deferred consideration on prior M&amp;A, uncertain tax positions (UTPs), transfer pricing reserves, VAT liabilities. Buyer typically includes the full <strong>gross</strong> number, seller argues only <strong>"probable"</strong> amounts (IAS 37) should count.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Pension Deficits</p>
+          <p class="metric-def">Defined benefit scheme shortfalls. Buyer deducts the full IAS 19 deficit. Seller argues the <strong>"technical provisions"</strong> (trustee funding number) or the deficit reduction plan present value. The difference between IAS 19 and technical provisions can be 50%+. Huge deals hinge on which number is used. UK pensions with a TPR clearance requirement are especially complex — see the Morrisons and Boots LBOs.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Restructuring Provisions</p>
+          <p class="metric-def">Redundancy, site closure, onerous contracts. If announced and committed before signing → debt-like. If still a management plan → buyer has to inherit it organically. Timing of Board approval matters enormously.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Deferred Consideration &amp; Earn-Outs</p>
+          <p class="metric-def">Amounts still owed by the target for historical acquisitions (e.g. the target bought a sub in 2023 and still owes £30m in 2025). These are contractual future cash outflows — always debt-like.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Accrued Bonuses &amp; Deal Bonuses</p>
+          <p class="metric-def">The bonus pool earned up to closing. Ordinary-course bonuses sit in working capital. Deal-specific bonuses (retention, transaction, phantom equity payouts) are always debt-like — they are a cost of the deal.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Unfunded Capex Commitments</p>
+          <p class="metric-def">Capex contractually committed but not yet paid (e.g. signed purchase orders for a new factory). Usually operational unless it is "catch-up capex" the seller should have spent.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Litigation &amp; Provisions</p>
+          <p class="metric-def">Material lawsuits with probable outflow. W&amp;I generally excludes known litigation, so the buyer will push for it as a debt-like item up to the expected value of loss.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Dilapidations</p>
+          <p class="metric-def">Property lease end-of-term obligations to restore premises. Long-tail, uncertain, but contractual → debt-like under most definitions.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Customer Prepayments &amp; Advance Revenue</p>
+          <p class="metric-def">Cash received for services not yet delivered (SaaS annual billings, construction milestone payments). Buyer argues these are debt-like because they represent an obligation to deliver service for no cash. Seller argues they are part of working capital. This fight alone can shift hundreds of millions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 8: Cash-Like Items -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Cash-Like Items — The Seller's Countermove</h2>
+      <div class="card-body">
+        <p>The seller's answer to the debt-like list is the cash-like list: items sitting on the balance sheet that are not cash but will <em>become</em> cash in the ordinary course, and therefore should be added to EV.</p>
+        <div class="metric-item">
+          <p class="metric-name">Tax Receivables &amp; Refunds</p>
+          <p class="metric-def">Overpaid corporation tax, R&amp;D tax credits, VAT recoverable. Seller includes at full value; buyer discounts for timing and realisation risk.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Insurance Recoveries</p>
+          <p class="metric-def">Expected payouts from notified claims. Usually added if documented and probable.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Deferred Consideration Receivable</p>
+          <p class="metric-def">If the target sold a business previously and is still owed deferred consideration, this is cash-like. The buyer inherits the receivable but also the credit risk — often discounted 5–20%.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Fixed Asset Sales Already Agreed</p>
+          <p class="metric-def">Signed SPA to sell a non-core asset that will close post-signing → buyer gets the cash → seller wants credit now.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Overfunded Pension Schemes</p>
+          <p class="metric-def">Rare but real — some UK schemes are now in surplus. Seller wants credit; buyer says the surplus is not distributable and trapped in the trust.</p>
+        </div>
+        <div class="example-box">
+          <span class="example-label">Tactical Note</span>
+          The cash-like list is almost always smaller than the debt-like list. The buyer has asymmetric power: they write the first draft of the SPA definitions and they get to run due diligence. The seller's advisor must be <strong>proactive</strong> in identifying cash-like items during vendor DD, or they will simply not appear in the bridge.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 9: Working Capital - Concept -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Working Capital &mdash; The Normalisation Principle</h2>
+      <div class="card-body">
+        <p>The buyer assumes that when they take over the business, it will be delivered with a <em>normal</em> level of working capital — enough current assets minus current liabilities for operations to continue without a cash injection on day one. This is the <strong>working capital target</strong> or "peg".</p>
+        <div class="formula-box">
+          <span class="formula-label">WC Adjustment</span>
+          WC Adjustment = Actual WC at Closing &minus; WC Target<br>
+          If Actual &gt; Target → Seller gets paid extra (left more WC behind)<br>
+          If Actual &lt; Target → Buyer gets a reduction (WC shortfall)
+        </div>
+        <p>The logic: if the seller leaves behind £10m <em>more</em> WC than normal, they have effectively left £10m of capital in the business that the buyer now owns, so the buyer compensates them. If the seller drained WC (collected receivables early, delayed paying suppliers), the buyer needs to top it up with cash, and so the price goes down.</p>
+        <div class="metric-item">
+          <p class="metric-name">Normalised Definition</p>
+          <p class="metric-def">The SPA defines working capital extremely tightly: which GL accounts are included, which are excluded (cash, debt, tax, deal costs), which are debt/cash-like. Typically a twelve- or twenty-four-month average, trailing, with seasonal adjustment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 10: WC Peg -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">The Working Capital Peg &mdash; How to Set It</h2>
+      <div class="card-body">
+        <p>Setting the peg is the second-most-fought item in the whole bridge (after debt-like). A high peg means the seller must leave more WC behind for no extra consideration; a low peg means the seller can drain WC in the final weeks and pocket the difference.</p>
+        <div class="metric-item">
+          <p class="metric-name">Trailing 12-Month Average (T12M)</p>
+          <p class="metric-def">The most common approach. Calculate WC at each month-end for the last 12 months, take the simple average. Defence: "this is what the business structurally needs." Weakness: it smooths through trends and seasonality.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Trailing 24-Month Average</p>
+          <p class="metric-def">Used when the business has seasonality or has been growing fast. Smoother but can understate today's WC need if the business has scaled 2x in two years.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Point-in-Time Adjusted</p>
+          <p class="metric-def">WC at the same month last year (if the business is seasonal), adjusted for YoY growth. Fair for highly seasonal retail/agri businesses.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">WC as % of Revenue</p>
+          <p class="metric-def">Peg = average WC% × LTM Revenue. Fair for fast-growing businesses. The seller loves this in a growth story; the buyer loves it in a declining one.</p>
+        </div>
+        <div class="warning-box">
+          <span class="warning-label">Stuffing the Peg</span>
+          <p>Watch out for stuffed pegs: the seller excludes a line (e.g. unpaid deal bonuses) from both the peg and the closing WC number. Net zero on the bridge, but it shifts the argument to debt-like items where the seller hopes the line dies. Always check the peg is built on the <em>same definition</em> as closing WC, line by line.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 11: WC Gaming -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">How Sellers Game Working Capital</h2>
+      <div class="card-body">
+        <p>Between signing and closing, the seller still controls the business. They have every incentive to engineer the balance sheet to <strong>lower</strong> actual WC (collect cash faster, push out payables) so that the cash balance rises (which adds to equity price) while the WC number dips only a little (or stays within tolerance).</p>
+        <ul class="bullet-list">
+          <li><strong>Accelerated receivables collection:</strong> Offer customers 2% early-pay discounts → AR drops by £40m → cash rises by £39m → net benefit £39m to the seller because cash is added 1-for-1 while WC deficit is capped by the peg.</li>
+          <li><strong>Stretched payables:</strong> Delay paying suppliers from 45 to 75 days → AP rises → WC drops → cash rises → seller benefits.</li>
+          <li><strong>Inventory run-down:</strong> Stop buying raw materials → inventory drops → cash rises. Buyer gets a starved factory on day one.</li>
+          <li><strong>Pre-billing:</strong> Invoice customers early for services they haven't received → AR rises and deferred revenue rises, but cash can also rise via early payment → messy games depending on definitions.</li>
+          <li><strong>Capex deferral:</strong> Skip two months of capex → cash rises by £15m. Not a WC item, but it inflates cash on the bridge. Buyer counters with "catch-up capex" as a debt-like item.</li>
+        </ul>
+        <div class="metric-item">
+          <p class="metric-name">The Buyer's Defence</p>
+          <p class="metric-def">Ordinary-course covenants: "the seller shall operate the business between signing and closing consistent with the past 12 months' practice." Plus specific restrictions on discount policies, payment terms, capex scheduling. Plus a post-closing "true-up" that redefines the peg against actual periods.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 12: Minorities -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Minority Interests &amp; Associates</h2>
+      <div class="card-body">
+        <p>EV is typically calculated on a <strong>consolidated</strong> basis — it captures the total value of the operating group, including 100% of subs even where the group only owns 70%. The equity bridge must strip out the portion of that value that belongs to outside shareholders.</p>
+        <div class="metric-item">
+          <p class="metric-name">Minority / Non-Controlling Interests (NCI)</p>
+          <p class="metric-def">Deducted from EV at <strong>fair value</strong>, not book value. If the 30% minority in a subsidiary is worth £300m on an EV basis (i.e., 30% × sub's EV), that is what is deducted — not the £80m sitting on the consolidated balance sheet. IFRS book value is conservative and understates minority economics.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Drag-Along Rights</p>
+          <p class="metric-def">If the SPA includes drag-along on the minority, the buyer acquires 100% and pays them directly. The minority purchase price must be added back to equity price (because the buyer pays it) but funded through EV (because it is part of the economic engine).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Investments in Associates</p>
+          <p class="metric-def">Sub-50% stakes equity-accounted. These do <em>not</em> feed EBITDA (they contribute via share of profits, a below-EBITDA line), so they are not captured by EV/EBITDA. They are added to EV at fair value on top — a common bridge line that analysts miss.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Put / Call Options on Minorities</p>
+          <p class="metric-def">If the minority has a put option (can force the group to buy them out in future), the present value of the put strike is a debt-like item. Very common in PE-backed rollups where founders retain 10-20% with a put in three years.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 13: Tax in the Bridge -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Tax in the Bridge — Four Layers</h2>
+      <div class="card-body">
+        <p>Tax shows up in four different places in the bridge, and associates routinely confuse them. Know them cold.</p>
+        <div class="metric-item">
+          <p class="metric-name">1. Current Tax Payable (Debt-Like)</p>
+          <p class="metric-def">Corporation tax accrued up to the reference date but not yet paid. Always a debt-like item. Usually pro-rated from the last balance sheet: if closing is 4 months into the fiscal year, take 4/12 of the full-year provision.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">2. Current Tax Receivable (Cash-Like)</p>
+          <p class="metric-def">Overpaid or recoverable tax → the mirror image. Added to EV.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">3. Uncertain Tax Positions (Debt-Like, Negotiated)</p>
+          <p class="metric-def">Tax disputes, transfer pricing exposures, historical reliefs being challenged. Seller says "provision at 50% probability per IFRIC 23". Buyer says "gross up, because if it goes wrong we pay 100%". The gap is often £10–100m. Resolution: a specific indemnity outside the bridge (seller pays if it crystallises, otherwise nothing).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">4. Deferred Tax Assets &amp; Liabilities</p>
+          <p class="metric-def">Usually <em>ignored</em> in the bridge. They are accounting artefacts (timing differences, NOLs). Buyers reprice NOLs in their own modelling rather than putting them in the bridge. An exception: a large DTL on acquired intangibles can be treated as cash-like in asset deals.</p>
+        </div>
+        <div class="warning-box">
+          <span class="warning-label">The Tax Structuring Interaction</span>
+          <p>A final twist: tax often drives the whole deal structure. If the buyer can step-up the asset base (Asset deal, 338(h)(10), French TUP, Brazil goodwill), the resulting tax shield is worth real money — sometimes 5-10% of EV — and the buyer will pay for it through a higher headline bid. This is not a bridge line; it is a pre-bridge decision that changes what EV the buyer is willing to write.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 14: Ticker / Interest on Equity -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">The Ticker — Interest on the Equity Price</h2>
+      <div class="card-body">
+        <p>The "ticker" (or "interest on equity price", or "daily accrual") is the mechanism that compensates the <strong>seller</strong> for the time value of money between the economic reference date and the actual closing date. In a locked-box deal, this is a defining feature.</p>
+        <div class="formula-box">
+          <span class="formula-label">Ticker Formula</span>
+          Ticker = Equity Price × Daily Rate × Days from Locked-Box Date to Closing<br><br>
+          Typical rate: 4.0%-8.0% per annum (simple), paid by Buyer to Seller<br>
+          On a £1bn deal with a 120-day gap at 6%: 1,000 × 6% × 120/365 = £19.7m
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Why Does the Ticker Exist?</p>
+          <p class="metric-def">In a locked-box, the economic reference date is the signing balance sheet (or a date before it). From that date, the business is economically run "for the buyer" — all cash generated belongs to the buyer, all risk sits with the buyer. But the buyer only <em>pays</em> on closing, which can be 3–9 months later. Without a ticker, the seller has effectively lent the business to the buyer interest-free for that period. The ticker is the interest on that loan.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Setting the Rate</p>
+          <p class="metric-def">Seller wants the rate high (closer to the <em>business's</em> return on capital, say 10-12%). Buyer wants it low (closer to their cost of debt, say 5-6%). Standard market practice lands at 4-8% annualised, usually tied to either a spread over risk-free (SOFR/SONIA + 300-500bps) or a flat rate defined in the SPA.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Simple vs. Compound</p>
+          <p class="metric-def">Almost always simple interest on the fixed equity price. Nobody bothers with compounding for a sub-12-month period. But on long-gap deals (regulatory approval delays of 12-18 months), compounding is sometimes negotiated.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">The Economic Logic</p>
+          <p class="metric-def">Think of it this way: the seller could have put £1bn in a deposit account and earned X% from signing. Instead, they agreed to "park" the equity value in the business for the buyer. The ticker compensates for that foregone yield, nothing more.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 15: Ticker Mechanics Deep Dive -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Ticker Mechanics — The Dirty Details</h2>
+      <div class="card-body">
+        <p>Pretty simple in concept. Fiendishly complex in execution. Watch for these wrinkles:</p>
+        <div class="metric-item">
+          <p class="metric-name">The Ticker on What, Exactly?</p>
+          <p class="metric-def">On the <strong>equity price pre-leakage</strong>, or the equity price after all bridge adjustments? Market convention: on the <em>final</em> equity price (post-leakage). But the final price is not known until closing, so the ticker is computed <em>at closing</em> on the final number — meaning the ticker itself moves if the bridge moves.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">When Does the Ticker Start?</p>
+          <p class="metric-def">Locked box date (often the last audited balance sheet date, e.g. 31 Dec). Not signing date. Not closing date. This is the economic cut-off.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">When Does the Ticker Stop?</p>
+          <p class="metric-def">The day <em>before</em> closing, conventionally. Some deals run it to the closing day itself. Negotiate.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Long-Stop Ticker Caps</p>
+          <p class="metric-def">If closing is delayed beyond, say, 9 months due to regulatory hold-up, buyers often want the ticker to <em>cap</em> (or even flip off). Sellers resist — if the delay is caused by the buyer's lenders or antitrust filings, why should the seller lose the accrual?</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Ticker in an Auction</p>
+          <p class="metric-def">Auction process letters now often specify the ticker rate up front to make bids comparable. Without that, a bidder offering "£1bn with ticker at 3%" is materially worse than "£980m with ticker at 8%" on a 6-month gap.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Ticker in Completion Accounts Deals</p>
+          <p class="metric-def">Ticker is a locked-box concept. In completion accounts, there is no ticker because the economic transfer happens at closing, not at a prior reference date. Mixing them up is a rookie error.</p>
+        </div>
+        <div class="warning-box">
+          <span class="warning-label">Worked Example</span>
+          <p>£2.5bn equity price, locked box at 31 Dec, signing 15 Mar, closing 15 Sep. Ticker at 6% per annum simple. Days from 1 Jan to 14 Sep = 257 days. Ticker = 2,500 × 6% × 257/365 = £105.6m. That is serious money — worth the full attention of tax, legal, and an entire team of associates running the spreadsheet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 16: Leakage -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Leakage — The Seller's Trust Tax</h2>
+      <div class="card-body">
+        <p>In a locked-box deal, the buyer owns the economics from the locked-box date. Any value that "leaks out" of the target to the seller (or its affiliates, directors, management) between the locked-box date and closing is called <strong>leakage</strong>, and comes off the equity price one-for-one.</p>
+        <div class="metric-item">
+          <p class="metric-name">What Counts as Leakage</p>
+          <p class="metric-def">Dividends declared or paid; share buybacks; management fees or monitoring fees to the sponsor; repayment of shareholder loans; waivers of intra-group debt owed to the seller; transfer of assets below fair value; bonuses paid to selling management that are not agreed; any payment outside the ordinary course to anyone in the seller's "Connected Persons" definition.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Permitted Leakage</p>
+          <p class="metric-def">A scheduled list of payments the buyer has accepted as normal: ordinary course salaries, contractual bonuses for non-selling staff, regular pension contributions, agreed management fees at capped levels, agreed tax distributions. These are pre-carved-out on Schedule 8 (or whichever schedule) and do not reduce price.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">The Seller's Indemnity</p>
+          <p class="metric-def">Unlike most SPA warranties (which are capped, time-limited, and scrubbed by W&amp;I), the leakage indemnity is a <strong>pound-for-pound direct claim</strong> from buyer to seller, with a shorter but direct limitation (6-12 months). No de minimis, no basket, no insurance between them.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">De Minimis for Leakage</p>
+          <p class="metric-def">Occasionally a small de minimis is negotiated (£50k per item, £500k in aggregate) to avoid mouse-nuts claims on forgotten tuck-shop purchases. Sellers push hard for this; buyers resist.</p>
+        </div>
+        <div class="example-box">
+          <span class="example-label">Common Leakage Traps</span>
+          The sponsor's final quarterly monitoring fee paid in January after a 31-Dec locked box. Management "retention bonus" approved by the seller-controlled board in February. A pre-closing restructuring where the group distributes a property to the seller. All classic leakage; all classic litigation.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 17: Worked Example - Full Bridge -->
+  <div class="beat beat-card comparison-wide">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Full Worked Example — £1.25bn Locked-Box Deal</h2>
+      <div class="card-body">
+        <p>PrivCo, a UK industrials business, is sold by a sponsor to a strategic buyer. Headline: 10.0x LTM EBITDA of £125m = £1,250m EV. Locked box at 31 Dec 2025; signing 20 Mar 2026; closing 10 Jul 2026.</p>
+        <div class="formula-box">
+          <span class="formula-label">The Full Bridge</span>
+          Enterprise Value&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1,250.0<br>
+          &nbsp;&nbsp;&minus; Financial debt (TLB at par + RCF drawn)&nbsp;&nbsp;&nbsp; (420.0)<br>
+          &nbsp;&nbsp;&minus; Make-whole premium on TLB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (8.5)<br>
+          &nbsp;&nbsp;+ Cash &amp; equivalents&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 85.0<br>
+          &nbsp;&nbsp;&minus; Operating cash held back (minimum)&nbsp;&nbsp;&nbsp;&nbsp; (15.0)<br>
+          &nbsp;&nbsp;&minus; UK pension deficit (IAS 19)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (32.0)<br>
+          &nbsp;&nbsp;&minus; Deal &amp; retention bonuses (debt-like)&nbsp;&nbsp;&nbsp;&nbsp; (11.5)<br>
+          &nbsp;&nbsp;&minus; Corporation tax accrued&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (9.0)<br>
+          &nbsp;&nbsp;&minus; Restructuring provision committed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (6.0)<br>
+          &nbsp;&nbsp;+ R&amp;D tax credit receivable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.5<br>
+          &nbsp;&nbsp;&nbsp;(WC at closing below T12M peg by £3m)<br>
+          &nbsp;&nbsp;&minus; WC shortfall vs peg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (3.0)<br>
+          &nbsp;&nbsp;&minus; 25% minority in JV (deducted at FV)&nbsp;&nbsp;&nbsp;&nbsp; (42.0)<br>
+          &nbsp;&nbsp;+ 30% stake in Associate (at FV)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 28.0<br>
+          &nbsp;&nbsp;&minus; Permitted leakage (monitoring fees)&nbsp;&nbsp;&nbsp;&nbsp; (2.5)<br>
+          &nbsp;&nbsp;&minus; Non-permitted leakage (tuck-out)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (0.8)<br>
+          &nbsp;&nbsp;+ Ticker: 817.2 &times; 6% &times; 191/365&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 25.6<br>
+          &nbsp;&nbsp;&nbsp;<strong>= Equity Purchase Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 842.8</strong>
+        </div>
+        <p>From a headline of £1,250m, the seller actually receives £842.8m — a third of the EV is eaten by the bridge. Every single line is a negotiation. The difference between a 6% ticker and a 4% ticker is £8.5m. The difference between IAS 19 and technical provisions on the pension deficit could be £15m. The difference between a £15m or £25m operating cash requirement is £10m. This is why the bridge is the most litigated, most negotiated, most important artefact in any deal.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 18: Who Negotiates What -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Who Negotiates Each Line</h2>
+      <div class="card-body">
+        <p>The bridge is negotiated in parallel by multiple workstreams, and the associate running the master schedule is the traffic cop. Understand who owns what:</p>
+        <div class="metric-item">
+          <p class="metric-name">Bankers (M&amp;A Advisors)</p>
+          <p class="metric-def">Own the headline EV (multiple &times; EBITDA), the working capital peg, the ticker rate, operating cash hold-back, and any valuation-driven items. They lead the overall bridge architecture and chase the client through it.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Accountants (Transaction Services)</p>
+          <p class="metric-def">Own the debt-like / cash-like list from the QoE (Quality of Earnings) report, the normalised EBITDA adjustments, the WC peg calculation mechanics, and the debt &amp; net debt schedule. They are the referees on what lands in which bucket.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Tax Advisors</p>
+          <p class="metric-def">Own the tax lines (current, deferred, UTP), transfer pricing exposures, withholding tax, and the tax structuring above the bridge (stepped-up basis, tax losses, group relief). A tax line can shift £50m.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Lawyers (Corporate)</p>
+          <p class="metric-def">Own the SPA definitions of Financial Indebtedness, Cash, Working Capital, Leakage, Permitted Leakage, Permitted Payments, Ordinary Course covenants, and the dispute mechanism. They convert commercial agreement into legal text.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Actuaries (Pensions)</p>
+          <p class="metric-def">Own the pension number — IAS 19 vs technical provisions vs Section 75 buy-out. On a big UK deal, the pension is often the second-biggest bridge line after debt itself, and always goes to a specialist. TPR clearance on a DB scheme is a gating item, not a line item.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Banker Seniors</p>
+          <p class="metric-def">MDs own the top-level commercial trade-offs: would we rather fight for £15m on the pension or £15m on the ticker? The answer depends on where each side is most flexible, and is a judgment call by an experienced principal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 19: Bridge Schedule & Process -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">Running the Bridge — Process &amp; Timeline</h2>
+      <div class="card-body">
+        <p>The bridge is not a number. It is a <em>schedule</em> — a living spreadsheet with one row per line item, the buyer's and seller's positions in adjacent columns, a "current agreed" column, a comments column, and a document reference to every cited amount. On big deals it runs to 200+ rows and is version-controlled daily.</p>
+        <div class="metric-item">
+          <p class="metric-name">Week Minus 8: First Draft</p>
+          <p class="metric-def">The buy-side bankers, accountants and lawyers build the first "opening position" bridge based on vendor due diligence, the data room, and the initial QoE. This goes into the indicative bid.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Week Minus 5: Mark-Up Exchange</p>
+          <p class="metric-def">The seller comments on every line: "accept", "reject", "alternative position". Often three iterations before a call is held to park disputed items.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Week Minus 3: All-Hands Call</p>
+          <p class="metric-def">The "bridge call" with all advisors on both sides. Goes line by line. Disputed items are parked for principal-to-principal discussion. Calls can last 6-8 hours.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Week Minus 2: Principals Only</p>
+          <p class="metric-def">Horse-trade session between the lead MDs/partners. "We'll give on the IFRS 16 point if you give on the restructuring provision." Trade-offs across unrelated lines.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Week Minus 1: Final Lock</p>
+          <p class="metric-def">Every line agreed, every reference document attached, every number tied to source. The locked bridge is pasted into the SPA as Schedule X (Pricing / Adjustments / Disclosure). From this point, any change is a formal amendment.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Post-Signing: Closing Adjustments</p>
+          <p class="metric-def">If completion accounts, a second round happens 60-120 days post-closing when final accounts are prepared. If locked box, only leakage remains open, so the post-signing period is quiet on the bridge (but busy on conditions precedent).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 20: Common Errors -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">The Ten Classic Bridge Errors</h2>
+      <div class="card-body">
+        <p>These are the errors every junior banker makes at least once. After the second time, they stop being funny.</p>
+        <ul class="bullet-list">
+          <li><strong>Double counting IFRS 16 leases:</strong> If you subtract lease liability as debt, you must add back lease depreciation/interest to EBITDA (or use pre-IFRS-16 EBITDA). Sellers love to present post-IFRS-16 EBITDA × multiple and then <em>also</em> subtract the lease liability.</li>
+          <li><strong>Using book debt instead of redemption value:</strong> A TLB held at amortised cost £500m, with £3m unamortised issue costs, refinances at £500m + break fee. Use the cash number, not the book number.</li>
+          <li><strong>Forgetting accrued interest on debt:</strong> Always add the accrued interest up to the reference date. On a £400m facility at 8%, a quarterly interest period accrues £8m — material.</li>
+          <li><strong>Netting debt-like and cash-like by mistake:</strong> The bridge should show <strong>gross</strong> lines — never net a tax receivable against a tax payable in a different entity. They have different tax lives.</li>
+          <li><strong>Ignoring the tax impact of cash extraction:</strong> If cash is trapped in a subsidiary and repatriation triggers 10% withholding, the "free cash" is only 90% of the nominal. Sellers ignore this; buyers insist on it.</li>
+          <li><strong>Forgetting the pension tax offset:</strong> A £50m pension deficit funded over time generates £12.5m of future tax deductions (at 25% CT). Sophisticated negotiations apply a tax-effected deficit, not the gross number.</li>
+          <li><strong>Using the wrong EBITDA for multiple calibration:</strong> The bid was "10x £125m" but the £125m includes a one-off insurance receipt or excludes IFRS 16. Always specify which EBITDA is the multiple base.</li>
+          <li><strong>Confusing the peg with the starting WC:</strong> Walked into a call saying "closing WC is £120m, so the adjustment is zero". Wrong — you need the peg, not the prior-period WC.</li>
+          <li><strong>Wrong ticker base:</strong> Ticker should be on the final equity price including all bridge items — not on EV, not on the pre-adjustment price.</li>
+          <li><strong>Using book value for minorities:</strong> Always fair value. Book NCI is meaningless — it is a residual of acquisition accounting.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 21: IFRS 16 Deep Dive -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">IFRS 16 &amp; The Leverage Illusion</h2>
+      <div class="card-body">
+        <p>IFRS 16 came into force in 2019 and rewrote every leverage ratio in Europe. Before 2019, operating leases were off balance sheet and leverage was clean. After 2019, all leases sit as debt on the balance sheet with a corresponding right-of-use asset. This has <strong>massively</strong> complicated the bridge.</p>
+        <div class="metric-item">
+          <p class="metric-name">The Two Worlds</p>
+          <p class="metric-def">Pre-IFRS-16 EBITDA = after lease expense. Post-IFRS-16 EBITDA = before lease depreciation (which replaces the lease expense) and before lease interest. The post-IFRS-16 number is ~5-10% higher for asset-heavy businesses.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">The Bridge Choice</p>
+          <p class="metric-def">Option A: bid "10x post-IFRS-16 EBITDA" and do <em>not</em> deduct lease liability in the bridge. Option B: bid "10x pre-IFRS-16 EBITDA" and <em>do</em> deduct lease liability. Both approaches arrive at the same equity value if done consistently. The error is to mix them.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Partial Deductions</p>
+          <p class="metric-def">Some deals split the difference: deduct only "long-term financial leases" (site-critical 10+ year leases that behave like borrowing) and leave the rest in EBITDA. The definition of "financial lease" becomes an SPA point.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Leverage Ratios in Credit Docs</p>
+          <p class="metric-def">Most leveraged credit docs now have two definitions: "Net Leverage" (excluding IFRS 16) and "IFRS Net Leverage" (including it). Covenants usually reference the excluding definition. Sellers present IFRS leverage at entry ("we are at 3.2x"), buyers re-calculate at 5.0x including leases.</p>
+        </div>
+        <div class="warning-box">
+          <span class="warning-label">Real Example</span>
+          <p>On a large retail chain sale in 2023, the seller presented 8x LTM EBITDA = £2.4bn on post-IFRS-16 EBITDA. The buyer deducted the full £1.1bn of lease liabilities without recalculating EBITDA → equity price £600m lower than the symmetric alternative. The seller's banker caught it at the bridge call and re-anchored on pre-IFRS-16 numbers. £600m of value at stake in a single definition.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 22: Bridge Summary -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 1 · EV-Equity Bridge</p>
+      <h2 class="card-title">The Bridge in One Paragraph</h2>
+      <div class="card-body">
+        <p>Every M&amp;A bid is denominated in Enterprise Value because EV prices the operating engine and nothing else. To get from EV to the cash that leaves the buyer's account into the seller's, you subtract everything that functions as borrowed money (debt + debt-like), add back everything that functions as free cash (cash, cash-like, WC surplus above peg), net out minorities and associates, apply tax adjustments, compensate the seller for time with a ticker, and claw back any leakage that happened after the economic cut-off. The seller fights for a high equity price; the buyer for a low one; the advisors fight line by line. The bridge is the single most valuable spreadsheet in any transaction.</p>
+        <p>Now commit this to memory. You will be asked about it in every interview, drafting session, and negotiation you ever do. The answer is always: <strong>EV &minus; net debt &minus; debt-like + cash-like &plusmn; WC peg &minus; minorities + associates + ticker &minus; leakage = equity.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- PART 2: COMPLETION MECHANISMS                                     -->
+  <!-- ================================================================= -->
+
+  <!-- BEAT 23: Completion Mechanisms Intro -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 2 · Completion Mechanisms</p>
+      <h2 class="card-title">Locked Box vs. Completion Accounts</h2>
+      <div class="card-body">
+        <p>A deal has to pick one of two worlds: either price is <strong>fixed at signing based on a historical balance sheet</strong> (locked box), or price is <strong>fixed at closing based on the real closing balance sheet</strong> (completion accounts). Every single mechanic in the SPA flows from this choice.</p>
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <p class="comparison-header">Locked Box</p>
+            <p class="comparison-value">Price fixed at signing based on a <strong>pre-signing balance sheet</strong> (usually the last audited year-end). Buyer takes the economic risk and reward from that locked-box date onwards. Cash/debt/WC flow to the buyer. A ticker compensates the seller for time. Leakage indemnity protects the buyer. No post-closing price true-up.</p>
+          </div>
+          <div class="comparison-col">
+            <p class="comparison-header">Completion Accounts</p>
+            <p class="comparison-value">Price based on an <strong>estimate at closing</strong>, then a real set of completion accounts prepared post-closing (typically 60-90 days). A true-up payment reconciles the estimate to actual. Risk sits with the <em>seller</em> until closing. No ticker. No leakage indemnity. Detailed dispute resolution procedure.</p>
+          </div>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">European vs. US Default</p>
+          <p class="metric-def">European and UK deals default to locked box (fast, clean, no post-closing surprises). US deals still default to completion accounts (traditional, seller takes pre-closing risk, buyer gets real balance sheet). Over the last decade, locked box has spread to the US in PE auctions because sponsors love the certainty.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 24: Locked Box Deep Dive -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 2 · Completion Mechanisms</p>
+      <h2 class="card-title">Locked Box — Anatomy</h2>
+      <div class="card-body">
+        <p>In a locked box, the buyer looks at a known, static set of accounts at the "locked box date", validates them through diligence, agrees to pay a fixed equity price at closing, and treats the business as economically theirs from the locked box date.</p>
+        <div class="metric-item">
+          <p class="metric-name">Reference Date Selection</p>
+          <p class="metric-def">Almost always the last audited year-end (31 Dec or 31 Mar). Why audited? Because the buyer relies on the numbers and wants an auditor standing behind them. Occasionally a more recent interim balance sheet is used if the deal drags and the target produces reviewed (not audited) interims.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Diligence Burden on Locked-Box Date</p>
+          <p class="metric-def">The buyer's QoE report must validate the locked box number line by line. Every bridge adjustment (debt, WC, pension) is calibrated <em>as at the locked box date</em>. If cash has drifted £40m between the locked box date and signing, that drift is the seller's (and will be captured as leakage or permitted leakage).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Benefits for the Buyer</p>
+          <p class="metric-def">Price certainty — no post-closing surprise. No litigation risk over completion accounts. Less wasted advisor time. Ability to bid confidently because the headline equity price is known.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Benefits for the Seller</p>
+          <p class="metric-def">A clean exit — the minute closing happens, the cheque hits and there is no hangover. The seller can distribute proceeds to LPs immediately, with no holdback for a true-up. PE sponsors strongly prefer this.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Risks</p>
+          <p class="metric-def">Buyer risks the business deteriorating between locked box and closing (protected only by ordinary-course covenants and MAC clauses). Seller risks underpricing if the business accelerates in the interim (they get the ticker, but not the upside).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 25: Completion Accounts Deep Dive -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 2 · Completion Mechanisms</p>
+      <h2 class="card-title">Completion Accounts — Anatomy</h2>
+      <div class="card-body">
+        <p>In a completion accounts deal, the seller prepares a "draft completion accounts" within 60-90 days after closing, the buyer reviews, disputes, and the true-up is settled — often by an accounting expert if the two sides cannot agree. The whole process can take 3-9 months post-closing.</p>
+        <div class="metric-item">
+          <p class="metric-name">Step 1: Estimated Closing Statement</p>
+          <p class="metric-def">Typically 5 business days before closing, the seller delivers an estimated balance sheet (cash, debt, WC) with an estimated equity price. The buyer pays this estimate at closing.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Step 2: Draft Completion Accounts</p>
+          <p class="metric-def">Within 60-90 days post-closing, the seller (or buyer, depending on who controls the accounts) prepares actual completion accounts on the agreed accounting principles. The delta between estimate and actual is the true-up.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Step 3: Buyer Review</p>
+          <p class="metric-def">The buyer has 30-60 days to review and notify objections. Unobjected items are "deemed agreed". Objections open the dispute process.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Step 4: Dispute Resolution</p>
+          <p class="metric-def">First, good-faith negotiation. Then, if unresolved, an independent accountant (typically a Big 4 partner) is appointed as "Expert" (not arbitrator). The Expert's decision is final and binding, usually delivered within 30 days, not subject to appeal. Very different from arbitration: no right to reasons, no procedural review.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Accounting Principles Hierarchy</p>
+          <p class="metric-def">Order of precedence for how items are measured: (1) Specific Accounting Policies (agreed in SPA schedule); (2) Consistent Past Practice (how the target has historically accounted); (3) IFRS / local GAAP. This hierarchy determines who wins 90% of disputes. Negotiate the first two layers ruthlessly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 26: Locked Box vs CA Trade-Offs -->
+  <div class="beat beat-card comparison-wide">
+    <div class="beat-inner">
+      <p class="part-label">Part 2 · Completion Mechanisms</p>
+      <h2 class="card-title">Locked Box vs. Completion Accounts — The Full Trade-Off</h2>
+      <div class="card-body">
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <p class="comparison-header">Price Certainty</p>
+            <p class="comparison-value">LB: fixed at signing. CA: only known months later.</p>
+          </div>
+          <div class="comparison-col">
+            <p class="comparison-header">Economic Risk Transfer</p>
+            <p class="comparison-value">LB: transfers at reference date (pre-signing). CA: transfers at closing.</p>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <p class="comparison-header">Diligence Quality Required</p>
+            <p class="comparison-value">LB: extremely high (no post-closing adjustment). CA: lighter (real numbers come later).</p>
+          </div>
+          <div class="comparison-col">
+            <p class="comparison-header">Speed</p>
+            <p class="comparison-value">LB: clean, fast closing. CA: 3-9 months of post-closing work.</p>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <p class="comparison-header">Litigation Risk</p>
+            <p class="comparison-value">LB: minimal (leakage only). CA: substantial (true-up disputes).</p>
+          </div>
+          <div class="comparison-col">
+            <p class="comparison-header">Interim Period Control</p>
+            <p class="comparison-value">LB: strict ordinary-course covenants (buyer needs protection). CA: seller runs business normally until closing.</p>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <p class="comparison-header">Sponsor Preference</p>
+            <p class="comparison-value">Strongly LB — clean distribution to LPs, no hangover.</p>
+          </div>
+          <div class="comparison-col">
+            <p class="comparison-header">Strategic Preference</p>
+            <p class="comparison-value">Mixed — CA gives real balance sheet, LB gives certainty.</p>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col">
+            <p class="comparison-header">Carve-Out Preference</p>
+            <p class="comparison-value">Usually CA because separate balance sheet must be built and stressed.</p>
+          </div>
+          <div class="comparison-col">
+            <p class="comparison-header">Distressed / Public Preference</p>
+            <p class="comparison-value">CA — need flexibility to reflect closing-day reality.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 27: Permitted Leakage -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 2 · Completion Mechanisms</p>
+      <h2 class="card-title">Permitted Leakage — The Fine Print</h2>
+      <div class="card-body">
+        <p>The permitted leakage schedule is one of the most important parts of a locked box SPA. Anything on the list is "allowed" leakage and does not reduce price. Anything off the list is a direct claim. Draft this schedule carefully.</p>
+        <ul class="bullet-list">
+          <li><strong>Ordinary course employee compensation:</strong> Base salary, contractual bonuses (not deal bonuses), pension contributions, benefit plans — all at prior-period rates. Any acceleration or uplift is <em>not</em> permitted.</li>
+          <li><strong>Board fees to directors:</strong> At contracted levels, not one-off grants.</li>
+          <li><strong>Sponsor monitoring fees:</strong> Only if ongoing and within the fee agreement cap. Accelerated or double-collected fees are not permitted.</li>
+          <li><strong>Tax payments:</strong> Corporation tax, VAT, payroll tax in the ordinary course.</li>
+          <li><strong>Trade payments to connected suppliers:</strong> Only if at arm's length, below a defined cap, and within normal payment terms.</li>
+          <li><strong>Pre-agreed dividends:</strong> Specific £ amounts, dates, recipients listed explicitly.</li>
+          <li><strong>Transaction expenses:</strong> Only up to a capped amount, and only those listed on Schedule X.</li>
+        </ul>
+        <div class="warning-box">
+          <span class="warning-label">Drafting Trap</span>
+          <p>Never use open-ended language like "any payment in the ordinary course of business consistent with past practice". Sellers will drive a truck through it. Every permitted leakage item should be specific in amount (or formula), timing, and recipient. List them, don't describe them.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 28: Dispute Mechanism -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 2 · Completion Mechanisms</p>
+      <h2 class="card-title">The Expert Determination Process</h2>
+      <div class="card-body">
+        <p>Completion accounts disputes are almost never arbitrated. They go to an <strong>Expert</strong>, typically a Big 4 forensic accounting partner, under "expert determination" — a creature of contract, not statute. This has critical implications.</p>
+        <div class="metric-item">
+          <p class="metric-name">Expert Not Arbitrator</p>
+          <p class="metric-def">An arbitrator conducts a formal process, allows evidence, writes reasoned awards, and the outcome is reviewable in court on limited grounds. An Expert can be informal, often does not give reasons, and the decision is <strong>final and binding</strong> — only set-aside for manifest error or procedural failure. No appeal, no second chance.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Appointment</p>
+          <p class="metric-def">Usually by agreement; if the parties can't agree, by the President of the ICAEW or similar institution. SPAs always name fallback appointers.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Scope Limitation</p>
+          <p class="metric-def">Expert can only decide the specific accounting line items in dispute. Cannot rewrite the commercial bargain, cannot re-open items already agreed, cannot decide on legal questions.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Costs</p>
+          <p class="metric-def">Almost always 50/50 — each side bears own advisor costs plus half the Expert fee. Occasionally loser-pays is written in, but this is unusual.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Timing</p>
+          <p class="metric-def">Expert typically delivers within 30-60 days of appointment. Much faster than arbitration (6-12 months) or litigation (2-4 years). This is the key advantage and the main reason deals use expert determination.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 29: Interim Covenants -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 2 · Completion Mechanisms</p>
+      <h2 class="card-title">Interim Period Covenants — The Quiet Battle</h2>
+      <div class="card-body">
+        <p>Between signing and closing, the buyer doesn't own the business but has taken the economic risk (in a locked box) or the downside risk (in completion accounts). The interim covenants are the buyer's only protection. They are always hotly negotiated.</p>
+        <div class="metric-item">
+          <p class="metric-name">Ordinary Course Covenant</p>
+          <p class="metric-def">"The Company shall operate the business in the ordinary course consistent with past practice." Sounds simple; litigated endlessly. COVID-19 generated hundreds of "ordinary course" disputes — was pandemic response "ordinary"?</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Consent Matters</p>
+          <p class="metric-def">A list of actions requiring buyer's prior consent: material contracts signed or terminated, capex above £X, headcount reductions, dividend declarations, material lawsuits settled, M&amp;A, debt issuance, changes to credit facilities, material accounting policy changes, tax elections, intellectual property transfers. Typically 20-40 line items. Sellers want the thresholds high; buyers want them low.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Information Rights</p>
+          <p class="metric-def">Monthly management accounts, access to books, access to the CFO, attendance at board meetings. Gun-jumping rules limit this in antitrust-sensitive deals — too much information sharing pre-closing can be a competition law breach.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">MAC Clause (Material Adverse Change)</p>
+          <p class="metric-def">The nuclear option. Buyer can walk if a MAC occurs between signing and closing. Notoriously hard to invoke — courts require a <em>durationally significant</em> impact on <em>long-term earning power</em>, not just a temporary hit. Akorn v. Fresenius (2018, Delaware) is the rare case where a buyer successfully terminated on MAC. Everything else has failed.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Specific Performance</p>
+          <p class="metric-def">Most SPAs include a "specific performance" remedy: seller can force the buyer to close, not just sue for damages. This prevents "walking away" from a regretted deal. In the US, this was invoked in many COVID-era deals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 30: Closing Conditions -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 2 · Completion Mechanisms</p>
+      <h2 class="card-title">Conditions Precedent &amp; the Walk Path</h2>
+      <div class="card-body">
+        <p>Every SPA has a list of conditions that must be satisfied before closing. Until they are, the buyer is not obligated to pay. The list is the "walk path" — if any fails, the buyer can lawfully refuse to close.</p>
+        <div class="metric-item">
+          <p class="metric-name">Regulatory Approvals</p>
+          <p class="metric-def">Antitrust clearances (EC, DOJ, CMA, multiple local regulators), FDI filings (US CFIUS, UK NSI, EU FDI), sector-specific (FCA for financial services, Ofcom for telecoms, national security for defence). Each adds 60-180 days.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Third-Party Consents</p>
+          <p class="metric-def">Change of control clauses in key customer contracts, supply agreements, licences, real estate leases, debt covenants. The buyer's DD produces a consent list; counsel drives the collection. Some consents are gating; others are waivable.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Bring-Down of Reps</p>
+          <p class="metric-def">The seller's warranties must still be true at closing (subject to MAC standards). If a rep fails materially, buyer can walk.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">No-MAC Condition</p>
+          <p class="metric-def">No material adverse change between signing and closing. As discussed, nearly impossible to invoke.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Long-Stop Date</p>
+          <p class="metric-def">If CPs not satisfied by, say, 12 months after signing, either party can walk. Long-stop dates are themselves negotiated — seller wants long, buyer wants short, lender covenants often drive it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- PART 3: W&I INSURANCE                                              -->
+  <!-- ================================================================= -->
+
+  <!-- BEAT 31: W&I Intro -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 3 · W&amp;I Insurance</p>
+      <h2 class="card-title">W&amp;I Insurance — The Risk Transfer Machine</h2>
+      <div class="card-body">
+        <p>Warranty and Indemnity (W&amp;I) insurance is an insurance policy that covers breaches of the seller's warranties and tax indemnities in an SPA. It has become market standard in European M&amp;A, especially sponsor deals, and is spreading in the US.</p>
+        <div class="metric-item">
+          <p class="metric-name">The Seller's Dream</p>
+          <p class="metric-def">A clean exit. Once the deal closes, the seller walks away with the cash and has no residual liability to the buyer. All warranty claims go to the insurer, not to the seller. The sponsor can distribute to LPs the day of closing.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">The Buyer's Comfort</p>
+          <p class="metric-def">An insurer (typically AIG, Tokio Marine, Liberty, Chubb, Beazley) backs the reps. Instead of chasing a sponsor through its LPs post-closing, the buyer claims against an A-rated insurer.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Why It Exists</p>
+          <p class="metric-def">Auction dynamics. Sellers run competitive auctions, and any bidder who requires a £100m escrow or sponsor guarantee loses to a bidder who accepts W&amp;I. The market converged on insurance because it is the only structure that lets the seller leave clean while protecting the buyer.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Market Size</p>
+          <p class="metric-def">Global W&amp;I market wrote ~$15-20bn of limits in 2024. Typical policy runs at 10-20% of EV. Europe is ~70% sponsor-led. Pricing has compressed dramatically since 2020 — from 1.5-2% rate-on-line to 0.8-1.2%.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 32: W&I Mechanics -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 3 · W&amp;I Insurance</p>
+      <h2 class="card-title">W&amp;I Policy Mechanics</h2>
+      <div class="card-body">
+        <p>The buy-side W&amp;I policy (most common structure) works as follows:</p>
+        <div class="metric-item">
+          <p class="metric-name">The Insured</p>
+          <p class="metric-def">The <em>buyer</em>, not the seller. Buy-side policy. The buyer has a claim against its own insurer when a warranty breach is discovered.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Limits</p>
+          <p class="metric-def">Usually 10-20% of EV, occasionally as low as 5% for friendly deals and as high as 30% for hairy assets. For a £1bn deal, a typical limit is £150m, often in a tower of multiple insurers (one primary, three or four excess layers).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Retention (the Deductible)</p>
+          <p class="metric-def">The buyer bears the first 0.5-1.0% of EV before the policy responds. For a £1bn deal that's £5-10m. Retention is the insurer's way of ensuring the buyer has skin in the game.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">De Minimis</p>
+          <p class="metric-def">Individual claims below a threshold (usually £50-250k) are ignored entirely — they don't count toward the retention or the aggregate.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Survival Periods</p>
+          <p class="metric-def">General warranties: 18-24 months. Tax warranties: 5-7 years. Fundamental warranties (title, authority): 7-10 years. Policies tier their pricing accordingly — tax cover is the most expensive line.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Premium Structure</p>
+          <p class="metric-def">Single premium paid at closing, typically 0.8-1.5% of the policy limit. For a £150m limit that's £1.2-2.2m plus taxes and broker fees. Who pays? Often split 50/50, sometimes buyer pays all (absorbed into bid), sometimes seller pays all (to make the deal "clean seller").</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 33: W&I Exclusions -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 3 · W&amp;I Insurance</p>
+      <h2 class="card-title">W&amp;I Exclusions — What Is Not Covered</h2>
+      <div class="card-body">
+        <p>Understanding what the policy does <em>not</em> cover is more important than understanding what it does. The exclusions are where buyers get caught short.</p>
+        <div class="metric-item">
+          <p class="metric-name">Known Issues</p>
+          <p class="metric-def">Anything in the data room, the disclosure letter, or the QoE report is <em>known</em> and excluded. The insurer will not pay for anything the buyer knew about. This is why clean disclosure is critical — overly fulsome disclosure reduces cover.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Specific Indemnities &amp; Identified Risks</p>
+          <p class="metric-def">Any item covered by a specific indemnity in the SPA (tax disputes, environmental, pensions) is excluded from W&amp;I. Those risks are "ring-fenced" and must be dealt with via escrow, reduction in price, or specific indemnity.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Forward-Looking &amp; Projections</p>
+          <p class="metric-def">Business plans, forecasts, projections, pipeline statements — all excluded. Policies cover historical facts, not future outcomes.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Criminal Fines &amp; Penalties</p>
+          <p class="metric-def">Always excluded. If a target is hit with a regulatory fine, the fine itself is uninsurable, even if the underlying conduct predates the deal.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Transfer Pricing Historic Positions</p>
+          <p class="metric-def">Almost always excluded for deals with significant cross-border intra-group activity. TP is simply too uncertain and too big for insurers to price.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Bribery, Fraud, Money Laundering</p>
+          <p class="metric-def">Always excluded. FCPA / UK Bribery Act / AML breaches are not insurable.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Product Liability (in some cases)</p>
+          <p class="metric-def">Mass claims, class actions — often excluded or sub-limited, especially for medical devices, pharma, auto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 34: W&I Process -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 3 · W&amp;I Insurance</p>
+      <h2 class="card-title">The W&amp;I Placement Process</h2>
+      <div class="card-body">
+        <p>Buying W&amp;I is a parallel process to the M&amp;A deal itself. It runs alongside the SPA negotiation and the insurer becomes an informal "fourth party" at the table.</p>
+        <div class="metric-item">
+          <p class="metric-name">Broker Selection</p>
+          <p class="metric-def">The buyer appoints a specialist W&amp;I broker (Marsh, Howden, Aon, WTW). Brokers are paid by commission from the insurer, so nominally free to the insured.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">NBI — Non-Binding Indication</p>
+          <p class="metric-def">Broker runs a mini-auction to 5-8 insurers, who quote indicative pricing based on a summary memo and data room access. Comes back in 3-5 business days.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Insurer Selection</p>
+          <p class="metric-def">The buyer picks the winning insurer (best price + coverage) and grants exclusivity for the underwriting phase.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Underwriting Call</p>
+          <p class="metric-def">The insurer grills the buyer's DD team (and sometimes management) for 2-4 hours on each workstream: legal, tax, commercial, financial, IT, HR. The insurer wants to know the DD is solid — if it isn't, the policy has bigger exclusions.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Final Terms &amp; Policy Draft</p>
+          <p class="metric-def">Insurer marks up the SPA warranties and delivers a "Warranty Spreadsheet" — column by column, each warranty marked Covered / Partial / Excluded. Buyer then knows exactly what is insured.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Binding &amp; Premium Payment</p>
+          <p class="metric-def">Policy is bound on SPA signing. Premium is paid at closing. Policy goes live at closing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 35: Stapled & Synthetic -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 3 · W&amp;I Insurance</p>
+      <h2 class="card-title">Stapled W&amp;I, Flips, &amp; Synthetic Warranties</h2>
+      <div class="card-body">
+        <p>The vanilla buy-side W&amp;I placement is the default, but sellers have developed more sophisticated structures to control the insurance economics and speed.</p>
+        <div class="metric-item">
+          <p class="metric-name">Stapled W&amp;I</p>
+          <p class="metric-def">The seller runs the W&amp;I process pre-auction and "staples" a term sheet to the bid package. Bidders take the staple or negotiate their own. Stapling speeds up the process and locks in better seller-friendly terms (tighter definitions, lower retention).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Seller-to-Buyer Flip</p>
+          <p class="metric-def">The seller's advisors start the placement with the seller as the insured. Once a buyer is selected, the policy "flips" to the buyer. Gives the seller control over insurer selection but the buyer holds the ultimate claim. Most common mechanism for stapled deals.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Synthetic W&amp;I</p>
+          <p class="metric-def">For deals where the seller refuses to give <em>any</em> warranties (distressed, pre-pack, certain sovereign deals), the insurer provides a "synthetic" warranty policy — the insurer writes the warranties itself into the policy, referencing the SPA. The buyer has no seller to chase but has a direct insurer policy. Pricing is 2-3x vanilla because the insurer has no warranty collateral.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Title Insurance</p>
+          <p class="metric-def">For real estate heavy deals, a separate title insurance policy covers title defects in specific properties. Not W&amp;I per se, but sits alongside it in the same cover stack.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Tax Opinion Insurance</p>
+          <p class="metric-def">Covers a specific tax position (e.g. reliance on a transfer pricing opinion) where the exposure is large enough to justify a dedicated policy. Rapidly growing market since 2020.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 36: W&I Claims -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 3 · W&amp;I Insurance</p>
+      <h2 class="card-title">W&amp;I Claims &amp; the Realist View</h2>
+      <div class="card-body">
+        <p>How often do W&amp;I claims actually pay? The answer is both more and less reassuring than you'd expect.</p>
+        <div class="metric-item">
+          <p class="metric-name">Claims Frequency</p>
+          <p class="metric-def">About 15-20% of policies experience at least one notified claim. That's higher than most people expect. Of those, maybe half result in some payment.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Typical Claim Types</p>
+          <p class="metric-def">(1) Tax warranties: c.25% of claims — historical tax positions challenged post-closing. (2) Financial statements: c.20% — accounting errors, undisclosed liabilities. (3) Material contracts: c.15% — change of control triggers, pricing rebate obligations. (4) IP: c.10% — infringement claims from third parties. (5) Environmental: c.10%.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Claim Size Distribution</p>
+          <p class="metric-def">Power law distribution: most claims are small (below retention), a few are large (breach the policy limit). Insurers price to the expected loss plus margin.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Claims Process</p>
+          <p class="metric-def">Buyer notifies the insurer within the notification period (usually within 30 days of discovering a breach). Insurer appoints lawyers to assess validity. Negotiation; sometimes litigation. Insurers are <strong>not</strong> pushovers — they defend claims the same as any P&amp;C insurer.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">The Realistic Caveat</p>
+          <p class="metric-def">W&amp;I is insurance, not indemnity. Insurers challenge claims, invoke exclusions, demand extensive proof. Don't treat W&amp;I as a free pass to skip diligence. If the DD missed something material, the insurer will argue the buyer should have caught it, and the claim may fail.</p>
+        </div>
+        <div class="warning-box">
+          <span class="warning-label">Sponsor Wisdom</span>
+          <p>Experienced sponsors say: "We price our bids assuming W&amp;I pays nothing." That is the right posture. The policy is a back-stop; your primary protection is still the SPA, the disclosure letter, and the quality of your diligence.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- PART 4: ADVISOR FEES                                              -->
+  <!-- ================================================================= -->
+
+  <!-- BEAT 37: Advisor Fees Intro -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 4 · Advisor Fees</p>
+      <h2 class="card-title">Advisor Fees — The Whole Ecosystem</h2>
+      <div class="card-body">
+        <p>A £1bn deal will carry £30-50m of advisor fees across all workstreams. Understanding where that money goes — and how each advisor is incentivised — is essential to running the process.</p>
+        <div class="metric-item">
+          <p class="metric-name">Sell-Side M&amp;A Advisor</p>
+          <p class="metric-def">Typically 0.8-1.5% of EV at the top of the sponsor market, tapering to 0.5-0.8% for larger deals. Bulge bracket fees on a £1bn sell-side: £8-12m. Structured as a success fee only (no retainer typically on sponsor deals).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Buy-Side M&amp;A Advisor</p>
+          <p class="metric-def">Lower than sell-side — 0.3-0.6% of EV — because the sell-side runs the process. Often combined with a retainer (£100-300k) that gets credited against the success fee.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Legal (Corporate)</p>
+          <p class="metric-def">Time and materials, usually capped at an agreed maximum. £3-8m for a £1bn deal across corporate, tax, finance, competition, IP, employment. Partners at £1,200-1,800/hr, associates at £400-800/hr.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Accountants (Big 4 TS)</p>
+          <p class="metric-def">QoE report £0.5-1.5m, tax DD £0.3-0.8m, commercial DD often outsourced to a specialist. Fees are fixed-fee per workstream with scope overruns billed hourly.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Commercial DD / Strategy Consultants</p>
+          <p class="metric-def">£0.5-2m for a commercial DD report from Bain, BCG, McKinsey, OC&amp;C, LEK. Fast, intense, 4-6 week engagements. These are the reports buyers actually read cover to cover.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Environmental &amp; Insurance</p>
+          <p class="metric-def">£100-400k for enviro DD. W&amp;I placement fee already captured in broker commission (no charge to insured).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Debt Arranger Fees</p>
+          <p class="metric-def">1.5-3.0% of underwritten debt. On £500m of debt that's £7.5-15m to the banks. This is the single biggest advisor fee bucket on a sponsor LBO.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 38: Sell-Side Fee Structures -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 4 · Advisor Fees</p>
+      <h2 class="card-title">Sell-Side M&amp;A Fee Structures</h2>
+      <div class="card-body">
+        <p>The sell-side success fee is the central economic agreement between the banker and the client. The structure matters enormously.</p>
+        <div class="metric-item">
+          <p class="metric-name">Flat Percentage of EV</p>
+          <p class="metric-def">Simplest: x% of EV at close. Easy to compute, aligns banker with maximising headline price. Common on strategic sell-sides.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Tiered / Laddered Fee</p>
+          <p class="metric-def">Higher percentage above a threshold. E.g. 0.5% on first £800m + 2% on anything above £800m. Powerfully incentivises the banker to push price above the threshold. Common on sponsor sell-sides where the sponsor wants the banker working for that last turn of EBITDA.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Lehman Formula (Legacy)</p>
+          <p class="metric-def">5% on first $1m, 4% on next $1m, 3% on next $1m, 2% on next $1m, 1% on anything above. Invented by Lehman Brothers in the 1960s for mid-market deals. Now rare for deals above $50m but still used in smaller transactions and as a reference point.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Modified Lehman / Double Lehman</p>
+          <p class="metric-def">Same idea but 2x the rates — 10%, 8%, 6%, 4%, 2% — applied to smaller brackets. Still floating around lower-middle-market work.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Incentive Fee on Upside</p>
+          <p class="metric-def">"Base fee of £X million plus Y% of any price above £Z million". Powerfully aligns the banker with the client's reach price. The cleanest way to align incentives on a process where the seller has a clear minimum.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Retainer &amp; Work-In-Progress Fees</p>
+          <p class="metric-def">£50-200k monthly on strategic sell-sides (rarely on sponsor deals). Credited against success fee at close. Covers advisor costs if the deal fails.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 39: Fee Agreements - Tail & Abort -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 4 · Advisor Fees</p>
+      <h2 class="card-title">Tail Periods, Abort Fees &amp; Exclusivity</h2>
+      <div class="card-body">
+        <p>The engagement letter has several clauses that junior bankers ignore and seniors fight viciously over. Every one shifts significant money.</p>
+        <div class="metric-item">
+          <p class="metric-name">Tail Period</p>
+          <p class="metric-def">After termination, the banker is entitled to a fee if the client transacts with any party on a named "tail list" — typically buyers the banker introduced — within 12-24 months. Without a tail, the client could fire the banker on signing and keep the fee. With a tail, the banker gets paid on introduced buyers even if another banker closes the deal.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Tail List</p>
+          <p class="metric-def">At termination, the banker delivers a list of buyers they introduced. Any transaction with a name on the list triggers the fee. Negotiating the list is painful — some names are obvious (buyers who signed NDAs), others contested (buyers the banker met but didn't formally introduce).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Abort Fee / Break-Up Fee</p>
+          <p class="metric-def">If the deal aborts after significant work, some sell-side mandates provide for a reduced fee (say, £500k to £2m) to compensate the banker. Common on strategic mandates, rare on sponsor mandates where sponsors argue "no deal, no fee".</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Exclusivity</p>
+          <p class="metric-def">The seller commits to using one banker exclusively for 12-24 months on the specific asset. Breach triggers a fee obligation. Sellers resist; bankers insist (otherwise their work is public goods).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Expense Cap</p>
+          <p class="metric-def">Banker expenses (travel, outside counsel, data rooms, databases) are billed at cost, subject to a cap (say £250-500k). Above the cap requires client approval. This is a mundane but frequent fight — bankers want open expense accounts, clients want discipline.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Indemnification</p>
+          <p class="metric-def">The client indemnifies the banker for any third-party claims arising from the engagement (except banker's gross negligence or fraud). Standard.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 40: Debt Arranger Fees -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 4 · Advisor Fees</p>
+      <h2 class="card-title">Debt Arranger &amp; Underwriting Fees</h2>
+      <div class="card-body">
+        <p>On a sponsor LBO, the debt arranger fees are the biggest single fee bucket, larger than M&amp;A advisory. Understanding them is critical.</p>
+        <div class="metric-item">
+          <p class="metric-name">Underwriting Fee</p>
+          <p class="metric-def">Paid by the borrower to the banks that commit to underwrite the debt at a fixed price before syndication. Typically 1.5-3.0% of the committed debt. On £500m of debt: £7.5-15m. This is the fee that pays for the banks to "take the risk" of selling the paper.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Arrangement / Structuring Fee</p>
+          <p class="metric-def">A portion of the underwriting fee labelled as "structuring" — for the bank that leads the structuring. Typically 50-75 bps of the debt. Goes to the MLA (Mandated Lead Arranger).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Original Issue Discount (OID)</p>
+          <p class="metric-def">When a loan is priced at 99 instead of 100, that 1 point is effectively additional compensation to the lenders. Common on TLBs sold into CLO markets. The OID is not a fee per se, but it is cash the borrower does not receive from the facility.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Commitment Fee</p>
+          <p class="metric-def">Paid to the banks for holding undrawn capacity under an RCF (revolving credit facility). Typically 25-50 bps per annum on undrawn amounts. Small but ongoing.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Agency Fee</p>
+          <p class="metric-def">Paid annually to the administrative agent bank for running the loan — tracking drawdowns, coordinating interest payments, handling waivers. £75-300k per year. Small.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Market Flex</p>
+          <p class="metric-def">Not a fee, but critical: the underwriting banks reserve the right to "flex" the pricing up (margin, OID) or "flex" the structure (add lien, reduce size) if the market won't absorb the paper at the agreed terms. Flex is the banks' escape hatch. Negotiated tightly by sponsors. Usually capped at +100-150 bps margin and +100 bps OID.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 41: Fee Horse Trading -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 4 · Advisor Fees</p>
+      <h2 class="card-title">Advisor Fees — The Real Negotiation Dynamics</h2>
+      <div class="card-body">
+        <p>Fee negotiations are their own little mini-deal. The published "market rates" are starting points, not end points. Here is what actually moves.</p>
+        <div class="metric-item">
+          <p class="metric-name">Repeat Business Discount</p>
+          <p class="metric-def">Sponsors doing 3-5 deals a year with the same bank get a 10-20% discount on headline fees in exchange for loyalty. Bankers hate it publicly but grant it privately.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Pool / Relationship Fee</p>
+          <p class="metric-def">Large sponsors allocate a pool of "relationship fees" across the ecosystem — $10-30m a year — paid to banks for non-specific relationship value even on deals where the bank didn't work. This is the political economy of the PE-bank relationship.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Staple Financing</p>
+          <p class="metric-def">The sell-side advisor offers "staple financing" — a debt package stapled to the sale — so bidders know the leverage level available. The staple generates a second fee stream (the debt arranging fee) for the same bank that is running the sale. Potential conflict of interest, always disclosed, often accepted because the convenience is worth it.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Cross-Sell Pressure</p>
+          <p class="metric-def">A bank that won the M&amp;A mandate aggressively pitches the buyer for the debt mandate. Winning both is called a "double dip" and is worth 2x the fees. Watch this dynamic closely — it can create advisor misalignment.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Fairness Opinions</p>
+          <p class="metric-def">Separate workstream — a bank provides a formal opinion that the price is "fair from a financial point of view". Fee is typically £500k-2m, often provided by a different bank from the lead M&amp;A advisor to avoid conflicts. Required for public boards, not for private PE deals.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Cost Allocation in Groups</p>
+          <p class="metric-def">In a group holding structure, fees paid at holdco are sometimes pushed down to the target via a management services agreement — so the target bears them pre-closing, which becomes a debt-like item in the bridge. Watch this: advisors' own fees can silently shift into the bridge.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- PART 5: FUNDS FLOW                                                -->
+  <!-- ================================================================= -->
+
+  <!-- BEAT 42: Funds Flow Intro -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 5 · Funds Flow</p>
+      <h2 class="card-title">Funds Flow — The Plumbing of Closing</h2>
+      <div class="card-body">
+        <p>On closing day, tens (sometimes hundreds) of wires fire in a choreographed sequence. A single wrong account number delays the whole deal. The funds flow memo is the master script that tells every party where their money comes from and where it is going.</p>
+        <div class="metric-item">
+          <p class="metric-name">What the Funds Flow Captures</p>
+          <p class="metric-def">Every cash movement on closing: equity contribution from sponsor, debt drawdown from arranger, purchase price to seller, refinancing of old debt, break fees, advisor fees, retention payments, escrow funding. Each wire is listed: amount, sender, receiver, bank, SWIFT, reference.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Ownership</p>
+          <p class="metric-def">The buyer's lawyer typically owns the memo, but all parties contribute. Final sign-off by 10 parties: buyer, seller, debt agent, escrow agent, advisors on both sides.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">When Is It Finalised</p>
+          <p class="metric-def">Week before closing: draft circulated. 48 hours before closing: final numbers locked. Closing day: reconciled in real time against actual wire confirmations.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Currency of Payment</p>
+          <p class="metric-def">Usually the deal currency (GBP, EUR, USD). Cross-border deals may involve FX conversion at the closing. Who bears FX risk between signing and closing? Always negotiated — usually the buyer, since they are making the payment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 43: Funds Flow Anatomy -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 5 · Funds Flow</p>
+      <h2 class="card-title">A Typical LBO Funds Flow — Line by Line</h2>
+      <div class="card-body">
+        <p>Consider a simple £1bn LBO: sponsor equity £400m, debt £600m, refinancing £200m existing debt, £10m advisor fees.</p>
+        <div class="formula-box">
+          <span class="formula-label">Sources (Inflows)</span>
+          1. Sponsor Equity Contribution&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 400.0<br>
+          2. TLB Drawdown (net of OID)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 594.0<br>
+          3. RCF Drawdown (for WC)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.0<br>
+          4. Target Cash at Close&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 25.0<br>
+          &nbsp;&nbsp;&nbsp;Total Sources&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1,029.0</strong>
+        </div>
+        <div class="formula-box">
+          <span class="formula-label">Uses (Outflows)</span>
+          1. Equity price to Seller&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 820.0<br>
+          2. Refinance existing debt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200.0<br>
+          3. Break fees on existing debt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0<br>
+          4. Sell-side M&amp;A fee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.0 (borne by seller → net of equity)<br>
+          5. Buy-side M&amp;A fee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0<br>
+          6. Debt arranger fee (OID+commitment) 9.0<br>
+          7. Legal &amp; advisor costs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.0<br>
+          8. Escrow holdback (tax / price)&nbsp;&nbsp;&nbsp; 25.0<br>
+          9. W&amp;I premium&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.5<br>
+          10. Management rollover&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -30.0 (sponsor receives rollover = no cash)<br>
+          11. Misc (stamp duty, filings)&nbsp;&nbsp;&nbsp;&nbsp; 0.5<br>
+          &nbsp;&nbsp;&nbsp;Total Uses&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1,045.0</strong>
+        </div>
+        <p>The two totals must reconcile (within rounding). Any gap is closed by adjusting the RCF drawdown or a final "closing cash top-up" to balance.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 44: Paying Agent & Escrow -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 5 · Funds Flow</p>
+      <h2 class="card-title">Paying Agents, Escrow &amp; Custodians</h2>
+      <div class="card-body">
+        <p>Rarely are funds wired directly from buyer to every individual recipient. Intermediary agents sit in the middle to de-risk the closing.</p>
+        <div class="metric-item">
+          <p class="metric-name">Paying Agent</p>
+          <p class="metric-def">A bank or trust company (Computershare, Equiniti, BNY Mellon, Wilmington Trust) that receives the purchase price from the buyer, then distributes it to the sellers. Essential when there are multiple sellers (e.g. a public takeover, a roll-up exit, or a fund with many LPs getting distributions). The buyer pays once; the paying agent handles dozens or hundreds of onward wires.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Escrow Agent</p>
+          <p class="metric-def">A separate account at a neutral bank that holds a portion of the price (typically 5-10%) for a fixed period post-closing, against specific indemnity claims, working capital true-up, or tax exposures. Released on schedule or on claim resolution. Controlled by a joint instruction from buyer and seller.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Funding Source Verification</p>
+          <p class="metric-def">Before closing, the seller's lawyer verifies the buyer's funding — an "equity commitment letter" from the sponsor and a "debt commitment letter" from the banks. No funding letters → no closing.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Wire Cut-Off Times</p>
+          <p class="metric-def">SWIFT/CHAPS/Fedwire have cut-off times (typically 3-4pm local). Miss the cut-off and the wire is delayed to the next business day, blowing the closing schedule. Large deals time their closings carefully to sit within a single time zone where possible.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Confirmation Protocol</p>
+          <p class="metric-def">Each wire is confirmed in real time: sender sees the outgoing wire, receiver confirms receipt, lawyers tick the line on the master memo. Only once all lines are ticked is the deal "closed". Closings typically take 2-6 hours of continuous wire coordination.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 45: Closing Day Choreography -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 5 · Funds Flow</p>
+      <h2 class="card-title">Closing Day — Hour by Hour</h2>
+      <div class="card-body">
+        <p>What actually happens on closing day? The deal team has a run-book that specifies the minute-by-minute sequence.</p>
+        <div class="metric-item">
+          <p class="metric-name">T-24 Hours: Pre-Close Checklist</p>
+          <p class="metric-def">All CPs confirmed satisfied. Funds flow memo finalised. Wire instructions verified with each recipient. Escrow accounts open. Paying agent briefed. Board approvals in place. Reg clearance copies on file.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">T-4 Hours: Morning Call</p>
+          <p class="metric-def">Full call with buyer, seller, all advisors. Walk through the run-book. Confirm each line of the funds flow. Confirm escrow amounts. Identify last-minute issues (rare but not unknown).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">T-2 Hours: Debt Drawdown</p>
+          <p class="metric-def">Debt drawdown notices filed with administrative agent. Lenders deliver funds to the borrower's account. This is often the <em>first</em> wire of the day — debt must be available before equity and advisor fees can flow.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">T-1 Hour: Equity Wire &amp; Purchase Price</p>
+          <p class="metric-def">Sponsor wires equity into the acquisition vehicle. Buyer's vehicle wires purchase price to the paying agent (for distribution to sellers) or directly to the seller. Purchase price wire is the moment title transfers.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Close: Signing Book Release</p>
+          <p class="metric-def">Once all wires confirmed, lawyers release the signing book (final executed documents). Deal is legally closed. Stamp duty filings go out. Regulatory notifications filed.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">T+1: Post-Close Reconciliation</p>
+          <p class="metric-def">Next morning: reconcile all actual wires against the memo. Identify any shortages or overages. Bill any residual advisor costs. Issue press release (if public). The deal is "closed" for the party but the advisors work another 30-60 days on post-closing items.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 46: Funds Flow Horror Stories -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 5 · Funds Flow</p>
+      <h2 class="card-title">When Funds Flow Goes Wrong</h2>
+      <div class="card-body">
+        <p>Funds flow is mostly boring plumbing. Until it isn't. Here are the classic failures — all real, all have actually happened on large deals.</p>
+        <ul class="bullet-list">
+          <li><strong>Wire reversals:</strong> A buyer's bank reverses a wire an hour after it lands because of an internal compliance flag. Deal "closes" and then "unclosers" at 4:45pm. Lawyers scramble to reverse the legal completion before the trading day ends.</li>
+          <li><strong>Wrong account number:</strong> A zero omitted on the paying agent account. £800m wired to the wrong account. Recovery takes 3 days. Interest on the gap is contested.</li>
+          <li><strong>Counterparty sanctions flag:</strong> Last-minute sanctions screening hits a seller entity name that matches an OFAC list. Bank pauses all wires. Takes 6 hours and three compliance calls to clear.</li>
+          <li><strong>Debt funding gap:</strong> One of the five banks in the debt syndicate has an internal delay — their £100m commitment doesn't hit the facility agent account. Other banks can't cover the gap without credit approval. Closing slips by 24 hours while the bank sorts its pipes.</li>
+          <li><strong>Seller disagreement on allocation:</strong> In a multi-seller deal, the sellers discover at the last moment that the paying agent's allocation formula misinterprets a minority dividend. Allocation dispute between sellers delays their own distributions. Buyer already funded — their cheque sits in the paying agent.</li>
+          <li><strong>Stamp duty calculation error:</strong> UK stamp duty on share transfers is 0.5%. On £1bn that's £5m — payable to HMRC on closing. An error in the calculation (applied to EV instead of equity) triggers a £5m shortfall. Closing pauses until the missing amount is found.</li>
+          <li><strong>Escrow agent out-of-office:</strong> The escrow agent's signatory is on holiday when the joint instructions arrive. Wire cannot be released. A senior partner at the law firm calls the agent bank's CEO.</li>
+          <li><strong>FX rate mismatch:</strong> Deal priced in EUR, buyer sponsor fund in USD. FX conversion rate on closing day is 0.3% different from the assumed rate in the funds flow. £3m gap on a €1bn deal. Filled from the buyer's operating cash.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- PART 6: CLASSIC PLAYBOOK TRICKS                                   -->
+  <!-- ================================================================= -->
+
+  <!-- BEAT 47: Playbook Intro -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 6 · Playbook Tricks</p>
+      <h2 class="card-title">The Playbook — Moves That Shift Real Money</h2>
+      <div class="card-body">
+        <p>After all the formal mechanics, every senior banker has a playbook of tactical moves that can shift tens or hundreds of millions in value from one side of the table to the other, usually without looking like an aggressive trade. These are the "dark arts" that differentiate MDs from VPs.</p>
+        <p>None of these are shady or illegal — they are simply sophisticated interpretations of grey areas that sit within the letter of the deal documents. A sharp counterparty will spot them; a junior analyst will miss them. Know them so you can either deploy them or defend against them.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 48: EBITDA Adjustments Playbook -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 6 · Playbook Tricks</p>
+      <h2 class="card-title">EBITDA Add-Backs — The Multiplier Move</h2>
+      <div class="card-body">
+        <p>The single biggest value lever in any deal. On a 10x multiple, every £1m of "adjusted EBITDA" is worth £10m of EV. Every seller's QoE presents "run-rate EBITDA" with aggressive add-backs.</p>
+        <div class="metric-item">
+          <p class="metric-name">Synergies Claimed as Run-Rate</p>
+          <p class="metric-def">"We announced a cost saving programme in Q2 that will save £8m annually. We've only delivered £2m so far, but we're adding back the £6m to show run-rate." Valid if executed; speculative if planned. Buyers should demand milestones and discount heavily.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">"Non-Recurring" That Keeps Recurring</p>
+          <p class="metric-def">Restructuring charges that have appeared every year for five years are not non-recurring. Legal fees from "unusual" litigation that happens every year. Inventory write-downs from a "one-off" SKU rationalisation that reappears annually. Buyers should look at the prior-period QoEs — the same add-backs often recur.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Management Fees</p>
+          <p class="metric-def">Sponsor-backed targets often pay a 1-2% management fee to the sponsor. When sold, the seller adds this back as "discontinued". If the new buyer is also a sponsor charging 1-2%, the add-back is illusory. Strategic buyers legitimately eliminate it.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">CEO "Transition" Costs</p>
+          <p class="metric-def">Double CEO salaries during a handover. Golden hellos. Onboarding costs. All added back as "unusual". Cumulatively £3-5m.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Run-Rate on Recent Acquisitions</p>
+          <p class="metric-def">A target that bought a company 5 months ago presents EBITDA as if that acquisition had been owned for 12 months. Valid — but needs the acquired company's actuals, not the vendor's marketing materials.</p>
+        </div>
+        <div class="warning-box">
+          <span class="warning-label">The Playbook Defence</span>
+          <p>The buyer's QoE report produces an "Adjusted EBITDA Bridge" — starting from reported EBITDA and showing every add-back with pressure tests. Any add-back surviving the QoE is credible; anything cut by the QoE doesn't belong in the bid. Aggressive buyers haircut all of it by 30-50% even if the QoE accepts it, because negotiation will land somewhere in between anyway.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 49: Multiple Timing Tricks -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 6 · Playbook Tricks</p>
+      <h2 class="card-title">EBITDA Period Selection &amp; Timing</h2>
+      <div class="card-body">
+        <p>"10 times EBITDA" sounds simple. "EBITDA of what period?" is the £200m question.</p>
+        <div class="metric-item">
+          <p class="metric-name">LTM vs. Run-Rate</p>
+          <p class="metric-def">LTM (Last Twelve Months) is historical. Run-Rate = annualised last quarter × 4. In a growth business, run-rate is 10-20% higher. Sellers insist on run-rate; buyers insist on LTM. A hybrid "weighted LTM" is often the compromise.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Budget (NTM) vs. LTM</p>
+          <p class="metric-def">If the bid is "10x FY+1 budget", the seller's forecast is the multiple base. That forecast can be aggressively set. Buyers demand discounts (15-25%) against a forecast-based multiple.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Trailing to Signing vs. Trailing to Closing</p>
+          <p class="metric-def">LTM "to the reference date" is one number. LTM "to closing day" is a different (usually higher) number. The SPA must specify. A 5-month gap between signing and closing can move EBITDA by 5-10%.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Adjusted EBITDA Clauses</p>
+          <p class="metric-def">The SPA often defines "Reference EBITDA" = LTM EBITDA adjusted for agreed one-offs, as listed on Schedule X. Schedule X becomes its own negotiation. Items not on Schedule X are out. Items on Schedule X are in. Draft it line by line.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Seasonality</p>
+          <p class="metric-def">For seasonal businesses (retail, agri, travel), signing in a peak month inflates LTM; signing in a trough deflates it. Best practice: use rolling 12-month EBITDA at the same seasonal point year over year.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 50: Warranty Disclosure Playbook -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 6 · Playbook Tricks</p>
+      <h2 class="card-title">Disclosure Tactics &amp; Warranty Games</h2>
+      <div class="card-body">
+        <p>The disclosure letter is the seller's best friend. Everything disclosed is out of warranty. The art is what to disclose and how.</p>
+        <div class="metric-item">
+          <p class="metric-name">Data Room Disclosure</p>
+          <p class="metric-def">In most SPAs, the entire data room is "deemed disclosed". Dumping 50,000 documents into the room means the buyer cannot claim surprise about anything in there. Aggressive sellers dump everything — known issues buried in sub-folder 47 are still "disclosed".</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Fair Disclosure Standard</p>
+          <p class="metric-def">Buyers negotiate a "fair disclosure" standard: disclosure only counts if it was prominent, specific, and fair enough that a reasonable buyer would understand the risk. UK default: fair disclosure. US default: data room deemed disclosed. Big difference in litigation outcomes.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">General Disclosures</p>
+          <p class="metric-def">The disclosure letter contains "general disclosures" — things always excluded from warranty (e.g. "all facts in publicly-filed accounts", "all matters in the Company's regulatory filings"). Sellers push to expand this list.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Specific Disclosures</p>
+          <p class="metric-def">Line-by-line disclosures against each warranty. "Warranty 4.3 — tax. Disclosure: the Company has an ongoing dispute with HMRC regarding the 2022 tax year, quantum £3m." Specific disclosures block that particular warranty claim.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Knowledge Qualifiers</p>
+          <p class="metric-def">"To the knowledge of the Sellers" — a warranty qualified by knowledge. Whose knowledge? Defined as "the actual knowledge of the CEO, CFO, COO, and GC after reasonable enquiry". The definition of "reasonable enquiry" is another negotiation. Broad knowledge qualifiers protect sellers, narrow ones protect buyers.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Disclosure Letter as a Sword</p>
+          <p class="metric-def">Sometimes sellers disclose items they don't need to — as a way of signalling "you knew about this" even if not legally required. The buyer then cannot invoke W&amp;I on that item because it is "known". Sophisticated move.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 51: Structural Tricks -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="part-label">Part 6 · Playbook Tricks</p>
+      <h2 class="card-title">Classic Structural Tricks</h2>
+      <div class="card-body">
+        <p>Finally, a catalogue of structural tricks that experienced dealmakers use to tilt economics — and that juniors need to recognise when the other side deploys them.</p>
+        <div class="metric-item">
+          <p class="metric-name">Pre-Closing Dividend / Leakage Permission</p>
+          <p class="metric-def">Seller negotiates a "permitted dividend" of, say, £50m before closing. Technically a capital return; economically a price increase disguised as a routine distribution. Buyers should treat it as a top-up to the equity price.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Management Rollover Value</p>
+          <p class="metric-def">Seller insists management rolls over at fair value × 1.0. Buyer wants a sweet equity price × 0.7 (a 30% discount to new money, because the rollover is illiquid and subordinated). 30% × £50m rollover = £15m of value, quietly captured by the buyer (or protected by the seller).</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Deal Cost Allocation</p>
+          <p class="metric-def">Who pays for what advisor? Seller pays for VDD, buyer pays for buyer DD. Middle ground: seller pays, buyer inherits the reports ("reliance letter" from each advisor). A reliance letter is worth £200-500k in advisor cost savings. Who gets the benefit? Usually sneakily built into the deal without anyone noticing.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Earn-Out Definition</p>
+          <p class="metric-def">Earn-outs are paid based on future performance. The definition of "performance" is gameable: seller wants an EBITDA definition that includes all revenues, buyer wants exclusions (new products, M&amp;A, synergies). Typical earn-outs pay 50-70% of their maximum because the definition always tilts toward the buyer post-closing.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Reverse Termination Fees</p>
+          <p class="metric-def">If the buyer walks after signing (e.g. regulatory failure, financing failure), they pay a "reverse termination fee" of 3-7% of EV. This is the seller's compensation for taking the deal off the market. Sellers push for bigger fees; buyers for smaller and more specific triggers.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">The "Quiet" Re-Pricing</p>
+          <p class="metric-def">After exclusivity, a buyer might discover a £20m issue in DD. Rather than re-open price, they push for a specific indemnity outside the bridge, a higher escrow, or a reduced management rollover value. Each move shifts £20m without touching the headline price. The headline stays intact in the press release; the economics are the same.</p>
+        </div>
+        <div class="metric-item">
+          <p class="metric-name">Quality of Disclosure Schedule Game</p>
+          <p class="metric-def">The seller's disclosure schedule omits items that feel "too small to bother with". If each omission is £500k but there are 20 of them, the buyer has quietly inherited £10m of warranty risk. Pressure-test every disclosure schedule against the DD report.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 52: Scene — The Signing Room -->
+  <div class="beat beat-scene">
+    <div class="beat-inner">
+      <p class="scene-location">Law Firm Meeting Room, Canary Wharf — 11:47 PM, Signing Night</p>
+      <div class="scene-text">
+        <p>Twelve hours into the final drafting session. Three associates pass cold coffee around the long table. The buyer's lead lawyer is reading out a red-lined version of the leakage schedule while the seller's lawyer follows in silence. The M&amp;A banker for the sponsor leans back, arms folded, waiting for the one number that still matters.</p>
+        <p>"Permitted leakage item 14," says the buyer's lawyer. "Management monitoring fee payable to the sponsor for the period 1 January to closing. Amount: one-point-five million." She looks across at the seller's lawyer. <strong>"We agreed at last night's call this would be capped at one million."</strong></p>
+        <p>The seller's lawyer consults his notes. "Respectfully, we agreed one-point-five. The sponsor's fee agreement accrues monthly and there have been two additional board meetings."</p>
+        <p>The banker leans forward. <strong>"Half a million,"</strong> he says quietly. "Split it."</p>
+        <p>Both lawyers look at him. "What do you mean, split it?"</p>
+        <p>"One-point-two-five. We meet in the middle. But in exchange, you drop the 'gross-up' on the UTP indemnity. That's worth five to you on the contingency and we save the headline leakage number. Everyone walks away with their win for the file note."</p>
+        <p>The seller's lead banker — on a video link from Frankfurt — chuckles. <strong>"He's right. Let's do it."</strong> The lawyers nod, mark up the schedules, and move to item 15. The entire exchange took ninety seconds. Quietly, £250k has moved from buyer to seller on paper, and £5m of uncertain tax exposure has moved off the seller. The real economics of the deal just shifted by more than the visible number. The room goes quiet again as item 15 is read out.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEAT 53: Finale -->
+  <div class="beat beat-card">
+    <div class="beat-inner">
+      <p class="card-label">Summary</p>
+      <h2 class="card-title">The LBO Mechanics Special: Key Takeaways</h2>
+      <div class="card-body">
+        <ul class="bullet-list">
+          <li><strong>The EV-Equity Bridge Is Everything:</strong> Every bid is made in EV and every cheque is in equity. The bridge is the set of adjustments that gets you from one to the other. Debt, cash, debt-like, cash-like, WC peg, minorities, tax, ticker, leakage — all negotiated line by line.</li>
+          <li><strong>Locked Box vs. Completion Accounts:</strong> Two fundamentally different mechanics. Locked box fixes price at signing on a historical reference date and uses a ticker; completion accounts fix price at closing with a post-close true-up. Sponsors love locked box for the clean exit.</li>
+          <li><strong>The Ticker Compensates Seller for Time:</strong> Typical rate 4-8% per annum, applied to equity price, from locked box date to closing. On a large deal this is tens of millions of pounds and is worth fighting over.</li>
+          <li><strong>W&amp;I Insurance Is the Modern Default:</strong> Transfers warranty risk from seller to insurer. Typical limit 10-20% of EV, retention 0.5-1%, premium 0.8-1.5%. Known issues and specific indemnities are excluded — W&amp;I is no substitute for diligence.</li>
+          <li><strong>Advisor Fees Add Up to £30-50m on a £1bn Deal:</strong> Understand each layer — sell-side, buy-side, legal, TS, commercial DD, debt arranger — and the horse-trading dynamics (tail periods, exclusivity, cross-selling, staple financing).</li>
+          <li><strong>Funds Flow Is the Closing Run-Book:</strong> Dozens of wires choreographed into a single day. Paying agents, escrow agents, debt agents all coordinate. A single error can delay closing by 24 hours.</li>
+          <li><strong>The Playbook Moves Real Money:</strong> EBITDA add-backs, period selection, disclosure tactics, earn-out definitions, pre-closing dividends, rollover values. Each of these shifts millions without touching the headline number.</li>
+          <li><strong>The Final Lesson:</strong> The headline price is almost never the real price. The real price is the headline minus the bridge, plus the ticker, minus the leakage, plus the true-up, minus W&amp;I premium, adjusted for fees, structured through the bridge. Learn the mechanics cold and you will never be out-negotiated at SPA drafting.</li>
+        </ul>
+        <div class="download-hero">
+          <a href="G2G_LBO_Mechanics_Reference.pdf" download class="download-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download the Cram Sheet
+          </a>
+          <p class="download-note">EV-Equity bridge, completion mechanisms, W&amp;I, advisor fees, funds flow, playbook — in PDF form</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="chapter-nav-row">
+    <a href="ch28.html" class="prev-chapter-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      <span class="btn-label"><span class="btn-next">Previous Chapter</span><span class="btn-title">The Leveraged Finance Special</span></span>
+    </a>
+    <a href="../index.html" class="next-chapter-btn">
+      <span class="btn-label"><span class="btn-next">Back to Home</span><span class="btn-title">G2G Advisory</span></span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+<script>
+  let currentBeat = 0;
+  let startY = 0;
+  let isAnimating = false;
+  const beats = document.querySelectorAll('.beat');
+  const totalBeats = beats.length;
+
+  function positionBeats() {
+    beats.forEach((beat, i) => {
+      if (i < currentBeat) {
+        beat.style.transform = 'translateY(-100vh)';
+        beat.style.opacity = '0';
+        beat.style.pointerEvents = 'none';
+        beat.style.visibility = 'hidden';
+      } else if (i === currentBeat) {
+        beat.style.transform = 'translateY(0)';
+        beat.style.opacity = '1';
+        beat.style.pointerEvents = 'auto';
+        beat.style.visibility = 'visible';
+      } else {
+        beat.style.transform = 'translateY(100vh)';
+        beat.style.opacity = '0';
+        beat.style.pointerEvents = 'none';
+        beat.style.visibility = 'hidden';
+      }
+    });
+  }
+
+  function updateCounter() {
+    const counter = document.getElementById('beatCounter');
+    if (counter) counter.textContent = `${currentBeat + 1} / ${totalBeats}`;
+  }
+
+  function updateProgress() {}
+
+  function goTo(index) {
+    if (isAnimating || index < 0 || index >= totalBeats) return;
+    isAnimating = true;
+    const direction = index > currentBeat ? -1 : 1;
+    beats[currentBeat].style.transform = `translateY(${direction * 100}vh)`;
+    beats[currentBeat].style.opacity = '0';
+    beats[currentBeat].style.pointerEvents = 'none';
+    beats[currentBeat].style.visibility = 'hidden';
+    beats[index].style.transform = 'translateY(0)';
+    beats[index].style.opacity = '1';
+    beats[index].style.pointerEvents = 'auto';
+    beats[index].style.visibility = 'visible';
+    currentBeat = index;
+    updateCounter();
+    updateProgress();
+    saveProgress();
+    document.querySelectorAll('.nav-dots .dot').forEach((d, di) => d.classList.toggle('active', di === currentBeat));
+    const hint = document.getElementById('swipeHint');
+    if (hint) {
+      hint.style.opacity = '0';
+      setTimeout(() => hint.remove(), 500);
+      try { localStorage.setItem('g2g-swipe-seen', '1'); } catch(e) {}
+    }
+    setTimeout(() => { isAnimating = false; }, 350);
+  }
+
+  document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const beat = beats[currentBeat];
+    const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+    const atTop = beat.scrollTop <= 5;
+    const diff = startY - e.changedTouches[0].clientY;
+    if (diff > 50 && atBottom) goTo(currentBeat + 1);
+    if (diff < -50 && atTop) goTo(currentBeat - 1);
+  }, { passive: true });
+
+  let wheelAccum = 0;
+  let wheelTimer = null;
+  document.addEventListener('wheel', e => {
+    const beat = beats[currentBeat];
+    const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+    const atTop = beat.scrollTop <= 5;
+    wheelAccum += e.deltaY;
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => { wheelAccum = 0; }, 200);
+    if (wheelAccum > 50 && atBottom) { wheelAccum = 0; goTo(currentBeat + 1); }
+    if (wheelAccum < -50 && atTop) { wheelAccum = 0; goTo(currentBeat - 1); }
+  }, { passive: true });
+
+  document.addEventListener('keydown', e => {
+    const beat = beats[currentBeat];
+    const atBottom = beat.scrollTop + beat.clientHeight >= beat.scrollHeight - 5;
+    const atTop = beat.scrollTop <= 5;
+    if (['ArrowDown', 'ArrowRight', 'PageDown'].includes(e.key)) {
+      if (atBottom) { e.preventDefault(); goTo(currentBeat + 1); }
+    } else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) {
+      if (atTop) { e.preventDefault(); goTo(currentBeat - 1); }
+    } else if (e.key === ' ') {
+      e.preventDefault();
+      if (atBottom) goTo(currentBeat + 1);
+      else beat.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+    } else if (e.key === 'Home') {
+      e.preventDefault(); goTo(0);
+    } else if (e.key === 'End') {
+      e.preventDefault(); goTo(totalBeats - 1);
+    }
+  });
+
+  const swipeHint = document.getElementById('swipeHint');
+  if (swipeHint) {
+    try { if (localStorage.getItem('g2g-swipe-seen')) swipeHint.remove(); } catch(e) {}
+  }
+
+  const navContainer = document.querySelector('.nav-dots');
+  for (let i = 0; i < totalBeats; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goTo(i);
+    navContainer.appendChild(dot);
+  }
+
+  positionBeats();
+
+  function markScrollableBeats() {
+    beats.forEach(beat => {
+      if (beat.scrollHeight > beat.clientHeight + 10) {
+        beat.classList.add('scrollable');
+        beat.addEventListener('scroll', function() {
+          const atBottom = this.scrollTop + this.clientHeight >= this.scrollHeight - 10;
+          this.classList.toggle('at-bottom', atBottom);
+        }, { passive: true });
+      }
+    });
+  }
+  markScrollableBeats();
+
+  updateCounter();
+  updateProgress();
+
+  const CHAPTER_NUM = 29;
+  function saveProgress() {
+    try { localStorage.setItem('g2g-progress-ch' + CHAPTER_NUM, currentBeat); } catch(e) {}
+  }
+
+  (function() {
+    try {
+      const saved = parseInt(localStorage.getItem('g2g-progress-ch' + CHAPTER_NUM));
+      if (saved && saved > 0 && saved < totalBeats) {
+        const toast = document.createElement('div');
+        toast.className = 'resume-toast';
+        toast.innerHTML = `<span>Resume from beat ${saved + 1}?</span><button onclick="goTo(${saved}); this.parentNode.remove();">Resume</button><button onclick="this.parentNode.remove();">Start Over</button>`;
+        document.body.appendChild(toast);
+        setTimeout(() => { if (toast.parentNode) toast.remove(); }, 8000);
+      }
+    } catch(e) {}
+  })();
+</script>
+</body>
+</html>
